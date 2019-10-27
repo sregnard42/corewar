@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/10/28 00:37:52 by sregnard         ###   ########.fr        #
+#    Updated: 2019/10/28 00:44:45 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -158,7 +158,7 @@ clean					:
 	@make clean -C $(LIBDIR)
 
 fclean					:	clean
-	@rm -rf $(ASM) $(WAR)
+	@rm -rf $(ASM) $(COREWAR)
 	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(ASM)
 	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(COREWAR)
 	@rm -rf $(LIBFT)
@@ -170,7 +170,7 @@ war						:
 	@rm -rf $(OBJDIR)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(ASM)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(COREWAR)
-	@rm -rf $(ASM) $(WAR)
+	@rm -rf $(ASM) $(COREWAR)
 	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(ASM)
 	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(COREWAR)
 	@$(MAKE)
