@@ -1,3 +1,13 @@
+# Custom
+
+asm
+corewar
+!asm/*
+!corewar/*
+*.swp
+.vscode
+.DS_Store
+
 # Prerequisites
 *.d
 
