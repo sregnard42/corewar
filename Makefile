@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/10/27 20:30:45 by sregnard         ###   ########.fr        #
+#    Updated: 2019/10/28 00:37:52 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,7 @@ _RESET					:=	\033[0m
 ######	RULES
 
 all						:	$(LIBFT) $(ASM) $(COREWAR)
+	@$(MAKE) art
 
 $(LIBFT)				:
 	@make -C $(LIBDIR)
@@ -151,9 +152,9 @@ $(OBJDIR_COM)%.o		:	$(SRCDIR_COM)%.c $(INC_COM)
 	@printf "$(_BG_GREEN) $(_RESET)"
 
 clean					:
+	@rm -rf $(OBJDIR)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(ASM)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(COREWAR)
-	@rm -rf $(OBJDIR)
 	@make clean -C $(LIBDIR)
 
 fclean					:	clean
@@ -164,3 +165,15 @@ fclean					:	clean
 	@printf "$(_MAGENTA)%-10s : Library\tcleaned.\n$(_RESET)" $(notdir $(LIBFT))
 
 re						:	fclean	all
+
+war						:	
+	@rm -rf $(OBJDIR)
+	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(ASM)
+	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(COREWAR)
+	@rm -rf $(ASM) $(WAR)
+	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(ASM)
+	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(COREWAR)
+	@$(MAKE)
+
+art						:
+	@printf "$(_RED)٩(̾●̮̮̃̾•̃̾)۶ READY FOR WAR ٩(̾●̮̮̃̾•̃̾)۶\n$(_RESET)"
