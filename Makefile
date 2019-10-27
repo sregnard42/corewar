@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/10/27 20:22:28 by sregnard         ###   ########.fr        #
+#    Updated: 2019/10/27 20:30:45 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,22 +108,47 @@ $(LIBFT)				:
 	@make -C $(LIBDIR)
 
 $(ASM)					:	$(LIBFT) $(OBJ_ASM) $(OBJ_COM)
-	$(CC) $(CFLAGS) $(INCLUDES_ASM) $(LIBFT) -o $@ $(OBJ_COM) $(OBJ_ASM)
+	@$(CC) $(CFLAGS) $(INCLUDES_ASM) $(LIBFT) -o $@ $(OBJ_COM) $(OBJ_ASM)
+	@printf "\r" ; tput el
+	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(ASM)
 
 $(COREWAR)				:	$(LIBFT) $(OBJ_WAR) $(OBJ_COM)
-	$(CC) $(CFLAGS) $(INCLUDES_WAR) $(LIBFT) -o $@ $(OBJ_COM) $(OBJ_WAR)
+	@$(CC) $(CFLAGS) $(INCLUDES_WAR) $(LIBFT) -o $@ $(OBJ_COM) $(OBJ_WAR)
+	@printf "\r" ; tput el
+	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(COREWAR)
 
 $(OBJDIR_ASM)%.o		:	$(SRCDIR_ASM)%.c $(INC_ASM) $(INC_COM)
+	@if [ ! -d $(dir $@) ]; \
+	then \
+		printf "\r"; \
+		tput el; \
+		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" $(ASM) $(dir $<); \
+	fi;
 	@mkdir -p $(OBJDIR_ASM);
-	$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ -c $<
+	@printf "$(_BG_GREEN) $(_RESET)"
 
 $(OBJDIR_WAR)%.o		:	$(SRCDIR_WAR)%.c $(INC_WAR) $(INC_COM)
+	@if [ ! -d $(dir $@) ]; \
+	then \
+		printf "\r"; \
+		tput el; \
+		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" $(COREWAR) $(dir $<); \
+	fi;
 	@mkdir -p $(OBJDIR_WAR);
-	$(CC) $(CFLAGS) $(INCLUDES_WAR) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDES_WAR) -o $@ -c $<
+	@printf "$(_BG_GREEN) $(_RESET)"
 
 $(OBJDIR_COM)%.o		:	$(SRCDIR_COM)%.c $(INC_COM)
+	@if [ ! -d $(dir $@) ]; \
+	then \
+		printf "\r"; \
+		tput el; \
+		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" "common" $(dir $<); \
+	fi;
 	@mkdir -p $(OBJDIR_COM);
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
+	@printf "$(_BG_GREEN) $(_RESET)"
 
 clean					:
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(ASM)
