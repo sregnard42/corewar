@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/10/28 00:44:45 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/03 13:28:12 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ INCNAME					:=	corewar.h
 INC_WAR					:=	$(addprefix $(INCDIR_WAR), $(INCNAME))
 
 INCNAME					:=	common.h
+						+=	op.h
 INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 
 ######	SOURCES
