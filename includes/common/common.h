@@ -6,13 +6,14 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:14:35 by sregnard          #+#    #+#             */
-/*   Updated: 2019/10/27 20:25:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/03 13:49:43 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
 
-#include "libft.h"
+# include "libft.h"
+# include "op.h"
 
 #endif

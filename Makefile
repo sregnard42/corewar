@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/03 13:28:12 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/03 14:01:54 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,16 @@ INCLUDES_WAR			+=	-I $(INCDIR_WAR)
 INCNAME					:=	asm.h
 INC_ASM					:=	$(addprefix $(INCDIR_ASM), $(INCNAME))
 
-INCNAME					:=	corewar.h
+INCNAME					:=	corewar.h	\
+							champ.h		\
+							process.h	\
+							label.h		\
+							command.h	\
+							param.h
 INC_WAR					:=	$(addprefix $(INCDIR_WAR), $(INCNAME))
 
-INCNAME					:=	common.h
-						+=	op.h
+INCNAME					:=	common.h	\
+							op.h
 INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 
 ######	SOURCES
