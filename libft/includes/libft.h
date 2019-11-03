@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:49:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/10/23 18:29:54 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/03 14:44:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdbool.h>
 # include "list.h"
 # include "get_next_line.h"
 # include "read_file.h"
