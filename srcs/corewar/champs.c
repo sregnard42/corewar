@@ -6,14 +6,14 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/04 23:54:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/05 00:02:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
-**			Add an existing champion to an existing champion list
+**			Adds an existing champion to an existing champion list
 **			** This is a circular list **
 */
 
@@ -35,6 +35,10 @@ void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 	champs->last->next = champs->first;
 	++champs->size;
 }
+
+/*
+**			Frees all champions in the list then the list itself
+*/
 
 void		champs_free(t_champs **champs_ptr)
 {
