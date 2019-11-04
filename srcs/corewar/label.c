@@ -13,7 +13,7 @@
 #include "corewar.h"
 
 /*
-**			Create a new label, which adds itself to a champion's label list
+**			Creates a new label, which adds itself to a champion's label list
 **			Takes an existing command as argument
 */
 

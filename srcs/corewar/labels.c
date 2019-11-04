@@ -13,7 +13,7 @@
 #include "corewar.h"
 
 /*
-**			Add an existing label to an existing label list
+**			Adds an existing label to an existing label list
 */
 
 void		labels_add(t_vm *vm, t_labels *labels, t_label *label)

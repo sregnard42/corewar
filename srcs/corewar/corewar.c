@@ -31,10 +31,9 @@ int main()
 
 	vm_init(&vm);
 	champ_new(&vm);
-	ft_putendl("A");
 	vm.champs->first->name = ft_strdup("Je vis");
-	ft_putendl("B");
 	ft_printf("%s\n", vm.champs->first->name);
-	ft_putendl("C");
 	label_new(&vm, NULL);
+	cmd_new(&vm);
+	proc_new(&vm);
 }

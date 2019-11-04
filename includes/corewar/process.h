@@ -17,7 +17,7 @@
 
 typedef struct			s_process
 {
-	struct s_peocess	*next;
+	struct s_process	*next;
 }						t_process;
 
 typedef struct			s_processes

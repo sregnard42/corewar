@@ -46,4 +46,18 @@ t_champ			*champ_new(t_vm *vm);
 void 			labels_add(t_vm *vm, t_labels *labels, t_label *label);
 t_label			*label_new(t_vm *vm, t_command *cmd);
 
+/*
+** Command
+*/
+
+void 			cmds_add(t_vm *vm, t_commands *cmds, t_command *cmd);
+t_command		*cmd_new(t_vm *vm);
+
+/*
+** Process
+*/
+
+void 			procs_add(t_vm *vm, t_processes *procs, t_process *proc);
+t_process		*proc_new(t_vm *vm);
+
 #endif

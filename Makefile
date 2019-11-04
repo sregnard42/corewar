@@ -77,7 +77,11 @@ SRCNAME					:=	corewar.c	\
 							champs.c	\
 							champ.c		\
 							labels.c	\
-							label.c
+							label.c     \
+							commands.c  \
+							command.c   \
+							processes.c \
+							process.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
 SRCNAME					:=	common.c
