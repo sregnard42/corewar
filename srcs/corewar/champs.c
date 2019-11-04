@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/05 00:02:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/05 00:05:00 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ void		champs_free(t_champs **champs_ptr)
 	if (!champs_ptr || !*champs_ptr)
 		return ;
 	champs = *champs_ptr;
-	champs->last->next = NULL;
+	champs->last->next = NULL; // Only because list is circular
 	while (champs->first)
 	{
 		champs->current = champs->first->next;
 		champ_free(&champs->first);
 		champs->first = champs->current;
-		--champs->size;
 	}
 	ft_memdel((void **)champs_ptr);
 }
