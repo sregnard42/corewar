@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/03 15:48:44 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/04 23:06:53 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void			free_all(void *vm);
 
 void 			champs_add(t_vm *vm, t_champs *champs, t_champ *champ);
 t_champ			*champ_new(t_vm *vm);
+void			champs_free(t_champs **champs);
+void			champ_free(t_champ **champ);
 
 /*
 **	Label
