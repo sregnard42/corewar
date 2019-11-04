@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/03 15:55:37 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/04 23:19:25 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 ######	FLAGS
 
 CC						:=	gcc	
-CFLAGS					:=	-Wall -Wextra -Werror
+CFLAGS					:=	-Wall -Wextra -Werror -g3
 
 ######	COLORS
 
