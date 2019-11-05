@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/04 23:06:53 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/05 01:48:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 
 typedef struct	s_vm
 {
-	t_champs	*champs;
+	t_champs			*champs;
+	unsigned char		arena[MEM_SIZE];
 }				t_vm;
 
 /*
@@ -31,6 +32,14 @@ typedef struct	s_vm
 */
 
 void			free_all(void *vm);
+
+/*
+**	Arena
+*/
+
+void			arena_print(t_vm *vm);
+unsigned char	arena_get(t_vm *vm, int index);
+void			arena_set(t_vm *vm, int index, unsigned char c);
 
 /*
 **	Champ
