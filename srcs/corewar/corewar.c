@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/05 00:03:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/05 02:33:54 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,30 @@ void free_all(void *vm_ptr)
 int main()
 {
 	t_vm	vm;
+	int				i;
+	unsigned char	c;
 
 	vm_init(&vm);
+	i = -2 * MEM_SIZE;
+	c = 0;
+	while (i <= 2 * MEM_SIZE)
+	{
+		ft_printf("New test (MEM_SIZE = %d):\n", MEM_SIZE);
+		arena_get(&vm, i);
+		arena_set(&vm, i, c);
+		arena_get(&vm, i);
+		ft_putln();
+		++i;
+		c = c == 255 ? 1 : c + 1;
+	}
+	arena_print(&vm);
+
+	/*
 	champ_new(&vm);
 	champ_new(&vm);
-	vm.champs->first->name = ft_strdup("Je vis");
-	vm.champs->first->next->name = ft_strdup("Je vis aussi");
-	ft_printf("%s\n", vm.champs->first->name);
-	ft_printf("%s\n", vm.champs->first->next->name);
 	label_new(&vm, NULL);
 	cmd_new(&vm);
 	proc_new(&vm);
+	*/
+
 }
