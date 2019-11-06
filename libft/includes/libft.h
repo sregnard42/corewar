@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:49:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/03 14:44:34 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:03:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void				ft_putnbr_fd(int n, int fd);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 void				ft_swap(int *a, int *b);
+void				ft_hexdump(char *content, int size);
 
 char				*ft_itoa(int n);
 int					ft_atoi(const char *str);

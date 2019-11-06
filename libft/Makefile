@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/10/23 18:31:02 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/06 15:02:21 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,8 +117,9 @@ SRC				+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 SUBDIR			=	utils/
 SRCNAME			=	ft_toupper.c \
 					ft_tolower.c \
-					ft_swap.c	\
-					ft_error.c	
+					ft_swap.c \
+					ft_error.c \
+					ft_hexdump.c
 SRC				+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR			=	conversion/
