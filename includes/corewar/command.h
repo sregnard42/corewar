@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 17:57:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:21:45 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct			s_command
 typedef struct			s_commands
 {
 	t_command			*first;
-	t_command			*current;
+	t_command			*cur;
 	t_command			*last;
 	unsigned int		size;
 }						t_commands;
