@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.c                                          :+:      :+:    :+:   */
+/*   param.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 21:46:22 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/06 22:07:11 by cmouele          ###   ########.fr       */
+/*   Created: 2019/11/06 21:47:55 by cmouele           #+#    #+#             */
+/*   Updated: 2019/11/06 21:56:38 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
-**			Creates a new command, which adds itself to a champion's commands
-**			list
+**			Creates a new parameter, which adds itself to a commands's
+**			parameters list
 */
 
-t_command	*cmd_new(t_vm *vm)
+t_param		*param_new(t_vm *vm)
 {
-	t_command	*cmd;
+	t_param	*param;
 
 	if (!vm || !vm->champs || !vm->champs->cur ||
-		!vm->champs->cur->cmds)
-		ft_error(vm, &free_all, "cmd_new args\n");
-	if (!(cmd = ft_memalloc(sizeof(t_command))))
-		ft_error(vm, &free_all, "cmd_new memalloc\n");
-	cmds_add(vm, vm->champs->cur->cmds, cmd);
-	return (cmd);
+		!vm->champs->cur->cmds->cur->params)
+		ft_error(vm, &free_all, "param_new args\n");
+	if (!(param = ft_memalloc(sizeof(t_param))))
+		ft_error(vm, &free_all, "param_new memalloc\n");
+	params_add(vm, vm->champs->cur->cmds->cur->params, param);
+	return (param);
 }
 
 /*
-**			Frees a command
+**			Frees a parameter
 */
 
-void		cmd_free(t_command **cmd)
+void		param_free(t_param **param)
 {
-	// params_free(&(*cmd)->params);
-	ft_memdel((void **)cmd);
+	ft_memdel((void **)param);
 }

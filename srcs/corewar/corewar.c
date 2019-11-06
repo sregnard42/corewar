@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:29:42 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 22:07:55 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int main(int ac, char **av)
 	arena_print(&vm);
 	champ_new(&vm);
 	cmd_new(&vm);
+	param_new(&vm);
 	label_new(&vm, NULL);
 	proc_new(&vm);
 	*/

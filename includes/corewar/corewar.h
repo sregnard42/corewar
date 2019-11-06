@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 13:35:26 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:38:28 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,14 @@ void 			procs_add(t_vm *vm, t_processes *procs, t_process *proc);
 t_process		*proc_new(t_vm *vm);
 void			procs_free(t_processes **procs_ptr);
 void			proc_free(t_process **proc);
+
+/*
+** Parameter
+*/
+
+void 			params_add(t_vm *vm, t_params *params, t_param *param);
+t_param			*param_new(t_vm *vm);
+void			params_free(t_params **params_ptr);
+void			param_free(t_param **param);
 
 #endif
