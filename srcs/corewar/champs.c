@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/05 02:26:35 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:25:13 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 {
 	if (!vm || !champs || !champ)
-		ft_error(vm, &free_all, "ERROR: champs_add args\n");
+		ft_error(vm, &free_all, "champs_add args\n");
 	if (!champs->first)
 	{
 		champs->first = champ;
-		champs->current = champ;
+		champs->cur = champ;
 		champs->last = champ;
 	}
 	else
@@ -50,9 +50,9 @@ void		champs_free(t_champs **champs_ptr)
 	champs->last ? champs->last->next = NULL : 0; // Only because list is circular
 	while (champs->first)
 	{
-		champs->current = champs->first->next;
+		champs->cur = champs->first->next;
 		champ_free(&champs->first);
-		champs->first = champs->current;
+		champs->first = champs->cur;
 	}
 	ft_memdel((void **)champs_ptr);
 }
