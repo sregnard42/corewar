@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/05 00:24:06 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/06 12:57:27 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,8 @@ SRCNAME					:=	corewar.c	\
 							command.c   \
 							processes.c \
 							process.c	\
-							arena.c
+							arena.c		\
+							parsing.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
 SRCNAME					:=	common.c

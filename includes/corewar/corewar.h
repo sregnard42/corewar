@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 12:25:21 by cmouele          ###   ########.fr       */
+/*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/06 13:35:26 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ typedef struct	s_vm
 */
 
 void			free_all(void *vm);
+
+/*
+**	Parsing
+*/
+
+void			parse_args(t_vm *vm, int ac, char **av);
 
 /*
 **	Arena

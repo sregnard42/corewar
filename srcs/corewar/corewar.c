@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 12:27:41 by cmouele          ###   ########.fr       */
+/*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/06 13:36:42 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ void free_all(void *vm_ptr)
 	champs_free(&(vm->champs));
 }
 
-int main()
+int main(int ac, char **av)
 {
 	t_vm	vm;
+
+	if (!--ac)
+		ft_error(NULL, NULL, "ERROR: No argument !\n");
+	vm_init(&vm);
+	parse_args(&vm, ac, ++av);
+
+	/*
 	int				i;
 	unsigned char	c;
-
-	vm_init(&vm);
 	i = -2 * MEM_SIZE;
 	c = 0;
 	while (i <= 2 * MEM_SIZE)
@@ -50,4 +55,5 @@ int main()
 	cmd_new(&vm);
 	label_new(&vm, NULL);
 	proc_new(&vm);
+	*/
 }
