@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 21:46:22 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/04 23:53:19 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:32:33 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,13 @@ t_command	*cmd_new(t_vm *vm)
 		ft_error(vm, &free_all, "ERROR: cmd_new memalloc\n");
 	cmds_add(vm, vm->champs->current->cmds, cmd);
 	return (cmd);
+}
+
+/*
+**			Frees a command
+*/
+
+void		cmd_free(t_command **cmd)
+{
+	ft_memdel((void **)cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:23:10 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/04 23:55:24 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 13:09:05 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,24 @@ void		procs_add(t_vm *vm, t_processes *procs, t_process *proc)
 		procs->last = proc;
 	}
 	++procs->size;
+}
+
+/*
+**			Frees all processes in the list then the list itself
+*/
+
+void		procs_free(t_processes **procs_ptr)
+{
+	t_processes	*procs;
+
+	if (!procs_ptr || !*procs_ptr)
+		return ;
+	procs = *procs_ptr;
+	while (procs->first)
+	{
+		procs->current = procs->first->next;
+		proc_free(&procs->first);
+		procs->first = procs->current;
+	}
+	ft_memdel((void **)procs_ptr);
 }

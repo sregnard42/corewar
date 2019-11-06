@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/05 02:33:54 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:27:41 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,8 @@ int main()
 		c = c == 255 ? 1 : c + 1;
 	}
 	arena_print(&vm);
-
-	/*
 	champ_new(&vm);
-	champ_new(&vm);
-	label_new(&vm, NULL);
 	cmd_new(&vm);
+	label_new(&vm, NULL);
 	proc_new(&vm);
-	*/
-
 }

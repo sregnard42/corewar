@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:41:07 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/05 00:02:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 13:19:56 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,8 @@ t_champ		*champ_new(t_vm *vm)
 void		champ_free(t_champ **champ)
 {
 	ft_memdel((void **)&(*champ)->name);
-	/*
-	**	TODO
-	**
-	**	labels_free(&(*champ)->labels);
-	**	cmds_free(&(*champ)->cmds);
-	**	procs_free(&(*champ)->procs);
-	*/
+	labels_free(&(*champ)->labels);
+	cmds_free(&(*champ)->cmds);
+	procs_free(&(*champ)->procs);
 	ft_memdel((void **)champ);
 }

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:54:29 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/04 23:50:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 13:03:11 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,13 @@ t_label		*label_new(t_vm *vm, t_command *cmd)
 		ft_error(vm, &free_all, "ERROR: label_new memalloc\n");
 	labels_add(vm, vm->champs->current->labels, label);
 	return (label);
+}
+
+/*
+**			Frees a label
+*/
+
+void		label_free(t_label **label)
+{
+	ft_memdel((void **)label);
 }
