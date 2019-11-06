@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 13:36:42 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:29:42 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(int ac, char **av)
 	t_vm	vm;
 
 	if (!--ac)
-		ft_error(NULL, NULL, "ERROR: No argument !\n");
+		ft_error(NULL, NULL, "No argument !\n");
 	vm_init(&vm);
 	parse_args(&vm, ac, ++av);
 
