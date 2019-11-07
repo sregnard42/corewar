@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 21:38:28 by cmouele          ###   ########.fr       */
+/*   Updated: 2019/11/07 14:00:11 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			champ_free(t_champ **champ);
 */
 
 void 			labels_add(t_vm *vm, t_labels *labels, t_label *label);
-t_label			*label_new(t_vm *vm, t_command *cmd);
+t_label			*label_new(t_vm *vm);
 void			labels_free(t_labels **labels_ptr);
 void			label_free(t_label **label);
 

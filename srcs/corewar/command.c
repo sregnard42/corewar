@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 21:46:22 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/06 22:07:11 by cmouele          ###   ########.fr       */
+/*   Updated: 2019/11/07 14:00:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ t_command	*cmd_new(t_vm *vm)
 		ft_error(vm, &free_all, "cmd_new args\n");
 	if (!(cmd = ft_memalloc(sizeof(t_command))))
 		ft_error(vm, &free_all, "cmd_new memalloc\n");
+	cmd->params = ft_memalloc(sizeof(t_params));
+	if (!(cmd->params))
+		ft_error(vm, &free_all, "cmd_new memalloc\n");
 	cmds_add(vm, vm->champs->cur->cmds, cmd);
 	return (cmd);
 }
@@ -36,6 +39,6 @@ t_command	*cmd_new(t_vm *vm)
 
 void		cmd_free(t_command **cmd)
 {
-	// params_free(&(*cmd)->params);
+	params_free(&(*cmd)->params);
 	ft_memdel((void **)cmd);
 }

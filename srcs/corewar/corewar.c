@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 22:07:55 by cmouele          ###   ########.fr       */
+/*   Updated: 2019/11/07 14:03:43 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	vm_init(t_vm *vm)
 {
 	ft_bzero(vm, sizeof(t_vm));
 	vm->champs = ft_memalloc(sizeof(t_champs));
+	if (!(vm->champs))
+		ft_error(vm, &free_all, "vm_init memalloc\n");
 }
 
 void free_all(void *vm_ptr)
@@ -36,6 +38,9 @@ int main(int ac, char **av)
 	parse_args(&vm, ac, ++av);
 
 	/*
+	** Testing arena
+	*/
+	/*
 	int				i;
 	unsigned char	c;
 	i = -2 * MEM_SIZE;
@@ -51,10 +56,15 @@ int main(int ac, char **av)
 		c = c == 255 ? 1 : c + 1;
 	}
 	arena_print(&vm);
+	*/
+
+	/*
+	**	Testing structs
+	*/
 	champ_new(&vm);
 	cmd_new(&vm);
 	param_new(&vm);
-	label_new(&vm, NULL);
+	label_new(&vm);
 	proc_new(&vm);
-	*/
+	free_all(&vm);
 }

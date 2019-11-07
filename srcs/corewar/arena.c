@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/05 02:35:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:05:08 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		arena_print(t_vm *vm)
 
 	if (!vm)
 		return ; 
-	ft_printf("arena_print :\n");
+//	ft_printf("arena_print :\n");
 	len = ft_sqrt(MEM_SIZE);
 	cur = 0;
 	while (cur < len)
@@ -44,28 +44,28 @@ void		arena_print(t_vm *vm)
 
 unsigned char	arena_get(t_vm *vm, int index)
 {
-	ft_printf("arena_get : index before = %-4d\t", index);
+//	ft_printf("arena_get : index before = %-4d\t", index);
 	if (index >= MEM_SIZE)
 		index %= MEM_SIZE;
 	else if (index < 0)
 		index = index % -MEM_SIZE + MEM_SIZE - 1;
-	ft_printf("arena_get : index after = %-4d\t", index);
+//	ft_printf("arena_get : index after = %-4d\t", index);
 	if (index < 0 || index >= MEM_SIZE)
-		ft_error(vm, &free_all, "ERROR: arena_get out of bounds\n");
-	ft_printf("arena_get : vm->arena[%d] = %02x\n", index, vm->arena[index]);
+		ft_error(vm, &free_all, "arena_get out of bounds\n");
+//	ft_printf("arena_get : vm->arena[%d] = %02x\n", index, vm->arena[index]);
 	return (vm->arena[index]);
 }
 
 void			arena_set(t_vm *vm, int index, unsigned char c)
 {
-	ft_printf("arena_set : index before = %-4d\t", index);
+//	ft_printf("arena_set : index before = %-4d\t", index);
 	if (index >= MEM_SIZE)
 		index %= MEM_SIZE;
 	else if (index < 0)
 		index = index % -MEM_SIZE + MEM_SIZE - 1;
-	ft_printf("arena_set : index after = %-4d\t", index);
+//	ft_printf("arena_set : index after = %-4d\t", index);
 	if (index < 0 || index >= MEM_SIZE)
-		ft_error(vm, &free_all, "ERROR: arena_set out of bounds\n");
+		ft_error(vm, &free_all, "arena_set out of bounds\n");
 	vm->arena[index] = c;
- 	ft_printf("arena_set : vm->arena[%d] = %02x\n", index, vm->arena[index]);
+// 	ft_printf("arena_set : vm->arena[%d] = %02x\n", index, vm->arena[index]);
 }
