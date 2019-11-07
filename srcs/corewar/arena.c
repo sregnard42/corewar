@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/07 14:05:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:14:13 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		print_line(t_vm *vm, unsigned int cur, unsigned len)
 		ft_printf("%02x", vm->arena[cur * len + i++]);
 		i < len ? ft_printf(" ") : 0;
 	}
-	ft_printf("\n");
+	ft_putln();
 }
 
 void		arena_print(t_vm *vm)
@@ -32,14 +32,10 @@ void		arena_print(t_vm *vm)
 
 	if (!vm)
 		return ; 
-//	ft_printf("arena_print :\n");
 	len = ft_sqrt(MEM_SIZE);
 	cur = 0;
 	while (cur < len)
-	{
-		print_line(vm, cur, len);
-		++cur;
-	}
+		print_line(vm, cur++, len);
 }
 
 unsigned char	arena_get(t_vm *vm, int index)
