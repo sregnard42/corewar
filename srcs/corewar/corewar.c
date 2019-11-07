@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/07 14:03:43 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:20:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void free_all(void *vm_ptr)
 	t_vm	*vm;
 
 	vm = (t_vm *)vm_ptr;
+	ft_bzero(vm->arena, sizeof(char) * MEM_SIZE);
 	champs_free(&(vm->champs));
 }
 
@@ -47,11 +48,9 @@ int main(int ac, char **av)
 	c = 0;
 	while (i <= 2 * MEM_SIZE)
 	{
-		ft_printf("New test (MEM_SIZE = %d):\n", MEM_SIZE);
 		arena_get(&vm, i);
 		arena_set(&vm, i, c);
 		arena_get(&vm, i);
-		ft_putln();
 		++i;
 		c = c == 255 ? 1 : c + 1;
 	}
