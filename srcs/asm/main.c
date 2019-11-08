@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/08 10:43:03 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:06:11 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ int		main(int argc, char **argv)
 		ft_putstr("Usage: ./asm mychampion.s\n");
 		return (0);
 	}
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		return (0);
-	open_file(fd);
+	argv += 0;
+	// if ((fd = open(argv[1], O_RDONLY)) == -1)
+	// 	return (0);
+	// open_file(fd);
+	fd = open("tmp", O_RDWR);
+	write_header(fd, "This is some name", "Just a comment");
 	return (0);
 }
