@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/07 14:20:30 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/08 01:40:26 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,18 @@ void free_all(void *vm_ptr)
 	champs_free(&(vm->champs));
 }
 
+static void	usage(char *exe)
+{
+	ft_printf("Usage: %s <champion1.cor> <...>\n", exe);
+	exit(EXIT_FAILURE);
+}
+
 int main(int ac, char **av)
 {
 	t_vm	vm;
 
 	if (!--ac)
-		ft_error(NULL, NULL, "No argument !\n");
+		usage(*av);
 	vm_init(&vm);
 	parse_args(&vm, ac, ++av);
 
