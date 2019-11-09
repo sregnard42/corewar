@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/11/03 14:04:47 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/09 16:42:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ typedef char					t_arg_type;
 typedef struct					s_header
 {
 	unsigned int				magic;
-	char						prog_name[PROG_NAME_LENGTH + 1];
+	char						*name;
 	unsigned int				prog_size;
-	char						comment[COMMENT_LENGTH + 1];
+	char						*comment;
 }								t_header;
 
 #endif

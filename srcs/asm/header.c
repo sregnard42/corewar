@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:49:34 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/08 15:31:00 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/09 16:52:02 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,30 @@ int		size_string(char *name)
 	return (i);
 }
 
-void	parse_name_comment(int fd, char *line)
+void	parse_name_comment(t_assembler *assembler, char *line)
 {
 	char *name;
 	char *comment;
 
 	name = NULL;
 	comment = NULL;
+	ft_printf("Coucou\n");
 	if (line[1] == 'n') //parse .name line
 	{
 		name = ft_strchr_plus_one(line, '"');
 		if (!(name = ft_strsub(name, 0, size_string(name))))
 			return ;
-		write_name(fd, name);
+		assembler->header->name = name;
+		ft_printf("name = %s\n", assembler->header->name);
+		// write_name(fd, name);
 	}
 	if (line[1] == 'c')//parse .comment line
 	{
 		comment = ft_strchr_plus_one(line, '"');
 		if (!(comment = ft_strsub(comment, 0, size_string(comment))))
 			return ;
-		write_comment(fd, comment);
+		assembler->header->comment = comment;
+		ft_printf("comment = %s\n", assembler->header->comment);
+		// write_comment(fd, comment);
 	}
 }
