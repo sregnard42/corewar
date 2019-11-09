@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/09 17:24:51 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:34:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		main(int argc, char **argv)
 	if (open_file(&assembler, argv) == -1)
 		ft_error(&assembler, NULL, "Can't read source file ds\n");
 	assembler.file_name_s = argv[1];
-	// parsing(&assembler); // Quelque chose ne marche pas dans parsing, en lien avec
+	parsing(&assembler); // Quelque chose ne marche pas dans parsing, en lien avec
 	// gnl, il me renvoit un chiffre bizzare, à check
 	close(assembler.source_fd);
 	// creat_cor(&assembler);
