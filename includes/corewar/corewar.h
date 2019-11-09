@@ -6,12 +6,14 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/08 01:43:21 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/09 01:32:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
+
+# define HELP_FILE "help.txt"
 
 # include "common.h"
 
@@ -23,9 +25,35 @@
 
 typedef struct			s_vm
 {
+	int					ac;
+	char				**av;
+	char				*exe;
+	int					dump;
+	unsigned int		verbose;
 	t_champs			*champs;
 	unsigned char		arena[MEM_SIZE];
+	unsigned int		flags;
 }						t_vm;
+
+enum					e_flags_vm
+{
+	VM_A = (1 << 0),
+	VM_D = (1 << 1),
+	VM_S = (1 << 2),
+	VM_V = (1 << 3),
+	VM_B = (1 << 4),
+	VM_N = (1 << 5),
+	VM_STEALTH = (1 << 6),
+};
+
+enum					e_flags_verbose
+{
+	V_LIVES = (1 << 0),
+	V_CYCLES = (1 << 1),
+	V_OPERATIONS = (1 << 2),
+	V_DEATHS = (1 << 3),
+	V_MOVES = (1 << 4),
+};
 
 /*
 **	Free
@@ -37,7 +65,9 @@ void					free_all(void *vm);
 **	Parsing
 */
 
-void					parse_args(t_vm *vm, int ac, char **av);
+void					usage(t_vm *vm);
+void					parse_args(t_vm *vm);
+void					parse_option(t_vm *vm);
 
 /*
 **	Arena

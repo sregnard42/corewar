@@ -6,15 +6,18 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/08 01:40:26 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/09 01:33:48 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	vm_init(t_vm *vm)
+static void	vm_init(t_vm *vm, int ac, char **av)
 {
 	ft_bzero(vm, sizeof(t_vm));
+	vm->ac = --ac;
+	vm->av = ++av;
+	vm->exe = *--av;
 	vm->champs = ft_memalloc(sizeof(t_champs));
 	if (!(vm->champs))
 		ft_error(vm, &free_all, "vm_init memalloc\n");
@@ -29,20 +32,12 @@ void free_all(void *vm_ptr)
 	champs_free(&(vm->champs));
 }
 
-static void	usage(char *exe)
-{
-	ft_printf("Usage: %s <champion1.cor> <...>\n", exe);
-	exit(EXIT_FAILURE);
-}
-
 int main(int ac, char **av)
 {
 	t_vm	vm;
 
-	if (!--ac)
-		usage(*av);
-	vm_init(&vm);
-	parse_args(&vm, ac, ++av);
+	vm_init(&vm, ac, av);
+	parse_args(&vm);
 
 	/*
 	** Testing arena
