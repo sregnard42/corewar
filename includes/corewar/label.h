@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:21:54 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 16:13:17 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct		s_label
 {
 	struct s_label	*next;
+	struct s_label	*prev;
 }					t_label;
 
 typedef struct		s_labels

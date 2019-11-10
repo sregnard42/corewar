@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:54:27 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:25:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 16:26:14 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		labels_add(t_vm *vm, t_labels *labels, t_label *label)
 	}
 	else
 	{
+		label->prev = labels->last;
 		labels->last->next = label;
 		labels->last = label;
 	}
@@ -52,4 +53,34 @@ void		labels_free(t_labels **labels_ptr)
 		labels->first = labels->cur;
 	}
 	ft_memdel((void **)labels_ptr);
+}
+
+/*
+**			Deletes a label from a list of labels
+*/
+
+void		labels_del(t_labels *labels, t_label **label_ptr)
+{
+	t_label	*label;
+
+	label = *label_ptr;
+	if (!(--labels->size))
+		ft_bzero(labels, sizeof(t_labels));
+	else if (labels->first == label)
+	{
+		labels->first = label->next;
+		labels->first->prev = NULL;
+	}
+	else if (labels->last == label)
+	{
+		labels->last = labels->last->prev;
+		labels->last->next = NULL;
+	}
+	else
+	{
+		label->prev->next = label->next;
+		label->next->prev = label->prev;
+	}
+	label == labels->cur ? labels->cur = labels->first : 0;
+	label_free(label_ptr);
 }
