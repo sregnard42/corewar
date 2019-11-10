@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 11:48:07 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 15:59:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define COREWAR_H
 
 # define HELP_FILE "help.txt"
+# define FILE_MIN_SIZE 2188
 
 # include "common.h"
 
@@ -62,10 +63,18 @@ enum					e_flags_verbose
 void					free_all(void *vm);
 
 /*
+**	Error
+*/
+
+void					error_usage(t_vm *vm);
+void					error_too_small(t_vm *vm);
+void					error_prog_size(t_vm *vm);
+void					error_magic(t_vm *vm);
+
+/*
 **	Parsing
 */
 
-void					usage(t_vm *vm);
 void					parse_args(t_vm *vm);
 void					parse_option(t_vm *vm);
 void					parse_header(t_vm *vm);
@@ -86,6 +95,7 @@ void 					champs_add(t_vm *vm, t_champs *champs, t_champ *champ);
 t_champ					*champ_new(t_vm *vm);
 void					champs_free(t_champs **champs_ptr);
 void					champ_free(t_champ **champ);
+void					champ_print(t_champ *champ);
 
 /*
 **	Label

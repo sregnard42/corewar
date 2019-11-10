@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:44:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 12:15:59 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 16:02:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static void		parse_file(t_vm *vm, char *file)
 	champ = NULL;
 	(fd = open(file, O_RDONLY)) == -1 ? 
 	ft_error(vm, &free_all, "file doesn't exist\n") : (champ = champ_new(vm));
+	champ->file = file;
 	champ->size = read(fd, champ->content, BUFF_SIZE);
-	champ->size < 1 ? ft_error(vm, &free_all, "empty file\n") : 0;
+	champ->size < FILE_MIN_SIZE ? error_too_small(vm) : 0;
 	champ->content[champ->size] = '\0';
 	ft_hexdump(champ->content, champ->size);
 	parse_header(vm);
@@ -59,7 +60,7 @@ static void flags_status(t_vm *vm)
 	vm->flags & VM_STEALTH ? ft_printf("--stealth activated\n") : 0;
 }
 
-void	usage(t_vm *vm)
+void	error_usage(t_vm *vm)
 {
 	char	**usage;
 
@@ -71,7 +72,7 @@ void	usage(t_vm *vm)
 
 void		parse_args(t_vm *vm)
 {
-	!vm->ac ? usage(vm) : 0;
+	!vm->ac ? error_usage(vm) : 0;
 	while(vm->ac--)
 	{
 		ft_printf("[%s]\n", *vm->av);
