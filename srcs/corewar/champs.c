@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:25:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 11:44:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 	if (!champs->first)
 	{
 		champs->first = champ;
-		champs->cur = champ;
 		champs->last = champ;
 	}
 	else
@@ -32,6 +31,7 @@ void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 		champs->last->next = champ;
 		champs->last = champ;
 	}
+	champs->cur = champ;
 	champs->last->next = champs->first;
 	++champs->size;
 }

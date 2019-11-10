@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:44:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/09 01:33:34 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 12:15:59 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 static void		parse_file(t_vm *vm, char *file)
 {
+	t_champ	*champ;
 	int		fd;
-	int		ret;
 
+	champ = NULL;
 	(fd = open(file, O_RDONLY)) == -1 ? 
-	ft_error(vm, &free_all, "file doesn't exist\n") : champ_new(vm);
-	ret = read(fd, vm->champs->cur->content, BUFF_SIZE);
-	ret < 1 ? ft_error(vm, &free_all, "empty file\n") : 0;
-	vm->champs->cur->content[ret] = '\0';
-//	ft_hexdump(vm->champs->cur->content, ret);
+	ft_error(vm, &free_all, "file doesn't exist\n") : (champ = champ_new(vm));
+	champ->size = read(fd, champ->content, BUFF_SIZE);
+	champ->size < 1 ? ft_error(vm, &free_all, "empty file\n") : 0;
+	champ->content[champ->size] = '\0';
+	ft_hexdump(champ->content, champ->size);
+	parse_header(vm);
 }
 
+// TMP
 static void flags_status(t_vm *vm)
 {
 	vm->flags & VM_A ? ft_printf("-a activated\n") : 0;
@@ -69,15 +72,13 @@ void	usage(t_vm *vm)
 void		parse_args(t_vm *vm)
 {
 	!vm->ac ? usage(vm) : 0;
-	ft_printf("Parsing : ");
 	while(vm->ac--)
 	{
-		ft_printf("[%s]", *vm->av);
+		ft_printf("[%s]\n", *vm->av);
 		if (**vm->av == '-')
 			parse_option(vm);
 		else
 			parse_file(vm, *vm->av++);
 	}
-	ft_putln();
 	flags_status(vm);
 }

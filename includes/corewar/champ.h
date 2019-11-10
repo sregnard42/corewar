@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:21:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 12:04:07 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct		s_champ
 {
 	char			*name;
 	char			content[BUFF_SIZE + 1];
+	int				size;
+	t_header		header;
 	t_labels		*labels;
 	t_commands		*cmds;
 	t_processes		*procs;

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/09 01:32:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 11:48:07 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void					free_all(void *vm);
 void					usage(t_vm *vm);
 void					parse_args(t_vm *vm);
 void					parse_option(t_vm *vm);
+void					parse_header(t_vm *vm);
 
 /*
 **	Arena
