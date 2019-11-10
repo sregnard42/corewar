@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/06 15:02:21 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/10 13:31:32 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ SRCNAME			= 	ft_memset.c \
 					ft_memchr.c	\
 					ft_memcmp.c	\
 					ft_memalloc.c \
-					ft_memdel.c
+					ft_memdel.c \
+					ft_memrev.c \
+					ft_memswap.c
 SRC				+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR			=	ft_is/
