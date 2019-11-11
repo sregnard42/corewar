@@ -14,7 +14,7 @@
 # define COREWAR_H
 
 # define HELP_FILE "help.txt"
-# define FILE_MIN_SIZE 2188
+# define FILE_MIN_SIZE 2192
 
 # include "common.h"
 
@@ -86,6 +86,7 @@ void					parse_header(t_vm *vm);
 void					arena_print(t_vm *vm);
 unsigned char			arena_get(t_vm *vm, int index);
 void					arena_set(t_vm *vm, int index, unsigned char c);
+void					arena_init(t_vm *vm);
 
 /*
 **	Champ
