@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 16:07:10 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:03:07 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct		s_champ
 	int				id;
 	int				pos;
 	t_labels		*labels;
-	t_labels		*labels_queue;
 	t_commands		*cmds;
 	t_processes		*procs;
 	struct s_champ	*next;
@@ -40,6 +39,7 @@ typedef struct		s_champs
 	t_champ			*cur;
 	t_champ			*last;
 	unsigned int	size;
+	unsigned int	sum_procs;
 }					t_champs;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 15:59:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:44:27 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct			s_vm
 	t_champs			*champs;
 	unsigned char		arena[MEM_SIZE];
 	unsigned int		flags;
+	int					cycle;
+	int					cycle_to_die;
 }						t_vm;
 
 enum					e_flags_vm

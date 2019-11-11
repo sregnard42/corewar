@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:23:10 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/06 18:27:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:56:59 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		procs_add(t_vm *vm, t_processes *procs, t_process *proc)
 		procs->last = proc;
 	}
 	++procs->size;
+	++vm->champs->sum_procs;
 }
 
 /*
