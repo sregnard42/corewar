@@ -32,7 +32,6 @@ void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 		champs->last = champ;
 	}
 	champs->cur = champ;
-	champs->last->next = champs->first;
 	++champs->size;
 }
 
@@ -47,7 +46,6 @@ void		champs_free(t_champs **champs_ptr)
 	if (!champs_ptr || !*champs_ptr)
 		return ;
 	champs = *champs_ptr;
-	champs->last ? champs->last->next = NULL : 0; // Only because list is circular
 	while (champs->first)
 	{
 		champs->cur = champs->first->next;
