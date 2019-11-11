@@ -38,6 +38,7 @@ int main(int ac, char **av)
 
 	vm_init(&vm, ac, av);
 	parse_args(&vm);
+	arena_init(&vm);
 
 	/*
 	** Testing arena

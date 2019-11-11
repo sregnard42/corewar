@@ -25,6 +25,8 @@ typedef struct		s_champ
 	char			name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
+	int				id;
+	int				pos;
 	t_labels		*labels;
 	t_labels		*labels_queue;
 	t_commands		*cmds;

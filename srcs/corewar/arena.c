@@ -65,3 +65,22 @@ void			arena_set(t_vm *vm, int index, unsigned char c)
 	vm->arena[index] = c;
 // 	ft_printf("arena_set : vm->arena[%d] = %02x\n", index, vm->arena[index]);
 }
+
+void			arena_init(t_vm *vm)
+{
+	unsigned int	nb_players;
+	t_champ			*champ;
+	int 			id_champ;
+
+	nb_players = vm->champs->size;
+	champ = vm->champs->first;
+	id_champ = 0;
+	while (champ)
+	{
+		champ->id = id_champ;
+		champ->pos = champ->id * (MEM_SIZE / nb_players);
+		ft_memcpy(&vm->arena[champ->pos], &champ->content[champ->cursor], champ->prog_size);
+		champ = champ->next;
+		id_champ++;
+	}
+}
