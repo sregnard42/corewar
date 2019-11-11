@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/10 11:50:30 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/11 11:31:50 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,8 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 
 ######	SOURCES
 
-SRCNAME					:=	asm.c
+SRCNAME					:=	asm.c		\
+							op.c
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
 SRCNAME					:=	corewar.c	\
@@ -87,7 +88,8 @@ SRCNAME					:=	corewar.c	\
 							arena.c		\
 							parsing.c	\
 							header.c	\
-							options.c
+							options.c	\
+							op.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
 SRCNAME					:=	common.c
