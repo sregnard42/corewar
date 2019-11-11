@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   init_asm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/10/27 20:26:49 by sregnard         ###   ########.fr       */
+/*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
+/*   Updated: 2019/11/09 16:45:32 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int main()
+void	init_asm(t_assembler *assembler)
 {
-	write(1, "asm\n", 4);
+	t_header header;
+
+	ft_bzero(assembler, sizeof(t_assembler));
+	ft_bzero(&header, sizeof(t_header));
+	assembler->header = &header;
 }

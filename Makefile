@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
 #    Updated: 2019/11/11 11:31:50 by sregnard         ###   ########.fr        #
@@ -70,8 +70,12 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 
 ######	SOURCES
 
-SRCNAME					:=	asm.c		\
-							op.c
+SRCNAME					:=	main.c		\
+							init_asm.c	\
+							parsing.c	\
+							header.c	\
+							creat_cor.c
+
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
 SRCNAME					:=	corewar.c	\
@@ -188,7 +192,7 @@ fclean					:	clean
 
 re						:	fclean	all
 
-war						:	
+war						:
 	@rm -rf $(OBJDIR)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(ASM)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(COREWAR)
