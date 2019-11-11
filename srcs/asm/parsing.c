@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.h                                              :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/09 16:25:39 by chrhuang         ###   ########.fr       */
+/*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
+/*   Updated: 2019/11/09 17:40:23 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
+#include "asm.h"
 
-# include "common.h"
-# include <unistd.h>
-# include <fcntl.h>
-
-typedef struct	s_assembler
+void	parsing(t_assembler *assembler)
 {
-	t_header	*header;
-	char		*file_name_s;
-	char		*file_name_cor;
-	int			source_fd;
-}				t_assembler;
+	int		ret;
+	int		fd;
+	char	*line;
 
-void	init_asm(t_assembler *assembler);
-void	creat_cor(t_assembler *assembler);
-void	parsing(t_assembler *assembler);
-void	parse_name_comment(t_assembler *assembler, char *line);
-
-#endif
+	ret = 1;
+	fd = assembler->source_fd;
+	while ((ret = get_next_line(fd, &line)) == 1)
+	{
+		ft_printf("ret = %d\n", ret);
+		if (line[0] == '.')			//parsing avec aucune verif
+			parse_name_comment(assembler, line);
+		ft_memdel((void*)&line);
+	}
+	ft_printf("parsing end\n");
+}

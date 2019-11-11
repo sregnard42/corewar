@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.h                                              :+:      :+:    :+:   */
+/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/09 16:25:39 by chrhuang         ###   ########.fr       */
+/*   Created: 2018/11/14 10:40:13 by chrhuang          #+#    #+#             */
+/*   Updated: 2019/11/08 10:10:30 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
-
-# include "common.h"
-# include <unistd.h>
-# include <fcntl.h>
-
-typedef struct	s_assembler
+#include "libft.h"
+​
+int	ft_atoi_base(char *nb, char *base)
 {
-	t_header	*header;
-	char		*file_name_s;
-	char		*file_name_cor;
-	int			source_fd;
-}				t_assembler;
-
-void	init_asm(t_assembler *assembler);
-void	creat_cor(t_assembler *assembler);
-void	parsing(t_assembler *assembler);
-void	parse_name_comment(t_assembler *assembler, char *line);
-
-#endif
+	int	i;
+	int	j;
+	int	res;
+	int	len;
+​
+	if (nb == NULL || base == NULL)
+		return (-1);
+	i = 0;
+	res = 0;
+	len = ft_strlen(base);
+	while (nb[i] != '\0')
+	{
+		j = 0;
+		while (base[j] != '\0')
+		{
+			if (base[j] == nb[i])
+				break ;
+			j = j + 1;
+		}
+		res = res + j;
+		if (nb[i + 1] != '\0')
+			res = res * len;
+		i = i + 1;
+	}
+	return (res);
+}
