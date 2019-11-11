@@ -13,6 +13,8 @@
 #ifndef COMMON_H
 # define COMMON_H
 
+# define PADDING 4
+
 # include "libft.h"
 # include "op.h"
 
