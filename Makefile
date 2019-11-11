@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/03 15:55:37 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/11 11:31:50 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,14 +70,30 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 
 ######	SOURCES
 
-SRCNAME					:=	asm.c
+SRCNAME					:=	main.c		\
+							init_asm.c	\
+							parsing.c	\
+							header.c	\
+							creat_cor.c
+
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
 SRCNAME					:=	corewar.c	\
 							champs.c	\
 							champ.c		\
 							labels.c	\
-							label.c
+							label.c     \
+							commands.c  \
+							command.c   \
+							processes.c \
+							process.c	\
+							params.c    \
+							param.c     \
+							arena.c		\
+							parsing.c	\
+							header.c	\
+							options.c	\
+							op.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
 SRCNAME					:=	common.c
@@ -92,7 +108,7 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 ######	FLAGS
 
 CC						:=	gcc	
-CFLAGS					:=	-Wall -Wextra -Werror
+CFLAGS					:=	-Wall -Wextra -Werror -g3
 
 ######	COLORS
 
@@ -176,7 +192,7 @@ fclean					:	clean
 
 re						:	fclean	all
 
-war						:	
+war						:
 	@rm -rf $(OBJDIR)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(ASM)
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(COREWAR)

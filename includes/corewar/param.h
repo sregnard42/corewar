@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/04 15:11:32 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:22:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct		s_param
 typedef struct		s_params
 {
 	t_param			*first;
-	t_param			*current;
+	t_param			*cur;
 	t_param			*last;
 	unsigned int	size;
 }					t_params;
