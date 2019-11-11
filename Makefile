@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/09 16:20:53 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/11/11 11:31:50 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,13 +75,25 @@ SRCNAME					:=	main.c		\
 							parsing.c	\
 							header.c	\
 							creat_cor.c
+
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
 SRCNAME					:=	corewar.c	\
 							champs.c	\
 							champ.c		\
 							labels.c	\
-							label.c
+							label.c     \
+							commands.c  \
+							command.c   \
+							processes.c \
+							process.c	\
+							params.c    \
+							param.c     \
+							arena.c		\
+							parsing.c	\
+							header.c	\
+							options.c	\
+							op.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
 SRCNAME					:=	common.c
@@ -95,8 +107,8 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 
 ######	FLAGS
 
-CC						:=	gcc
-CFLAGS					:=	-Wall -Wextra -Werror
+CC						:=	gcc	
+CFLAGS					:=	-Wall -Wextra -Werror -g3
 
 ######	COLORS
 

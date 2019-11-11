@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:49:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/03 14:44:34 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/10 13:32:04 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
+void				ft_memrev(void *p, size_t n);
+void				ft_memswap(void *a, void *b, size_t n);
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -86,6 +88,7 @@ void				ft_putnbr_fd(int n, int fd);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 void				ft_swap(int *a, int *b);
+void				ft_hexdump(char *content, int size);
 
 char				*ft_itoa(int n);
 int					ft_atoi(const char *str);
