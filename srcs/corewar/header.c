@@ -48,14 +48,13 @@ void	parse_header(t_vm *vm)
 		error_magic(vm);
 	champ->cursor += sizeof(int);
 	ft_memcpy(&champ->name, champ->content + champ->cursor, PROG_NAME_LENGTH);
-	champ->cursor += PROG_NAME_LENGTH;
-	champ->cursor += sizeof(int); // Why ?
+	champ->cursor += PROG_NAME_LENGTH + PADDING;
 	ft_memcpy(&champ->prog_size, champ->content + champ->cursor, sizeof(unsigned int));
 	ft_memrev(&champ->prog_size, sizeof(unsigned int));
 	if (champ->prog_size > CHAMP_MAX_SIZE)
 		error_prog_size(vm);
 	champ->cursor += sizeof(unsigned int);
 	ft_memcpy(&champ->comment, champ->content + champ->cursor, COMMENT_LENGTH);
-	champ->cursor += COMMENT_LENGTH;
+	champ->cursor += COMMENT_LENGTH + PADDING;
 	champ_print(champ);
 }
