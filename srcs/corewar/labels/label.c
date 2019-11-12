@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:54:29 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/07 13:59:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:47:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_label		*label_new(t_vm *vm)
 {
 	t_label	*label;
 
-	if (!vm || !vm->champs || !vm->champs->cur || !vm->champs->cur->labels)
+	if (!vm || !vm->champs.cur)
 		ft_error(vm, &free_all, "label_new args\n");
 	if (!(label = ft_memalloc(sizeof(t_label))))
 		ft_error(vm, &free_all, "label_new memalloc\n");
-	labels_add(vm, vm->champs->cur->labels, label);
+	labels_add(vm, &vm->champs.cur->labels, label);
 	return (label);
 }
 

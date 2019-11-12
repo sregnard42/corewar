@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:21:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:43:19 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct			s_command
 {
 	char				type;
 	char				ocp;
-	t_params			*params;
+	t_params			params;
 	struct s_command	*next;
 }						t_command;
 

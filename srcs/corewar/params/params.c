@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 21:40:27 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/06 21:46:57 by cmouele          ###   ########.fr       */
+/*   Updated: 2019/11/12 13:50:14 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,12 @@ void 		params_add(t_vm *vm, t_params *params, t_param *param)
 **			Frees all parameters in the list then the list itself
 */
 
-void		params_free(t_params **params_ptr)
+void		params_free(t_params *params)
 {
-	t_params	*params;
-
-	if (!params_ptr || !*params_ptr)
-		return ;
-	params = *params_ptr;
 	while (params->first)
 	{
 		params->cur = params->first->next;
 		param_free(&params->first);
 		params->first = params->cur;
 	}
-	ft_memdel((void **)params_ptr);
 }

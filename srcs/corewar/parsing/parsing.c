@@ -1,47 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.c                                           :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/10 11:50:40 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 15:55:48 by sregnard         ###   ########.fr       */
+/*   Created: 2019/11/06 12:44:20 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/12 14:59:27 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	error_too_small(t_vm *vm)
+static void	parse_header(t_vm *vm)
 {
 	t_champ	*champ;
 
-	champ = vm->champs->cur;
-	ft_printf("ERROR: File %s is too small to be a champion\n", champ->file);
-	ft_error(vm, &free_all, NULL);
-}
-
-void	error_prog_size(t_vm *vm)
-{
-	t_champ	*champ;
-
-	champ = vm->champs->cur;
-	ft_printf("ERROR: File %s has too large a code ", champ->file);
-	ft_printf("(%d bytes > %d bytes)\n", champ->prog_size, CHAMP_MAX_SIZE);
-	ft_error(vm, &free_all, NULL);
-}
-
-void	error_magic(t_vm *vm)
-{
-	ft_printf("ERROR: File %s has an invalid header\n", vm->champs->cur->file);
-	ft_error(vm, &free_all, NULL);
-}
-
-void	parse_header(t_vm *vm)
-{
-	t_champ	*champ;
-
-	champ = vm->champs->cur;
+	champ = vm->champs.cur;
 	ft_memcpy(&champ->magic, champ->content, sizeof(int));
 	ft_memrev(&champ->magic, sizeof(int));
 	if (champ->magic != COREWAR_EXEC_MAGIC)
@@ -57,4 +32,36 @@ void	parse_header(t_vm *vm)
 	ft_memcpy(&champ->comment, champ->content + champ->cursor, COMMENT_LENGTH);
 	champ->cursor += COMMENT_LENGTH + PADDING;
 	champ_print(champ);
+}
+
+static void		parse_file(t_vm *vm, char *file)
+{
+	t_champ	*champ;
+	int		fd;
+
+	champ = NULL;
+	(fd = open(file, O_RDONLY)) == -1 ? 
+	error_open(vm, file) : (champ = champ_new(vm));
+	champ->file = file;
+	champ->size = read(fd, champ->content, BUFF_SIZE);
+	if (close(fd) != 0)
+		ft_error(vm, &free_all, "parse_file couldn't close file !\n");
+	champ->size < FILE_MIN_SIZE ? error_too_small(vm) : 0;
+	champ->content[champ->size] = '\0';
+	//ft_hexdump(champ->content, champ->size);
+	parse_header(vm);
+}
+
+void		parse_args(t_vm *vm)
+{
+	!vm->ac ? error_usage(vm) : 0;
+	while(vm->ac--)
+	{
+		ft_printf("[%s]\n", *vm->av);
+		if (**vm->av == '-')
+			parse_option(vm);
+		else
+			parse_file(vm, *vm->av++);
+	}
+	vm->champs.size == 0 || vm->champs.size > MAX_PLAYERS ? error_usage(vm) : 0;
 }

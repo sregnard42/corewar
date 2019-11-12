@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 11:44:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:58:22 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,31 @@ void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 **			Frees all champions in the list then the list itself
 */
 
-void		champs_free(t_champs **champs_ptr)
+void		champs_free(t_champs *champs)
 {
-	t_champs	*champs;
-
-	if (!champs_ptr || !*champs_ptr)
+	if (!champs)
 		return ;
-	champs = *champs_ptr;
 	while (champs->first)
 	{
 		champs->cur = champs->first->next;
 		champ_free(&champs->first);
 		champs->first = champs->cur;
 	}
-	ft_memdel((void **)champs_ptr);
+}
+
+void		champs_print(t_champs *champs)
+{
+	t_champ	*champ;
+	int		i;
+
+	if (!champs->size)
+		return ;
+	i = 1;
+	champ = champs->first;
+	while (champ)
+	{
+		ft_printf("\n##### CHAMPION NO. %d #####\n", i++);
+		champ_print(champ);
+		champ = champ->next;
+	}
 }

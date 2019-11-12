@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/07 14:14:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:59:15 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void			arena_init(t_vm *vm)
 	t_champ			*champ;
 	int 			id_champ;
 
-	nb_players = vm->champs->size;
-	champ = vm->champs->first;
+	nb_players = vm->champs.size;
+	champ = vm->champs.first;
 	id_champ = 0;
 	while (champ)
 	{

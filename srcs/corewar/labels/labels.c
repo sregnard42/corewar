@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:54:27 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 16:26:14 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:47:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,14 @@ void		labels_add(t_vm *vm, t_labels *labels, t_label *label)
 **			Frees all labels in the list then the list itself
 */
 
-void		labels_free(t_labels **labels_ptr)
+void		labels_free(t_labels *labels)
 {
-	t_labels	*labels;
-
-	if (!labels_ptr || !*labels_ptr)
-		return ;
-	labels = *labels_ptr;
 	while (labels->first)
 	{
 		labels->cur = labels->first->next;
 		label_free(&labels->first);
 		labels->first = labels->cur;
 	}
-	ft_memdel((void **)labels_ptr);
 }
 
 /*

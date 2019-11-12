@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/11 16:03:07 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:52:08 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ typedef struct		s_champ
 	char			name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
-	int				id;
-	int				pos;
-	t_labels		*labels;
-	t_commands		*cmds;
-	t_processes		*procs;
+	unsigned int	id;
+	unsigned int	pos;
+	t_labels		labels;
+	t_commands		cmds;
+	t_processes		procs;
 	struct s_champ	*next;
 }					t_champ;
 

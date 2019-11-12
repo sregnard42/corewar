@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 21:44:01 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/06 18:26:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:48:19 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,12 @@ void		cmds_add(t_vm *vm, t_commands *cmds, t_command *cmd)
 **			Frees all commands in the list then the list itself
 */
 
-void			cmds_free(t_commands **cmds_ptr)
+void			cmds_free(t_commands *cmds)
 {
-	t_commands	*cmds;
-
-	if (!cmds_ptr || !*cmds_ptr)
-		return ;
-	cmds = *cmds_ptr;
 	while (cmds->first)
 	{
 		cmds->cur = cmds->first->next;
 		cmd_free(&cmds->first);
 		cmds->first = cmds->cur;
 	}
-	ft_memdel((void **)cmds_ptr);
 }
