@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 14:58:32 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:43:10 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define HELP_FILE "help.txt"
 # define FILE_MIN_SIZE 2192
+# define COLUMNS 32
 
 # include "common.h"
 
@@ -80,6 +81,7 @@ void					arena_init(t_vm *vm);
 **	Champ
 */
 
+void					champs_ids(t_vm *vm);
 void 					champs_add(t_vm *vm, t_champs *champs, t_champ *champ);
 t_champ					*champ_new(t_vm *vm);
 void					champs_free(t_champs *champs);

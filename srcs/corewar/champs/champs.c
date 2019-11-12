@@ -6,11 +6,44 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 14:58:22 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:39:29 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static int	id_available(t_vm *vm, unsigned int id)
+{
+	t_champ	*champ;
+
+	champ = vm->champs.first;
+	while (champ)
+	{
+		if (champ->id == id)
+			return (0);
+		champ = champ->next;
+	}
+	return (1);
+}
+
+void		champs_ids(t_vm *vm)
+{
+	t_champ			*champ;
+	unsigned int	id;
+
+	id = 1;
+	champ = vm->champs.first;
+	while (champ)
+	{
+		if (champ->id == 0)
+		{
+			while (!id_available(vm, id))
+				++id;
+			champ->id = id;
+		}
+		champ = champ->next;
+	}
+}
 
 /*
 **			Adds an existing champion to an existing champion list
