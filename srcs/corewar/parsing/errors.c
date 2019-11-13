@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:36:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 13:30:56 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:42:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ void	error_open(t_vm *vm, char *file)
 
 void	error_usage(t_vm *vm)
 {
-	char	**usage;
-
-	usage = read_file(HELP_FILE);
-	ft_print_tab(usage);
-	ft_free_tab(&usage);
+	ft_printf("usage: %s %s\n", vm->exe, USAGE);
 	ft_error(vm, &free_all, NULL);
 }
 
