@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 16:40:32 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:12:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct			s_vm
 	unsigned int		flags;
 	int					cycle;
 	int					cycle_to_die;
+	int					nbr_live;
+	int					checks;
 }						t_vm;
 
 enum					e_flags_vm

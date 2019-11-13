@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 13:59:58 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:53:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	vm_init(t_vm *vm, int ac, char **av)
 	vm->av = ++av;
 	vm->exe = *--av;
 	ft_bzero(&vm->champs, sizeof(t_champs));
+	vm->cycle_to_die = CYCLE_TO_DIE;
 }
 
 int main(int ac, char **av)
