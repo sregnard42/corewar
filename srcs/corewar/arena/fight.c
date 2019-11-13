@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 19:00:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:08:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	round_champs(t_vm *vm)
 	champ = champs->last;
 	while (champ)
 	{
+		if (champs->size < 2)
+			return ;
 		round_procs(vm, champ);
 		if (champ->procs.size == 0)
 		{
@@ -71,7 +73,7 @@ void		fight(t_vm *vm)
 {
 	fight_intro(vm);
 	vm->cycle = 1;
-	while (vm->champs.size &&
+	while (vm->champs.size > 1 &&
 		vm->cycle_to_die > 0 &&
 		!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
 	{
@@ -87,5 +89,9 @@ void		fight(t_vm *vm)
 			++vm->checks;
 		++vm->cycle;
 	}
-	//vm->flags & VM_DUMP ? arena_print(vm) : 0;
+	if (vm->champs.size == 1)
+		ft_printf("Contestant %d, \"%s\", has won !\n",
+		vm->champs.first->id, vm->champs.first->name);
+	else if (vm->flags & VM_DUMP)
+		arena_print(vm);
 }
