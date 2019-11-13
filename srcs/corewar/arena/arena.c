@@ -6,13 +6,13 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 15:45:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:27:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
+static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
 {
 	unsigned int	i;
 
@@ -69,6 +69,8 @@ void			arena_init(t_vm *vm)
 	{
 		champ->pos = (champ->id - 1) * (MEM_SIZE / nb_players);
 		ft_memcpy(&vm->arena[champ->pos], &champ->content[champ->cursor], champ->prog_size);
+		vm->champs.cur = champ;
+		proc_new(vm);
 		champ = champ->next;
 	}
 }

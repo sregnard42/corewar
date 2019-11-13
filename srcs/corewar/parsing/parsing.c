@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:44:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 15:40:44 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:58:36 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	parse_header(t_vm *vm)
 	champ->cursor += sizeof(unsigned int);
 	ft_memcpy(&champ->comment, champ->content + champ->cursor, COMMENT_LENGTH);
 	champ->cursor += COMMENT_LENGTH + PADDING;
-	champ_print(champ);
 }
 
 static void		parse_file(t_vm *vm, char *file)
@@ -63,7 +62,7 @@ void		parse_args(t_vm *vm)
 		else
 			parse_file(vm, *vm->av++);
 	}
-	vm->champs.size == 0 || vm->champs.size > MAX_PLAYERS ? error_usage(vm) : 0;
-	champs_ids(vm);
+	vm->champs.size == 0 || vm->champs.size > MAX_PLAYERS ?
+	error_usage(vm) : champs_ids(vm);
 	champs_print(&vm->champs);
 }

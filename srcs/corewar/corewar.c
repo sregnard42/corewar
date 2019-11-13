@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 12:57:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:59:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,7 @@ int main(int ac, char **av)
 	vm_init(&vm, ac, av);
 	parse_args(&vm);
 	arena_init(&vm);
-
-	/*
-	** Testing arena
-	*/
-	/*
-	int				i;
-	unsigned char	c;
-	i = -2 * MEM_SIZE;
-	c = 0;
-	while (i <= 2 * MEM_SIZE)
-	{
-		arena_get(&vm, i);
-		arena_set(&vm, i, c);
-		arena_get(&vm, i);
-		++i;
-		c = c == 255 ? 1 : c + 1;
-	}
-	arena_print(&vm);
-	*/
-
+	fight(&vm);
 	free_all(&vm);
 	return (1);
 }

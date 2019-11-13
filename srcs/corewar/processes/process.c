@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/12 13:51:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:23:04 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_process	*proc_new(t_vm *vm)
 		ft_error(vm, &free_all, "proc_new memalloc\n");
 	procs_add(vm, &vm->champs.cur->procs, proc);
 	ft_memcpy(&proc->reg[1], &vm->champs.cur->id, sizeof(int));
+	proc->pc = vm->champs.cur->pos;
 	return (proc);
 }
 
