@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 18:12:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:39:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void					fight(t_vm *vm);
 **	Champ
 */
 
+void					champs_sort(t_vm *vm);
 void					champs_ids(t_vm *vm);
 void 					champs_add(t_vm *vm, t_champs *champs, t_champ *champ);
 void 					champs_del(t_champs *champs, t_champ **champ_ptr);

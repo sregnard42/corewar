@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 18:15:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:00:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ static void	round_champs(t_vm *vm)
 	t_champ		*champ;
 
 	champs = &vm->champs;
-	champ = champs->first;
+	champ = champs->last;
 	while (champ)
 	{
-		if (champ->procs.size)
-			round_procs(vm, champ);
+		round_procs(vm, champ);
 		if (champ->procs.size == 0)
 		{
 			ft_printf("Player %d, \"%s\" died !\n", champ->id, champ->name);
+			champs->cur = champ->prev;
 			champs_del(champs, &champ);
 			champ = champs->cur;
 			continue ;
 		}
-		champ = champ->next;
+		champ = champ->prev;
 	}
 }
 
@@ -75,7 +75,7 @@ void		fight(t_vm *vm)
 		vm->cycle_to_die > 0 &&
 		!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
 	{
-//		ft_printf("It is now cycle %d\n", vm->cycle);
+		//ft_printf("It is now cycle %d\n", vm->cycle);
 		round_champs(vm);
 		if (vm->cycle % vm->cycle_to_die == 0 &&
 			(vm->nbr_live >= NBR_LIVE || vm->checks > MAX_CHECKS))

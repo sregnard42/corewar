@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:44:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 13:58:36 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:39:08 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ void		parse_args(t_vm *vm)
 	}
 	vm->champs.size == 0 || vm->champs.size > MAX_PLAYERS ?
 	error_usage(vm) : champs_ids(vm);
+	champs_sort(vm);
 	champs_print(&vm->champs);
 }

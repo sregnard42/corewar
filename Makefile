@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/13 13:57:26 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/13 18:38:31 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,7 @@ SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 SUBDIR					:=	champs/
 SRCNAME					:=	champs.c	\
 							champ.c		\
+							sort.c		\
 							free.c		\
 							print.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
