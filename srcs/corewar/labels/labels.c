@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:54:27 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 13:47:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:01:32 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void		labels_add(t_vm *vm, t_labels *labels, t_label *label)
 	if (!labels->first)
 	{
 		labels->first = label;
-		labels->cur = label;
 		labels->last = label;
 	}
 	else
@@ -32,6 +31,7 @@ void		labels_add(t_vm *vm, t_labels *labels, t_label *label)
 		labels->last->next = label;
 		labels->last = label;
 	}
+	labels->cur = label;
 	++labels->size;
 }
 
@@ -76,5 +76,5 @@ void		labels_del(t_labels *labels, t_label **label_ptr)
 		label->next->prev = label->prev;
 	}
 	label == labels->cur ? labels->cur = labels->first : 0;
-	label_free(label_ptr);
+	label_free(&label);
 }

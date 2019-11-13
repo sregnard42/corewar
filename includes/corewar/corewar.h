@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 14:04:06 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:40:32 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void					fight(t_vm *vm);
 
 void					champs_ids(t_vm *vm);
 void 					champs_add(t_vm *vm, t_champs *champs, t_champ *champ);
+void 					champs_del(t_champs *champs, t_champ **champ_ptr);
 t_champ					*champ_new(t_vm *vm);
 
 /*
@@ -108,6 +109,7 @@ t_champ					*champ_new(t_vm *vm);
 */
 
 void 					labels_add(t_vm *vm, t_labels *labels, t_label *label);
+void 					labels_del(t_labels *labels, t_label **label_ptr);
 t_label					*label_new(t_vm *vm);
 
 /*
@@ -122,6 +124,7 @@ t_command				*cmd_new(t_vm *vm);
 */
 
 void 					procs_add(t_vm *vm, t_processes *procs, t_process *proc);
+void 					procs_del(t_vm *vm, t_processes *procs, t_process **proc_ptr);
 t_process				*proc_new(t_vm *vm);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 14:45:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:01:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void		champs_ids(t_vm *vm)
 
 /*
 **			Adds an existing champion to an existing champion list
-**			** This is a circular list **
 */
 
 void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
@@ -72,9 +71,40 @@ void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 	}
 	else
 	{
+		champ->prev = champs->last;
 		champs->last->next = champ;
 		champs->last = champ;
 	}
 	champs->cur = champ;
 	++champs->size;
+}
+
+/*
+**			Deletes a champion from a list of champions
+*/
+
+void		champs_del(t_champs *champs, t_champ **champ_ptr)
+{
+	t_champ	*champ;
+
+	champ = *champ_ptr;
+	if (!(--champs->size))
+		ft_bzero(champs, sizeof(t_champs));
+	else if (champs->first == champ)
+	{
+		champs->first = champ->next;
+		champs->first->prev = NULL;
+	}
+	else if (champs->last == champ)
+	{
+		champs->last = champs->last->prev;
+		champs->last->next = NULL;
+	}
+	else
+	{
+		champ->prev->next = champ->next;
+		champ->next->prev = champ->prev;
+	}
+	champ == champs->cur ? champs->cur = champs->first : 0;
+	champ_free(&champ);
 }
