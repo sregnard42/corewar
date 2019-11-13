@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 23:08:25 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 14:12:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:50:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void number (t_vm *vm)
 {
 	!vm->ac-- ? error_usage(vm) : ++vm->av;
 	ft_isinteger(*vm->av) ? vm->number = ft_atoi(*vm->av) : error_usage(vm);
+	vm->number < 1 ? error_usage(vm) : 0;
 	vm->flags |= VM_NUMBER;
 }
 
