@@ -6,18 +6,17 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 13:42:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:46:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# define HELP_FILE "help.txt"
+# define USAGE "[-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # define FILE_MIN_SIZE 2192
 # define COLUMNS 32
 
-# define USAGE "[-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # include "common.h"
 
 # include "param.h"
