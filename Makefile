@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/11 11:31:50 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/16 15:31:40 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ SRCNAME					:=	main.c		\
 							init_asm.c	\
 							parsing.c	\
 							header.c	\
-							creat_cor.c
+							create_cor.c
 
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 

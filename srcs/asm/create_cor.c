@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/09 16:48:45 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/16 15:31:08 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*s_to_cor(t_assembler *assembler, char *s)
 	return (cor);
 }
 
-void	creat_cor(t_assembler *assembler)
+void	create_cor(t_assembler *assembler)
 {
 	int	fd;
 
