@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 12:55:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 15:24:24 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
 {
 	unsigned int	i;
+	unsigned int	color;
 
-	i = 0;
-	while (i < len)
+	i = cur * len;
+	while (i - (cur * len) < len)
 	{
-		ft_printf("\033[1;%dm", 31 + vm->colors[cur * len + i]);
-		ft_printf("%02x", vm->arena[cur * len + i++]);
+		color = vm->colors[i] + 30;
+		ft_printf("\033[1;%dm", color);
+		ft_printf("%02x", vm->arena[i++]);
 		ft_printf("\033[0m");
-		i < len ? ft_printf(" ") : 0;
+		i  - (cur * len) < len ? ft_printf(" ") : 0;
 	}
 	ft_putln();
 }

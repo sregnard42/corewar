@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 12:52:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 15:20:54 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ t_command				*cmd_new(t_vm *vm);
 ** Process
 */
 
+void					proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc);
 void					proc_exec(t_vm *vm, t_champ *champ, t_process *proc);
 void 					procs_add(t_vm *vm, t_processes *procs, t_process *proc);
 void 					procs_del(t_vm *vm, t_processes *procs, t_process **proc_ptr);
