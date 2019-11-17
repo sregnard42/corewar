@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/17 16:53:33 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/17 17:07:50 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ INC_ASM					:=	$(addprefix $(INCDIR_ASM), $(INCNAME))
 INCNAME					:=	corewar.h	\
 							champ.h		\
 							process.h	\
-							param.h
+							arg.h
 INC_WAR					:=	$(addprefix $(INCDIR_WAR), $(INCNAME))
 
 INCNAME					:=	common.h	\
@@ -98,9 +98,9 @@ SRCNAME					:=	processes.c	\
 							print.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
-SUBDIR					:=	params/
-SRCNAME					:=	params.c	\
-							param.c		\
+SUBDIR					:=	args/
+SRCNAME					:=	args.c		\
+							arg.c		\
 							free.c		\
 							print.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))

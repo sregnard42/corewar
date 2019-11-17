@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 16:55:17 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:08:49 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # include "common.h"
 
-# include "param.h"
+# include "arg.h"
 # include "process.h"
 # include "champ.h"
 
@@ -55,8 +55,8 @@ void					champs_free(t_champs *champs);
 void					champ_free(t_champ **champ);
 void					procs_free(t_processes *procs);
 void					proc_free(t_process **proc);
-void					params_free(t_params *params);
-void					param_free(t_param **param);
+void					args_free(t_args *args);
+void					arg_free(t_arg **arg);
 
 /*
 **	Print
@@ -74,7 +74,7 @@ void					parse_args(t_vm *vm);
 void					parse_option(t_vm *vm);
 
 /*
-**	Error
+**	Errors
 */
 
 void					error_usage(t_vm *vm);
@@ -93,7 +93,7 @@ void					arena_init(t_vm *vm);
 void					fight(t_vm *vm);
 
 /*
-**	Champ
+**	Champions
 */
 
 void					champs_sort(t_vm *vm);
@@ -103,7 +103,7 @@ void 					champs_del(t_champs *champs, t_champ **champ_ptr);
 t_champ					*champ_new(t_vm *vm);
 
 /*
-** Process
+** Processes
 */
 
 void					proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc);
@@ -113,10 +113,10 @@ void 					procs_del(t_vm *vm, t_processes *procs, t_process **proc_ptr);
 t_process				*proc_new(t_vm *vm);
 
 /*
-** Parameter
+** argeters
 */
 
-void 					params_add(t_vm *vm, t_params *params, t_param *param);
-t_param					*param_new(t_vm *vm);
+void 					args_add(t_vm *vm, t_args *args, t_arg *arg);
+t_arg					*arg_new(t_vm *vm);
 
 #endif

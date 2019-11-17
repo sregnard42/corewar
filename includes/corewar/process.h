@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 16:57:22 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:08:38 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct			s_process
 	unsigned char		reg[REG_NUMBER + 1][REG_SIZE];
 	bool				live;
 	bool				carry;
-	t_params			params;
+	t_args				args;
 	struct s_process	*prev;
 	struct s_process	*next;
 	struct s_processes	*list;

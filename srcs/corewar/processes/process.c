@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/17 16:58:34 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:09:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_process	*proc_new(t_vm *vm)
 		ft_error(vm, &free_all, "proc_new args\n");
 	if (!(proc = ft_memalloc(sizeof(t_process))))
 		ft_error(vm, &free_all, "proc_new memalloc\n");
-	ft_bzero(&proc->params, sizeof(t_params));
+	ft_bzero(&proc->args, sizeof(t_args));
 	proc->champ = vm->champs.cur;
 	proc->list = &proc->champ->procs;
 	procs_add(vm, &vm->champs.cur->procs, proc);

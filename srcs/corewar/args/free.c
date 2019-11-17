@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   params.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 21:40:27 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/12 13:50:14 by sregnard         ###   ########.fr       */
+/*   Created: 2019/11/17 10:02:25 by cmouele           #+#    #+#             */
+/*   Updated: 2019/11/17 17:09:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
-**			Adds an existing parameter to an existing parameters list
+**			Frees a argument
 */
 
-void 		params_add(t_vm *vm, t_params *params, t_param *param)
+void		arg_free(t_arg **arg)
 {
-	if (!vm || !params || !param)
-		ft_error(vm, &free_all, "params_add args\n");
-	if (!params->first)
-	{
-		params->first = param;
-		params->cur = param;
-		params->last = param;
-	}
-	else
-	{
-		params->last->next = param;
-		params->last = param;
-	}
-	++params->size;
+    ft_memdel((void **)arg);
+}
+
+/*
+**			Frees all arguments in the list then the list itself
+*/
+
+void		args_free(t_args *args)
+{
+    while (args->first)
+    {
+        args->cur = args->first->next;
+        arg_free(&args->first);
+        args->first = args->cur;
+    }
 }
