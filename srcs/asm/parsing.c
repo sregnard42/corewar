@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 16:32:34 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:56:23 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ void	parse_header(t_assembler *as, char *line, char **dst)
 	if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
 		ft_error(as, &free_asm, "Malloc failed\n");
 	*dst = str;
-}
-
-void	parse_instruction(t_assembler *as, char *line)
-{
-	char	**tab;
-
-	(void)as;
-	clean_line(line);
-	if (!(tab = ft_strsplit(line, ' ')))
-		return ;
-	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
-		ft_printf("%s is a label\n", tab[0]);
-	ft_print_tab(tab);
-	ft_putendl("----------------");
 }
 
 int		check_header(t_assembler *as, char *line)
