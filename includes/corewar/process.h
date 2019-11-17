@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 16:34:35 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:43:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct			s_process
 	bool				carry;
 	struct s_process	*prev;
 	struct s_process	*next;
+	struct s_processes	*list;
+	struct s_champ		*champ;
 }						t_process;
 
 typedef struct			s_processes

@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 21:47:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/12 13:51:38 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 12:00:55 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ t_param		*param_new(t_vm *vm)
 		ft_error(vm, &free_all, "param_new args\n");
 	if (!(param = ft_memalloc(sizeof(t_param))))
 		ft_error(vm, &free_all, "param_new memalloc\n");
+	param->champ = vm->champs.cur;
+	param->cmd = param->champ->cmds.cur;
+	param->list = &param->cmd->params;
 	params_add(vm, &vm->champs.cur->cmds.cur->params, param);
 	return (param);
 }

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 16:34:56 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:40:46 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_champ
 	t_processes		procs;
 	struct s_champ	*prev;
 	struct s_champ	*next;
+	struct s_champs	*list;
 }					t_champ;
 
 typedef struct		s_champs

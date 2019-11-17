@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:41:07 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 15:53:14 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:48:35 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_champ		*champ_new(t_vm *vm)
 	ft_bzero(&champ->cmds, sizeof(t_commands));
 	ft_bzero(&champ->procs, sizeof(t_processes));
 	champ->id = vm->flags & VM_NUMBER ? vm->number : 0;
+	champ->list = &vm->champs;
 	vm->flags &= ~VM_NUMBER;
 	champs_add(vm, &vm->champs, champ);
 	return (champ);
