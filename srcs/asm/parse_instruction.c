@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_instruction.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:56:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/17 20:57:34 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 21:41:20 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_room(t_instruc *new, char *line)
 	len = tab_len(tab);
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
+		tab[0][ft_strlen(tab[0]) - 1] = '\0';
 		new->label = ft_strdup(tab[0]);
 		label = 1;
 	}
