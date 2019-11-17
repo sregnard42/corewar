@@ -133,7 +133,14 @@ SRCNAME					:=	parsing.c	\
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	instructions/
-SRCNAME					:=	op.c
+SRCNAME					:=	live.c      \
+                            ld.c        \
+                            st.c        \
+                            logic.c     \
+                            aff.c       \
+                            fork.c      \
+                            zjmp.c      \
+                            calc.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SRCNAME					:=	common.c
