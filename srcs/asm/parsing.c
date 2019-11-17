@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 15:04:22 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/17 15:41:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,27 @@ void	parse_instruction(t_assembler *as, char *line)
 	ft_putendl("----------------");
 }
 
-void	parsing(t_assembler *as)
+int		check_header(t_assembler *as, char *line)
+{
+	char	*len;
 
+	if ((len = ft_strchr(line, ' ')) == NULL)
+		return (0);
+	clean_line(line);
+	if (ft_strcmp(NAME_CMD_STRING, ft_strsub(line, 0, len - line)))
+	{
+		parse_header(as, line, &as->header->name);
+		return (1);
+	}
+	else if (ft_strcmp(COMMENT_CMD_STRING, ft_strsub(line, 0, len - line)))
+	{
+		parse_header(as, line, &as->header->comment);
+		return (1);
+	}
+	return (0);
+}
+
+void	parsing(t_assembler *as)
 {
 	int		ret;
 	int		fd;
@@ -57,12 +76,14 @@ void	parsing(t_assembler *as)
 	fd = as->source_fd;
 	while ((ret = get_next_line(fd, &line)) == 1)
 	{
-		if (ft_strncmp(NAME_CMD_STRING, line, ft_strlen(NAME_CMD_STRING)) == 0)
-			parse_header(as, line, &as->header->name);
-		else if (ft_strncmp(COMMENT_CMD_STRING, line, ft_strlen(COMMENT_CMD_STRING)) == 0)
-			parse_header(as, line, &as->header->comment);
-		else
+		// ft_printf("popopopo = %d\n", ft_strchr(line, ' ') - line);
+		if (check_header(as, line) == 0)
 			parse_instruction(as, line);
+		// if (ft_strcmp(NAME_CMD_STRING, ft_strsub(line, 0, ft_strchr(line, ' ') - line)) == 0)
+		// 	parse_header(as, line, &as->header->name);
+		// else if (ft_strncmp(COMMENT_CMD_STRING, line, ft_strlen(COMMENT_CMD_STRING)) == 0)
+		// 	parse_header(as, line, &as->header->comment);
+		else
 		ft_memdel((void*)&line);
 	}
 	ft_printf("\n\nParsing end\n\n");
