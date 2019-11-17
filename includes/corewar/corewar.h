@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 15:20:54 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:55:17 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include "common.h"
 
 # include "param.h"
-# include "command.h"
-# include "label.h"
 # include "process.h"
 # include "champ.h"
 
@@ -55,10 +53,6 @@ enum					e_flags_vm
 void					free_all(void *vm);
 void					champs_free(t_champs *champs);
 void					champ_free(t_champ **champ);
-void					labels_free(t_labels *labels);
-void					label_free(t_label **label);
-void					cmds_free(t_commands *cmds);
-void					cmd_free(t_command **cmd);
 void					procs_free(t_processes *procs);
 void					proc_free(t_process **proc);
 void					params_free(t_params *params);
@@ -107,21 +101,6 @@ void					champs_ids(t_vm *vm);
 void 					champs_add(t_vm *vm, t_champs *champs, t_champ *champ);
 void 					champs_del(t_champs *champs, t_champ **champ_ptr);
 t_champ					*champ_new(t_vm *vm);
-
-/*
-**	Label
-*/
-
-void 					labels_add(t_vm *vm, t_labels *labels, t_label *label);
-void 					labels_del(t_labels *labels, t_label **label_ptr);
-t_label					*label_new(t_vm *vm);
-
-/*
-** Command
-*/
-
-void 					cmds_add(t_vm *vm, t_commands *cmds, t_command *cmd);
-t_command				*cmd_new(t_vm *vm);
 
 /*
 ** Process

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 12:01:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:56:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 typedef struct			s_param
 {
 	struct s_param		*next;
-	struct s_params		*list;
 	struct s_champ		*champ;
-	struct s_command	*cmd;
+	struct s_process	*proc;
+	struct s_params		*list;
 }						t_param;
 
 typedef struct			s_params
