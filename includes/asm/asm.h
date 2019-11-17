@@ -6,7 +6,7 @@
 /*   By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 19:22:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 23:10:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	clean_line(char *line);
 void	parse_instruction(t_assembler *as, char *line);
 void	parse_header(t_assembler *as, char *line, char **dst);
 void	free_asm(void *a);
+void	check_instruc(t_assembler *as, char *line);
+void	add_instruct(t_assembler *as, char *line);
 ////////////////////fonctions de print -- pour debug
 void	print_instruc(t_assembler *as);
 
