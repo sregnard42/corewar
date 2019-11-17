@@ -6,11 +6,26 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 16:32:34 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:00:34 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+// Marche si label n'as pas de ':' à la fin
+
+void	check_label(t_assembler *as, char *label)
+{
+	int	i;
+
+	i = 0;
+	while (label[i] != '\0')
+	{
+		if (ft_strchr(LABEL_CHARS, label[i]) == NULL)
+			ft_error(as, &free_asm, "Label with a non LABEL_CHARS\n");
+		i = i + 1;
+	}
+}
 
 void	clean_line(char *line)
 {
@@ -43,7 +58,10 @@ void	parse_instruction(t_assembler *as, char *line)
 	if (!(tab = ft_strsplit(line, ' ')))
 		return ;
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
+	{
+		check_label(as, tab[0]);
 		ft_printf("%s is a label\n", tab[0]);
+	}
 	ft_print_tab(tab);
 	ft_putendl("----------------");
 }
