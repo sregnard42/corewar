@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instruc.h                                          :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/17 19:15:13 by lgaultie         ###   ########.fr       */
+/*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
+/*   Updated: 2019/11/17 19:25:46 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INSTRUC_H
-# define INSTRUC_H
+#include "asm.h"
 
-# include "asm.h"
-
-typedef struct				s_instruc
+void	print_instruc(t_assembler *as)
 {
-	char					*label;
-	char					*command;
-	char					*param[4];
-	struct s_instruc		*next;
-	struct s_instruc		*prev;
-}							t_instruc;
-
-#endif
+	t_instruc *tmp;
+	tmp = as->instruc;
+	while (tmp)
+	{
+		ft_putstr("-----------------maillon-----------------------\n");
+		ft_printf("label: %s\ncommand: %s\n", tmp->label, tmp->command);
+		ft_putstr("----params:-----\n");
+		ft_print_tab(tmp->param);
+		tmp = tmp->next;
+	}
+	ft_putstr("-----------------------------------------------\n");
+}

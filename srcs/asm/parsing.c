@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 17:02:45 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 19:26:04 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	parsing(t_assembler *as)
 			parse_instruction(as, line);
 		ft_memdel((void*)&line);
 	}
-	ft_printf("\n\nParsing end\n\n");
+	print_instruc(as);
+	ft_printf("Parsing end\n\n");
 	ft_printf("name = %s\ncomment = %s\n", as->header->name, as->header->comment);
 }

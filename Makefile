@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/17 17:25:53 by lgaultie         ###   ########.fr        #
+#    Updated: 2019/11/17 19:22:51 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,8 @@ SRCNAME					:=	asm.c		\
 							header.c	\
 							create_cor.c\
 							free_asm.c	\
-							parse_instruction.c
+							parse_instruction.c \
+							print.c
 
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 

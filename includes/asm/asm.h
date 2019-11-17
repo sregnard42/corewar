@@ -6,7 +6,7 @@
 /*   By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 17:26:15 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 19:22:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_assembler
 	char			*file_name_s;
 	char			*file_name_cor;
 	int				source_fd;
+	t_instruc		*instruc;
 }					t_assembler;
 
 void	init_asm(t_assembler *as);
@@ -33,5 +34,7 @@ void	clean_line(char *line);
 void	parse_instruction(t_assembler *as, char *line);
 void	parse_header(t_assembler *as, char *line, char **dst);
 void	free_asm(void *a);
+////////////////////fonctions de print -- pour debug
+void	print_instruc(t_assembler *as);
 
 #endif
