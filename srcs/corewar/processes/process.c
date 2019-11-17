@@ -30,12 +30,3 @@ t_process	*proc_new(t_vm *vm)
 	proc->pc = vm->champs.cur->pos;
 	return (proc);
 }
-
-/*
-**			Frees a process
-*/
-
-void		proc_free(t_process **proc)
-{
-	ft_memdel((void **)proc);
-}

@@ -37,20 +37,6 @@ void		procs_add(t_vm *vm, t_processes *procs, t_process *proc)
 }
 
 /*
-**			Frees all processes in the list then the list itself
-*/
-
-void		procs_free(t_processes *procs)
-{
-	while (procs->first)
-	{
-		procs->cur = procs->first->next;
-		proc_free(&procs->first);
-		procs->first = procs->cur;
-	}
-}
-
-/*
 **			Deletes a process from a list of processes
 */
 

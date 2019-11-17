@@ -29,13 +29,3 @@ t_command	*cmd_new(t_vm *vm)
 	cmds_add(vm, &vm->champs.cur->cmds, cmd);
 	return (cmd);
 }
-
-/*
-**			Frees a command
-*/
-
-void		cmd_free(t_command **cmd)
-{
-	params_free(&(*cmd)->params);
-	ft_memdel((void **)cmd);
-}

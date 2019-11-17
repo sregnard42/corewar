@@ -33,17 +33,3 @@ void 		params_add(t_vm *vm, t_params *params, t_param *param)
 	}
 	++params->size;
 }
-
-/*
-**			Frees all parameters in the list then the list itself
-*/
-
-void		params_free(t_params *params)
-{
-	while (params->first)
-	{
-		params->cur = params->first->next;
-		param_free(&params->first);
-		params->first = params->cur;
-	}
-}

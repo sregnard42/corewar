@@ -28,12 +28,3 @@ t_label		*label_new(t_vm *vm)
 	labels_add(vm, &vm->champs.cur->labels, label);
 	return (label);
 }
-
-/*
-**			Frees a label
-*/
-
-void		label_free(t_label **label)
-{
-	ft_memdel((void **)label);
-}

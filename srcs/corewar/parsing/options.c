@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-static void number (t_vm *vm)
+static void number(t_vm *vm)
 {
 	!vm->ac-- ? error_usage(vm) : ++vm->av;
 	ft_isinteger(*vm->av) ? vm->number = ft_atoi(*vm->av) : error_usage(vm);

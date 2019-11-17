@@ -36,20 +36,6 @@ void		labels_add(t_vm *vm, t_labels *labels, t_label *label)
 }
 
 /*
-**			Frees all labels in the list then the list itself
-*/
-
-void		labels_free(t_labels *labels)
-{
-	while (labels->first)
-	{
-		labels->cur = labels->first->next;
-		label_free(&labels->first);
-		labels->first = labels->cur;
-	}
-}
-
-/*
 **			Deletes a label from a list of labels
 */
 

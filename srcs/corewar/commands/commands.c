@@ -33,17 +33,3 @@ void		cmds_add(t_vm *vm, t_commands *cmds, t_command *cmd)
 	}
 	++cmds->size;
 }
-
-/*
-**			Frees all commands in the list then the list itself
-*/
-
-void			cmds_free(t_commands *cmds)
-{
-	while (cmds->first)
-	{
-		cmds->cur = cmds->first->next;
-		cmd_free(&cmds->first);
-		cmds->first = cmds->cur;
-	}
-}

@@ -28,12 +28,3 @@ t_param		*param_new(t_vm *vm)
 	params_add(vm, &vm->champs.cur->cmds.cur->params, param);
 	return (param);
 }
-
-/*
-**			Frees a parameter
-*/
-
-void		param_free(t_param **param)
-{
-	ft_memdel((void **)param);
-}
