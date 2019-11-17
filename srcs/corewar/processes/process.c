@@ -37,5 +37,5 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 {
 	vm->champs.cur = champ;
 	vm->champs.cur->procs.cur = proc;
-	op[proc->pc](vm);
+	op[vm->arena[proc->pc]](vm);
 }
