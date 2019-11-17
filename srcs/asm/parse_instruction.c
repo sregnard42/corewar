@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:56:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/17 19:20:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 20:57:34 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,5 @@ void	parse_instruction(t_assembler *as, char *line)
 {
 	if (line[0] == '\0' || ft_strchr(line, COMMENT_CHAR) != NULL)
 		return ;
-	// ft_printf("line = |%s|\n",line);
-	// if (!(tab = ft_strsplit(line, ' ')))
-	// 	return ;
-	// if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
-	// 	ft_printf("%s is a label\n", tab[0]);
-	// ft_print_tab(tab);
-	// ft_putendl("----------------");
 	add_instruct(as, line);
 }

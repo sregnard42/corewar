@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/17 19:25:46 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 20:57:17 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	print_instruc(t_assembler *as)
 {
 	t_instruc *tmp;
 	tmp = as->instruc;
+	ft_putstr("-----------------------------------------------\n");
+	ft_putstr("      called print_instruc dans print.c\n");
 	while (tmp)
 	{
 		ft_putstr("-----------------maillon-----------------------\n");
