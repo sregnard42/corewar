@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 19:08:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:25:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void	round_procs(t_vm *vm, t_champ *champ)
 			proc = champ->procs.cur;
 			continue ;
 		}
+		proc_exec(vm, champ, proc);
 		proc = proc->next;
 	}
-
 }
 
 static void	round_champs(t_vm *vm)
@@ -83,7 +83,7 @@ void		fight(t_vm *vm)
 			(vm->nbr_live >= NBR_LIVE || vm->checks > MAX_CHECKS))
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
-			ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
+			//ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
 		}
 		else
 			++vm->checks;
