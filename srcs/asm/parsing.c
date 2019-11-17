@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 15:54:33 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:32:34 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	parse_instruction(t_assembler *as, char *line)
 	clean_line(line);
 	if (!(tab = ft_strsplit(line, ' ')))
 		return ;
+	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
+		ft_printf("%s is a label\n", tab[0]);
 	ft_print_tab(tab);
 	ft_putendl("----------------");
 }
@@ -49,7 +51,6 @@ void	parse_instruction(t_assembler *as, char *line)
 int		check_header(t_assembler *as, char *line)
 {
 	char	*len;
-	// int		i;
 
 	if ((len = ft_strchr(line, ' ')) == NULL)
 		return (0);
@@ -69,20 +70,15 @@ int		check_header(t_assembler *as, char *line)
 
 void	parsing(t_assembler *as)
 {
-	int		ret;
-	int		ret1;
 	int		fd;
 	char	*line;
 
-	ret = 1;
 	fd = as->source_fd;
-	while ((ret = get_next_line(fd, &line)) == 1)
+	while (get_next_line(fd, &line) == 1)
 	{
-		ret1 = check_header(as, line);
-		if (ret1 == 0)
+		if (check_header(as, line) == 0)
 			parse_instruction(as, line);
-		else if (ret1 != 1)
-			ft_memdel((void*)&line);
+		ft_memdel((void*)&line);
 	}
 	ft_printf("\n\nParsing end\n\n");
 	ft_printf("name = %s\ncomment = %s\n", as->header->name, as->header->comment);

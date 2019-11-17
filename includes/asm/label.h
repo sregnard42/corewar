@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 15:12:17 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:06:44 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct		s_label
 {
 	char			*label;
 	unsigned char	opcode;
+	int				ocp;
 	t_params		params;
 	struct s_label	*next;
 	struct s_label	*prev;
