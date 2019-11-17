@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
+#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/17 12:51:43 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/11/17 16:57:02 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,8 @@ SRCNAME					:=	asm.c		\
 							parsing.c	\
 							header.c	\
 							create_cor.c\
-							free_asm.c
+							free_asm.c	\
+							parse_instruction.c
 
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
@@ -108,7 +109,7 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 
 ######	FLAGS
 
-CC						:=	gcc	
+CC						:=	gcc
 CFLAGS					:=	-Wall -Wextra -Werror -g3
 
 ######	COLORS

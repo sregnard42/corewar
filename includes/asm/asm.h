@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 14:52:44 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:57:36 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct		s_assembler
 void	init_asm(t_assembler *as);
 void	create_cor(t_assembler *as);
 void	parsing(t_assembler *as);
+void	clean_line(char *line);
+void	parse_instruction(t_assembler *as, char *line);
 void	parse_header(t_assembler *as, char *line, char **dst);
 void	free_asm(void *a);
 
