@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   param.h                                            :+:      :+:    :+:   */
+/*   instruc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 16:07:12 by chrhuang         ###   ########.fr       */
+/*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
+/*   Updated: 2019/11/17 17:24:53 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARAM_H
-# define PARAM_H
+#ifndef INSTRUC_H
+# define INSTRUC_H
 
 # include "asm.h"
 
-typedef struct		s_param
+typedef struct		s_instruc
 {
-	struct s_param	*next;
-}					t_param;
-
-typedef struct		s_params
-{
-	t_param			*first;
-	t_param			*cur;
-	t_param			*last;
-	unsigned int	size;
-}					t_params;
+	char			*label;
+	char			*commands;
+	char			param[4];
+}					t_instruc;
 
 #endif

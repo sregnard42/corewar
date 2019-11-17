@@ -6,7 +6,7 @@
 /*   By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 16:57:36 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:26:15 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define ASM_H
 
 # include "common.h"
-# include "param.h"
-# include "label.h"
-# include "command.h"
+# include "instruc.h"
 
 # define	NAME_COMMENT_EXIST	"Name or comment already exist\n"
 
@@ -26,8 +24,6 @@ typedef struct		s_assembler
 	char			*file_name_s;
 	char			*file_name_cor;
 	int				source_fd;
-	t_labels		*labels;
-	t_commands		*commands;
 }					t_assembler;
 
 void	init_asm(t_assembler *as);

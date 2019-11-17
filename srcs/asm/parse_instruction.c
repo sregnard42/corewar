@@ -6,16 +6,16 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:56:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/17 17:00:42 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:26:29 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	init_instruct(t_assembler, char *line)
-{
-	
-}
+// void	init_instruct(t_assembler, char *line)
+// {
+//
+// }
 
 void	parse_instruction(t_assembler *as, char *line)
 {
