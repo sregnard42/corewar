@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_asm.c                                         :+:      :+:    :+:   */
+/*   ft_strreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 14:54:12 by chrhuang         ###   ########.fr       */
+/*   Created: 2019/11/17 14:29:10 by chrhuang          #+#    #+#             */
+/*   Updated: 2019/11/17 14:40:26 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "libft.h"
 
-void	init_asm(t_assembler *as)
+char	*ft_strreplace(char *str, char *s, char c)
 {
-	t_header *header;
+	int	i;
 
-	ft_bzero(as, sizeof(t_assembler));
-	if ((header = ft_memalloc(sizeof(t_header))) == NULL)
-		ft_error(as, (void *)&free_asm, "Error with malloc\n");
-	header->magic = COREWAR_EXEC_MAGIC;
-	as->header = header;
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i])
+	{
+		if (ft_strchr(s, str[i]))
+			str[i] = c;
+		i = i + 1;
+	}
+	return (str);
 }

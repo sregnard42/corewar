@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_asm.c                                         :+:      :+:    :+:   */
+/*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 14:54:12 by chrhuang         ###   ########.fr       */
+/*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/17 12:50:19 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef COMMAND_H
+# define COMMAND_H
 
-void	init_asm(t_assembler *as)
+# include "asm.h"
+
+typedef struct			s_command
 {
-	t_header *header;
+	char				type;
+	char				ocp;
+	t_params			*params;
+	struct s_command	*next;
+}						t_command;
 
-	ft_bzero(as, sizeof(t_assembler));
-	if ((header = ft_memalloc(sizeof(t_header))) == NULL)
-		ft_error(as, (void *)&free_asm, "Error with malloc\n");
-	header->magic = COREWAR_EXEC_MAGIC;
-	as->header = header;
-}
+typedef struct			s_commands
+{
+	t_command			*first;
+	t_command			*cur;
+	t_command			*last;
+	unsigned int		size;
+}						t_commands;
+
+#endif

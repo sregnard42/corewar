@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/16 15:31:40 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/11/17 12:51:43 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,15 +53,15 @@ INCLUDES_ASM			+=	-I $(INCDIR_ASM)
 INCLUDES_WAR			:=	$(INCLUDES)
 INCLUDES_WAR			+=	-I $(INCDIR_WAR)
 
-INCNAME					:=	asm.h
+INCNAME					:=	asm.h		\
+							command.h	\
+							label.h		\
+							param.h
 INC_ASM					:=	$(addprefix $(INCDIR_ASM), $(INCNAME))
 
 INCNAME					:=	corewar.h	\
 							champ.h		\
-							process.h	\
-							label.h		\
-							command.h	\
-							param.h
+							process.h
 INC_WAR					:=	$(addprefix $(INCDIR_WAR), $(INCNAME))
 
 INCNAME					:=	common.h	\
@@ -70,11 +70,12 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 
 ######	SOURCES
 
-SRCNAME					:=	main.c		\
+SRCNAME					:=	asm.c		\
 							init_asm.c	\
 							parsing.c	\
 							header.c	\
-							create_cor.c
+							create_cor.c\
+							free_asm.c
 
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 

@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_asm.c                                         :+:      :+:    :+:   */
+/*   label.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 14:54:12 by chrhuang         ###   ########.fr       */
+/*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/17 15:12:17 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef LABEL_H
+# define LABEL_H
 
-void	init_asm(t_assembler *as)
+# include "asm.h"
+
+typedef struct		s_label
 {
-	t_header *header;
+	char			*label;
+	unsigned char	opcode;
+	t_params		params;
+	struct s_label	*next;
+	struct s_label	*prev;
+}					t_label;
 
-	ft_bzero(as, sizeof(t_assembler));
-	if ((header = ft_memalloc(sizeof(t_header))) == NULL)
-		ft_error(as, (void *)&free_asm, "Error with malloc\n");
-	header->magic = COREWAR_EXEC_MAGIC;
-	as->header = header;
-}
+typedef struct		s_labels
+{
+	t_label			*first;
+	t_label			*cur;
+	t_label			*last;
+	unsigned int	size;
+}					t_labels;
+
+#endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_cor.c                                        :+:      :+:    :+:   */
+/*   create_cor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/16 15:31:08 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:15:21 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ void	create_cor(t_assembler *assembler)
 {
 	int	fd;
 
-	ft_printf("End\n");
 	assembler->file_name_cor = s_to_cor(assembler, assembler->file_name_s);
 	fd = open(assembler->file_name_cor,O_RDWR | O_APPEND | O_CREAT, 0644); // Creation du fichier .cor
-	ft_printf("End\n");
 	ft_printf("name = [%s]\ncomment = [%s]\n", assembler->header->name, assembler->header->comment);
 	return ;
 }
