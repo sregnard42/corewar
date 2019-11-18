@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/18 16:16:45 by lgaultie         ###   ########.fr       */
+=======
+/*   Updated: 2019/11/18 17:07:43 by chrhuang         ###   ########.fr       */
+>>>>>>> 44979186b012c20f444fbca1b84d2e77c03201f3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +21,7 @@
 # include "instruc.h"
 
 # define	NAME_COMMENT_EXIST	"Name or comment already exist\n"
+# define	ERROR_MALLOC		"Error with malloc\n"
 
 typedef struct		s_assembler
 {
@@ -25,6 +30,7 @@ typedef struct		s_assembler
 	char			*commands[16];
 	char			*file_name_cor;
 	int				source_fd;
+	char			**commands;
 	t_instruc		*instruc;
 }					t_assembler;
 
