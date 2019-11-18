@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 19:26:04 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/18 17:05:23 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ void	clean_line(char *line)
 	line = ft_strreplace(line, replace, ' ');
 }
 
-void	parse_header(t_assembler *as, char *line, char **dst)
+/*
+** parse_header() parse only the name or comment (without ""), checks if they
+** are too long.
+*/
+
+void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 {
 	char *str;
 
@@ -46,6 +51,16 @@ void	parse_header(t_assembler *as, char *line, char **dst)
 	str = ft_strchr(line, '"') + 1;
 	if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
 		ft_error(as, &free_asm, "Malloc failed\n");
+	if (choice == 1)
+	{
+		if (ft_strlen(str) > PROG_NAME_LENGTH)
+			ft_error(as, &free_asm, "Program name is too long.\n");
+	}
+	if (choice == 2)
+	{
+		if (ft_strlen(str) > COMMENT_LENGTH)
+			ft_error(as, &free_asm, "Comment is too long.\n");
+	}
 	*dst = str;
 }
 
@@ -58,12 +73,12 @@ int		check_header(t_assembler *as, char *line)
 	clean_line(line);
 	if (ft_strcmp(NAME_CMD_STRING, ft_strsub(line, 0, len - line)) == 0)
 	{
-		parse_header(as, line, &as->header->name);
+		parse_header(as, line, &as->header->name, 1);
 		return (1);
 	}
 	else if (ft_strcmp(COMMENT_CMD_STRING, ft_strsub(line, 0, len - line)) == 0)
 	{
-		parse_header(as, line, &as->header->comment);
+		parse_header(as, line, &as->header->comment, 2);
 		return (1);
 	}
 	return (0);

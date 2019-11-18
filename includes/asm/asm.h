@@ -6,7 +6,7 @@
 /*   By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 23:10:38 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:16:45 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct		s_assembler
 {
 	t_header		*header;
 	char			*file_name_s;
+	char			*commands[16];
 	char			*file_name_cor;
 	int				source_fd;
 	t_instruc		*instruc;
@@ -32,7 +33,6 @@ void	create_cor(t_assembler *as);
 void	parsing(t_assembler *as);
 void	clean_line(char *line);
 void	parse_instruction(t_assembler *as, char *line);
-void	parse_header(t_assembler *as, char *line, char **dst);
 void	free_asm(void *a);
 void	check_instruc(t_assembler *as, char *line);
 void	add_instruct(t_assembler *as, char *line);
