@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 20:15:20 by sregnard          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/11/18 16:16:45 by lgaultie         ###   ########.fr       */
-=======
-/*   Updated: 2019/11/18 17:07:43 by chrhuang         ###   ########.fr       */
->>>>>>> 44979186b012c20f444fbca1b84d2e77c03201f3
+/*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
+/*   Updated: 2019/11/18 17:28:59 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +26,6 @@ typedef struct		s_assembler
 	char			*commands[16];
 	char			*file_name_cor;
 	int				source_fd;
-	char			**commands;
 	t_instruc		*instruc;
 }					t_assembler;
 

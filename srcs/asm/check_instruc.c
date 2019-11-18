@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 21:57:13 by lgaultie          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/11/18 17:20:38 by lgaultie         ###   ########.fr       */
-=======
-/*   Updated: 2019/11/18 17:16:10 by chrhuang         ###   ########.fr       */
->>>>>>> 44979186b012c20f444fbca1b84d2e77c03201f3
+/*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
+/*   Updated: 2019/11/18 17:30:58 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +76,6 @@ int		is_label(t_assembler *as, char *part)
 	return (0);
 }
 
-<<<<<<< HEAD
 /*
 ** which_command() initiates the arrays of all commands and checks them.
 */
@@ -109,30 +104,6 @@ int		which_command(t_assembler *as, char *part)
 	while (i < 16 && ft_strcmp(part, as->commands[i]) != 0)
 		i++;
 	return (i);
-=======
-int		is_command(t_assembler *as, char *part)
-{
-	int	i;
-
-	i = 0;
-	while (i < 16)
-	{
-		if (ft_strcmp(part, as->commands[i]) == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-	// if (ft_strcmp(part, "live") != 0 && ft_strcmp(part, "ld") != 0 \
-	// && ft_strcmp(part, "st") != 0 && ft_strcmp(part, "add") != 0 \
-	// && ft_strcmp(part, "sub") != 0 && ft_strcmp(part, "and") != 0 \
-	// && ft_strcmp(part, "or") != 0 && ft_strcmp(part, "xor") != 0 \
-	// && ft_strcmp(part, "zjmp") != 0 && ft_strcmp(part, "ldi") != 0 \
-	// && ft_strcmp(part, "sti") != 0 && ft_strcmp(part, "fork") != 0 \
-	// && ft_strcmp(part, "lld") != 0 && ft_strcmp(part, "lldi") != 0 \
-	// && ft_strcmp(part, "lfork") != 0 && ft_strcmp(part, "aff") != 0)
-	// 	return (0);
-	// return (1);
->>>>>>> 44979186b012c20f444fbca1b84d2e77c03201f3
 }
 
 /*
@@ -165,7 +136,6 @@ void	check_instruc(t_assembler *as, char *line)
 	len = tab_len(tab);
 	while (i < len)
 	{
-<<<<<<< HEAD
 		if (is_label(as, tab[i]) == 1)
 			ft_printf("'%s' is a		label\n", tab[i]);
 		else if ((id_command = which_command(as, tab[i])) < 16)
@@ -173,14 +143,6 @@ void	check_instruc(t_assembler *as, char *line)
 		//envoyer id_command et verifier les params en fonction de la command
 		else if (is_param(id_command, tab[i]) == 1)
 			ft_printf("'%s' is a			param\n", tab[i]);
-=======
-		if (is_label(tab[i]) == 1)
-			ft_printf("%s is a		label\n", tab[i]);
-		else if (is_command(as, tab[i]) == 1)
-			ft_printf("%s is a		command\n", tab[i]);
-		else if (is_param(tab[i]) == 1)
-			ft_printf("%s is a			param\n", tab[i]);
->>>>>>> 44979186b012c20f444fbca1b84d2e77c03201f3
 		else
 		{
 			ft_printf("%s --> ", tab[i]);
