@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/18 17:30:58 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/18 17:56:10 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		tab_len(char **tab)
 }
 
 /*
-** check_label_chars() label characters: "abcdefghijklmnopqrstuvwxyz_0123456789"
+** check_label_chars() must be: "abcdefghijklmnopqrstuvwxyz_0123456789"
 */
 
 int		check_label_chars(t_assembler *as, char *str)
@@ -67,7 +67,6 @@ int		is_label(t_assembler *as, char *part)
 		return (0);
 	if (!(str = ft_strsub(part, 0,  ft_strchr(part,  LABEL_CHAR) - part)))
 		ft_error(as, &free_asm, "Malloc failed\n");
-		//faut checker si le label est bien composé de label chars
 	if (ft_strcmp(ret, ":") == 0)
 	{
 		check_label_chars(as, str);
@@ -140,7 +139,6 @@ void	check_instruc(t_assembler *as, char *line)
 			ft_printf("'%s' is a		label\n", tab[i]);
 		else if ((id_command = which_command(as, tab[i])) < 16)
 			ft_printf("'%s' is a		command\n", as->commands[id_command]);
-		//envoyer id_command et verifier les params en fonction de la command
 		else if (is_param(id_command, tab[i]) == 1)
 			ft_printf("'%s' is a			param\n", tab[i]);
 		else
