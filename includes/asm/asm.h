@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/18 17:28:59 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:24:29 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,20 @@
 # define	NAME_COMMENT_EXIST	"Name or comment already exist\n"
 # define	ERROR_MALLOC		"Error with malloc\n"
 
+typedef	struct		s_commands
+{
+	char			*command;
+	char			param1;
+	char			param2;
+	char			param3;
+}					t_commands;
+
+
 typedef struct		s_assembler
 {
 	t_header		*header;
 	char			*file_name_s;
-	char			*commands[16];
+	t_commands		commands[16];
 	char			*file_name_cor;
 	int				source_fd;
 	t_instruc		*instruc;

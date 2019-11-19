@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/19 12:49:38 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:25:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		which_command(t_assembler *as, char *part)
 	int		i;
 
 	i = 0;
-	while (i < 16 && ft_strcmp(part, as->commands[i]) != 0)
+	while (i < 16 && ft_strcmp(part, as->commands[i].command) != 0)
 		i++;
 	return (i);
 }
@@ -127,8 +127,7 @@ void	check_instruc(t_assembler *as, char *line)
 			ft_printf("'%s' is a			param\n", tab[i]);
 		else
 		{
-			ft_printf("%s --> ", tab[i]);
-			ft_printf("SYNTAX ERROR\n");
+			ft_printf("%s --> SYNTAX ERROR\n", tab[i]);
 			// ft_error(as, &free_asm, "syntax error, element is neither a label nor a command nor a parameter\n");
 		}
 		i++;
