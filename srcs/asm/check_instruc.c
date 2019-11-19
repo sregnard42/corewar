@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/19 15:37:02 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:53:32 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,31 +92,28 @@ void	check_instruc(t_assembler *as, char *line)
 	int		id_command;
 	int		nb_param;
 	int		tmp;
-	char	*ocp;
+	char	ocp[3];
 
 	i = -1;
 	nb_param = 0;
-	if (!(ocp = ft_memalloc(sizeof(char) * 4)))
-		ft_error(as, &free_asm, "Malloc failed\n");
+	ft_bzero(ocp, 3);
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, "Malloc failed\n");
 	len = ft_nb_str_tab(tab);
 	while (++i < len)
+	{
 		if (is_label(as, tab[i]) == 1)
-			ft_printf("'%s' is a		label\n", tab[i]);
+			ft_printf("'%s' is a label\n", tab[i]);
 		else if ((tmp = which_command(as, tab[i])) < 16)
 		{
 			id_command = tmp;
-			ft_printf("'%s' is a		command\n", as->commands[id_command].command);
+			ft_printf("'%s' is a command\n", as->commands[id_command].command);
 		}
 		else if (is_param(as, id_command, tab[i], nb_param++, ocp) == 1)
-			;// ft_printf("'%s' is a			param\n", tab[i]);
+			;
 		else
-		{
-			ft_printf("%s --> SYNTAX ERROR\n", tab[i]);
-			// ft_error(as, &free_asm, "syntax error, element is neither a label nor a command nor a parameter\n");
-		}
-	ft_printf("ocp[[0] = %c\nocp[1] = %c\nocp[2] = %c\n", ocp[0] + '0', ocp[1] + '0', ocp[2] + '0');
-	ft_printf("\n");
+			ft_error(as, &free_asm, "syntax error, element is neither a label nor a command nor a parameter\n");
+	}
+	ft_printf("ocp[0] = %c | ocp[1] = %c | ocp[2] = %c\n", ocp[0] + '0', ocp[1] + '0', ocp[2] + '0');
 	add_instruct(as, line, ocp);
 }
