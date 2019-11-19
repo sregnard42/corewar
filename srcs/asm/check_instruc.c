@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/18 17:56:10 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:49:38 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,6 @@ int		which_command(t_assembler *as, char *part)
 	int		i;
 
 	i = 0;
-	as->commands[0] = "live";
-	as->commands[1] = "ld";
-	as->commands[2] = "st";
-	as->commands[3] = "add";
-	as->commands[4] = "sub";
-	as->commands[5] = "and";
-	as->commands[6] = "or";
-	as->commands[7] = "xor";
-	as->commands[8] = "zjmp";
-	as->commands[9] = "ldi";
-	as->commands[10] = "sti";
-	as->commands[11] = "fork";
-	as->commands[12] = "lld";
-	as->commands[13] = "lldi";
-	as->commands[14] = "lfork";
-	as->commands[15] = "add";
 	while (i < 16 && ft_strcmp(part, as->commands[i]) != 0)
 		i++;
 	return (i);
