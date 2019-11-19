@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
+#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/17 22:41:43 by lgaultie         ###   ########.fr        #
+#    Updated: 2019/11/19 15:09:50 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,15 +68,16 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 
 ######	SOURCES
 
-SRCNAME					:=	asm.c		\
-							init_asm.c	\
-							parsing.c	\
-							header.c	\
-							create_cor.c\
-							free_asm.c	\
-							parse_instruction.c \
-							print.c		\
-							check_instruc.c
+SRCNAME					:=	asm.c				\
+							init_asm.c			\
+							parsing.c			\
+							header.c			\
+							create_cor.c		\
+							free_asm.c			\
+							parse_instruction.c	\
+							print.c				\
+							check_instruc.c		\
+							param.c
 
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 

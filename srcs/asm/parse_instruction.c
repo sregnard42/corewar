@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_instruction.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:56:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/17 23:22:58 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:31:06 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_room(t_assembler *as, t_instruc *new, char *line)
 	ft_free_tab(&tab);
 }
 
-void	add_instruct(t_assembler *as, char *line)
+void	add_instruct(t_assembler *as, char *line, char *ocp)
 {
 	t_instruc	*tmp;
 	t_instruc	*new;
@@ -60,6 +60,7 @@ void	add_instruct(t_assembler *as, char *line)
 		new->prev = NULL;
 		as->instruc = new;
 	}
+	new->ocp = ocp;
 	init_room(as, new, line);
 }
 
