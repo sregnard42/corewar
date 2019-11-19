@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/19 13:25:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:05:27 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,72 @@ int		which_command(t_assembler *as, char *part)
 }
 
 /*
+** which_param() checks the type of the params
+*/
+
+char	which_params(char *param)
+{
+	if (!param || !*param)
+		return (0);
+	if (*param == 'r')
+	{
+		ft_printf("%s is a registre\n", param);
+		param++;
+		if (ft_isnumber(param))
+			return (1);
+	}
+	else if (*param == DIRECT_CHAR)
+	{
+		param++;
+		ft_printf("%s is a direct\n", param);
+		if (*param == LABEL_CHAR || ft_isnumber(param))
+			return (2);
+	}
+	else
+	{
+		ft_printf("%s is an indirect\n", param);
+		if (*param == LABEL_CHAR || ft_isnumber(param))
+			return (3);
+	}
+	return (0);
+}
+
+/*
+** check_param() checks if the param is compatible with the instruction
+*/
+
+char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
+{
+	int	type;
+
+	type = as->commands[id_command].param[nb_param];
+	if (type == 7 || type == id_param)
+		return (1);
+	else if (id_param == 1)
+		return (type == 3 || type == 5 ? 1 : 0);
+	else if (id_param == 2)
+		return (type == 3 || type == 6 ? 1 : 0);
+	else if (id_param == 3)
+		return (type == 5 || type == 6 ? 1 : 0);
+	return (0);
+}
+
+/*
 ** is_param() checks if the params are compatible with the command given
 */
 
-int		is_param(int id_command, char *part)
+int		is_param(t_assembler *as, int id_command, char *part, int nb_param)
 {
 	// EN COURS
-	(void)part;
-	(void)id_command;
+	char	id_param;
+
+	id_param = which_params(part);
+	if (check_param(as, id_command, id_param, nb_param) == 1)
+		ft_printf("Yes, bon parametre\n");
+	else
+		ft_printf("Noooooo, mauvais parametre\n");
+	if (id_param != 0)
+		return (1);
 	return (0);
 }
 
@@ -112,8 +170,14 @@ void	check_instruc(t_assembler *as, char *line)
 	int		len;
 	int		i;
 	int		id_command;
+	int		nb_param;
+	int		tmp;
+	char	ocp;
 
+	ocp = 0;
+	(void)ocp;
 	i = 0;
+	nb_param = 0;
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, "Malloc failed\n");
 	len = tab_len(tab);
@@ -121,10 +185,14 @@ void	check_instruc(t_assembler *as, char *line)
 	{
 		if (is_label(as, tab[i]) == 1)
 			ft_printf("'%s' is a		label\n", tab[i]);
-		else if ((id_command = which_command(as, tab[i])) < 16)
-			ft_printf("'%s' is a		command\n", as->commands[id_command]);
-		else if (is_param(id_command, tab[i]) == 1)
-			ft_printf("'%s' is a			param\n", tab[i]);
+		else if ((tmp = which_command(as, tab[i])) < 16)
+		{
+			id_command = tmp;
+			ft_printf("'%s' is a		command\n", as->commands[id_command].command);
+		}
+		else if (is_param(as, id_command, tab[i], nb_param++) == 1)
+			// ft_printf("'%s' is a			param\n", tab[i]);
+			;
 		else
 		{
 			ft_printf("%s --> SYNTAX ERROR\n", tab[i]);
@@ -132,5 +200,6 @@ void	check_instruc(t_assembler *as, char *line)
 		}
 		i++;
 	}
+	ft_printf("\n");
 	add_instruct(as, line);
 }

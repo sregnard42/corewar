@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/19 13:24:29 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/19 14:32:06 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@
 typedef	struct		s_commands
 {
 	char			*command;
-	char			param1;
-	char			param2;
-	char			param3;
+	int				param[3];
 }					t_commands;
 
 
