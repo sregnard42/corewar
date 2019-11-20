@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/19 18:59:52 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/20 11:49:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	which_params(char *param)
 {
 	// ft_printf("*param = %c\n", *param);
 	// ft_printf("param + 1 = %s\n", param + 1);
-	// // ft_printf("*param + 1 = %s\n", *param + 1);
+	// ft_printf("*param + 1 = %s\n", *param + 1);
 	// ft_printf("param = %s\n", param);
 	if (!param || !*param)
 		return (0);

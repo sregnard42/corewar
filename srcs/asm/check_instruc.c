@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/19 18:53:32 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/20 12:43:14 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	check_instruc(t_assembler *as, char *line)
 
 	i = -1;
 	nb_param = 0;
+	if (!as->header->name || !as->header->comment)
+		ft_error(as, &free_asm, "Missing name or comment in .s file.\n");
 	ft_bzero(ocp, 3);
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, "Malloc failed\n");

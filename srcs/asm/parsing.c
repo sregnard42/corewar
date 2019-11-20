@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/19 17:57:35 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/20 11:46:58 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_label(t_assembler *as, char *label)
 	while (label[i] != '\0')
 	{
 		if (ft_strchr(LABEL_CHARS, label[i]) == NULL)
-			ft_error(as, &free_asm, "Label with a non LABEL_CHARS\n");
+			ft_error(as, &free_asm, "Label with a non LABEL_CHARS.\n");
 		i = i + 1;
 	}
 }
@@ -50,7 +50,7 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 		ft_error(as, &free_asm, NAME_COMMENT_EXIST);
 	str = ft_strchr(line, '"') + 1;
 	if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, "Malloc failed.\n");
 	if (choice == 1)
 	{
 		if (ft_strlen(str) > PROG_NAME_LENGTH)
@@ -96,7 +96,7 @@ void	parsing(t_assembler *as)
 			parse_instruction(as, line);
 		ft_memdel((void*)&line);
 	}
-	// print_instruc(as);
-	// ft_printf("Parsing end\n\n");
-	// ft_printf("name = %s\ncomment = %s\n", as->header->name, as->header->comment);
+	print_instruc(as);
+	ft_printf("Parsing end\n\n");
+	ft_printf("name = |%s|\ncomment = |%s|\n", as->header->name, as->header->comment);
 }
