@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/10 13:31:32 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/17 14:31:10 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,8 @@ SRCNAME			=	ft_strlen.c \
 					ft_strtrim.c \
 					ft_strsplit.c \
 					ft_strrev.c \
-					ft_stradd.c
+					ft_stradd.c \
+					ft_strreplace.c
 SRC				+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR			=	ft_put/
