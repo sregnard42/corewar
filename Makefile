@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/20 09:28:37 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/20 09:31:20 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -171,12 +171,12 @@ $(LIBFT)				:
 	@make -C $(LIBDIR)
 
 $(ASM)					:	$(LIBFT) $(OBJ_ASM) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_ASM) $(LIBFT) -o $@ $(OBJ_COM) $(OBJ_ASM)
+	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(ASM)
 
 $(COREWAR)				:	$(LIBFT) $(OBJ_WAR) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_WAR) $(LIBFT) -o $@ $(OBJ_COM) $(OBJ_WAR)
+	@$(CC) $(CFLAGS) $(INCLUDES_WAR) -o $@ $(OBJ_COM) $(OBJ_WAR) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(COREWAR)
 
