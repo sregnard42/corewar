@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 16:55:26 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:50:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct		s_champ
 
 typedef struct		s_champs
 {
+	t_champ			*byId[MAX_PLAYERS + 1];
 	t_champ			*first;
 	t_champ			*cur;
 	t_champ			*last;

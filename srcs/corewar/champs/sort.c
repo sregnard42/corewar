@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:28:12 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 18:51:17 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:22:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void		champ_swap(t_champ *a, t_champ *b)
 	t_champ	*b_prev;
 	t_champ	*b_next;
 
-	ft_printf("Swapping %s and %s\n", a->name, b->name);
 	a_prev = a->prev;
 	a_next = a->next;
 	b_prev = b->prev;
@@ -68,6 +67,7 @@ void			champs_sort(t_vm *vm)
 		if (champ->id != id)
 			champ_swap(champ, champ_find(champ->next, id));
 		++id;
+		vm->champs.byId[champ->id] = champ;
 		champ = champ->next;
 	}
 }

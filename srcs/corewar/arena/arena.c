@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/20 12:26:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:53:39 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		arena_print(t_vm *vm, unsigned int cols)
 	if (!vm)
 		return ; 
 	cur = 0;
-	system("clear");
+	vm->flags & VM_VISU ? system("clear") : 0;
 	while (cur < MEM_SIZE / cols)
 		print_line(vm, cur++, cols);
 }

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:41:07 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 16:54:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:19:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,3 @@ t_champ		*champ_new(t_vm *vm)
 	champs_add(vm, &vm->champs, champ);
 	return (champ);
 }
-

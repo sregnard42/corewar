@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/20 09:31:20 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/20 13:11:48 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,8 @@ SRCNAME					:=	parsing.c	\
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	instructions/
-SRCNAME					:=	live.c      \
+SRCNAME					:=	ocp.c		\
+							live.c      \
                             ld.c        \
                             st.c        \
                             logic.c     \
