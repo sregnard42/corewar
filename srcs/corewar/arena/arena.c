@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 15:24:24 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 12:26:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
 		ft_printf("\033[1;%dm", color);
 		ft_printf("%02x", vm->arena[i++]);
 		ft_printf("\033[0m");
-		i  - (cur * len) < len ? ft_printf(" ") : 0;
+		i - (cur * len) < len ? ft_printf(" ") : 0;
 	}
 	ft_putln();
 }
 
-void		arena_print(t_vm *vm)
+void		arena_print(t_vm *vm, unsigned int cols)
 {
 	unsigned int	cur;
 
 	if (!vm)
 		return ; 
 	cur = 0;
-	while (cur < MEM_SIZE / COLUMNS)
-		print_line(vm, cur++, COLUMNS);
+	system("clear");
+	while (cur < MEM_SIZE / cols)
+		print_line(vm, cur++, cols);
 }
 
 unsigned char	arena_get(t_vm *vm, int index)

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/20 10:58:03 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 12:30:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 # define VERBOSE_4 "Show operations (Params are NOT litteral ...)\n"
 # define VERBOSE_8 "Show deaths\n"
 # define VERBOSE_16 "Show PC movements (Except for jumps)\n"
+
 # define FILE_MIN_SIZE 2192
-# define COLUMNS 32
+# define DUMP_COLS 32
+# define VISU_COLS 64
 
 # include "common.h"
 
@@ -41,7 +43,7 @@ typedef struct			s_vm
 	char				*exe;
 	int					dump;
 	int					number;
-	int					verbose;
+	unsigned int		verbose;
 	t_champs			champs;
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		colors[MEM_SIZE];
@@ -60,6 +62,15 @@ enum					e_flags_vm
 	VM_VISU = (1 << 3),
 };
 
+enum					e_flags_verbose
+{
+	V_LIVES = (1 << 0),
+	V_CYCLES = (1 << 1),
+	V_OPERATIONS = (1 << 2),
+	V_DEATHS = (1 << 3),
+	V_MOVES = (1 << 4),
+};
+
 /*
 **	Free
 */
@@ -76,7 +87,7 @@ void					arg_free(t_arg **arg);
 **	Print
 */
 
-void					arena_print(t_vm *vm);
+void					arena_print(t_vm *vm, unsigned int cols);
 void					champ_print(t_champ *champ);
 void					champs_print(t_champs *champs);
 
