@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   param.h                                            :+:      :+:    :+:   */
+/*   arg.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:22:05 by sregnard         ###   ########.fr       */
+/*   Created: 2019/11/17 17:01:34 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/17 17:02:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARAM_H
-# define PARAM_H
+#ifndef ARG_H
+# define ARG_H
 
 # include "corewar.h"
 
-typedef struct		s_param
+typedef struct			s_arg
 {
-	struct s_param	*next;
-}					t_param;
+	struct s_arg		*next;
+	struct s_champ		*champ;
+	struct s_process	*proc;
+	struct s_args		*list;
+}						t_arg;
 
-typedef struct		s_params
+typedef struct			s_args
 {
-	t_param			*first;
-	t_param			*cur;
-	t_param			*last;
-	unsigned int	size;
-}					t_params;
+	t_arg				*first;
+	t_arg				*cur;
+	t_arg				*last;
+	unsigned int		size;
+}						t_args;
 
 #endif
