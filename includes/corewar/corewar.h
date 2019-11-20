@@ -6,14 +6,25 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 17:08:49 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:58:03 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# define USAGE "[-dump nbr_cycles] [[-n number] champion1.cor] ..."
+# define USAGE \
+"[-visu -dump N -v N] <[[-n number] champion1.cor]> <...>\n"
+# define VISU "Enable visualizer\n"
+# define DUMP "Dumps memory after N cycles then exits\n"
+# define NUMBER "Sets the number of the next player\n"
+# define VERBOSE "Verbosity levels, can be added together to enable several\n"
+# define VERBOSE_0 "Show only essentials\n"
+# define VERBOSE_1 "Show lives (default)\n"
+# define VERBOSE_2 "Show cycles\n"
+# define VERBOSE_4 "Show operations (Params are NOT litteral ...)\n"
+# define VERBOSE_8 "Show deaths\n"
+# define VERBOSE_16 "Show PC movements (Except for jumps)\n"
 # define FILE_MIN_SIZE 2192
 # define COLUMNS 32
 
@@ -30,6 +41,7 @@ typedef struct			s_vm
 	char				*exe;
 	int					dump;
 	int					number;
+	int					verbose;
 	t_champs			champs;
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		colors[MEM_SIZE];
@@ -44,6 +56,8 @@ enum					e_flags_vm
 {
 	VM_DUMP = (1 << 0),
 	VM_NUMBER = (1 << 1),
+	VM_VERBOSE = (1 << 2),
+	VM_VISU = (1 << 3),
 };
 
 /*
