@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/06 18:26:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:09:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,28 @@ t_process	*proc_new(t_vm *vm)
 {
 	t_process	*proc;
 
-	if (!vm || !vm->champs || !vm->champs->cur ||
-		!vm->champs->cur->procs)
+	if (!vm || !vm->champs.cur)
 		ft_error(vm, &free_all, "proc_new args\n");
 	if (!(proc = ft_memalloc(sizeof(t_process))))
 		ft_error(vm, &free_all, "proc_new memalloc\n");
-	procs_add(vm, vm->champs->cur->procs, proc);
+	ft_bzero(&proc->args, sizeof(t_args));
+	proc->champ = vm->champs.cur;
+	proc->list = &proc->champ->procs;
+	procs_add(vm, &vm->champs.cur->procs, proc);
+	ft_memcpy(&proc->reg[1], &vm->champs.cur->id, sizeof(int));
+	proc_set_pc(vm, proc, vm->champs.cur->pos);
 	return (proc);
 }
 
-/*
-**			Frees a process
-*/
-
-void		proc_free(t_process **proc)
+void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 {
-	ft_memdel((void **)proc);
+	vm->champs.cur = champ;
+	vm->champs.cur->procs.cur = proc;
+	op[vm->arena[proc->pc]](vm);
+}
+
+void		proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc)
+{
+	proc->pc = pc;
+	vm->colors[pc] = proc->champ->id + 10;
 }

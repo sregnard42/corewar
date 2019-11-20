@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.c                                               :+:      :+:    :+:   */
+/*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/11 11:28:45 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/11 11:30:04 by sregnard         ###   ########.fr       */
+/*   Created: 2019/11/17 12:08:04 by cmouele           #+#    #+#             */
+/*   Updated: 2019/11/17 12:08:05 by cmouele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	op_live(void *ptr)
-{
-	t_vm	*vm;
+/*
+**		Comment
+*/
 
-	vm = (t_vm *)ptr;
-	vm += 0;
+void	op_st(void *vm_ptr)
+{
+    vm_ptr += 0;
+    return ;
+}
+
+/*
+**		Comment
+*/
+
+void	op_sti(void *vm_ptr)
+{
+    vm_ptr += 0;
+    return ;
 }

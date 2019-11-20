@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.h                                          :+:      :+:    :+:   */
+/*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/06 18:21:45 by sregnard         ###   ########.fr       */
+/*   Created: 2019/11/17 17:09:26 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/17 17:09:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_H
-# define COMMAND_H
+#include "corewar.h"
 
-# include "corewar.h"
+/*
+**			Adds an existing argeter to an existing argeters list
+*/
 
-typedef struct			s_command
+void 		args_add(t_vm *vm, t_args *args, t_arg *arg)
 {
-	char				type;
-	char				ocp;
-	t_params			*params;
-	struct s_command	*next;
-}						t_command;
-
-typedef struct			s_commands
-{
-	t_command			*first;
-	t_command			*cur;
-	t_command			*last;
-	unsigned int		size;
-}						t_commands;
-
-#endif
+	if (!vm || !args || !arg)
+		ft_error(vm, &free_all, "args_add args\n");
+	if (!args->first)
+	{
+		args->first = arg;
+		args->cur = arg;
+		args->last = arg;
+	}
+	else
+	{
+		args->last->next = arg;
+		args->last = arg;
+	}
+	++args->size;
+}

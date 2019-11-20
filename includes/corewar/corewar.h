@@ -6,21 +6,20 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 15:59:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:08:49 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# define HELP_FILE "help.txt"
-# define FILE_MIN_SIZE 2188
+# define USAGE "[-dump nbr_cycles] [[-n number] champion1.cor] ..."
+# define FILE_MIN_SIZE 2192
+# define COLUMNS 32
 
 # include "common.h"
 
-# include "param.h"
-# include "command.h"
-# include "label.h"
+# include "arg.h"
 # include "process.h"
 # include "champ.h"
 
@@ -30,30 +29,21 @@ typedef struct			s_vm
 	char				**av;
 	char				*exe;
 	int					dump;
-	unsigned int		verbose;
-	t_champs			*champs;
+	int					number;
+	t_champs			champs;
 	unsigned char		arena[MEM_SIZE];
+	unsigned char		colors[MEM_SIZE];
 	unsigned int		flags;
+	int					cycle;
+	int					cycle_to_die;
+	int					nbr_live;
+	int					checks;
 }						t_vm;
 
 enum					e_flags_vm
 {
-	VM_A = (1 << 0),
-	VM_D = (1 << 1),
-	VM_S = (1 << 2),
-	VM_V = (1 << 3),
-	VM_B = (1 << 4),
-	VM_N = (1 << 5),
-	VM_STEALTH = (1 << 6),
-};
-
-enum					e_flags_verbose
-{
-	V_LIVES = (1 << 0),
-	V_CYCLES = (1 << 1),
-	V_OPERATIONS = (1 << 2),
-	V_DEATHS = (1 << 3),
-	V_MOVES = (1 << 4),
+	VM_DUMP = (1 << 0),
+	VM_NUMBER = (1 << 1),
 };
 
 /*
@@ -61,15 +51,20 @@ enum					e_flags_verbose
 */
 
 void					free_all(void *vm);
+void					champs_free(t_champs *champs);
+void					champ_free(t_champ **champ);
+void					procs_free(t_processes *procs);
+void					proc_free(t_process **proc);
+void					args_free(t_args *args);
+void					arg_free(t_arg **arg);
 
 /*
-**	Error
+**	Print
 */
 
-void					error_usage(t_vm *vm);
-void					error_too_small(t_vm *vm);
-void					error_prog_size(t_vm *vm);
-void					error_magic(t_vm *vm);
+void					arena_print(t_vm *vm);
+void					champ_print(t_champ *champ);
+void					champs_print(t_champs *champs);
 
 /*
 **	Parsing
@@ -77,60 +72,51 @@ void					error_magic(t_vm *vm);
 
 void					parse_args(t_vm *vm);
 void					parse_option(t_vm *vm);
-void					parse_header(t_vm *vm);
+
+/*
+**	Errors
+*/
+
+void					error_usage(t_vm *vm);
+void					error_open(t_vm *vm, char *file);
+void					error_too_small(t_vm *vm);
+void					error_prog_size(t_vm *vm);
+void					error_magic(t_vm *vm);
 
 /*
 **	Arena
 */
 
-void					arena_print(t_vm *vm);
 unsigned char			arena_get(t_vm *vm, int index);
 void					arena_set(t_vm *vm, int index, unsigned char c);
+void					arena_init(t_vm *vm);
+void					fight(t_vm *vm);
 
 /*
-**	Champ
+**	Champions
 */
 
+void					champs_sort(t_vm *vm);
+void					champs_ids(t_vm *vm);
 void 					champs_add(t_vm *vm, t_champs *champs, t_champ *champ);
+void 					champs_del(t_champs *champs, t_champ **champ_ptr);
 t_champ					*champ_new(t_vm *vm);
-void					champs_free(t_champs **champs_ptr);
-void					champ_free(t_champ **champ);
-void					champ_print(t_champ *champ);
 
 /*
-**	Label
+** Processes
 */
 
-void 					labels_add(t_vm *vm, t_labels *labels, t_label *label);
-t_label					*label_new(t_vm *vm);
-void					labels_free(t_labels **labels_ptr);
-void					label_free(t_label **label);
-
-/*
-** Command
-*/
-
-void 					cmds_add(t_vm *vm, t_commands *cmds, t_command *cmd);
-t_command				*cmd_new(t_vm *vm);
-void					cmds_free(t_commands **cmds_ptr);
-void					cmd_free(t_command **cmd);
-
-/*
-** Process
-*/
-
+void					proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc);
+void					proc_exec(t_vm *vm, t_champ *champ, t_process *proc);
 void 					procs_add(t_vm *vm, t_processes *procs, t_process *proc);
+void 					procs_del(t_vm *vm, t_processes *procs, t_process **proc_ptr);
 t_process				*proc_new(t_vm *vm);
-void					procs_free(t_processes **procs_ptr);
-void					proc_free(t_process **proc);
 
 /*
-** Parameter
+** argeters
 */
 
-void 					params_add(t_vm *vm, t_params *params, t_param *param);
-t_param					*param_new(t_vm *vm);
-void					params_free(t_params **params_ptr);
-void					param_free(t_param **param);
+void 					args_add(t_vm *vm, t_args *args, t_arg *arg);
+t_arg					*arg_new(t_vm *vm);
 
 #endif
