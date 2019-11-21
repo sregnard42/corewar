@@ -6,12 +6,15 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:14:35 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/20 15:28:33 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:21:01 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
+
+# include "libft.h"
+# include "op.h"
 
 # define PADDING 4
 
@@ -32,8 +35,22 @@
 # define LFORK 15
 # define AFF 16
 
-# include "libft.h"
-# include "op.h"
+# define C_LIVE 10
+# define C_LD 5
+# define C_ST 5
+# define C_ADD 10
+# define C_SUB 10
+# define C_AND 6
+# define C_OR 6
+# define C_XOR 6
+# define C_ZJMP 20
+# define C_LDI 25
+# define C_STI 25
+# define C_FORK 800
+# define C_LLD 10
+# define C_LLDI 50
+# define C_LFORK 1000
+# define C_AFF 2
 
 void		op_live(void *);
 void		op_ld(void *);
