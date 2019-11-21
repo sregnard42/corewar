@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 17:44:55 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:03:11 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ int		is_label(t_assembler *as, char *part)
 		if (!(label = ft_strsub(str, 0, ft_strchr(part, ':') - part)))
 			ft_error(as, &free_asm, "Malloc failed\n");
 		save_label_to_check(as, label);
+		ft_memdel((void**)&label);
+		ft_memdel((void**)&str);
 		return (1);
 	}
+	ft_memdel((void**)&str);
 	return (0);
 }
 
@@ -120,6 +123,8 @@ void	check_instruc(t_assembler *as, char *line)
 		else
 			ft_error(as, &free_asm, "syntax error, element is neither a label nor a command nor a parameter\n");
 	}
-	ft_printf("ocp[0] = %c | ocp[1] = %c | ocp[2] = %c\n", ocp[0] + '0', ocp[1] + '0', ocp[2] + '0');
+	ft_free_tab(&tab);
 	add_instruct(as, line, ocp);
+	///////////////
+	ft_printf("ocp[0] = %c | ocp[1] = %c | ocp[2] = %c\n", ocp[0] + '0', ocp[1] + '0', ocp[2] + '0');
 }

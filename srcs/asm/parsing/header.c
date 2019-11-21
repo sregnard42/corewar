@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 17:37:48 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:55:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,24 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 int		check_header(t_assembler *as, char *line)
 {
 	char	*len;
+	char	*part;
 
 	if ((len = ft_strchr(line, ' ')) == NULL)
 		return (0);
 	clean_line(line);
-	if (ft_strcmp(NAME_CMD_STRING, ft_strsub(line, 0, len - line)) == 0)
+	part = ft_strsub(line, 0, len - line);
+	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
+		ft_memdel((void**)&part);
 		parse_header(as, line, &as->header->name, 1);
 		return (1);
 	}
-	else if (ft_strcmp(COMMENT_CMD_STRING, ft_strsub(line, 0, len - line)) == 0)
+	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
 	{
+		ft_memdel((void**)&part);
 		parse_header(as, line, &as->header->comment, 2);
 		return (1);
 	}
+	ft_memdel((void**)&part);
 	return (0);
 }

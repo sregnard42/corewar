@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/21 16:50:03 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:59:20 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	which_params(t_assembler *as, char *param)
 			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
 				ft_error(as, &free_asm, "Malloc failed\n");
 			save_label_param(as, cpy);
+			ft_memdel((void**)&cpy);
 		}
 		if (*param == LABEL_CHAR || ft_isnumber(param))
 			return (2);
