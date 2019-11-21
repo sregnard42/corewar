@@ -13,7 +13,7 @@
 #include "corewar.h"
 
 /*
-**		Load a value in a registry
+**		Loads a value in a registry
 **		Source is the value
 **		Destination is the registry number
 */
