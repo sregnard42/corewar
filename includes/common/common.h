@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:14:35 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/21 17:21:01 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:46:08 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,6 @@
 # define LFORK 15
 # define AFF 16
 
-# define C_LIVE 10
-# define C_LD 5
-# define C_ST 5
-# define C_ADD 10
-# define C_SUB 10
-# define C_AND 6
-# define C_OR 6
-# define C_XOR 6
-# define C_ZJMP 20
-# define C_LDI 25
-# define C_STI 25
-# define C_FORK 800
-# define C_LLD 10
-# define C_LLDI 50
-# define C_LFORK 1000
-# define C_AFF 2
-
 void		op_live(void *);
 void		op_ld(void *);
 void		op_st(void *);
@@ -69,10 +52,14 @@ void		op_lldi(void *);
 void		op_lfork(void *);
 void		op_aff(void *);
 
-static void (*op[17])(void *) = { NULL, &op_live, &op_ld, &op_st, &op_add,
+static void	(*op[17])(void *) = { NULL, &op_live, &op_ld, &op_st, &op_add,
 									&op_sub, &op_and, &op_or, &op_xor,
 									&op_zjmp, &op_ldi, &op_sti, &op_fork,
 									&op_lld, &op_lldi, &op_lfork, &op_aff};
 
+static int	op_cycles[17] = { 0, 10, 5, 5, 10,
+								10, 6, 6, 6,
+								20, 25, 25, 800,
+								10, 50, 1000, 2};
 
 #endif

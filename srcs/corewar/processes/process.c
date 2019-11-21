@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 17:07:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:43:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,17 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 	opcode = arena_get(vm, proc->pc);
 	if (opcode < 1 || opcode > 16)
 		return ;
+	if (proc->cycle == 0)
+		proc->cycle = vm->cycle + op_cycles[opcode];
+	if (proc->cycle > vm->cycle)
+		return ;
+	ft_printf("Cycle %d, executing opcode %d\n", vm->cycle, opcode);
 	vm->pc = proc->pc;
 	proc_set_pc(vm, proc, proc->pc + 1);
 	ocp(vm, opcode);
 	op[opcode](vm);
 	args_free(&proc->args);
+	proc->cycle = 0;
 }
 
 void		proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc)
