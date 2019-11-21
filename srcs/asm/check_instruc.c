@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/20 12:43:14 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:34:33 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** check_label_chars() must be: "abcdefghijklmnopqrstuvwxyz_0123456789"
 */
 
-int		check_label_chars(t_assembler *as, char *str)
+void		check_label_chars(t_assembler *as, char *str)
 {
 	int	i;
 	int	j;
@@ -41,7 +41,6 @@ int		check_label_chars(t_assembler *as, char *str)
 			j = 0;
 		}
 	}
-	return (1);
 }
 
 /*
@@ -52,14 +51,19 @@ int		is_label(t_assembler *as, char *part)
 {
 	char *ret;
 	char *str;
+	char *label;
 
+	ft_printf("part = %s\n", part);
 	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL)
 		return (0);
-	if (!(str = ft_strsub(part, 0,  ft_strchr(part,  LABEL_CHAR) - part)))
+	if (!(str = ft_strsub(part, 0,  ret - part)))
 		ft_error(as, &free_asm, "Malloc failed\n");
 	if (ft_strcmp(ret, ":") == 0)
 	{
 		check_label_chars(as, str);
+		if (!(label = ft_strsub(str, 0, ft_strchr(part, ':') - part)))
+			ft_error(as, &free_asm, "Malloc failed\n");
+		save_label_to_check(as, label);
 		return (1);
 	}
 	return (0);
@@ -97,7 +101,7 @@ void	check_instruc(t_assembler *as, char *line)
 	i = -1;
 	nb_param = 0;
 	if (!as->header->name || !as->header->comment)
-		ft_error(as, &free_asm, "Missing name or comment in .s file.\n");
+		ft_error(as, &free_asm, "Invalid name or comment at top of file.\n");
 	ft_bzero(ocp, 3);
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, "Malloc failed\n");

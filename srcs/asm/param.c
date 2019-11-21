@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/20 11:49:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:50:03 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 ** which_param() checks the type of the params
 */
 
-char	which_params(char *param)
+char	which_params(t_assembler *as, char *param)
 {
+	char *cpy;
 	// ft_printf("*param = %c\n", *param);
 	// ft_printf("param + 1 = %s\n", param + 1);
 	// ft_printf("*param + 1 = %s\n", *param + 1);
@@ -37,6 +38,12 @@ char	which_params(char *param)
 	{
 		param++;
 		ft_printf("%s is a direct\n", param);
+		if (*param == ':')
+		{
+			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
+				ft_error(as, &free_asm, "Malloc failed\n");
+			save_label_param(as, cpy);
+		}
 		if (*param == LABEL_CHAR || ft_isnumber(param))
 			return (2);
 	}
@@ -81,7 +88,7 @@ int		is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	char	id_param;
 
 	ft_putstr("----is_param----\n");
-	if ((id_param = which_params(part)) == 0)
+	if ((id_param = which_params(as, part)) == 0)
 		ft_error(as, &free_asm, "Param with invalid syntax.\n");
 	ocp[nb_param] = id_param;
 	// ft_printf("id_param = %d	id_command = %d		nb_param = %d\n", id_param, id_command, nb_param);

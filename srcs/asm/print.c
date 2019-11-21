@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/17 20:57:17 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:39:30 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,36 @@ void	print_instruc(t_assembler *as)
 		ft_printf("label: %s\ncommand: %s\n", tmp->label, tmp->command);
 		ft_putstr("----params:-----\n");
 		ft_print_tab(tmp->param);
+		tmp = tmp->next;
+	}
+	ft_putstr("-----------------------------------------------\n");
+}
+
+void	print_labels(t_assembler *as)
+{
+	t_label *tmp;
+	tmp = as->labels;
+	ft_putstr("-----------------------------------------------\n");
+	ft_putstr("      called print_labels dans print.c\n");
+	while (tmp)
+	{
+		ft_putstr("----------------label-----------------------\n");
+		ft_printf("%s\n", tmp->name);
+		tmp = tmp->next;
+	}
+	ft_putstr("-----------------------------------------------\n");
+}
+
+void	print_param_labels(t_assembler *as)
+{
+	t_label *tmp;
+	tmp = as->param_labels;
+	ft_putstr("-----------------------------------------------\n");
+	ft_putstr("      called print_param_labels dans print.c\n");
+	while (tmp)
+	{
+		ft_putstr("----------------label-----------------------\n");
+		ft_printf("%s\n", tmp->name);
 		tmp = tmp->next;
 	}
 	ft_putstr("-----------------------------------------------\n");

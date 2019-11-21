@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/20 11:46:58 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:54:53 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	clean_line(char *line)
 
 /*
 ** parse_header() parse only the name or comment (without ""), checks if they
-** are too long.
+** are too long or checks if invalid input after the name or
+** comment (ex: .name "oui"non)
 */
 
 void	parse_header(t_assembler *as, char *line, char **dst, int choice)
@@ -49,6 +50,8 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 	if (dst && *dst)
 		ft_error(as, &free_asm, NAME_COMMENT_EXIST);
 	str = ft_strchr(line, '"') + 1;
+	if ((ft_strcmp("", ft_strchr(str, '"') + 1) != 0))
+		ft_error(as, &free_asm, "There is some junk after quotes.\n");
 	if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
 		ft_error(as, &free_asm, "Malloc failed.\n");
 	if (choice == 1)
@@ -63,6 +66,11 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 	}
 	*dst = str;
 }
+
+/*
+** check_header() if there is no space, quit
+** if finds .name or .comment, parse string between quotes in our list.
+*/
 
 int		check_header(t_assembler *as, char *line)
 {
@@ -84,6 +92,10 @@ int		check_header(t_assembler *as, char *line)
 	return (0);
 }
 
+/*
+** parsing() if doesnt find .name or .comment, parse the line as a instruction
+*/
+
 void	parsing(t_assembler *as)
 {
 	int		fd;
@@ -96,7 +108,13 @@ void	parsing(t_assembler *as)
 			parse_instruction(as, line);
 		ft_memdel((void*)&line);
 	}
+	if (check_existing_labels(as) == -1)
+		ft_error(as, &free_asm, "Label in argument doesn't exist\n");
+
+	/////////////
 	print_instruc(as);
+	print_labels(as);
+	print_param_labels(as);
 	ft_printf("Parsing end\n\n");
 	ft_printf("name = |%s|\ncomment = |%s|\n", as->header->name, as->header->comment);
 }

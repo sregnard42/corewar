@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
+#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/20 09:31:20 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/21 16:17:08 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,8 @@ SRCNAME					:=	asm.c				\
 							parse_instruction.c	\
 							print.c				\
 							check_instruc.c		\
-							param.c
+							param.c				\
+							check_labels.c
 
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
