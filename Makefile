@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/21 17:26:01 by lgaultie         ###   ########.fr        #
+#    Updated: 2019/11/21 17:41:56 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,16 +75,17 @@ SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
 SUBDIR					:=	parsing/
 SRCNAME					:=	parsing.c			\
-							parse_instruction.c	\
-							check_labels.c		\
 							header.c			\
+							stock_instruc.c		\
+							labels.c			\
 							init_asm.c			\
 							param.c				\
 							check_instruc.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	compiling/
-SRCNAME					:=	create_cor.c
+SRCNAME					:=	header.c			\
+							create_cor.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	utils/

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 16:51:46 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:44:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ typedef struct		s_assembler
 }					t_assembler;
 
 void	init_asm(t_assembler *as);
+int		check_header(t_assembler *as, char *line);
 void	create_cor(t_assembler *as);
+void	check_label(t_assembler *as, char *label);
 void	parsing(t_assembler *as);
 void	clean_line(char *line);
 void	parse_instruction(t_assembler *as, char *line);
