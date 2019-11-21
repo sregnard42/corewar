@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:14:35 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/21 17:46:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:51:36 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void		op_lld(void *);
 void		op_lldi(void *);
 void		op_lfork(void *);
 void		op_aff(void *);
+
+static char	*op_names[17] = { NULL, "live", "ld", "st", "add",
+								"sub", "and", "op", "xor",
+								"zjmp", "ldi", "sti", "fork",
+								"lld", "lldi", "lfork", "aff"};
 
 static void	(*op[17])(void *) = { NULL, &op_live, &op_ld, &op_st, &op_add,
 									&op_sub, &op_and, &op_or, &op_xor,

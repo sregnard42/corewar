@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 17:43:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:51:55 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 		proc->cycle = vm->cycle + op_cycles[opcode];
 	if (proc->cycle > vm->cycle)
 		return ;
-	ft_printf("Cycle %d, executing opcode %d\n", vm->cycle, opcode);
+	ft_printf("Cycle %d, executing %s\n", vm->cycle, op_names[opcode]);
 	vm->pc = proc->pc;
 	proc_set_pc(vm, proc, proc->pc + 1);
 	ocp(vm, opcode);
