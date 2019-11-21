@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:48:56 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/20 17:23:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:34:48 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static int	get_type(unsigned int ocp, int nb)
 {
 	int		bit[2];
 
-	bit[0] = get_bit(ocp, nb * 2);
-	bit[1] = get_bit(ocp, nb * 2 + 1);
+	bit[0] = get_bit(ocp, sizeof(unsigned int) - nb * 2);
+	bit[1] = get_bit(ocp, sizeof(unsigned int) - nb * 2 + 1);
 	if (!bit[1] && bit[0])
 		return (REG_CODE);
 	if (bit[1] && !bit[0])
@@ -68,7 +68,7 @@ static void	add_arg(t_vm *vm, int opcode, unsigned int ocp, int nb)
 	t_arg			*arg;
 	int				type;
 
-	type = get_type(ocp, nb);
+	type = get_type(ocp, nb - 1);
 	if (type == 0)
 		return ;
 	arg = arg_new(vm);

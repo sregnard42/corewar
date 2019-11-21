@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:33:42 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/20 17:23:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 13:34:15 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_champ	*get_target(t_vm *vm)
 	arg = arg_new(vm);
 	arg->type = DIR_CODE; 
 	get_val(vm, arg, LIVE);
-	ft_memcpy(&id, &arg->val, sizeof(unsigned int));
+	id = arg->val;
 	if (id < 1 || id > vm->champs.size)
 		ft_error(vm, &free_all, "Invalid ID.\n");
 	return (vm->champs.byId[id]);
