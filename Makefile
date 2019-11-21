@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/21 16:17:08 by lgaultie         ###   ########.fr        #
+#    Updated: 2019/11/21 17:26:01 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,24 +70,34 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 ######	SOURCES
 ######	#######	ASM
 
-SRCNAME					:=	asm.c				\
-							init_asm.c			\
-							parsing.c			\
-							header.c			\
-							create_cor.c		\
-							free_asm.c			\
-							parse_instruction.c	\
-							print.c				\
-							check_instruc.c		\
-							param.c				\
-							check_labels.c
-
+SRCNAME					:=	asm.c
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
+
+SUBDIR					:=	parsing/
+SRCNAME					:=	parsing.c			\
+							parse_instruction.c	\
+							check_labels.c		\
+							header.c			\
+							init_asm.c			\
+							param.c				\
+							check_instruc.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	compiling/
+SRCNAME					:=	create_cor.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	utils/
+SRCNAME					:=	free_asm.c			\
+							print.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+
+######	#######	VM
 
 SRCNAME					:=	corewar.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
-######	#######	VM
 
 SUBDIR					:=	champs/
 SRCNAME					:=	champs.c	\
@@ -124,13 +134,13 @@ SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	instructions/
 SRCNAME					:=	live.c      \
-                            ld.c        \
-                            st.c        \
-                            logic.c     \
-                            aff.c       \
-                            fork.c      \
-                            zjmp.c      \
-                            calc.c
+							ld.c        \
+							st.c        \
+							logic.c     \
+							aff.c       \
+							fork.c      \
+							zjmp.c      \
+							calc.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SRCNAME					:=	common.c
@@ -188,7 +198,7 @@ $(OBJDIR_ASM)%.o		:	$(SRCDIR_ASM)%.c $(INC_ASM) $(INC_COM)
 		tput el; \
 		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" $(ASM) $(dir $<); \
 	fi;
-	@mkdir -p $(OBJDIR_ASM);
+	@mkdir -p $(dir $@);
 	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ -c $<
 	@printf "$(_BG_GREEN) $(_RESET)"
 

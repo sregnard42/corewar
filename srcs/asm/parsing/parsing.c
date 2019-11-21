@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/21 16:54:53 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:04:36 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 // Marche si label n'as pas de ':' à la fin
 
-void	check_label(t_assembler *as, char *label)
-{
-	int	i;
-
-	i = 0;
-	while (label[i] != '\0')
-	{
-		if (ft_strchr(LABEL_CHARS, label[i]) == NULL)
-			ft_error(as, &free_asm, "Label with a non LABEL_CHARS.\n");
-		i = i + 1;
-	}
-}
+// void	check_label(t_assembler *as, char *label)
+// {
+// 	int	i;
+//
+// 	i = 0;
+// 	while (label[i] != '\0')
+// 	{
+// 		if (ft_strchr(LABEL_CHARS, label[i]) == NULL)
+// 			ft_error(as, &free_asm, "Label with a non LABEL_CHARS.\n");
+// 		i = i + 1;
+// 	}
+// }
 
 void	clean_line(char *line)
 {
@@ -109,7 +109,7 @@ void	parsing(t_assembler *as)
 		ft_memdel((void*)&line);
 	}
 	if (check_existing_labels(as) == -1)
-		ft_error(as, &free_asm, "Label in argument doesn't exist\n");
+		ft_error(as, &free_asm, "Label in argument doesn't exist.\n");
 
 	/////////////
 	print_instruc(as);
