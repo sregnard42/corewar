@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/21 16:58:20 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:28:23 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct			s_vm
 	int					number;
 	unsigned int		verbose;
 	t_champs			champs;
+	t_champ				*winner;
+	t_processes			procs;
 	unsigned int		pc;
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		colors[MEM_SIZE];

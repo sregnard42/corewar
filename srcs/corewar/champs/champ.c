@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:41:07 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/20 17:19:47 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:09:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_champ		*champ_new(t_vm *vm)
 		ft_error(vm, &free_all, "champ_new args\n");
 	if (!(champ = ft_memalloc(sizeof(t_champ))))
 		ft_error(vm, &free_all, "champ_new memalloc\n");
-	ft_bzero(&champ->procs, sizeof(t_processes));
 	champ->id = vm->flags & VM_NUMBER ? vm->number : 0;
 	champ->list = &vm->champs;
 	vm->flags &= ~VM_NUMBER;

@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 17:51:55 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:11:04 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_process	*proc_new(t_vm *vm)
 		ft_error(vm, &free_all, "proc_new memalloc\n");
 	ft_bzero(&proc->args, sizeof(t_args));
 	proc->champ = vm->champs.cur;
-	proc->list = &proc->champ->procs;
-	procs_add(vm, &proc->champ->procs, proc);
+	proc->list = &vm->procs;
+	procs_add(vm, proc->list, proc);
 	ft_memcpy(&proc->reg[1], &proc->champ->id, sizeof(int));
 	proc->pc = proc->champ->pos;
 	vm->colors[proc->pc] = proc->champ->id + 10;
@@ -41,7 +41,7 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 	int		opcode;
 
 	vm->champs.cur = champ;
-	vm->champs.cur->procs.cur = proc;
+	vm->procs.cur = proc;
 	opcode = arena_get(vm, proc->pc);
 	if (opcode < 1 || opcode > 16)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:48:56 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/21 14:34:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:20:23 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		ocp(t_vm *vm, int opcode)
 	unsigned int	ocp;
 	int				nb;
 
-	proc = vm->champs.cur->procs.cur;
+	proc = vm->procs.cur;
 	if (opcode == LIVE || opcode == ZJMP || opcode == FORK || opcode == LFORK)
 		return ;
 	ocp = arena_get(vm, proc->pc);

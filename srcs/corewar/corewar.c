@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/20 11:06:54 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:10:16 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void free_all(void *vm_ptr)
 
 	vm = (t_vm *)vm_ptr;
 	champs_free(&vm->champs);
+	procs_free(&vm->procs);
 }
 
 

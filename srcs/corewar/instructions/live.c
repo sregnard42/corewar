@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:33:42 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 17:06:27 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:27:55 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ void   			 op_live(void *vm_ptr)
     vm = (t_vm *)vm_ptr;
 	if (!(champ = get_target(vm)))
 		return ;
-	proc = vm->champs.cur->procs.cur;
+	proc = vm->procs.cur;
     proc->live = 1;
+	vm->winner = champ;
+	champ->last_alive = vm->cycle;
+	++champ->lives;
 	if (vm->verbose & V_LIVES)
 	    ft_printf("A process shows that player %u (%s) is alive\n", champ->id, champ->name);
 }

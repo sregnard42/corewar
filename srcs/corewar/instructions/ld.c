@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:01:50 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 17:13:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:21:14 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 {
 	t_process	*proc;
 
-	proc = vm->champs.cur->procs.cur;
+	proc = vm->procs.cur;
 	proc->carry = (src == 0);
 	ft_memcpy(proc->reg[dst], &src, REG_SIZE);
 	if (vm->verbose & V_OPERATIONS)
@@ -45,7 +45,7 @@ void	op_ld(void *vm_ptr)
 	unsigned int	dst;
 
 	vm = (t_vm *)vm_ptr;
-	args = &vm->champs.cur->procs.cur->args;
+	args = &vm->procs.cur->args;
 	src = args->first->val;
 	dst = args->first->next->val;
 	if (vm->verbose & V_OPERATIONS)
@@ -66,7 +66,7 @@ void	op_ldi(void *vm_ptr)
 	unsigned int	dst;
 
 	vm = (t_vm *)vm_ptr;
-	args = &vm->champs.cur->procs.cur->args;
+	args = &vm->procs.cur->args;
 	src[0] = args->first->val;
 	src[1] = args->first->next->val;
 	dst = args->first->next->next->val;
