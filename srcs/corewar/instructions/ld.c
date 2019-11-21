@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:01:50 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 15:25:29 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:13:13 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 	proc = vm->champs.cur->procs.cur;
 	proc->carry = (src == 0);
 	ft_memcpy(proc->reg[dst], &src, REG_SIZE);
-	ft_printf("Player %d \"%s\"\t", proc->champ->id, proc->champ->name);
-	ft_printf("loaded value %u into R%u\n", src, dst);
+	if (vm->verbose & V_OPERATIONS)
+	{
+		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+		ft_printf("loaded value %u into R%u\n", src, dst);
+	}
 }
 
 /*
@@ -45,6 +48,8 @@ void	op_ld(void *vm_ptr)
 	args = &vm->champs.cur->procs.cur->args;
 	src = args->first->val;
 	dst = args->first->next->val;
+	if (vm->verbose & V_OPERATIONS)
+		ft_printf("ld %u, %u | ", src, dst);
 	load(vm, src, dst);
 }
 
@@ -65,7 +70,9 @@ void	op_ldi(void *vm_ptr)
 	src[0] = args->first->val;
 	src[1] = args->first->next->val;
 	dst = args->first->next->next->val;
-	load(vm, arena_get(vm, src[0] + src[1]), dst);
+	if (vm->verbose & V_OPERATIONS)
+		ft_printf("ldi %u, %u, %u | ", src[0], src[1], dst);
+	load(vm, arena_get(vm, vm->pc + (src[0] + src[1]) % IDX_MOD), dst);
 }
 
 /*

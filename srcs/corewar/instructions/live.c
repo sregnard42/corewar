@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:33:42 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 13:34:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:06:27 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_champ	*get_target(t_vm *vm)
 	get_val(vm, arg, LIVE);
 	id = arg->val;
 	if (id < 1 || id > vm->champs.size)
-		ft_error(vm, &free_all, "Invalid ID.\n");
+		return (NULL);
 	return (vm->champs.byId[id]);
 }
 
@@ -38,7 +38,8 @@ void   			 op_live(void *vm_ptr)
 	t_process	*proc;
 
     vm = (t_vm *)vm_ptr;
-	champ = get_target(vm);
+	if (!(champ = get_target(vm)))
+		return ;
 	proc = vm->champs.cur->procs.cur;
     proc->live = 1;
 	if (vm->verbose & V_LIVES)
