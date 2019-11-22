@@ -6,12 +6,19 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/21 18:28:23 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/22 02:08:22 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
+
+# include "common.h"
+
+# include <ncurses.h>
+# include "arg.h"
+# include "process.h"
+# include "champ.h"
 
 # define USAGE \
 "[-visu -dump N -v N] <[[-n number] champion1.cor]> <...>\n"
@@ -29,12 +36,6 @@
 # define FILE_MIN_SIZE 2192
 # define DUMP_COLS 32
 # define VISU_COLS 64
-
-# include "common.h"
-
-# include "arg.h"
-# include "process.h"
-# include "champ.h"
 
 typedef struct			s_vm
 {
@@ -76,6 +77,14 @@ enum					e_flags_verbose
 
 /*
 **-----------------------------------------------------------------------------
+**						Visu
+**-----------------------------------------------------------------------------
+*/
+
+void					wait_input(void);
+
+/*
+**-----------------------------------------------------------------------------
 **						Free
 **-----------------------------------------------------------------------------
 */
@@ -94,6 +103,7 @@ void					arg_free(t_arg **arg);
 **-----------------------------------------------------------------------------
 */
 
+void					vm_print(t_vm *vm, const char *format, ...);
 void					arena_print(t_vm *vm, unsigned int cols);
 void					champ_print(t_champ *champ);
 void					champs_print(t_champs *champs);

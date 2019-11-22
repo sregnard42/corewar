@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/21 18:42:44 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/22 02:09:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,21 @@ static void	fight_intro(t_vm *vm)
 {
 	t_champ	*champ;
 
+	vm->flags & VM_VISU ? printw("Introducing contestants...\n") :
 	ft_printf("Introducing contestants...\n");
 	champ = vm->champs.first;
 	while (champ)
 	{
-		ft_printf ("* Player %d, weighing %d bytes, \"%s\", (\"%s\") !\n",
-		champ->id, champ->prog_size, champ->name, champ->comment);
+		if (vm->flags & VM_VISU)
+			printw ("* Player %d, weighing %d bytes, \"%s\", (\"%s\") !\n",
+			champ->id, champ->prog_size, champ->name, champ->comment);
+		else
+			ft_printf ("* Player %d, weighing %d bytes, \"%s\", (\"%s\") !\n",
+			champ->id, champ->prog_size, champ->name, champ->comment);
 		champ = champ->next;
 	}
 	vm->winner = vm->champs.last;
+	vm->flags & VM_VISU ? wait_input() : 0;
 }
 
 void		fight(t_vm *vm)
@@ -107,9 +113,16 @@ void		fight(t_vm *vm)
 			ft_printf("It is now cycle %d\n", vm->cycle);
 		check_procs(vm);
 		cycle_to_die(vm);
-		vm->flags & VM_VISU ? arena_print(vm, VISU_COLS) : 0;
+		if (vm->flags & VM_VISU && vm->cycle % 1 == 0)
+			arena_print(vm, VISU_COLS);
 	}
-	if (vm->champs.size == 1)
+	if (vm->flags & VM_VISU)
+	{
+		printw("Contestant %d, \"%s\", has won !\n",
+		vm->winner->id, vm->winner->name);
+		wait_input();
+	}
+	else if (vm->champs.size == 1)
 		ft_printf("Contestant %d, \"%s\", has won !\n",
 		vm->winner->id, vm->winner->name);
 	else if (vm->flags & VM_DUMP)

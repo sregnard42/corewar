@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/20 13:11:48 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/22 01:34:55 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,6 +146,8 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 
 CC						:=	gcc
 CFLAGS					:=	-Wall -Wextra -Werror -g3
+FLAGS_ASM				:=
+FLAGS_WAR				:=	-lncurses
 
 ######	COLORS
 
@@ -172,12 +174,12 @@ $(LIBFT)				:
 	@make -C $(LIBDIR)
 
 $(ASM)					:	$(LIBFT) $(OBJ_ASM) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
+	@$(CC) $(CFLAGS) $(FLAGS_ASM) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(ASM)
 
 $(COREWAR)				:	$(LIBFT) $(OBJ_WAR) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_WAR) -o $@ $(OBJ_COM) $(OBJ_WAR) $(LIBFT)
+	@$(CC) $(CFLAGS) $(FLAGS_WAR) $(INCLUDES_WAR) -o $@ $(OBJ_COM) $(OBJ_WAR) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(COREWAR)
 

@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 18:11:04 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/22 01:32:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 		proc->cycle = vm->cycle + op_cycles[opcode];
 	if (proc->cycle > vm->cycle)
 		return ;
-	ft_printf("Cycle %d, executing %s\n", vm->cycle, op_names[opcode]);
 	vm->pc = proc->pc;
 	proc_set_pc(vm, proc, proc->pc + 1);
 	ocp(vm, opcode);
@@ -68,5 +67,5 @@ void		proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc)
 	if (pc < 0 || pc >= MEM_SIZE)
 		ft_error(vm, &free_all, "PC out of arena !\n");
 	proc->pc = pc;
-	vm->arena[pc] ? vm->colors[pc] = proc->champ->id + 10 : 0;
+	vm->colors[pc] = proc->champ->id + 10;
 }
