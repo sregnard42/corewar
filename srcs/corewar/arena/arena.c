@@ -6,60 +6,13 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/22 01:43:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:53:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
-{
-	unsigned int	i;
-	unsigned int	color;
-
-	i = cur * len;
-	while (i - (cur * len) < len)
-	{
-		if (vm->flags & VM_VISU)
-		{
-			color = vm->colors[i];
-			color < 10 ?
-			init_pair(color, color, -1) : init_pair(color, -1, color -10);
-			attron(COLOR_PAIR(color));
-			printw("%02x", vm->arena[i++]);
-			attroff(COLOR_PAIR(color));
-			i - (cur * len) < len ? printw(" ") : printw("\n");
-		}
-		else
-		{
-			color = vm->colors[i] + 30;
-			ft_printf("\033[1;%dm", color);
-			ft_printf("%02x", vm->arena[i++]);
-			ft_printf("\033[0m");
-			i - (cur * len) < len ? ft_printf(" ") : ft_printf("\n");
-		}
-	}
-}
-
-void		arena_print(t_vm *vm, unsigned int cols)
-{
-	unsigned int	cur;
-
-	if (!vm)
-		return ; 
-	cur = 0;
-	if (vm->flags & VM_VISU)
-	{
-		erase();
-		printw("Cycle %d\n", vm->cycle);
-	}
-	while (cur < MEM_SIZE / cols)
-		print_line(vm, cur++, cols);
-	refresh();
-	usleep(10000);
-}
-
-unsigned char	arena_get(t_vm *vm, int index)
+unsigned int	arena_id(t_vm *vm, int index)
 {
 	if (index >= MEM_SIZE)
 		index %= MEM_SIZE;
@@ -67,18 +20,35 @@ unsigned char	arena_get(t_vm *vm, int index)
 		index = index % -MEM_SIZE + MEM_SIZE - 1;
 	if (index < 0 || index >= MEM_SIZE)
 		ft_error(vm, &free_all, "arena_get out of bounds\n");
-	return (vm->arena[index]);
+	return (index);
+}
+
+unsigned char	arena_get(t_vm *vm, int index)
+{
+	return (vm->arena[arena_id(vm, index)]);
 }
 
 void			arena_set(t_vm *vm, int index, unsigned char c)
 {
-	if (index >= MEM_SIZE)
-		index %= MEM_SIZE;
-	else if (index < 0)
-		index = index % -MEM_SIZE + MEM_SIZE - 1;
-	if (index < 0 || index >= MEM_SIZE)
-		ft_error(vm, &free_all, "arena_set out of bounds\n");
-	vm->arena[index] = c;
+	vm->arena[arena_id(vm, index)] = c;
+}
+
+void			arena_store(t_vm *vm, int index, const void *src, size_t n)
+{
+	const char	*source;
+
+	source = (const char *)src;
+	while (n-- > 0)
+		arena_set(vm, index + n, source[n]);
+}
+
+void			arena_load(t_vm *vm, int index, void *dst, size_t n)
+{
+	char		*dest;
+
+	dest = (char *)dst;
+	while (n-- > 0)
+		dest[n] = arena_get(vm, index + n);
 }
 
 void			arena_init(t_vm *vm)

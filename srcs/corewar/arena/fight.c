@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/22 02:09:20 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:16:24 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,12 @@ void		fight(t_vm *vm)
 			arena_print(vm, VISU_COLS);
 	}
 	if (vm->flags & VM_VISU)
-	{
 		printw("Contestant %d, \"%s\", has won !\n",
 		vm->winner->id, vm->winner->name);
-		wait_input();
-	}
 	else if (vm->champs.size == 1)
 		ft_printf("Contestant %d, \"%s\", has won !\n",
 		vm->winner->id, vm->winner->name);
 	else if (vm->flags & VM_DUMP)
 		arena_print(vm, DUMP_COLS);
+	vm->flags & VM_VISU ? wait_input() : 0;
 }
