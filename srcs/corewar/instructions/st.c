@@ -47,15 +47,14 @@ void	op_st(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	proc = vm->procs.cur;
 	src = args->first->val;
-	dst = args->first->next->val;
+	dst = 0;
+    if (args->first->next->type == REG_CODE)
+        ft_memcpy(&dst, &(proc->reg[args->first->next->val]), REG_SIZE);
+    else
+    	dst = args->first->next->val;
 	if (vm->verbose & V_OPERATIONS)
 		ft_printf("st %u, %u | ", src, dst);
-	/*ft_memcpy(vm->pc + (src % IDX_MOD), &src, sizeof(args->first->next->type));
-	if (vm->verbose & V_OPERATIONS)
-	{
-		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-		ft_printf("loaded value %u in register / parameter %u\n", src, dst);
-	}*/
+	store(vm, src, vm->pc + dst % IDX_MOD);
 }
 
 /*
@@ -75,6 +74,7 @@ void	op_sti(void *vm_ptr)
     proc = vm->procs.cur;
 	args = &vm->procs.cur->args;
 	src = args->first->val;
+    ft_bzero(&dst, sizeof(dst));
 	if (args->first->next->type == REG_CODE)
         ft_memcpy(&dst[0], &(proc->reg[args->first->next->val]), REG_SIZE);
     else
