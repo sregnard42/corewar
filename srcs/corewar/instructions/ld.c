@@ -24,7 +24,7 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 
 	proc = vm->procs.cur;
 	proc->carry = (src == 0);
-	ft_memcpy(proc->reg[dst], &src, REG_SIZE);
+	ft_memcpy(&proc->reg[dst], &src, REG_SIZE); //ft_arenacpy
 	if (vm->verbose & V_OPERATIONS)
 	{
 		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
@@ -50,7 +50,7 @@ void	op_ld(void *vm_ptr)
 	dst = args->first->next->val;
 	if (vm->verbose & V_OPERATIONS)
 		ft_printf("ld %u, %u | ", src, dst);
-	load(vm, src, dst);
+	load(vm, arena_get(vm, src), dst);
 }
 
 /*

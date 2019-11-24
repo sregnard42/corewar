@@ -15,11 +15,16 @@
 
 # include "corewar.h"
 
+typedef struct          s_reg
+{
+    unsigned char       reg[REG_SIZE];
+}                       t_reg;
+
 typedef struct			s_process
 {
 	int					pc;
 	int					cycle;
-	unsigned char		reg[REG_NUMBER + 1][REG_SIZE];
+    t_reg       		reg[REG_NUMBER + 1];
 	bool				live;
 	bool				carry;
 	t_args				args;

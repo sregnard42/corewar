@@ -32,7 +32,7 @@ t_process	*proc_new(t_vm *vm)
 	ft_memcpy(&proc->reg[1], &proc->champ->id, sizeof(int));
 	proc->pc = proc->champ->pos;
 	vm->colors[proc->pc] = proc->champ->id + 10;
-	ft_memcpy(&proc->reg, &proc->champ->id, sizeof(REG_SIZE));
+	ft_memcpy(&proc->reg[0], &proc->champ->id, sizeof(REG_SIZE));
 	return (proc);
 }
 
