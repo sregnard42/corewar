@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:49:34 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/17 12:12:12 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 12:49:47 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,10 @@ void	write_comment(int fd, char *comment)
 	to_fill = ft_memalloc(sizeof(char) * COMMENT_LENGTH - size_com);
 	write(fd, to_fill, COMMENT_LENGTH - size_com);
 	ft_memdel((void*)&to_fill);
+}
+
+void	write_header(t_assembler *as, int fd)
+{
+	write_name(fd, as->header->name);
+	write_comment(fd, as->header->comment);
 }

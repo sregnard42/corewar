@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 18:05:22 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 12:43:13 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		main(int argc, char **argv)
 	as.file_name_s = ft_strdup(argv[1]);
 	parsing(&as);
 	close(as.source_fd);
-	// create_cor(&as);
-	ft_error(&as, &free_asm, "");
+	create_cor(&as);
+	free_asm(&as);
 	return (0);
 }
