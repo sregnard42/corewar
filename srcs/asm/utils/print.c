@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 16:39:30 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:50:26 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_instruc(t_assembler *as)
 	while (tmp)
 	{
 		ft_putstr("-----------------maillon-----------------------\n");
-		ft_printf("label: %s\ncommand: %s\n", tmp->label, tmp->command);
+		ft_printf("label: %s\ncommand: %s (opcode: %d)\n", tmp->label, tmp->command, tmp->opcode);
 		ft_putstr("----params:-----\n");
 		ft_print_tab(tmp->param);
 		tmp = tmp->next;

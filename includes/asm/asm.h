@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 12:50:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:48:14 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ void	clean_line(char *line);
 void	parse_instruction(t_assembler *as, char *line);
 void	free_asm(void *a);
 void	check_instruc(t_assembler *as, char *line);
-void	add_instruct(t_assembler *as, char *line, char *ocp);
+void	add_instruct(t_assembler *as, char *line, char *ocp, int id_command);
 int		is_param(t_assembler *as, int id_command, char *part, int nb_param, char *ocp);
 void	save_label_to_check(t_assembler *as, char *param);
 void	save_label_param(t_assembler *as, char *param);
 int		check_existing_labels(t_assembler *as);
 void	write_header(t_assembler *as, int fd);
+void	write_instruc(t_assembler *as, int fd);
 ////////////////////fonctions de print -- pour debug
 void	print_instruc(t_assembler *as);
 void	print_labels(t_assembler *as);
