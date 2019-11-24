@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 14:51:17 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:02:20 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,14 @@ void	check_instruc(t_assembler *as, char *line)
 			ft_error(as, &free_asm, "syntax error, element is neither a label nor a command nor a parameter\n");
 	}
 	ft_free_tab(&tab);
-	add_instruct(as, line, ocp);
+	add_instruct(as, line, ocp, id_command);
 	///////////////
 	ft_printf("ocp[0] = %c | ocp[1] = %c | ocp[2] = %c\n", ocp[0] + '0', ocp[1] + '0', ocp[2] + '0');
+}
+
+void	parse_instruction(t_assembler *as, char *line)
+{
+	if (line[0] == '\0' || ft_strchr(line, COMMENT_CHAR) != NULL)
+		return ;
+	check_instruc(as, line);
 }

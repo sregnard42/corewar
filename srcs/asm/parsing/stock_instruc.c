@@ -6,13 +6,13 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 17:40:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:50:00 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	init_room(t_assembler *as, t_instruc *new, char *line)
+void	init_room(t_assembler *as, t_instruc *new, char *line, int id_command)
 {
 	char	**tab;
 	int		i;
@@ -20,6 +20,7 @@ void	init_room(t_assembler *as, t_instruc *new, char *line)
 
 	i = 0;
 	j = 0;
+	new->opcode = id_command + 1;
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, "Malloc failed\n");
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
@@ -40,7 +41,7 @@ void	init_room(t_assembler *as, t_instruc *new, char *line)
 	ft_free_tab(&tab);
 }
 
-void	add_instruct(t_assembler *as, char *line, char *ocp)
+void	add_instruct(t_assembler *as, char *line, char *ocp, int id_command)
 {
 	t_instruc	*tmp;
 	t_instruc	*new;
@@ -61,12 +62,5 @@ void	add_instruct(t_assembler *as, char *line, char *ocp)
 		as->instruc = new;
 	}
 	new->ocp = ocp;
-	init_room(as, new, line);
-}
-
-void	parse_instruction(t_assembler *as, char *line)
-{
-	if (line[0] == '\0' || ft_strchr(line, COMMENT_CHAR) != NULL)
-		return ;
-	check_instruc(as, line);
+	init_room(as, new, line, id_command);
 }

@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instruc.h                                          :+:      :+:    :+:   */
+/*   instruc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 14:43:50 by lgaultie         ###   ########.fr       */
+/*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
+/*   Updated: 2019/11/24 14:58:18 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INSTRUC_H
-# define INSTRUC_H
+#include "asm.h"
 
-# include "asm.h"
-
-typedef struct				s_instruc
+void	write_instruc(t_assembler *as, int fd)
 {
-	char					*label;
-	char					*command;
-	int						opcode;
-	char					*param[4];
-	char					*ocp;
-	struct s_instruc		*next;
-	struct s_instruc		*prev;
-}							t_instruc;
+	t_instruc	*tmp;
+	int			i;
+	char		octet[1];
 
-#endif
+	tmp = as->instruc;
+	while (tmp)
+	{
+		i = 0;
+		octet[0] = tmp->opcode;
+		write(fd, octet, 1); //OPCODE
+		write(fd, "XXXX", 4); //OCP
+		// write(fd, tmp->command, ft_strlen(tmp->command));
+		while (i < 3)
+		{
+			write(fd, tmp->param[i], ft_strlen(tmp->param[i]));
+			i++;
+		}
+		tmp = tmp->next;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 13:03:25 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:27:48 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	create_cor(t_assembler *as)
 	ft_printf("cor file = %s\n", as->file_name_cor);
 	fd = open(as->file_name_cor,O_RDWR | O_APPEND | O_CREAT, 0644); // Creation du fichier .cor
 	write_header(as, fd);
+	write_instruc(as, fd);
 	// ft_printf("name = [%s]\ncomment = [%s]\n", assembler->header->name, assembler->header->comment);
 	return ;
 }
