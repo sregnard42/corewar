@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 16:04:05 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 16:49:25 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:52:44 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	get_ocp(t_instruc *instruc)
 {
 	unsigned char	ocp;
 
-	if (instruc->opcode == 1 || instruc->opcode == 9)
+	if (instruc->opcode == 1 || instruc->opcode == 9 || instruc->opcode == 12 \
+		|| instruc->opcode == 15 || instruc->opcode == 16)
 	{
 		instruc->ocp = 0;
 		return ;

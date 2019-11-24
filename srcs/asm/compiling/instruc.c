@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 16:49:03 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:58:11 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	write_registre(int fd, char *param)
 	write(fd, &ret, 1);
 }
 
-void	write_direct(int fd, char *param)
+void	write_direct(int fd, char *param, int size)
 {
 	int		ret;
 
@@ -35,11 +35,11 @@ void	write_direct(int fd, char *param)
 	if (*param != ':')
 	{
 		ret = ft_atoi(param);
-			write(fd, &ret, 2);
+		write(fd, &ret, size);
 	}
 	else
 	{
-		write (fd, "XXXX", 2); //??? comment on gere les labels
+		write (fd, "XXXX", size); //??? comment on gere les labels
 	}
 }
 
@@ -48,7 +48,7 @@ void	write_indirect(int fd, char *param)
 	int		ret;
 
 	ret = ft_atoi(param);
-		write(fd, &ret, 4);
+		write(fd, &ret, 2);
 	ft_printf("INDIRECT = %s\n", param);
 }
 
@@ -56,7 +56,7 @@ void	write_instruc(t_assembler *as, int fd)
 {
 	t_instruc		*tmp;
 	int				i;
-	// int				ret;
+	int				ret;
 
 	tmp = as->instruc;
 	while (tmp)
@@ -67,12 +67,11 @@ void	write_instruc(t_assembler *as, int fd)
 			write(fd, &tmp->ocp, 1); //OCP : poids des parametres sur 1byte
 		while (i < 3)
 		{
-			// ret = get_param_bytes(tmp->opcode, tmp->param_type[i]);
-			// write (fd, "salut", ret);
+			ret = get_param_bytes(tmp->opcode, tmp->param_type[i]);
 			if (tmp->param_type[i] == 1)
 				write_registre(fd, tmp->param[i]);		//sur 1 byte
 			else if (tmp->param_type[i] == 2)
-				write_direct(fd, tmp->param[i]);		//sur 2 bytes
+				write_direct(fd, tmp->param[i],ret);		//sur 2 bytes
 			else if (tmp->param_type[i] == 3)
 				write_indirect(fd, tmp->param[i]);		//sur 3 bytes
 			i++;
