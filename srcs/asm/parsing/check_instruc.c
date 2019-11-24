@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 15:02:20 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:23:59 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ void	check_instruc(t_assembler *as, char *line)
 	int		id_command;
 	int		nb_param;
 	int		tmp;
-	char	*ocp;
+	char	*param_type;
 
 	i = -1;
 	nb_param = 0;
 	if (!as->header->name || !as->header->comment)
 		ft_error(as, &free_asm, "Invalid name or comment at top of file.\n");
-	if ((ocp = ft_memalloc(sizeof(char) * 3)) == NULL)
+	if ((param_type = ft_memalloc(sizeof(char) * 3)) == NULL)
 		ft_error(as, &free_asm, "Malloc failed\n");
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, "Malloc failed\n");
@@ -119,15 +119,15 @@ void	check_instruc(t_assembler *as, char *line)
 			id_command = tmp;
 			ft_printf("'%s' is a command\n", as->commands[id_command].command);
 		}
-		else if (is_param(as, id_command, tab[i], nb_param++, ocp) == 1)
+		else if (is_param(as, id_command, tab[i], nb_param++, param_type) == 1)
 			;
 		else
 			ft_error(as, &free_asm, "syntax error, element is neither a label nor a command nor a parameter\n");
 	}
 	ft_free_tab(&tab);
-	add_instruct(as, line, ocp, id_command);
+	add_instruct(as, line, param_type, id_command);
 	///////////////
-	ft_printf("ocp[0] = %c | ocp[1] = %c | ocp[2] = %c\n", ocp[0] + '0', ocp[1] + '0', ocp[2] + '0');
+	ft_printf("param_type[0] = %c | param_type[1] = %c | param_type[2] = %c\n", param_type[0] + '0', param_type[1] + '0', param_type[2] + '0');
 }
 
 void	parse_instruction(t_assembler *as, char *line)

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/21 17:59:20 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:24:14 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
 */
 
 int		is_param(t_assembler *as, int id_command, char *part, int nb_param,
-				char *ocp)
+				char *param_type)
 {
 	// EN COURS
 	char	id_param;
@@ -91,7 +91,7 @@ int		is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	ft_putstr("----is_param----\n");
 	if ((id_param = which_params(as, part)) == 0)
 		ft_error(as, &free_asm, "Param with invalid syntax.\n");
-	ocp[nb_param] = id_param;
+	param_type[nb_param] = id_param;
 	// ft_printf("id_param = %d	id_command = %d		nb_param = %d\n", id_param, id_command, nb_param);
 	if (check_param(as, id_command, id_param, nb_param) == 0)
 		ft_error(as, &free_asm, "Invalid param for this command.\n");

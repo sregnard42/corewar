@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stock_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 14:50:00 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:21:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_room(t_assembler *as, t_instruc *new, char *line, int id_command)
 	ft_free_tab(&tab);
 }
 
-void	add_instruct(t_assembler *as, char *line, char *ocp, int id_command)
+void	add_instruct(t_assembler *as, char *line, char *param_type, int id_command)
 {
 	t_instruc	*tmp;
 	t_instruc	*new;
@@ -61,6 +61,6 @@ void	add_instruct(t_assembler *as, char *line, char *ocp, int id_command)
 		new->prev = NULL;
 		as->instruc = new;
 	}
-	new->ocp = ocp;
+	new->param_type = param_type;
 	init_room(as, new, line, id_command);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 14:43:50 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:20:24 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ typedef struct				s_instruc
 	char					*command;
 	int						opcode;
 	char					*param[4];
-	char					*ocp;
+	char					*param_type;
+	// char 					ocp;
 	struct s_instruc		*next;
 	struct s_instruc		*prev;
 }							t_instruc;
