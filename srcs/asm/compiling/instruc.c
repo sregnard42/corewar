@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 14:58:18 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:27:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 void	write_instruc(t_assembler *as, int fd)
 {
-	t_instruc	*tmp;
-	int			i;
-	char		octet[1];
+	t_instruc		*tmp;
+	int				i;
+	int				ret;
 
 	tmp = as->instruc;
 	while (tmp)
 	{
 		i = 0;
-		octet[0] = tmp->opcode;
-		write(fd, octet, 1); //OPCODE
-		write(fd, "XXXX", 4); //OCP
+		write(fd, &tmp->opcode, 1); //OPCODE : id de la commande sur 1byte
+		write(fd, "X", 1); //OCP : poids des parametres sur 1byte
+		// write(fd, &ocp, 1); //OCP
 		// write(fd, tmp->command, ft_strlen(tmp->command));
-		while (i < 3)
+		while (i < 4)
 		{
-			write(fd, tmp->param[i], ft_strlen(tmp->param[i]));
+			ret = get_param_bytes(tmp->opcode, tmp->param[i]);
+			write (fd, "salut" ,ret);
+			// write(fd, tmp->param[i], ft_strlen(tmp->param[i]));
 			i++;
 		}
 		tmp = tmp->next;
