@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 16:04:05 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 16:48:57 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:49:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	get_ocp(t_instruc *instruc)
 	{
 		instruc->ocp = 0;
 		return ;
+	}
 	ocp = 0;
 	ocp = ocp | instruc->param_type[0] << 6;
 	ocp = ocp | instruc->param_type[1] << 4;
