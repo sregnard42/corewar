@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 15:06:31 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:27:52 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static unsigned int	get_param_bytes(int opcode, char param)
+unsigned int	get_param_bytes(int opcode, char param)
 {
 	if (param == 0)
 		return (0);
