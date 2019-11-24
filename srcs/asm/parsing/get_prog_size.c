@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 14:59:26 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:06:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static unsigned int	get_param_bytes(char param)
+static unsigned int	get_param_bytes(int opcode, char param)
 {
 	if (param == 0)
 		return (0);
@@ -20,14 +20,16 @@ static unsigned int	get_param_bytes(char param)
 		return (1);
 	else if (param == 2)
 	{
-		return (2); // return 2 ou 4
+		if ((opcode >= 9 && opcode <= 12) || (opcode == 14 || opcode == 15))
+			return (2);
+		return (4);
 	}
 	else if (param == 4)
 		return (2);
 	return (0);
 }
 
-static unsigned int	get_params_bytes(char *ocp)
+static unsigned int	get_params_bytes(t_instruc *tmp)
 {
 	int				i;
 	unsigned int	prog_size;
@@ -35,7 +37,7 @@ static unsigned int	get_params_bytes(char *ocp)
 	i = -1;
 	prog_size = 0;
 	while (++i < 3)
-		prog_size += get_param_bytes(ocp[i]);
+		prog_size += get_param_bytes(tmp->opcode, tmp->ocp[i]);
 	return (prog_size);
 }
 
@@ -51,7 +53,7 @@ void				get_prog_size(t_assembler *as)
 	prog_size = 0;
 	while (tmp)
 	{
-		prog_size += get_params_bytes(tmp->ocp);
+		prog_size += get_params_bytes(tmp);
 		tmp = tmp->next;
 		ft_putstr("\n");
 	}
