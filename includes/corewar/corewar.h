@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/22 02:08:22 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:46:00 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void					error_magic(t_vm *vm);
 **-----------------------------------------------------------------------------
 */
 
+unsigned int			arena_id(t_vm *vm, int index);
 unsigned char			arena_get(t_vm *vm, int index);
 void					arena_set(t_vm *vm, int index, unsigned char c);
 void					arena_init(t_vm *vm);
