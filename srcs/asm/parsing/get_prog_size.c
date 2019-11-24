@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 15:27:52 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:29:47 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static unsigned int	get_params_bytes(t_instruc *tmp)
 	i = -1;
 	prog_size = 0;
 	while (++i < 3)
-		prog_size += get_param_bytes(tmp->opcode, tmp->ocp[i]);
+		prog_size += get_param_bytes(tmp->opcode, tmp->param_type[i]);
 	return (prog_size);
 }
 

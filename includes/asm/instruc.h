@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 15:20:09 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:30:02 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ typedef struct				s_instruc
 	char					*command;
 	int						opcode;
 	char					*param[4];
-	char					*ocp;
+	char					*param_type;
+	// char 					ocp;
 	struct s_instruc		*next;
 	struct s_instruc		*prev;
 }							t_instruc;
