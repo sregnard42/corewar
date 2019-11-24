@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 16:25:37 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:49:03 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ void	write_instruc(t_assembler *as, int fd)
 	{
 		i = 0;
 		write(fd, &tmp->opcode, 1); //OPCODE : id de la commande sur 1byte
-		write(fd, &tmp->ocp, 1); //OCP : poids des parametres sur 1byte
+		if (tmp->ocp != 0)
+			write(fd, &tmp->ocp, 1); //OCP : poids des parametres sur 1byte
 		while (i < 3)
 		{
 			// ret = get_param_bytes(tmp->opcode, tmp->param_type[i]);
 			// write (fd, "salut", ret);
 			if (tmp->param_type[i] == 1)
-				write_registre(fd, tmp->param[i]);  //sur 1 byte
+				write_registre(fd, tmp->param[i]);		//sur 1 byte
 			else if (tmp->param_type[i] == 2)
 				write_direct(fd, tmp->param[i]);		//sur 2 bytes
 			else if (tmp->param_type[i] == 3)
