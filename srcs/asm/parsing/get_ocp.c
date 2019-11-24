@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instruc.h                                          :+:      :+:    :+:   */
+/*   get_ocp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 16:22:58 by chrhuang         ###   ########.fr       */
+/*   Created: 2019/11/24 16:04:05 by chrhuang          #+#    #+#             */
+/*   Updated: 2019/11/24 16:23:02 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INSTRUC_H
-# define INSTRUC_H
+#include "asm.h"
 
-# include "asm.h"
-
-typedef struct				s_instruc
+void	get_ocp(t_instruc *instruc)
 {
-	char					*label;
-	char					*command;
-	int						opcode;
-	char					*param[4];
-	char					*param_type;
-	char 					ocp;
-	struct s_instruc		*next;
-	struct s_instruc		*prev;
-}							t_instruc;
+	unsigned char	ocp;
 
-#endif
+	ocp = 0;
+	ocp = ocp | instruc->param_type[0] << 6;
+	ocp = ocp | instruc->param_type[1] << 4;
+	ocp = ocp | instruc->param_type[2] << 2;
+	instruc->ocp = ocp;
+}
