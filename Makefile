@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/24 15:02:32 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/11/24 16:06:34 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRCNAME					:=	parsing.c			\
 							init_asm.c			\
 							param.c				\
 							get_prog_size.c		\
+							get_ocp.c			\
 							check_instruc.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 

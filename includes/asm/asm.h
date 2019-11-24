@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 15:27:58 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:24:16 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	get_prog_size(t_assembler *as);
 void	write_magic(int fd, int magic_number);
 unsigned int	get_param_bytes(int opcode, char param);
 void	write_instruc(t_assembler *as, int fd);
+void	get_ocp(t_instruc *instruc);
 ////////////////////fonctions de print -- pour debug
 void	print_instruc(t_assembler *as);
 void	print_labels(t_assembler *as);
