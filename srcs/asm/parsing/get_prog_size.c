@@ -6,11 +6,19 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 15:29:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:38:47 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** get_param_bytes() returns the nb of byte(s) of the given param
+** param = 0 -> erreur
+** param = 1 -> registre
+** param = 2 -> direct
+** param = 3 -> indirect
+*/
 
 unsigned int	get_param_bytes(int opcode, char param)
 {
@@ -24,7 +32,7 @@ unsigned int	get_param_bytes(int opcode, char param)
 			return (2);
 		return (4);
 	}
-	else if (param == 4)
+	else if (param == 3)
 		return (2);
 	return (0);
 }

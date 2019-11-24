@@ -6,31 +6,74 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 15:27:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:25:37 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+void	write_registre(int fd, char *param)
+{
+	// char c = 1;
+	// ft_printf("%c\n", c + '0');
+	int		ret;
+
+	ft_printf("registre = %s\n", param);
+	param++;
+	ret = ft_atoi(param);
+	write(fd, &ret, 1);
+}
+
+void	write_direct(int fd, char *param)
+{
+	int		ret;
+
+	(void)fd;
+	(void)param;
+	ft_printf("direct = %s\n", param);
+	param++;
+	if (*param != ':')
+	{
+		ret = ft_atoi(param);
+			write(fd, &ret, 2);
+	}
+	else
+	{
+		write (fd, "XXXX", 2); //??? comment on gere les labels
+	}
+}
+
+void	write_indirect(int fd, char *param)
+{
+	int		ret;
+
+	ret = ft_atoi(param);
+		write(fd, &ret, 4);
+	ft_printf("INDIRECT = %s\n", param);
+}
+
 void	write_instruc(t_assembler *as, int fd)
 {
 	t_instruc		*tmp;
 	int				i;
-	int				ret;
+	// int				ret;
 
 	tmp = as->instruc;
 	while (tmp)
 	{
 		i = 0;
 		write(fd, &tmp->opcode, 1); //OPCODE : id de la commande sur 1byte
-		write(fd, "X", 1); //OCP : poids des parametres sur 1byte
-		// write(fd, &ocp, 1); //OCP
-		// write(fd, tmp->command, ft_strlen(tmp->command));
-		while (i < 4)
+		write(fd, &tmp->ocp, 1); //OCP : poids des parametres sur 1byte
+		while (i < 3)
 		{
-			ret = get_param_bytes(tmp->opcode, tmp->param[i]);
-			write (fd, "salut" ,ret);
-			// write(fd, tmp->param[i], ft_strlen(tmp->param[i]));
+			// ret = get_param_bytes(tmp->opcode, tmp->param_type[i]);
+			// write (fd, "salut", ret);
+			if (tmp->param_type[i] == 1)
+				write_registre(fd, tmp->param[i]);  //sur 1 byte
+			else if (tmp->param_type[i] == 2)
+				write_direct(fd, tmp->param[i]);		//sur 2 bytes
+			else if (tmp->param_type[i] == 3)
+				write_indirect(fd, tmp->param[i]);		//sur 3 bytes
 			i++;
 		}
 		tmp = tmp->next;
