@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
+#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/21 17:41:56 by lgaultie         ###   ########.fr        #
+#    Updated: 2019/11/24 14:11:53 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRCNAME					:=	parsing.c			\
 							labels.c			\
 							init_asm.c			\
 							param.c				\
+							get_prog_size.c		\
 							check_instruc.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 

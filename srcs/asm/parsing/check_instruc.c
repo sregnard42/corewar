@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 18:03:11 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:51:17 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,14 @@ void	check_instruc(t_assembler *as, char *line)
 	int		id_command;
 	int		nb_param;
 	int		tmp;
-	char	ocp[3];
+	char	*ocp;
 
 	i = -1;
 	nb_param = 0;
 	if (!as->header->name || !as->header->comment)
 		ft_error(as, &free_asm, "Invalid name or comment at top of file.\n");
-	ft_bzero(ocp, 3);
+	if ((ocp = ft_memalloc(sizeof(char) * 3)) == NULL)
+		ft_error(as, &free_asm, "Malloc failed\n");
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, "Malloc failed\n");
 	len = ft_nb_str_tab(tab);

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 12:50:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:13:06 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	save_label_to_check(t_assembler *as, char *param);
 void	save_label_param(t_assembler *as, char *param);
 int		check_existing_labels(t_assembler *as);
 void	write_header(t_assembler *as, int fd);
+void	get_prog_size(t_assembler *as);
 ////////////////////fonctions de print -- pour debug
 void	print_instruc(t_assembler *as);
 void	print_labels(t_assembler *as);
