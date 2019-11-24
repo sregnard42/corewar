@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:01:50 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/21 18:21:14 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/24 17:10:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 
 	proc = vm->procs.cur;
 	proc->carry = (src == 0);
-	ft_memcpy(&proc->reg[dst], &src, REG_SIZE); //ft_arenacpy
+	arena_load(vm, src, &proc->reg[dst], REG_SIZE);
 	if (vm->verbose & V_OPERATIONS)
 	{
 		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-		ft_printf("loaded value %u into R%u\n", src, dst);
+		ft_printf("loaded value %u into R%u\n", arena_get(vm, src), dst);
 	}
+	ft_printf("proc->reg[%d] = %d\n", dst, proc->reg[dst]);
 }
 
 /*
@@ -50,7 +51,7 @@ void	op_ld(void *vm_ptr)
 	dst = args->first->next->val;
 	if (vm->verbose & V_OPERATIONS)
 		ft_printf("ld %u, %u | ", src, dst);
-	load(vm, arena_get(vm, src), dst);
+	load(vm, src, dst);
 }
 
 /*
@@ -72,7 +73,7 @@ void	op_ldi(void *vm_ptr)
 	dst = args->first->next->next->val;
 	if (vm->verbose & V_OPERATIONS)
 		ft_printf("ldi %u, %u, %u | ", src[0], src[1], dst);
-	load(vm, arena_get(vm, vm->pc + (src[0] + src[1]) % IDX_MOD), dst);
+	load(vm, vm->pc + (src[0] + src[1]) % IDX_MOD, dst);
 }
 
 /*
