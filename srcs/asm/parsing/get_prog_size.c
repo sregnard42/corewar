@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 15:38:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:27:01 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void				get_prog_size(t_assembler *as)
 		tmp = tmp->next;
 		ft_putstr("\n");
 	}
-	ft_printf("prog_size = %d\n", prog_size);
+	as->prog_size = prog_size + 6;	//pour passer en hexa...
+	ft_printf("as->prog_size = %d\n", as->prog_size);
 	ft_putstr("------------------\n");
 }
