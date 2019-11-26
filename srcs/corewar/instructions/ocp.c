@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:48:56 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/22 00:49:20 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/27 00:29:16 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		get_val(t_vm *vm, t_arg *arg, int opcode)
 	if (arg->type == REG_CODE)
 		arg->size = REG_SIZE;
 	else if (arg->type == DIR_CODE)
-		if (opcode == ZJMP || opcode == LDI || opcode == STI || opcode == FORK)
+		if (opcode == ZJMP || opcode == LDI || opcode == LLDI ||
+			opcode == STI || opcode == FORK || opcode == LFORK)
 			arg->size = DIR_SIZE / 2;
 		else
 			arg->size = DIR_SIZE;
