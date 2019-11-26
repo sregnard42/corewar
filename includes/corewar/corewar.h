@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/24 17:06:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:20:21 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,11 @@ void					error_magic(t_vm *vm);
 
 unsigned int			arena_id(t_vm *vm, int index);
 unsigned char			arena_get(t_vm *vm, int index);
-void					arena_set(t_vm *vm, int index, unsigned char c);
-void					arena_store(t_vm *vm, int index, const void *src, size_t n);
+void					arena_set(t_vm *vm, int index, unsigned char c,
+						unsigned int id_player);
 void					arena_load(t_vm *vm, int index, void *dst, size_t n);
+void					arena_store(t_vm *vm, int index, const void *src,
+						size_t n, unsigned int id);
 void					arena_init(t_vm *vm);
 void					fight(t_vm *vm);
 

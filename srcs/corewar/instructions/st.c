@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:08:04 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/17 12:08:05 by cmouele          ###   ########.fr       */
+/*   Updated: 2019/11/26 15:14:14 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void    store(t_vm *vm, unsigned int src, unsigned int dst)
     t_process		*proc;
 
     proc = vm->procs.cur;
-    ft_memcpy(&(vm->arena[dst]), &(proc->reg[src]), REG_SIZE); //ft_arenacpy
+	proc->carry = (src == 0);
+    arena_store(vm, dst, &(proc->reg[src]), REG_SIZE, proc->champ->id);
     if (vm->verbose & V_OPERATIONS)
     {
         ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/24 15:53:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:21:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ unsigned char	arena_get(t_vm *vm, int index)
 	return (vm->arena[arena_id(vm, index)]);
 }
 
-void			arena_set(t_vm *vm, int index, unsigned char c)
+void			arena_set(t_vm *vm, int index, unsigned char c,
+							unsigned int id_player)
 {
-	vm->arena[arena_id(vm, index)] = c;
+	unsigned int	id;
+
+	id = arena_id(vm, index);
+	vm->arena[id] = c;
+	vm->colors[id] = id_player;
 }
 
-void			arena_store(t_vm *vm, int index, const void *src, size_t n)
-{
-	const char	*source;
-
-	source = (const char *)src;
-	while (n-- > 0)
-		arena_set(vm, index + n, source[n]);
-}
+/*
+**				Copies n bytes from the arena to the destination
+*/
 
 void			arena_load(t_vm *vm, int index, void *dst, size_t n)
 {
@@ -49,6 +49,20 @@ void			arena_load(t_vm *vm, int index, void *dst, size_t n)
 	dest = (char *)dst;
 	while (n-- > 0)
 		dest[n] = arena_get(vm, index + n);
+}
+
+/*
+**				Copies n bytes from the source to the arena
+*/
+
+void			arena_store(t_vm *vm, int index, const void *src, size_t n,
+							unsigned int id)
+{
+	const char	*source;
+
+	source = (const char *)src;
+	while (n-- > 0)
+		arena_set(vm, index + n, source[n], id);
 }
 
 void			arena_init(t_vm *vm)
