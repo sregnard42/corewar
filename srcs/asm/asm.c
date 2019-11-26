@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 17:38:57 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:41:15 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		check_file_type(char *argv)
 
 	if (!(s = ft_strchr(argv, '.')) || ft_strcmp(s, ".s") != 0)
 	{
-		ft_putstr("Please give a .s file.\n");
+		ft_putstr(NOT_S_FILE);
 		return (0);
 	}
 	return (1);
@@ -52,7 +52,7 @@ int		main(int argc, char **argv)
 			return (0);
 		init_asm(&as);
 		if (open_file(&as, argv[i]) == -1)
-			ft_error(&as, &free_asm, "Can't read source file ds\n");
+			ft_error(&as, &free_asm, CANT_READ);
 		as.file_name_s = ft_strdup(argv[i]);
 		parsing(&as);
 		close(as.source_fd);

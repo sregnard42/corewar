@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/26 13:31:14 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:01:30 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,17 @@ int		which_command(t_assembler *as, char *part)
 ** call add_instruc to save the line.
 */
 
-void	check_instruc(t_assembler *as, char *line, char *param_type, char **tab)
+void	check_instruc(t_assembler *as, char *line, int len, char **tab)
 {
-	int		len;
 	int		i;
 	int		ret;
 	int		id_command;
 	int		nb_param;
 	int		tmp;
+	char	param_type[3];
 
 	i = -1;
 	nb_param = 0;
-	len = ft_nb_str_tab(tab);
 	while (++i < len)
 	{
 		if ((ret = (is_label(as, tab[i]))) == 1)
@@ -125,7 +124,7 @@ void	check_instruc(t_assembler *as, char *line, char *param_type, char **tab)
 		else if (is_param(as, id_command, tab[i], nb_param++, param_type) == 1)
 			;
 		else
-			ft_error(as, &free_asm, "syntax error, element is neither a label nor a command nor a parameter\n");
+			ft_error(as, &free_asm, WTF_IS_THIS);
 	}
 	ft_free_tab(&tab);
 	add_instruct(as, line, param_type, id_command);
@@ -135,19 +134,20 @@ void	check_instruc(t_assembler *as, char *line, char *param_type, char **tab)
 
 void	parse_instruction(t_assembler *as, char *line)
 {
-	char	*param_type;
 	char	**tab;
+	int		len;
 
 	if (line[0] == '\0' || line[0] == '#')
 		return ;
-	if (!as->header->name || !as->header->comment)
-		ft_error(as, &free_asm, WRONG_TOP);
-	if ((param_type = ft_memalloc(sizeof(char) * 3)) == NULL)
-		ft_error(as, &free_asm, ERROR_MALLOC);
+	if (!as->header->name)
+		ft_error(as, &free_asm, EMPTY_NAME);
+	if (!as->header->comment)
+		ft_error(as, &free_asm, EMPTY_COMMENT);
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, ERROR_MALLOC);
+	len = ft_nb_str_tab(tab);
 	ft_putstr("tab -----------------------------------------\n");
 	ft_print_tab(tab);
 	ft_putstr("---------------------------------------------\n");
-	check_instruc(as, line, param_type, tab);
+	check_instruc(as, line, len, tab);
 }
