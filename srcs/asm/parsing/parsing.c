@@ -6,27 +6,11 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 14:29:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/26 11:54:09 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-// Marche si label n'as pas de ':' à la fin
-//elle est appelée nul part cette fonction wtf?
-
-// void	check_label(t_assembler *as, char *label)
-// {
-// 	int	i;
-//
-// 	i = 0;
-// 	while (label[i] != '\0')
-// 	{
-// 		if (ft_strchr(LABEL_CHARS, label[i]) == NULL)
-// 			ft_error(as, &free_asm, "Label with a non LABEL_CHARS.\n");
-// 		i = i + 1;
-// 	}
-// }
 
 /*
 ** parsing() if doesnt find .name or .comment, parse the line as a instruction

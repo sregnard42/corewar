@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 15:23:59 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/26 12:03:10 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		check_label_chars(t_assembler *as, char *str)
 
 /*
 ** is_label() checks if it's a label /!\ possible d'avoir un label invalide ? (ex trop long)
+** returns 1 if it's a label, 0 if it's not, and -1 for comments to ignore
 */
 
 int		is_label(t_assembler *as, char *part)
@@ -54,6 +55,8 @@ int		is_label(t_assembler *as, char *part)
 	char *label;
 
 	ft_printf("part = %s\n", part);
+	if (part[0] == '#')
+		return (-1);
 	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL)
 		return (0);
 	if (!(str = ft_strsub(part, 0,  ret - part)))
@@ -96,6 +99,7 @@ void	check_instruc(t_assembler *as, char *line)
 	char	**tab;
 	int		len;
 	int		i;
+	int		ret;
 	int		id_command;
 	int		nb_param;
 	int		tmp;
@@ -112,8 +116,10 @@ void	check_instruc(t_assembler *as, char *line)
 	len = ft_nb_str_tab(tab);
 	while (++i < len)
 	{
-		if (is_label(as, tab[i]) == 1)
+		if ((ret = (is_label(as, tab[i]))) == 1)
 			ft_printf("'%s' is a label\n", tab[i]);
+		else if (ret == -1) //on a #ahah en fin de ligne
+			break;
 		else if ((tmp = which_command(as, tab[i])) < 16)
 		{
 			id_command = tmp;
@@ -132,7 +138,7 @@ void	check_instruc(t_assembler *as, char *line)
 
 void	parse_instruction(t_assembler *as, char *line)
 {
-	if (line[0] == '\0' || ft_strchr(line, COMMENT_CHAR) != NULL)
+	if (line[0] == '\0' || line[0] == '#')
 		return ;
 	check_instruc(as, line);
 }

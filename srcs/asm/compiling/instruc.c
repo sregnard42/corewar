@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/25 14:50:23 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:40:26 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	write_registre(int fd, char *param)
 	// ft_printf("%c\n", c + '0');
 	int		ret;
 
-	ft_printf("registre = %s\n", param);
 	param++;
 	ret = ft_atoi(param);
 	write(fd, &ret, 1);
@@ -45,7 +44,6 @@ void	write_direct(int fd, char *param, int size)
 {
 	int		ret;
 
-	ft_printf("direct = %s\n", param);
 	param++;
 	if (*param != ':')
 	{
@@ -64,7 +62,6 @@ void	write_indirect(int fd, char *param)
 
 	ret = ft_atoi(param);
 		write_big_endian(fd, ret, 2);
-	ft_printf("INDIRECT = %s\n", param);
 }
 
 void	write_instruc(t_assembler *as, int fd)
