@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stock_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 16:07:07 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:18:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_room(t_assembler *as, t_instruc *new, char *line, int id_command)
 	j = 0;
 	new->opcode = id_command + 1;
 	if (!(tab = ft_strsplit(line, ' ')))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
 		tab[0][ft_strlen(tab[0]) - 1] = '\0';
@@ -48,7 +48,7 @@ void	add_instruct(t_assembler *as, char *line, char *param_type, int id_command)
 
 	tmp = as->instruc;
 	if (!(new = ft_memalloc(sizeof(t_instruc))))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (tmp != NULL)
 	{
 		while (tmp->next != NULL)

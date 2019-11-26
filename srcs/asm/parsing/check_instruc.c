@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/26 12:03:10 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:31:14 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		check_label_chars(t_assembler *as, char *str)
 		if (j == 37)
 		{
 			ft_printf("%s --> ", str);
-			ft_error(as, &free_asm, "Label with invalid characters.\n");
+			ft_error(as, &free_asm, INVALID_LABEL);
 		}
 		if (str[i] == LABEL_CHARS[j])
 		{
@@ -54,18 +54,23 @@ int		is_label(t_assembler *as, char *part)
 	char *str;
 	char *label;
 
-	ft_printf("part = %s\n", part);
+	ft_printf("(is_label)part = %s\n", part);
 	if (part[0] == '#')
 		return (-1);
-	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL)
+	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL \
+		|| ft_strchr(part, DIRECT_CHAR) != NULL)
 		return (0);
+	if (ft_strlen(ret) > 1)
+		ft_error(as, &free_asm, SPACE_LABEL);
 	if (!(str = ft_strsub(part, 0,  ret - part)))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (ft_strcmp(ret, ":") == 0)
 	{
 		check_label_chars(as, str);
 		if (!(label = ft_strsub(str, 0, ft_strchr(part, ':') - part)))
-			ft_error(as, &free_asm, "Malloc failed\n");
+			ft_error(as, &free_asm, ERROR_MALLOC);
+		if (ft_strlen(label) == 0)
+			ft_error(as, &free_asm, EMPTY_LABEL);
 		save_label_to_check(as, label);
 		ft_memdel((void**)&label);
 		ft_memdel((void**)&str);
@@ -94,25 +99,17 @@ int		which_command(t_assembler *as, char *part)
 ** call add_instruc to save the line.
 */
 
-void	check_instruc(t_assembler *as, char *line)
+void	check_instruc(t_assembler *as, char *line, char *param_type, char **tab)
 {
-	char	**tab;
 	int		len;
 	int		i;
 	int		ret;
 	int		id_command;
 	int		nb_param;
 	int		tmp;
-	char	*param_type;
 
 	i = -1;
 	nb_param = 0;
-	if (!as->header->name || !as->header->comment)
-		ft_error(as, &free_asm, "Invalid name or comment at top of file.\n");
-	if ((param_type = ft_memalloc(sizeof(char) * 3)) == NULL)
-		ft_error(as, &free_asm, "Malloc failed\n");
-	if (!(tab = ft_strsplit(line, ' ')))
-		ft_error(as, &free_asm, "Malloc failed\n");
 	len = ft_nb_str_tab(tab);
 	while (++i < len)
 	{
@@ -138,7 +135,19 @@ void	check_instruc(t_assembler *as, char *line)
 
 void	parse_instruction(t_assembler *as, char *line)
 {
+	char	*param_type;
+	char	**tab;
+
 	if (line[0] == '\0' || line[0] == '#')
 		return ;
-	check_instruc(as, line);
+	if (!as->header->name || !as->header->comment)
+		ft_error(as, &free_asm, WRONG_TOP);
+	if ((param_type = ft_memalloc(sizeof(char) * 3)) == NULL)
+		ft_error(as, &free_asm, ERROR_MALLOC);
+	if (!(tab = ft_strsplit(line, ' ')))
+		ft_error(as, &free_asm, ERROR_MALLOC);
+	ft_putstr("tab -----------------------------------------\n");
+	ft_print_tab(tab);
+	ft_putstr("---------------------------------------------\n");
+	check_instruc(as, line, param_type, tab);
 }

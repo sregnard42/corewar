@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 17:55:38 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:22:46 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 		ft_error(as, &free_asm, NAME_COMMENT_EXIST);
 	str = ft_strchr(line, '"') + 1;
 	if ((ft_strcmp("", ft_strchr(str, '"') + 1) != 0))
-		ft_error(as, &free_asm, "There is some junk after quotes.\n");
+		ft_error(as, &free_asm, STUFF_AFTER);
 	if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
-		ft_error(as, &free_asm, "Malloc failed.\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (choice == 1)
 	{
 		if (ft_strlen(str) > PROG_NAME_LENGTH)
-			ft_error(as, &free_asm, "Program name is too long.\n");
+			ft_error(as, &free_asm, NAME_TOO_LONG);
 	}
 	if (choice == 2)
 	{
 		if (ft_strlen(str) > COMMENT_LENGTH)
-			ft_error(as, &free_asm, "Comment is too long.\n");
+			ft_error(as, &free_asm, COMM_TOO_LONG);
 	}
 	*dst = str;
 }

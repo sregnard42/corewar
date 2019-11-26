@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/21 17:58:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:33:51 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	save_label_to_check(t_assembler *as, char *label)
 	t_label	*new;
 
 	if (check_if_exists(as, label, 1) == 0)
-		return ;
+		ft_error(as, &free_asm, LABEL_ALRDY_EXIST);
 	tmp = as->labels;
 	if (!(new = ft_memalloc(sizeof(t_label))))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (tmp != NULL)
 	{
 		while (tmp->next != NULL)
@@ -48,7 +48,7 @@ void	save_label_to_check(t_assembler *as, char *label)
 	else
 		as->labels = new;
 	if (!(new->name = ft_strdup(label)))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 }
 
 void	save_label_param(t_assembler *as, char *param)
@@ -60,7 +60,7 @@ void	save_label_param(t_assembler *as, char *param)
 		return ;
 	tmp = as->param_labels;
 	if (!(new = ft_memalloc(sizeof(t_label))))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (tmp != NULL)
 	{
 		while (tmp->next != NULL)
@@ -70,7 +70,7 @@ void	save_label_param(t_assembler *as, char *param)
 	else
 		as->param_labels = new;
 	if (!(new->name = ft_strdup(param)))
-		ft_error(as, &free_asm, "Malloc failed\n");
+		ft_error(as, &free_asm, ERROR_MALLOC);
 }
 
 int		check_existing_labels(t_assembler *as)

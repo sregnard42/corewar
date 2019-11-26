@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/25 14:55:33 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:33:55 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,32 @@
 # include "common.h"
 # include "instruc.h"
 
+// GENERAL
+
+# define	ERROR_MALLOC		"Error with malloc.\n"
+# define	EMPTY_FILE			"Empty file.\n"
+
+// LABEL
+
+# define	SPACE_LABEL			"No space after label.\n"
+# define	INVALID_LABEL		"Label with invalid characters.\n"
+# define	NO_EXIST_LABEL		"Label in argument doesn't exist.\n"
+# define	EMPTY_LABEL			"Label is empty.\n"
+# define	LABEL_ALRDY_EXIST	"This label already exists.\n"
+
+//COMMENT/NAME
+
+# define	WRONG_TOP			"Invalid name or comment at top of file.\n"
 # define	NAME_COMMENT_EXIST	"Name or comment already exist\n"
-# define	ERROR_MALLOC		"Error with malloc\n"
+# define	STUFF_AFTER			"There is some junk after quotes.\n"
+# define	NAME_TOO_LONG		"Program name is too long.\n"
+# define	COMM_TOO_LONG		"Comment is too long.\n"
+
+//PARAMS
+
+# define	INVALID_PARAM		"Param with invalid syntax.\n"
+# define	WRONG_COMMAND_PARAM	"Invalid param for this command.\n"
+
 
 typedef	struct		s_commands
 {
@@ -52,7 +76,6 @@ void	parsing(t_assembler *as);
 void	clean_line(char *line);
 void	parse_instruction(t_assembler *as, char *line);
 void	free_asm(void *a);
-void	check_instruc(t_assembler *as, char *line);
 void	add_instruct(t_assembler *as, char *line, char *ocp, int id_command);
 int		is_param(t_assembler *as, int id_command, char *part, int nb_param, char *ocp);
 void	save_label_to_check(t_assembler *as, char *param);

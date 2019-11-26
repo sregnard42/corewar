@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 15:24:14 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:20:54 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 char	which_params(t_assembler *as, char *param)
 {
 	char *cpy;
-	// ft_printf("*param = %c\n", *param);
-	// ft_printf("param + 1 = %s\n", param + 1);
-	// ft_printf("*param + 1 = %s\n", *param + 1);
-	// ft_printf("param = %s\n", param);
+
 	if (!param || !*param)
 		return (0);
 	if (*param == 'r')
@@ -41,7 +38,7 @@ char	which_params(t_assembler *as, char *param)
 		if (*param == ':')
 		{
 			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
-				ft_error(as, &free_asm, "Malloc failed\n");
+				ft_error(as, &free_asm, ERROR_MALLOC);
 			save_label_param(as, cpy);
 			ft_memdel((void**)&cpy);
 		}
@@ -54,6 +51,7 @@ char	which_params(t_assembler *as, char *param)
 		if (*param == LABEL_CHAR || ft_isnumber(param))
 			return (3);
 	}
+	ft_printf("param |%s|   end of which_params\n", param);
 	return (0);
 }
 
@@ -90,11 +88,11 @@ int		is_param(t_assembler *as, int id_command, char *part, int nb_param,
 
 	ft_putstr("----is_param----\n");
 	if ((id_param = which_params(as, part)) == 0)
-		ft_error(as, &free_asm, "Param with invalid syntax.\n");
+		ft_error(as, &free_asm, INVALID_PARAM);
 	param_type[nb_param] = id_param;
 	// ft_printf("id_param = %d	id_command = %d		nb_param = %d\n", id_param, id_command, nb_param);
 	if (check_param(as, id_command, id_param, nb_param) == 0)
-		ft_error(as, &free_asm, "Invalid param for this command.\n");
+		ft_error(as, &free_asm, WRONG_COMMAND_PARAM);
 	if (id_param != 0)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/24 14:27:48 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:35:00 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*s_to_cor(t_assembler *assembler, char *s)
 	if ((cor = ft_memalloc(sizeof(char) * (len + 4))) == NULL)
 	{
 		ft_memdel((void **)&cor);
-		ft_error(assembler, NULL, "Malloc ERROR\n");
+		ft_error(assembler, NULL, ERROR_MALLOC);
 	}
 	ft_strncat(cor, s, len - 1);
 	ft_strcat(cor, "cor");
