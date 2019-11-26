@@ -33,8 +33,8 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 }
 
 /*
-**		Arg #1 : Value
-**		Arg #2 : Registry number
+**		Takes a direct / indirect, and a register. Charges the value of the
+**		direct / indirect in the register. Modifies the carry.
 */
 
 void	op_ld(void *vm_ptr)
@@ -50,12 +50,12 @@ void	op_ld(void *vm_ptr)
 	dst = args->first->next->val;
 	if (vm->verbose & V_OPERATIONS)
 		ft_printf("ld %u, %u | ", src, dst);
-	load(vm, src, dst);
+	load(vm, vm->pc + src % IDX_MOD, dst);
 }
 
 /*
-**		Arg #1 & #2 : Add #1 to #2, which gives the address of the value
-**		Arg #3 : Registry number
+**		Takes and 2 directs and a register. Puts the value of the sum of the 2
+**		directs in the register.
 */
 
 void	op_ldi(void *vm_ptr)
@@ -76,21 +76,42 @@ void	op_ldi(void *vm_ptr)
 }
 
 /*
-**		Comment
+**		Same as ld() except for the addressing, where there is no IDX_MOD.
 */
 
 void	op_lld(void *vm_ptr)
 {
-    vm_ptr += 0;
-    return ;
+	t_vm			*vm;
+	t_args			*args;
+	unsigned int	src;
+	unsigned int	dst;
+
+	vm = (t_vm *)vm_ptr;
+	args = &vm->procs.cur->args;
+	src = args->first->val;
+	dst = args->first->next->val;
+	if (vm->verbose & V_OPERATIONS)
+		ft_printf("lld %u, %u | ", src, dst);
+	load(vm, vm->pc + src, dst);
 }
 
 /*
-**		Comment
+**		Same as ldi() except for the addressing, where there is no IDX_MOD.
 */
 
 void	op_lldi(void *vm_ptr)
 {
-    vm_ptr += 0;
-    return ;
+	t_vm			*vm;
+	t_args			*args;
+	unsigned int	src[2];
+	unsigned int	dst;
+
+	vm = (t_vm *)vm_ptr;
+	args = &vm->procs.cur->args;
+	src[0] = args->first->val;
+	src[1] = args->first->next->val;
+	dst = args->first->next->next->val;
+	if (vm->verbose & V_OPERATIONS)
+		ft_printf("lldi %u, %u, %u | ", src[0], src[1], dst);
+	load(vm, vm->pc + src[0] + src[1], dst);
 }
