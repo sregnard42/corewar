@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/26 14:01:30 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:49:50 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ int		which_command(t_assembler *as, char *part)
 ** call add_instruc to save the line.
 */
 
-void	check_instruc(t_assembler *as, char *line, int len, char **tab)
+void	check_instruc(t_assembler *as, char *line, int len, char **tab,
+		char *param_type)
 {
 	int		i;
 	int		ret;
 	int		id_command;
 	int		nb_param;
 	int		tmp;
-	char	param_type[3];
 
 	i = -1;
 	nb_param = 0;
@@ -136,6 +136,7 @@ void	parse_instruction(t_assembler *as, char *line)
 {
 	char	**tab;
 	int		len;
+	char	*param_type;
 
 	if (line[0] == '\0' || line[0] == '#')
 		return ;
@@ -146,8 +147,10 @@ void	parse_instruction(t_assembler *as, char *line)
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, ERROR_MALLOC);
 	len = ft_nb_str_tab(tab);
+	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	ft_putstr("tab -----------------------------------------\n");
 	ft_print_tab(tab);
 	ft_putstr("---------------------------------------------\n");
-	check_instruc(as, line, len, tab);
+	check_instruc(as, line, len, tab, param_type);
 }

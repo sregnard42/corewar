@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/25 16:40:26 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:51:09 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	write_indirect(int fd, char *param)
 	int		ret;
 
 	ret = ft_atoi(param);
-		write_big_endian(fd, ret, 2);
+	write_big_endian(fd, ret, 2);
 }
 
 void	write_instruc(t_assembler *as, int fd)
