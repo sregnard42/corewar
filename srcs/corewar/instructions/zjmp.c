@@ -13,11 +13,26 @@
 #include "corewar.h"
 
 /*
-**		Comment
+**		Takes an indirect. Jumps to the address of the index if carry == 1.
 */
 
 void	op_zjmp(void *vm_ptr)
 {
-    vm_ptr += 0;
-    return ;
+    t_vm			*vm;
+    t_process       *proc;
+    t_args			*args;
+    unsigned int	src;
+
+    vm = (t_vm *)vm_ptr;
+    proc = vm->procs.cur;
+    args = &vm->procs.cur->args;
+    src = args->first->val;
+    if (proc->carry == 1)
+        proc->pc += src;
+    if (vm->verbose & V_OPERATIONS)
+    {
+        ft_printf("zjmp %u | ", src);
+        ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+        ft_printf("jumped to the address %u\n", proc->pc);
+    }
 }
