@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/22 01:32:34 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:37:00 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 		proc->cycle = vm->cycle + op_cycles[opcode];
 	if (proc->cycle > vm->cycle)
 		return ;
+	proc->cycle = 0;
 	vm->pc = proc->pc;
 	proc_set_pc(vm, proc, proc->pc + 1);
 	ocp(vm, opcode);
 	op[opcode](vm);
 	args_free(&proc->args);
-	proc->cycle = 0;
 }
 
 void		proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc)

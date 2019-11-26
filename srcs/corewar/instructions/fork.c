@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:13:57 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/25 23:12:22 by cmouele          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:57:59 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,30 @@
 **      parent: cycle, registers, live, carry.
 */
 
-static void proc_dup(t_vm *vm, t_process *proc_cur)
+static void vm_fork(t_vm *vm, t_process *proc_cur, unsigned int pc)
 {
     t_process   *proc;
 
     proc = proc_new(vm);
-    // copier les registres
+    ft_memcpy(proc->reg, proc_cur->reg, sizeof(t_reg));
     proc->live = proc_cur->live;
     proc->carry = proc_cur->carry;
+	proc_set_pc(vm, proc, pc);
+	if (vm->verbose & V_OPERATIONS)
+	{
+		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+		ft_printf("forked a new process at PC %u\n", proc->pc);
+	}
+}
+
+static unsigned int	get_target(t_vm *vm)
+{
+	t_arg			*arg;
+
+	arg = arg_new(vm);
+	arg->type = DIR_CODE; 
+	get_val(vm, arg, FORK);
+	return (arg->val);
 }
 
 /*
@@ -34,13 +50,14 @@ static void proc_dup(t_vm *vm, t_process *proc_cur)
 
 void	    op_fork(void *vm_ptr)
 {
-    t_vm	*vm;
-	t_args	*args;
+    t_vm			*vm;
+	unsigned int	val;
 
     vm = (t_vm *)vm_ptr;
-	args = &vm->procs.cur->args;
-    proc_dup(vm, vm->procs.cur);
-    vm->procs.cur->pc = vm->pc + (args->first->val % IDX_MOD);
+	val = get_target(vm);
+	if (vm->verbose & V_OPERATIONS)
+		ft_printf("fork %u | ", val);
+    vm_fork(vm, vm->procs.cur, vm->pc + (val % IDX_MOD));
 }
 
 /*
@@ -50,11 +67,12 @@ void	    op_fork(void *vm_ptr)
 
 void	    op_lfork(void *vm_ptr)
 {
-    t_vm    *vm;
-	t_args	*args;
+    t_vm			*vm;
+	unsigned int	val;
 
     vm = (t_vm *)vm_ptr;
-	args = &vm->procs.cur->args;
-    proc_dup(vm, vm->procs.cur);
-    vm->procs.cur->pc = vm->pc + args->first->val;
+	val = get_target(vm);
+	if (vm->verbose & V_OPERATIONS)
+		ft_printf("lfork %u | ", val);
+    vm_fork(vm, vm->procs.cur, vm->pc + val);
 }

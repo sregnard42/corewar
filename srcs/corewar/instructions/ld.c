@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:01:50 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/24 17:10:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:39:10 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
 		ft_printf("loaded value %u into R%u\n", arena_get(vm, src), dst);
 	}
-	ft_printf("proc->reg[%d] = %d\n", dst, proc->reg[dst]);
 }
 
 /*
