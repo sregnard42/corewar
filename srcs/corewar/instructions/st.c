@@ -58,8 +58,8 @@ void	op_st(void *vm_ptr)
 }
 
 /*
-**		Takes a register and 2 indexes, and copies the register to the address
-**		of the sum of the 2 indexes.
+**		Takes a register and 2 indirects. Copies the register to the address of
+**		the sum of the 2 indirects.
 */
 
 void	op_sti(void *vm_ptr)
