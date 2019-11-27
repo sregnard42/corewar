@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 13:31:38 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:05:30 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,28 @@ void	write_registre(int fd, char *param)
 // 	write_big_endian(fd, res, size); //??? comment on gere les labels
 // }
 
+void	write_neg_number(int fd, int nb, int size)
+{
+	int	tmp;
+	unsigned char	octets[4];
+	unsigned char			max;
+
+	tmp = 0;
+	max = 0xff; //111111
+	octets[0] = nb >> 24;
+	octets[1] = nb >> 16;
+	octets[2] = nb >> 8;
+	octets[3] = nb >> 0;
+	octets[0] = octets[0] ^ max;
+	octets[1] = octets[1] ^ max;
+	octets[2] = octets[2] ^ max;
+	octets[3] = octets[3] ^ max;
+	// tmp = (int)octets;
+	// ft_printf("last_tmp = %d\n", tmp);
+	// exit(0);
+	write(fd, octets, size);
+}
+
 void	write_direct(t_assembler *as, int fd, char *param, int size)
 {
 	int		ret;
@@ -59,6 +81,7 @@ void	write_direct(t_assembler *as, int fd, char *param, int size)
 	}
 	else
 	{
+		write_neg_number(fd, 2, size);
 		// res = write_label(as, fd, size);
 	}
 }
@@ -68,7 +91,7 @@ void	write_indirect(int fd, char *param)
 	int		ret;
 
 	ret = ft_atoi(param);
-	write_big_endian(fd, ret, 2);
+	write_big_endian(fd, ret, 4);
 }
 
 void	write_instruc(t_assembler *as, int fd)
