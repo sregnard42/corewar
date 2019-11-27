@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/26 14:31:52 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:24:04 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int		open_file(t_assembler *as, char *argv)
 {
-	as->source_fd = open(argv, O_RDONLY);
-	return (as->source_fd);
+	as->s_fd = open(argv, O_RDONLY);
+	return (as->s_fd);
 }
 
 int		check_file_type(char *argv)
@@ -55,7 +55,7 @@ int		main(int argc, char **argv)
 			ft_error(&as, &free_asm, CANT_READ);
 		as.file_name_s = ft_strdup(argv[i]);
 		parsing(&as);
-		close(as.source_fd);
+		close(as.s_fd);
 		create_cor(&as);
 		i++;
 	}

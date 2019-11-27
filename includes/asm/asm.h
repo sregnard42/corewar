@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 12:18:09 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:26:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ typedef struct		s_assembler
 	t_label			*labels;
 	t_label			*param_labels;
 	char			*file_name_cor;
-	int				source_fd;
+	int				s_fd;
+	int				cor_fd;
 	t_instruc		*instruc;
 }					t_assembler;
 
@@ -88,12 +89,12 @@ int				is_param(t_assembler *as, int id_command, char *part,
 void			save_label_to_check(t_assembler *as, char *param);
 void			save_label_param(t_assembler *as, char *param);
 int				check_existing_labels(t_assembler *as);
-void			write_header(t_assembler *as, int fd);
+void			write_header(t_assembler *as);
 void			get_prog_size(t_assembler *as);
 unsigned int	get_params_bytes(t_instruc *tmp);
 void			write_magic(int fd, int magic_number);
 unsigned int	get_param_bytes(int opcode, char param);
-void			write_instruc(t_assembler *as, int fd);
+void			write_instruc(t_assembler *as);
 void			get_ocp(t_instruc *instruc);
 ////////////////////fonctions de print -- pour debug
 void	print_instruc(t_assembler *as);

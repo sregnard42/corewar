@@ -1,1 +1,1 @@
-rm zork.cor && make && ./asm zork.s
+rm -rf zork.cor && make && ./asm zork.s

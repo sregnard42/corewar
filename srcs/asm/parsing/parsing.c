@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/26 14:37:29 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:24:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 
 void	parsing(t_assembler *as)
 {
-	int		fd;
 	char	*line;
 	int		i;
 
 	i = 0;
-	fd = as->source_fd;
-	while (get_next_line(fd, &line) == 1)
+	while (get_next_line(as->s_fd, &line) == 1)
 	{
 		i++; //pour savoir les lignes
 		if (check_header(as, line) == 0)

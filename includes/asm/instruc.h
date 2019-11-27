@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 13:41:05 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:33:54 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct			s_instruc
 	char				*param[4];
 	char				*param_type;  // "112" --> premier param = 1 = registre
 	//deuxieme param = 1 = registre     //troisieme param = 2 = direct
+	int					direct_size;
 	char 				ocp;
 	struct s_instruc	*next;
 	struct s_instruc	*prev;
