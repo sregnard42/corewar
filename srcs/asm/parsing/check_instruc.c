@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 12:14:37 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:50:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,15 @@ void	parse_instruction(t_assembler *as, char *line)
 
 	if (line[0] == '\0' || line[0] == '#')
 		return ;
+	int i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\t' || line[i] == SEPARATOR_CHAR)
+			line[i] = ' ';
+		if (line[i] == COMMENT_CHAR)
+			line[i] = '\0';
+		i++;
+	}
 	if (!as->header->name)
 		ft_error(as, &free_asm, EMPTY_NAME);
 	if (!as->header->comment)
