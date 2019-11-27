@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 13:31:38 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:00:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,37 @@ void	write_registre(int fd, char *param)
 	write(fd, &ret, 1);
 }
 
-// int		write_label()
-// {
-//
-// 	write_big_endian(fd, res, size); //??? comment on gere les labels
-// }
+void	write_label(int fd, int size, t_instruc *start, char *param)
+{
 
-void	write_direct(t_assembler *as, int fd, char *param, int size)
+	int			res;
+	t_instruc	*now;
+
+	now = start;
+	res = 0;
+	param++;
+	// ft_printf("param(write label) = %s\n", param);   //live en params
+	// ft_printf("now->label = %s\nparam = %s\n", now->label, param);  //on est sur la ligne 5 et 10
+	while (now)
+	{
+		if (now->label && ft_strcmp(now->label, param) == 0)
+		{
+			ft_printf("res = %d\n", res);
+			write_big_endian(fd, res, size);
+			return ;
+		}
+		res += now->size;
+		now = now->next;
+	}
+	write_big_endian(fd, res, size);
+}
+
+void	write_direct(int fd, char *param, int size, t_instruc *now)
 {
 	int		ret;
 
 	param++;
-	(void)as;
+	// ft_printf("param = %s\n", param);
 	if (*param != ':')
 	{
 		ret = ft_atoi(param);
@@ -59,7 +78,8 @@ void	write_direct(t_assembler *as, int fd, char *param, int size)
 	}
 	else
 	{
-		// res = write_label(as, fd, size);
+		write_label(fd, size, now, param);
+		// write_big_endian(fd, res, size); //??? comment on gere les labels
 	}
 }
 
@@ -90,7 +110,7 @@ void	write_instruc(t_assembler *as, int fd)
 			if (tmp->param_type[i] == 1)
 				write_registre(fd, tmp->param[i]);
 			else if (tmp->param_type[i] == 2)
-				write_direct(as, fd, tmp->param[i], ret);
+				write_direct(fd, tmp->param[i], ret, tmp);
 			else if (tmp->param_type[i] == 3)
 				write_indirect(fd, tmp->param[i]);
 			i++;
