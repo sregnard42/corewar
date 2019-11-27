@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 14:15:02 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:21:28 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,14 @@ void	write_neg_number(int fd, int nb, int size)
 	octets[1] = octets[1] ^ max;
 	octets[2] = octets[2] ^ max;
 	octets[3] = octets[3] ^ max;
-	write(fd, octets, size);
+	octets[3] += 1;
+	if (size == 2)
+	{
+		write(fd, &octets[2], 1);
+		write(fd, &octets[3], 1);
+	}
+	if (size == 4)
+		write(fd, octets, size);
 }
 
 void	write_label(t_assembler *as, int fd, int size, t_instruc *start, char *param)
@@ -88,11 +95,18 @@ void	write_label(t_assembler *as, int fd, int size, t_instruc *start, char *para
 	{
 		if (now->label && ft_strcmp(now->label, param) == 0)
 		{
-			ft_printf("res = %d\n", res);
-			write_neg_number(fd, res, size);
+			while (now)
+			{
+				if (now == start)
+				{
+					ft_printf("neg res = %d\n", res);
+					write_neg_number(fd, res, size);
+				}
+				res += now->size;
+				now = now->next;
+			}
 			return ;
 		}
-		res += now->size;
 		now = now->next;
 	}
 	// write_big_endian(fd, res, size);
