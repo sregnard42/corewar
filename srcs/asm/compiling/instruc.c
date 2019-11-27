@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/26 14:51:09 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:31:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,18 @@ void	write_registre(int fd, char *param)
 	write(fd, &ret, 1);
 }
 
-void	write_direct(int fd, char *param, int size)
+// int		write_label()
+// {
+//
+// 	write_big_endian(fd, res, size); //??? comment on gere les labels
+// }
+
+void	write_direct(t_assembler *as, int fd, char *param, int size)
 {
 	int		ret;
 
 	param++;
+	(void)as;
 	if (*param != ':')
 	{
 		ret = ft_atoi(param);
@@ -52,7 +59,7 @@ void	write_direct(int fd, char *param, int size)
 	}
 	else
 	{
-		write (fd, "XXXX", size); //??? comment on gere les labels
+		// res = write_label(as, fd, size);
 	}
 }
 
@@ -83,7 +90,7 @@ void	write_instruc(t_assembler *as, int fd)
 			if (tmp->param_type[i] == 1)
 				write_registre(fd, tmp->param[i]);
 			else if (tmp->param_type[i] == 2)
-				write_direct(fd, tmp->param[i], ret);
+				write_direct(as, fd, tmp->param[i], ret);
 			else if (tmp->param_type[i] == 3)
 				write_indirect(fd, tmp->param[i]);
 			i++;

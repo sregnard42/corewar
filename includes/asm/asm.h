@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/26 14:05:58 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/27 12:18:09 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@
 
 //COMMENT/NAME
 
-# define	EMPTY_NAME			".name needs a string parameter.\n"
+# define	EMPTY_NAME			"Missing .name with its string parameter.\n"
 # define	NAME_TOO_LONG		"Program name is too long.\n"
-# define	EMPTY_COMMENT		".comment needs a string parameter.\n"
+# define	EMPTY_COMMENT		"Missing .comment with its string parameter.\n"
 # define	COMM_TOO_LONG		"Comment is too long.\n"
 # define	NAME_COMMENT_EXIST	"Name or comment already exist.\n"
 # define	STUFF_AFTER			"There is some junk after quotes.\n"
@@ -90,6 +90,7 @@ void			save_label_param(t_assembler *as, char *param);
 int				check_existing_labels(t_assembler *as);
 void			write_header(t_assembler *as, int fd);
 void			get_prog_size(t_assembler *as);
+unsigned int	get_params_bytes(t_instruc *tmp);
 void			write_magic(int fd, int magic_number);
 unsigned int	get_param_bytes(int opcode, char param);
 void			write_instruc(t_assembler *as, int fd);
