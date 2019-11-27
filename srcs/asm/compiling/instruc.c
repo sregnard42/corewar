@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 14:05:30 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:15:02 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ void	write_registre(int fd, char *param)
 	write(fd, &ret, 1);
 }
 
-// int		write_label()
-// {
-//
-// 	write_big_endian(fd, res, size); //??? comment on gere les labels
-// }
 
 void	write_neg_number(int fd, int nb, int size)
 {
@@ -53,7 +48,7 @@ void	write_neg_number(int fd, int nb, int size)
 	unsigned char			max;
 
 	tmp = 0;
-	max = 0xff; //111111
+	max = 0xff;
 	octets[0] = nb >> 24;
 	octets[1] = nb >> 16;
 	octets[2] = nb >> 8;
@@ -62,18 +57,56 @@ void	write_neg_number(int fd, int nb, int size)
 	octets[1] = octets[1] ^ max;
 	octets[2] = octets[2] ^ max;
 	octets[3] = octets[3] ^ max;
-	// tmp = (int)octets;
-	// ft_printf("last_tmp = %d\n", tmp);
-	// exit(0);
 	write(fd, octets, size);
 }
 
-void	write_direct(t_assembler *as, int fd, char *param, int size)
+void	write_label(t_assembler *as, int fd, int size, t_instruc *start, char *param)
+{
+
+	int			res;
+	t_instruc	*now;
+
+	now = start;
+	res = 0;
+	param++;
+	// ft_printf("param(write label) = %s\n", param);   //live en params
+	// ft_printf("now->label = %s\nparam = %s\n", now->label, param);  //on est sur la ligne 5 et 10
+	while (now)
+	{
+		if (now->label && ft_strcmp(now->label, param) == 0)
+		{
+			ft_printf("res = %d\n", res);
+			write_big_endian(fd, res, size);
+			return ;
+		}
+		res += now->size;
+		now = now->next;
+	}
+	now = as->instruc;
+	res = 0;
+	while (now)
+	{
+		if (now->label && ft_strcmp(now->label, param) == 0)
+		{
+			ft_printf("res = %d\n", res);
+			write_neg_number(fd, res, size);
+			return ;
+		}
+		res += now->size;
+		now = now->next;
+	}
+	// write_big_endian(fd, res, size);
+}
+
+
+// void	write_direct(t_assembler *as, int fd, char *param, int size)
+
+void	write_direct(t_assembler *as, int fd, char *param, int size, t_instruc *now)
 {
 	int		ret;
 
 	param++;
-	(void)as;
+	// ft_printf("param = %s\n", param);
 	if (*param != ':')
 	{
 		ret = ft_atoi(param);
@@ -81,8 +114,10 @@ void	write_direct(t_assembler *as, int fd, char *param, int size)
 	}
 	else
 	{
-		write_neg_number(fd, 2, size);
+		// write_neg_number(fd, 2, size);
 		// res = write_label(as, fd, size);
+		write_label(as, fd, size, now, param);
+		// write_big_endian(fd, res, size); //??? comment on gere les labels
 	}
 }
 
@@ -113,7 +148,7 @@ void	write_instruc(t_assembler *as, int fd)
 			if (tmp->param_type[i] == 1)
 				write_registre(fd, tmp->param[i]);
 			else if (tmp->param_type[i] == 2)
-				write_direct(as, fd, tmp->param[i], ret);
+				write_direct(as, fd, tmp->param[i], ret, tmp);
 			else if (tmp->param_type[i] == 3)
 				write_indirect(fd, tmp->param[i]);
 			i++;
