@@ -1,4 +1,4 @@
 .name "ADD"
 .comment "add"
 
-add r1, r2, r3
+add r3, r2, r1

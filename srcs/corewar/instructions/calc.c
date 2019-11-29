@@ -19,11 +19,9 @@ void	op_calc(t_vm *vm, unsigned int dst, unsigned val)
 	proc = vm->procs.cur;
 	proc->carry = (val == 0);
 	ft_memcpy(&proc->reg[dst], &val, sizeof(t_reg));
-	if (vm->verbose & V_OPERATIONS)
-	{
-		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-		ft_printf("loaded value %u in register %u\n", val, dst);
-	}
+	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+	vm->print("loaded value %u in register %u\n", val, dst);
+	vm->print == &printw ? wait_input() : 0;
 }
 
 /*
@@ -45,8 +43,8 @@ void	op_add(void *vm_ptr)
     reg[0] = args->first->val;
     ft_memcpy(&reg[1], &proc->reg[args->first->next->val], sizeof(t_reg));
     ft_memcpy(&reg[2], &proc->reg[args->first->next->next->val], sizeof(t_reg));
-    if (vm->verbose & V_OPERATIONS)
-        ft_printf("add %u, %u, %u | ", reg[0], reg[1], reg[2]);
+    vm->print("add r%u, r%u, r%u | ",
+    reg[0], args->first->next->val, args->first->next->next->val);
 	op_calc(vm, reg[0], reg[1] + reg[2]);
 }
 
@@ -68,7 +66,7 @@ void	op_sub(void *vm_ptr)
     reg[0] = args->first->val;
     ft_memcpy(&reg[1], &proc->reg[args->first->next->val], sizeof(t_reg));
     ft_memcpy(&reg[2], &proc->reg[args->first->next->next->val], sizeof(t_reg));
-    if (vm->verbose & V_OPERATIONS)
-        ft_printf("sub %u, %u, %u | ", reg[0], reg[1], reg[2]);
+    vm->print("sub r%u, r%u, r%u | ",
+    reg[0], args->first->next->val, args->first->next->next->val);
 	op_calc(vm, reg[0], reg[1] - reg[2]);
 }

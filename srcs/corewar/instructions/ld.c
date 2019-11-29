@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:01:50 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/26 14:39:10 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/29 13:39:55 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 	t_process	*proc;
 
 	proc = vm->procs.cur;
-	proc->carry = (src == 0);
+	proc->carry = (arena_get(vm, src) == 0);
 	arena_load(vm, src, &proc->reg[dst], REG_SIZE);
-	if (vm->verbose & V_OPERATIONS)
-	{
-		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-		ft_printf("loaded value %u into R%u\n", arena_get(vm, src), dst);
-	}
+	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+	vm->print("loaded value %u into R%u\n", arena_get(vm, src), dst);
+	vm->print == &printw ? wait_input() : 0;
 }
 
 /*
@@ -48,8 +46,7 @@ void	op_ld(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	src = args->first->val;
 	dst = args->first->next->val;
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("ld %u, %u | ", src, dst);
+	vm->print("ld %u, %u | ", src, dst);
 	load(vm, vm->pc + src % IDX_MOD, dst);
 }
 
@@ -70,8 +67,7 @@ void	op_ldi(void *vm_ptr)
 	src[0] = args->first->val;
 	src[1] = args->first->next->val;
 	dst = args->first->next->next->val;
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("ldi %u, %u, %u | ", src[0], src[1], dst);
+	vm->print("ldi %u, %u, %u | ", src[0], src[1], dst);
 	load(vm, vm->pc + (src[0] + src[1]) % IDX_MOD, dst);
 }
 
@@ -90,8 +86,7 @@ void	op_lld(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	src = args->first->val;
 	dst = args->first->next->val;
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("lld %u, %u | ", src, dst);
+	vm->print("lld %u, %u | ", src, dst);
 	load(vm, vm->pc + src, dst);
 }
 
@@ -111,7 +106,6 @@ void	op_lldi(void *vm_ptr)
 	src[0] = args->first->val;
 	src[1] = args->first->next->val;
 	dst = args->first->next->next->val;
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("lldi %u, %u, %u | ", src[0], src[1], dst);
+	vm_print(vm, V_OPERATIONS)("lldi %u, %u, %u | ", src[0], src[1], dst);
 	load(vm, vm->pc + src[0] + src[1], dst);
 }

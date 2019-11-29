@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/26 15:20:21 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/29 13:32:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define FILE_MIN_SIZE 2192
 # define DUMP_COLS 32
-# define VISU_COLS 64
+# define VISU_COLS 32
 
 typedef struct			s_vm
 {
@@ -45,6 +45,7 @@ typedef struct			s_vm
 	int					dump;
 	int					number;
 	unsigned int		verbose;
+	int					(*print)(const char *format, ...);
 	t_champs			champs;
 	t_champ				*winner;
 	t_processes			procs;
@@ -81,6 +82,7 @@ enum					e_flags_verbose
 **-----------------------------------------------------------------------------
 */
 
+void					visu_init(t_vm *vm);
 void					wait_input(void);
 
 /*
@@ -89,7 +91,7 @@ void					wait_input(void);
 **-----------------------------------------------------------------------------
 */
 
-void					free_all(void *vm);
+void					vm_free(void *vm);
 void					champs_free(t_champs *champs);
 void					champ_free(t_champ **champ);
 void					procs_free(t_processes *procs);
@@ -103,7 +105,7 @@ void					arg_free(t_arg **arg);
 **-----------------------------------------------------------------------------
 */
 
-void					vm_print(t_vm *vm, const char *format, ...);
+int (*vm_print(t_vm *vm, unsigned int flag))(const char *format, ...);
 void					arena_print(t_vm *vm, unsigned int cols);
 void					champ_print(t_champ *champ);
 void					champs_print(t_champs *champs);

@@ -22,9 +22,9 @@ t_arg		*arg_new(t_vm *vm)
 	t_arg	*arg;
 
 	if (!vm || !vm->champs.cur || !vm->procs.cur)
-		ft_error(vm, &free_all, "arg_new args\n");
+		ft_error(vm, &vm_free, "arg_new args\n");
 	if (!(arg = ft_memalloc(sizeof(t_arg))))
-		ft_error(vm, &free_all, "arg_new memalloc\n");
+		ft_error(vm, &vm_free, "arg_new memalloc\n");
 	arg->champ = vm->champs.cur;
 	arg->proc = vm->procs.cur;
 	arg->list = &arg->proc->args;

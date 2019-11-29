@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/24 15:41:04 by sregnard         ###   ########.fr        #
+#    Updated: 2019/11/29 13:08:14 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,6 +132,10 @@ SRCNAME					:=	ocp.c		\
                             fork.c      \
                             zjmp.c      \
                             calc.c
+SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	visu/
+SRCNAME					:=	visu.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SRCNAME					:=	common.c

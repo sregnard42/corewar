@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:13:57 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/26 14:57:59 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:00:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ static void vm_fork(t_vm *vm, t_process *proc_cur, unsigned int pc)
     proc->live = proc_cur->live;
     proc->carry = proc_cur->carry;
 	proc_set_pc(vm, proc, pc);
-	if (vm->verbose & V_OPERATIONS)
-	{
-		ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-		ft_printf("forked a new process at PC %u\n", proc->pc);
-	}
+	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+	vm->print("forked a new process at PC %u\n", proc->pc);
+	vm->print == &printw ? wait_input() : 0;
 }
 
 static unsigned int	get_target(t_vm *vm)
@@ -55,8 +53,7 @@ void	    op_fork(void *vm_ptr)
 
     vm = (t_vm *)vm_ptr;
 	val = get_target(vm);
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("fork %u | ", val);
+	vm->print("fork %u | ", val);
     vm_fork(vm, vm->procs.cur, vm->pc + (val % IDX_MOD));
 }
 
@@ -72,7 +69,6 @@ void	    op_lfork(void *vm_ptr)
 
     vm = (t_vm *)vm_ptr;
 	val = get_target(vm);
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("lfork %u | ", val);
+	vm->print("lfork %u | ", val);
     vm_fork(vm, vm->procs.cur, vm->pc + val);
 }

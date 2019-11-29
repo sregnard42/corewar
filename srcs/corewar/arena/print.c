@@ -29,28 +29,19 @@ static void		print_visu(t_vm *vm, unsigned int cur, unsigned int len,
 static void		print_dump(t_vm *vm, unsigned int cur, unsigned int len,
 		unsigned int i)
 {
-	unsigned int	color;
-
-	color = vm->colors[i] + 30;
-	ft_printf("\033[1;%dm", color);
-	ft_printf("%02x", vm->arena[i++]);
-	ft_printf("\033[0m");
-	i - (cur * len) < len ? ft_printf(" ") : ft_printf("\n");
+	vm->print("%02x", vm->arena[i++]);
+	i - (cur * len) < len ? vm->print(" ") : vm->print("\n");
 }
 
 static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
 {
 	unsigned int	i;
+	void			(*f)(t_vm *, unsigned int, unsigned int, unsigned int);
 
 	i = cur * len;
+	f = (vm->flags & VM_VISU) ? &print_visu : &print_dump;
 	while (i - (cur * len) < len)
-	{
-		if (vm->flags & VM_VISU)
-			print_visu(vm, cur, len, i);
-		else
-			print_dump(vm, cur, len, i);
-		++i;
-	}
+		f(vm, cur, len, i++);
 }
 
 void		arena_print(t_vm *vm, unsigned int cols)
@@ -60,11 +51,6 @@ void		arena_print(t_vm *vm, unsigned int cols)
 	if (!vm)
 		return ; 
 	cur = 0;
-	if (vm->flags & VM_VISU)
-	{
-		erase();
-		printw("Cycle %d\n", vm->cycle);
-	}
 	while (cur < MEM_SIZE / cols)
 		print_line(vm, cur++, cols);
 	refresh();

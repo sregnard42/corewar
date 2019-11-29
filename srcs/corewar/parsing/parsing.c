@@ -44,7 +44,7 @@ static void		parse_file(t_vm *vm, char *file)
 	champ->file = file;
 	champ->size = read(fd, champ->content, BUFF_SIZE);
 	if (close(fd) != 0)
-		ft_error(vm, &free_all, "parse_file couldn't close file !\n");
+		ft_error(vm, &vm_free, "parse_file couldn't close file !\n");
 	champ->size < FILE_MIN_SIZE ? error_too_small(vm) : 0;
 	champ->content[champ->size] = '\0';
 	//ft_hexdump(champ->content, champ->size);

@@ -51,7 +51,7 @@ void		champs_ids(t_vm *vm)
 			champ->id = id;
 		}
 		if (champ->id > vm->champs.size)
-			ft_error(vm, &free_all, "Invalid ID.\n");
+			ft_error(vm, &vm_free, "Invalid ID.\n");
 		champ = champ->next;
 	}
 }
@@ -63,7 +63,7 @@ void		champs_ids(t_vm *vm)
 void		champs_add(t_vm *vm, t_champs *champs, t_champ *champ)
 {
 	if (!vm || !champs || !champ)
-		ft_error(vm, &free_all, "champs_add args\n");
+		ft_error(vm, &vm_free, "champs_add args\n");
 	if (!champs->first)
 	{
 		champs->first = champ;

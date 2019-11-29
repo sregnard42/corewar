@@ -1,5 +1,5 @@
 .name "ZJMP"
 .comment "zjmp"
 
-ld %7,r1
-zjmp %5
+load:   ld %2,r1
+        zjmp %:load

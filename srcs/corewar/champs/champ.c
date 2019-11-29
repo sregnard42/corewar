@@ -22,9 +22,9 @@ t_champ		*champ_new(t_vm *vm)
 	t_champ	*champ;
 
 	if (!vm)
-		ft_error(vm, &free_all, "champ_new args\n");
+		ft_error(vm, &vm_free, "champ_new args\n");
 	if (!(champ = ft_memalloc(sizeof(t_champ))))
-		ft_error(vm, &free_all, "champ_new memalloc\n");
+		ft_error(vm, &vm_free, "champ_new memalloc\n");
 	champ->id = vm->flags & VM_NUMBER ? vm->number : 0;
 	champ->list = &vm->champs;
 	vm->flags &= ~VM_NUMBER;

@@ -12,27 +12,35 @@
 
 #include "corewar.h"
 
+static int  get_target(t_vm *vm)
+{
+    t_arg   *arg;
+
+    arg = arg_new(vm);
+    arg->type = DIR_CODE;
+    get_val(vm, arg, ZJMP);
+    return (arg->val);
+}
+
 /*
 **		Takes an indirect. Jumps to the address of the index if carry == 1.
 */
 
-void	op_zjmp(void *vm_ptr)
+void	    op_zjmp(void *vm_ptr)
 {
     t_vm			*vm;
     t_process       *proc;
-    t_args			*args;
-    unsigned int	src;
+    int             target;
 
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
-    args = &vm->procs.cur->args;
-    src = args->first->val;
-    if (proc->carry == 1)
-        proc->pc += src;
-    if (vm->verbose & V_OPERATIONS)
-    {
-        ft_printf("zjmp %u | ", src);
-        ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-        ft_printf("jumped to the address %u\n", proc->pc);
-    }
+    if (!proc->carry)
+        return ;
+    target = get_target(vm);
+    proc_set_pc(vm, proc, vm->pc + target);
+    vm->print("zjmp %u | ", target);
+    vm->print("Player %d \"%s\", ", proc->champ->id, proc->champ->name);
+    vm->print("process %d ", proc->pid);
+    vm->print("jumped to the address %u\n", proc->pc);
+    vm->print == &printw ? wait_input() : 0;
 }

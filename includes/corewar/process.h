@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/21 17:42:26 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:13:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct          s_reg
 
 typedef struct			s_process
 {
+	int					pid;
 	int					pc;
 	int					cycle;
     t_reg       		reg[REG_NUMBER + 1];

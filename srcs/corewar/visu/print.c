@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 17:09:26 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 17:09:31 by sregnard         ###   ########.fr       */
+/*   Created: 2019/11/29 13:04:29 by sregnard          #+#    #+#             */
+/*   Updated: 2019/11/29 14:06:45 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-/*
-**			Adds an existing argeter to an existing argeters list
-*/
-
-void 		args_add(t_vm *vm, t_args *args, t_arg *arg)
+static int	bin(const char *format, ...)
 {
-	if (!vm || !args || !arg)
-		ft_error(vm, &vm_free, "args_add args\n");
-	if (!args->first)
-	{
-		args->first = arg;
-		args->cur = arg;
-		args->last = arg;
-	}
-	else
-	{
-		args->last->next = arg;
-		args->last = arg;
-	}
-	++args->size;
+	format += 0;
+	return (0);
+}
+
+int			(*vm_print(t_vm *vm, unsigned int flag))(const char *format, ...)
+{
+	if (flag && !(vm->verbose & flag))
+		return (&bin);
+	if (vm->flags & VM_VISU)
+		return (&printw);
+	return (&ft_printf);
 }

@@ -19,7 +19,7 @@ unsigned int	arena_id(t_vm *vm, int index)
 	else if (index < 0)
 		index = index % -MEM_SIZE + MEM_SIZE - 1;
 	if (index < 0 || index >= MEM_SIZE)
-		ft_error(vm, &free_all, "arena_get out of bounds\n");
+		ft_error(vm, &vm_free, "arena_get out of bounds\n");
 	return (index);
 }
 
