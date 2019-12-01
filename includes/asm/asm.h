@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 14:08:49 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:59:09 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 //COMMENT/NAME
 
 # define	EMPTY_NAME			"Missing .name with its string parameter.\n"
+# define	QUOTES_NOT_CLOSED	"Quotes in header are not closed.\n"
+# define	NO_QUOTES			"No quotes after .name or .comment.\n"
 # define	NAME_TOO_LONG		"Program name is too long.\n"
 # define	EMPTY_COMMENT		"Missing .comment with its string parameter.\n"
 # define	COMM_TOO_LONG		"Comment is too long.\n"
