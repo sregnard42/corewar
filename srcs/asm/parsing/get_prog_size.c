@@ -6,16 +6,16 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:38:24 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:59:22 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** get_param_bytes() returns the nb of byte(s) of the given param
-** param = 0 -> erreur
-** param = 1 -> registre
+** get_param_bytes() returns the nb of byte(s) of the given parameter
+** param = 0 -> error
+** param = 1 -> register
 ** param = 2 -> direct
 ** param = 3 -> indirect
 */
@@ -38,7 +38,7 @@ unsigned int	get_param_bytes(int opcode, char param)
 }
 
 /*
-**	recuepere la taille total des parametres d'une commande
+**	get_params_bytes() calculate the nb of bytes of all parameters of 1 command
 */
 
 unsigned int	get_params_bytes(t_instruc *tmp)
@@ -54,7 +54,7 @@ unsigned int	get_params_bytes(t_instruc *tmp)
 }
 
 /*
-**	recuperer la taille de toutes les commandes
+**	get_prog_size() calculate the nb of bytes of all commands
 */
 
 void				get_prog_size(t_assembler *as)

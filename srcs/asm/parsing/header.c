@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 13:03:12 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:00:53 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	clean_line(char *line)
 
 /*
 ** parse_header() parse only the name or comment (without ""), checks if they
-** are too long or checks if invalid input after the name or
-** comment (ex: .name "oui"non)
+** are too long or checks if invalid input after the name or comment
+** (ex: .name "yes"no)
 */
 
 void	parse_header(t_assembler *as, char *line, char **dst, int choice)
@@ -53,7 +53,7 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 }
 
 /*
-** check_header() if there is no space, quit
+** check_header() if there is no space in the header line, quit.
 ** if finds .name or .comment, parse string between quotes in our list.
 */
 

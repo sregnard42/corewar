@@ -6,22 +6,23 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:41:45 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:03:07 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** {X, Y, Z} --> correspond aux 3 params
-** 0 = aucun param
-** 1 = registre
+** {X, Y, Z} -->  X is the first parameter, Y second, Z third parameter
+** numbers stands for type of parameter:
+** 0 = no parameter
+** 1 = register
 ** 2 = direct
 ** 4 = indirect
-** 3 = 1 ou 2 (registre ou direct)
-** 5 = 1 ou 4
-** 6 = 2 ou 4
-** 7 = 1 ou 2 ou 4
+** 3 = 1 or 2 (register or direct)
+** 5 = 1 or 4 (register or indirect)
+** 6 = 2 or 4 (direct or indirect)
+** 7 = 1 or 2 or 4 (all parameters accepted)
 */
 
 void	init_asm(t_assembler *as)

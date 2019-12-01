@@ -6,22 +6,22 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 16:04:05 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:49:44 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:57:29 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** get_ocp() if commands haven't ocp, return ocp = 0
-** param_type[0] = type du param 1
-** param_type[1] = type du param 2
-** param_type[2] = type du param 3
-** If param type is a reg then param_type = 1 so in binary = 0b01
-** param type is a direct then param_type = 2 so in binary = 0b10
-** param type is a direct then param_type = 3 so in binary = 0b11
-** check param type and put two bit in ocp
-**
+** get_ocp() return with command->ocp = 0 if the command doesn't need an ocp.
+** param_type[0] = type of parameter 1
+** param_type[1] = type of parameter 2
+** param_type[2] = type of parameter 3
+** If the parameter is a register, then param_type = 1 so in binary = 0b01
+** If the parameter is a direct, then param_type = 2 so in binary = 0b10
+** If the parameter is an indirect, then param_type = 3 so in binary = 0b11
+** Calculates the OCP by checking the param_type and putting the 2 needed bytes
+** in their right place in OCP.
 */
 
 void	get_ocp(t_instruc *command)

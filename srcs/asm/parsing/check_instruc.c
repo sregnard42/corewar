@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 13:44:05 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:56:56 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		check_label_chars(t_assembler *as, char *str)
 /*
 ** is_label() checks if it's a label /!\ possible d'avoir un label invalide ? (ex trop long)
 ** returns SUCCESS if it's a label, FAIL if it's not, and ERROR for comments
-** to ignore
+** to ignore.
 */
 
 int		is_label(t_assembler *as, char *part)
@@ -82,7 +82,7 @@ int		is_label(t_assembler *as, char *part)
 }
 
 /*
-** which_command() initiates the arrays of all commands and checks them.
+** which_command() goes through the array of all commands to find the one given.
 */
 
 int		which_command(t_assembler *as, char *part)
@@ -133,6 +133,10 @@ void	check_instruc(t_assembler *as, char *line, int len, char **tab,
 	ft_printf("param_type[0] = %c | param_type[1] = %c | param_type[2] = %c\n", param_type[0] + '0', param_type[1] + '0', param_type[2] + '0');
 }
 
+/*
+** epure_line() change all tabulation or ',' by space and all '#' by \0
+*/
+
 void	epure_line(char *line)
 {
 	int		i;
@@ -146,6 +150,11 @@ void	epure_line(char *line)
 			line[i] = '\0';
 	}
 }
+
+/*
+** parse_instruction() checks if header is complete. Then cut the instruction
+** to send each parts in check_instruc.
+*/
 
 void	parse_instruction(t_assembler *as, char *line)
 {
