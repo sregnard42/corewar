@@ -31,9 +31,9 @@ void	op_aff(void *vm_ptr)
     val = reg % 256;
     if (vm->verbose & V_OPERATIONS)
     {
-        ft_printf("aff %u | ", val);
-        ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-        ft_printf("displayed character %c\n", val);
+        vm->print("aff %u | ", val);
+        vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+        vm->print("displayed character %c\n", val);
     }
-    vm->print("%c\n", val);
+    vm_print(vm, 0)("%c\n", val);
 }

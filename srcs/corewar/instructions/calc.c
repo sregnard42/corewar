@@ -40,12 +40,12 @@ void	op_add(void *vm_ptr)
     proc = vm->procs.cur;
     args = &vm->procs.cur->args;
 	ft_bzero(&reg, sizeof(unsigned int) * 3);
-    reg[0] = args->first->val;
+    ft_memcpy(&reg[0], &proc->reg[args->first->val], sizeof(t_reg));
     ft_memcpy(&reg[1], &proc->reg[args->first->next->val], sizeof(t_reg));
-    ft_memcpy(&reg[2], &proc->reg[args->first->next->next->val], sizeof(t_reg));
+    reg[2] = args->first->next->next->val;
     vm->print("add r%u, r%u, r%u | ",
-    reg[0], args->first->next->val, args->first->next->next->val);
-	op_calc(vm, reg[0], reg[1] + reg[2]);
+    args->first->next->val, args->first->next->next->val, reg[2]);
+	op_calc(vm, reg[2], reg[0] + reg[1]);
 }
 
 /*
@@ -64,10 +64,10 @@ void	op_sub(void *vm_ptr)
     proc = vm->procs.cur;
     args = &vm->procs.cur->args;
 	ft_bzero(&reg, sizeof(unsigned int) * 3);
-    reg[0] = args->first->val;
+    ft_memcpy(&reg[0], &proc->reg[args->first->val], sizeof(t_reg));
     ft_memcpy(&reg[1], &proc->reg[args->first->next->val], sizeof(t_reg));
-    ft_memcpy(&reg[2], &proc->reg[args->first->next->next->val], sizeof(t_reg));
+    reg[2] = args->first->next->next->val;
     vm->print("sub r%u, r%u, r%u | ",
-    reg[0], args->first->next->val, args->first->next->next->val);
-	op_calc(vm, reg[0], reg[1] - reg[2]);
+    args->first->val, args->first->next->val, reg[2]);
+	op_calc(vm, reg[2], reg[0] - reg[1]);
 }
