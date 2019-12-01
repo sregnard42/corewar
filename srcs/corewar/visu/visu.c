@@ -27,7 +27,7 @@ static int	bin(const char *format, ...)
 **			Returns function pointer
 **			&bin if flag is not activated in vm
 **			&printw if flag is activated and VM_VISU is activated too
-**			&ft_printf if flag is activated and VI_VISU isn't
+**			&ft_printf if flag is activated and VM_VISU isn't
 */
 
 int			(*vm_print(t_vm *vm, unsigned int flag))(const char *format, ...)

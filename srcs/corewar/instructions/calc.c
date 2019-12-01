@@ -45,7 +45,7 @@ void	op_add(void *vm_ptr)
     reg[2] = args->first->next->next->val;
     vm->print("add r%u, r%u, r%u | ",
     args->first->next->val, args->first->next->next->val, reg[2]);
-	op_calc(vm, reg[2], reg[0] + reg[1]);
+	calc(vm, reg[2], reg[0] + reg[1]);
 }
 
 /*
@@ -69,5 +69,5 @@ void	op_sub(void *vm_ptr)
     reg[2] = args->first->next->next->val;
     vm->print("sub r%u, r%u, r%u | ",
     args->first->val, args->first->next->val, reg[2]);
-	op_calc(vm, reg[2], reg[0] - reg[1]);
+	calc(vm, reg[2], reg[0] - reg[1]);
 }
