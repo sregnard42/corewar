@@ -17,7 +17,7 @@
 
 typedef struct			s_arg
 {
-	int		val;
+	int					val;
 	unsigned int		type;
 	unsigned int		size;
 	struct s_arg		*next;

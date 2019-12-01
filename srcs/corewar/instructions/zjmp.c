@@ -30,7 +30,7 @@ void	    op_zjmp(void *vm_ptr)
 {
     t_vm			*vm;
     t_process       *proc;
-    int             target;
+    short int       target;
 
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
@@ -38,7 +38,7 @@ void	    op_zjmp(void *vm_ptr)
         return ;
     target = get_target(vm);
     proc_set_pc(vm, proc, vm->pc + target);
-    vm->print("zjmp %u | ", target);
+    vm->print("zjmp %d | ", target);
     vm->print("Player %d \"%s\", ", proc->champ->id, proc->champ->name);
     vm->print("process %d ", proc->pid);
     vm->print("jumped to the address %u\n", proc->pc);
