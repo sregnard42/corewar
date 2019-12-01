@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 14:08:49 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:23:27 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void			parse_instruction(t_assembler *as, char *line);
 void			free_asm(void *a);
 void			add_instruct(t_assembler *as, char *line, char *ocp,
 				int id_command);
-int				is_param(t_assembler *as, int id_command, char *part,
+void			is_param(t_assembler *as, int id_command, char *part,
 				int nb_param, char *ocp);
 void			save_label_to_check(t_assembler *as, char *param);
 void			save_label_param(t_assembler *as, char *param);

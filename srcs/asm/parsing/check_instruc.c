@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 14:12:45 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:58:40 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		is_label(t_assembler *as, char *part)
 		save_label_to_check(as, label);
 		ft_memdel((void**)&label);
 		ft_memdel((void**)&str);
+		ft_printf("J'ai mon label et je return SUCCESS ! :D\n");
 		return (SUCCESS);
 	}
 	ft_memdel((void**)&str);
@@ -107,28 +108,34 @@ void	check_instruc(t_assembler *as, char *line, int len, char **tab,
 	int		ret;
 	int		id_command;
 	int		nb_param;
-	int		tmp;
 
-	i = -1;
+	i = 0;
 	nb_param = 0;
 	id_command = 0;
-	while (++i < len)
+	if ((ret = (is_label(as, tab[i]))) == SUCCESS)
 	{
-		if ((ret = (is_label(as, tab[i]))) == SUCCESS)
-			ft_printf("'%s' is a label\n", tab[i]);
-		else if (ret == ERROR) //on a #ahah en fin de ligne
-			break;
-		else if ((tmp = which_command(as, tab[i])) < 16)
+		++i;
+		if ((id_command = which_command(as, tab[i])) < 16)
 		{
-			if (id_command != 0)
-				ft_error(as, &free_asm, TOO_MANY_CMD);
-			id_command = tmp;
 			ft_printf("'%s' is a command\n", as->commands[id_command].command);
+			while (++i < len)
+				is_param(as, id_command, tab[i], nb_param++, param_type);
 		}
-		else if (is_param(as, id_command, tab[i], nb_param++, param_type) == SUCCESS)
-			;
 		else
-			ft_error(as, &free_asm, WTF_IS_THIS);
+			ft_error(as, &free_asm, CMD_NOT_FOUND);
+	}
+	else if (ret == ERROR) //on a #ahah en fin de ligne
+		return ;
+	else
+	{
+		if ((id_command = which_command(as, tab[i])) < 16)
+		{
+			ft_printf("'%s' is a command\n", as->commands[id_command].command);
+			while (++i < len)
+				is_param(as, id_command, tab[i], nb_param++, param_type);
+		}
+		else
+			ft_error(as, &free_asm, CMD_NOT_FOUND);
 	}
 	ft_free_tab(&tab);
 	add_instruct(as, line, param_type, id_command);

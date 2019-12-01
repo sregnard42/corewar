@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stock_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 14:11:19 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:19:05 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	init_instruc(t_assembler *as, t_instruc *new, char *line, int id_command)
 	while (j < 3)
 	{
 		if (tab[i])
+		{
 			if (!(new->param[j++] = ft_strdup(tab[i++])))
 			{
-				//faire les free necessaires ? 
+				//faire les free necessaires ?
 				ft_error(as, &free_asm, ERROR_MALLOC);
 			}
+		}
 		else
 			break ;
 	}
