@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:43:20 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:07:22 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ char	which_params(t_assembler *as, char *param)
 
 /*
 ** check_param() checks if the param is compatible with the instruction
+** type :
+** 1 = register
+** 2 = direct
+** 4 = indirect
+** 3 = 1 or 2 (register or direct)
+** 5 = 1 or 4 (register or indirect)
+** 6 = 2 or 4 (direct or indirect)
+** 7 = 1 or 2 or 4 (all parameters accepted)
 */
 
 char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)

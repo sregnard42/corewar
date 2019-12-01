@@ -6,13 +6,17 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 12:27:00 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:11:19 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	init_room(t_assembler *as, t_instruc *new, char *line, int id_command)
+/*
+** init_instruct()
+*/
+
+void	init_instruc(t_assembler *as, t_instruc *new, char *line, int id_command)
 {
 	char	**tab;
 	int		i;
@@ -34,7 +38,11 @@ void	init_room(t_assembler *as, t_instruc *new, char *line, int id_command)
 	while (j < 3)
 	{
 		if (tab[i])
-			new->param[j++] = ft_strdup(tab[i++]);
+			if (!(new->param[j++] = ft_strdup(tab[i++])))
+			{
+				//faire les free necessaires ? 
+				ft_error(as, &free_asm, ERROR_MALLOC);
+			}
 		else
 			break ;
 	}
@@ -43,7 +51,7 @@ void	init_room(t_assembler *as, t_instruc *new, char *line, int id_command)
 
 /*
 ** get_size_instruction() add one for opcode when ocp doesn't exist, add 2 for
-** opcode et ocp
+** opcode et ocp. Calculates the total nb of bytes of the instruction
 */
 
 void		get_size_instruction(t_instruc *new)
@@ -56,6 +64,9 @@ void		get_size_instruction(t_instruc *new)
 	ft_printf("new->size = %d\n", new->size);
 }
 
+/*
+** add_instruct() add one line of instruction to our list
+*/
 
 void	add_instruct(t_assembler *as, char *line, char *param_type, int id_command)
 {
@@ -78,7 +89,7 @@ void	add_instruct(t_assembler *as, char *line, char *param_type, int id_command)
 		as->instruc = new;
 	}
 	new->param_type = param_type;
-	init_room(as, new, line, id_command);
+	init_instruc(as, new, line, id_command);
 	get_ocp(new);
 	get_size_instruction(new);
 	ft_printf("new->size = %d\n", new->size);
