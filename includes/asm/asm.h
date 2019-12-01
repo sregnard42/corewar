@@ -3,18 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 14:26:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:10:12 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
+
+
 # include "common.h"
 # include "instruc.h"
+
+# define	SUCCESS 1
+# define	FAIL 0
+# define	ERROR -1
 
 // GENERAL
 

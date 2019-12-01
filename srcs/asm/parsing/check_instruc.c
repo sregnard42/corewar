@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 12:22:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:04:12 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int		is_label(t_assembler *as, char *part)
 
 	ft_printf("(is_label)part = %s\n", part);
 	if (part[0] == COMMENT_CHAR)
-		return (-1);
+		return (ERROR);
 	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL \
 		|| ft_strchr(part, DIRECT_CHAR) != NULL)
-		return (0);
+		return (FAIL);
 	if (ft_strlen(ret) > 1)
 		ft_error(as, &free_asm, SPACE_LABEL);
 	if (!(str = ft_strsub(part, 0,  ret - part)))
@@ -74,10 +74,10 @@ int		is_label(t_assembler *as, char *part)
 		save_label_to_check(as, label);
 		ft_memdel((void**)&label);
 		ft_memdel((void**)&str);
-		return (1);
+		return (SUCCESS);
 	}
 	ft_memdel((void**)&str);
-	return (0);
+	return (FAIL);
 }
 
 /*
@@ -112,16 +112,16 @@ void	check_instruc(t_assembler *as, char *line, int len, char **tab,
 	nb_param = 0;
 	while (++i < len)
 	{
-		if ((ret = (is_label(as, tab[i]))) == 1)
+		if ((ret = (is_label(as, tab[i]))) == SUCCESS)
 			ft_printf("'%s' is a label\n", tab[i]);
-		else if (ret == -1) //on a #ahah en fin de ligne
+		else if (ret == ERROR) //on a #ahah en fin de ligne
 			break;
 		else if ((tmp = which_command(as, tab[i])) < 16)
 		{
 			id_command = tmp;
 			ft_printf("'%s' is a command\n", as->commands[id_command].command);
 		}
-		else if (is_param(as, id_command, tab[i], nb_param++, param_type) == 1)
+		else if (is_param(as, id_command, tab[i], nb_param++, param_type) == SUCCESS)
 			;
 		else
 			ft_error(as, &free_asm, WTF_IS_THIS);
