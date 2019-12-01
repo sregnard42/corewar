@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 15:01:15 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 15:35:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 								a command nor a parameter.\n"
 // COMMAND
 # define	TOO_MANY_CMD		"Must be one command per line.\n"
-# define	CMD_NOT_FOUND		"Command not found."
+# define	CMD_NOT_FOUND		"Command not found.\n"
 
 // LABEL
 
@@ -57,7 +57,7 @@
 
 # define	INVALID_PARAM		"Param with invalid syntax.\n"
 # define	WRONG_COMMAND_PARAM	"Invalid param for this command.\n"
-
+# define	TOO_MUCH_PARAM		"Too much params.\n"
 
 typedef	struct		s_commands
 {

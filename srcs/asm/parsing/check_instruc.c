@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 14:58:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 15:41:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		check_label_chars(t_assembler *as, char *str)
 	int	len_i;
 
 	i = 0;
-	j = 0;
+j = 0;
 	len_j = ft_strlen(LABEL_CHARS);
 	len_i = ft_strlen(str);
 	while (i < len_i && j < len_j && str[i] != LABEL_CHARS[j])
@@ -97,48 +97,44 @@ int		which_command(t_assembler *as, char *part)
 }
 
 /*
-** check_instruc() splits the line to check each part, once all is good,
-** call add_instruc to save the line.
+** Regarde si le premier element de tmp est une commande, si oui, on verifie que
+** les prochains element de tmp sont bien des parametres
+** Ensuite, ajoute l'instruction dans la structure as
 */
 
-void	check_instruc(t_assembler *as, char *line, int len, char **tab,
-		char *param_type)
+void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
 {
-	int		i;
-	int		ret;
 	int		id_command;
 	int		nb_param;
 
-	i = 0;
-	nb_param = 0;
 	id_command = 0;
-	if ((ret = (is_label(as, tab[i]))) == SUCCESS)
+	nb_param = 0;
+	if ((id_command = which_command(as, *tmp)) < 16)
 	{
-		++i;
-		if ((id_command = which_command(as, tab[i])) < 16)
-		{
-			ft_printf("'%s' is a command\n", as->commands[id_command].command);
-			while (++i < len)
-				is_param(as, id_command, tab[i], nb_param++, param_type);
-		}
-		else
-			ft_error(as, &free_asm, CMD_NOT_FOUND);
+		ft_printf("'%s' is a command\n", as->commands[id_command].command);
+		while (*(++tmp))
+			is_param(as, id_command, *tmp, nb_param++, param_type);
+		add_instruct(as, line, param_type, id_command);
 	}
-	else if (ret == ERROR) //on a #ahah en fin de ligne
-		return ;
 	else
-	{
-		if ((id_command = which_command(as, tab[i])) < 16)
-		{
-			ft_printf("'%s' is a command\n", as->commands[id_command].command);
-			while (++i < len)
-				is_param(as, id_command, tab[i], nb_param++, param_type);
-		}
-		else
-			ft_error(as, &free_asm, CMD_NOT_FOUND);
-	}
+		ft_error(as, &free_asm, CMD_NOT_FOUND);
+}
+
+/*
+** check_instruc() check if the line is a label, si c'est un label, skip le premier element
+** et envoie le reste dans is_command
+*/
+
+void	check_instruc(t_assembler *as, char *line, char **tab, char *param_type)
+{
+	char	**tmp;
+
+	tmp = tab;
+	if (is_label(as, *tmp) == SUCCESS)
+		is_command(as, line, ++tmp, param_type);
+	else
+		is_command(as, line, tmp, param_type);
 	ft_free_tab(&tab);
-	add_instruct(as, line, param_type, id_command);
 	///////////////
 	ft_printf("param_type[0] = %c | param_type[1] = %c | param_type[2] = %c\n", param_type[0] + '0', param_type[1] + '0', param_type[2] + '0');
 }
@@ -169,7 +165,6 @@ void	epure_line(char *line)
 void	parse_instruction(t_assembler *as, char *line)
 {
 	char	**tab;
-	int		len;
 	char	*param_type;
 
 	if (line[0] == '\0' || line[0] == COMMENT_CHAR)
@@ -181,11 +176,10 @@ void	parse_instruction(t_assembler *as, char *line)
 		ft_error(as, &free_asm, EMPTY_COMMENT);
 	if (!(tab = ft_strsplit(line, ' ')))
 		ft_error(as, &free_asm, ERROR_MALLOC);
-	len = ft_nb_str_tab(tab);
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
 		ft_error(as, &free_asm, ERROR_MALLOC);
 	ft_putstr("tab -----------------------------------------\n");
 	ft_print_tab(tab);
 	ft_putstr("---------------------------------------------\n");
-	check_instruc(as, line, len, tab, param_type);
+	check_instruc(as, line, tab, param_type);
 }

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 14:23:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 15:35:40 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	// EN COURS
 	char	id_param;
 
+	if (nb_param == 3)
+		ft_error(as, &free_asm, TOO_MUCH_PARAM);
 	ft_putstr("----is_param----\n");
 	if ((id_param = which_params(as, part)) == FAIL)
 		ft_error(as, &free_asm, INVALID_PARAM);
