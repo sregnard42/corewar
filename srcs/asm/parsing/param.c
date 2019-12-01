@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/26 13:20:54 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 12:26:06 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	which_params(t_assembler *as, char *param)
 	{
 		param++;
 		ft_printf("%s is a direct\n", param);
-		if (*param == ':')
+		if (*param == LABEL_CHAR)
 		{
 			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
 				ft_error(as, &free_asm, ERROR_MALLOC);
