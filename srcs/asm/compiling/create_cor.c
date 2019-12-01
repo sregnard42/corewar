@@ -6,11 +6,15 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/27 14:25:41 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:24:54 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** s_to_cor() creates the name of .cor file from .s file
+*/
 
 char	*s_to_cor(t_assembler *assembler, char *s)
 {
@@ -28,6 +32,11 @@ char	*s_to_cor(t_assembler *assembler, char *s)
 	cor[len + 2] = '\0';
 	return (cor);
 }
+
+/*
+** create_cor() get name of future .cor file, then get fd of .cor file while
+** creating it. Calls function to write in it.
+*/
 
 void	create_cor(t_assembler *as)
 {
