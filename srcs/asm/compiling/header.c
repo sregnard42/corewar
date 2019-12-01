@@ -6,11 +6,15 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:49:34 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/27 14:28:05 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:28:47 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** write_big_endian1() change the order of magic number's bytes
+*/
 
 void	write_big_endian1(int fd, int magic_number)
 {
@@ -22,6 +26,11 @@ void	write_big_endian1(int fd, int magic_number)
 	octets[3] = magic_number >> 0;
 	write(fd, octets, 4);
 }
+
+/*
+** write_name() writes magic number, then writes champion's name,
+** then fills the rest of the place reserved for the name with 0.
+*/
 
 void	write_name(t_assembler *as)
 {
@@ -37,6 +46,12 @@ void	write_name(t_assembler *as)
 	write(as->cor_fd, reserved, len_reserved);
 	ft_memdel((void *)&reserved);
 }
+
+/*
+** write_name() writes padding of 4, then writes the comment,
+** then fills the rest of the place reserved for the comment with 0, and
+** another padding.
+*/
 
 void	write_comment(t_assembler *as)
 {

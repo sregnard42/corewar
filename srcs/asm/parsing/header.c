@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 14:00:53 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:58:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 
 	if (dst && *dst)
 		ft_error(as, &free_asm, NAME_COMMENT_EXIST);
+	if (!ft_strchr(line, '"'))
+		ft_error(as, &free_asm, NO_QUOTES);
 	str = ft_strchr(line, '"') + 1;
+	if (ft_strchr(str, '"') == NULL)
+		ft_error(as, &free_asm, QUOTES_NOT_CLOSED);
 	if ((ft_strcmp("", ft_strchr(str, '"') + 1) != 0))
 		ft_error(as, &free_asm, STUFF_AFTER);
 	if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))

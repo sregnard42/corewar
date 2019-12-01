@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 14:41:49 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:41:34 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** write_big_endian() change order of bytes to big endian, depending of size
+** only write the 2 first bytes or 4 of them.
+*/
 
 void	write_big_endian(t_assembler *as, int nb, int size)
 {
@@ -29,7 +34,11 @@ void	write_big_endian(t_assembler *as, int nb, int size)
 		write(as->cor_fd, octets, size);
 }
 
-void	write_registre(t_assembler *as, char *param)
+/*
+** write_register()
+*/
+
+void	write_register(t_assembler *as, char *param)
 {
 	// char c = 1;
 	// ft_printf("%c\n", c + '0');
@@ -40,6 +49,12 @@ void	write_registre(t_assembler *as, char *param)
 	write(as->cor_fd, &ret, 1);
 }
 
+/*
+** write_neg_number() change order of bytes in big endian, then reverse all
+** bit (ex: if it was 0, become 1) to express negative number.
+** add 1 to octets[3] to write another 1 at the begginning. Depending of size
+** only write the 2 first bytes or 4 of them.
+*/
 
 void	write_neg_number(t_assembler *as, int nb, int size)
 {
@@ -65,6 +80,15 @@ void	write_neg_number(t_assembler *as, int nb, int size)
 		write(as->cor_fd, octets, size);
 }
 
+/*
+** write_label() goes through the instructions BEHIND our current instruction
+** to find the label reffering in the parameter. If finds the label, write the
+** parameter in big endian.
+** If it doesn't find the label, goes through all instructions starting from
+** the BEGINNING to find it, if it does, writes the parameter with negative
+** value.
+*/
+
 void	write_label(t_assembler *as, t_instruc *now, char *param)
 {
 	int			res;
@@ -73,8 +97,8 @@ void	write_label(t_assembler *as, t_instruc *now, char *param)
 	tmp = now;
 	res = 0;
 	param++;
-	// ft_printf("param(write label) = %s\n", param);   //live en params
-	// ft_printf("now->label = %s\nparam = %s\n", now->label, param);  //on est sur la ligne 5 et 10
+	// ft_printf("param(write label) = %s\n", param);
+	// ft_printf("now->label = %s\nparam = %s\n", now->label, param);
 	while (tmp)
 	{
 		if (tmp->label && ft_strcmp(tmp->label, param) == 0)
@@ -106,31 +130,30 @@ void	write_label(t_assembler *as, t_instruc *now, char *param)
 		}
 		tmp = tmp->next;
 	}
-	// write_big_endian(fd, res, size);
 }
 
-
-// void	write_direct(t_assembler *as, int fd, char *param, int size)
+/*
+** write_direct() if it's a classic direct, writes it, if it's a label parameter
+** we need to calculate its place with write_label()
+*/
 
 void	write_direct(t_assembler *as, char *param, t_instruc *now)
 {
 	int		ret;
 
 	param++;
-	// ft_printf("param = %s\n", param);
-	if (*param != ':')
+	if (*param != LABEL_CHAR)
 	{
 		ret = ft_atoi(param);
 		write_big_endian(as, ret, now->direct_size);
 	}
 	else
-	{
-		// write_neg_number(fd, 2, size);
-		// res = write_label(as, fd, size);
 		write_label(as, now, param);
-		// write_big_endian(fd, res, size); //??? comment on gere les labels
-	}
 }
+
+/*
+** write_indirect()
+*/
 
 void	write_indirect(t_assembler *as, char *param)
 {
@@ -139,6 +162,11 @@ void	write_indirect(t_assembler *as, char *param)
 	ret = ft_atoi(param);
 	write_big_endian(as, ret, 4);
 }
+
+/*
+** write_instruc() for all instructions: writes the opcode and the OPC if there
+** is one. Then for all parameters, write them depending on their types.
+*/
 
 void	write_instruc(t_assembler *as)
 {
@@ -149,14 +177,14 @@ void	write_instruc(t_assembler *as)
 	while (tmp)
 	{
 		i = 0;
-		write(as->cor_fd, &tmp->opcode, 1); //OPCODE : id de la commande sur 1byte
+		write(as->cor_fd, &tmp->opcode, 1);
 		if (tmp->ocp != 0)
-			write(as->cor_fd, &tmp->ocp, 1); //OCP : poids des parametres sur 1byte
+			write(as->cor_fd, &tmp->ocp, 1);
 		while (i < 3)
 		{
 			tmp->direct_size = get_param_bytes(tmp->opcode, tmp->param_type[i]);
 			if (tmp->param_type[i] == 1)
-				write_registre(as, tmp->param[i]);
+				write_register(as, tmp->param[i]);
 			else if (tmp->param_type[i] == 2)
 				write_direct(as, tmp->param[i], tmp);
 			else if (tmp->param_type[i] == 3)
