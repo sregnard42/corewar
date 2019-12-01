@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 14:50:07 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/01 12:22:47 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		check_label_chars(t_assembler *as, char *str)
 	while (i < len_i && j < len_j && str[i] != LABEL_CHARS[j])
 	{
 		j++;
-		if (j == 37)
+		if (j == len_j)
 		{
 			ft_printf("%s --> ", str);
 			ft_error(as, &free_asm, INVALID_LABEL);
@@ -55,7 +55,7 @@ int		is_label(t_assembler *as, char *part)
 	char *label;
 
 	ft_printf("(is_label)part = %s\n", part);
-	if (part[0] == '#')
+	if (part[0] == COMMENT_CHAR)
 		return (-1);
 	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL \
 		|| ft_strchr(part, DIRECT_CHAR) != NULL)
@@ -64,10 +64,10 @@ int		is_label(t_assembler *as, char *part)
 		ft_error(as, &free_asm, SPACE_LABEL);
 	if (!(str = ft_strsub(part, 0,  ret - part)))
 		ft_error(as, &free_asm, ERROR_MALLOC);
-	if (ft_strcmp(ret, ":") == 0)
+	if (ft_strlen(ret) == 1 && ret[0] == LABEL_CHAR)
 	{
 		check_label_chars(as, str);
-		if (!(label = ft_strsub(str, 0, ft_strchr(part, ':') - part)))
+		if (!(label = ft_strsub(str, 0, ft_strchr(part, LABEL_CHAR) - part)))
 			ft_error(as, &free_asm, ERROR_MALLOC);
 		if (ft_strlen(label) == 0)
 			ft_error(as, &free_asm, EMPTY_LABEL);
@@ -132,23 +132,29 @@ void	check_instruc(t_assembler *as, char *line, int len, char **tab,
 	ft_printf("param_type[0] = %c | param_type[1] = %c | param_type[2] = %c\n", param_type[0] + '0', param_type[1] + '0', param_type[2] + '0');
 }
 
+void	epure_line(char *line)
+{
+	int		i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '\t' || line[i] == SEPARATOR_CHAR)
+			line[i] = ' ';
+		if (line[i] == COMMENT_CHAR)
+			line[i] = '\0';
+	}
+}
+
 void	parse_instruction(t_assembler *as, char *line)
 {
 	char	**tab;
 	int		len;
 	char	*param_type;
 
-	if (line[0] == '\0' || line[0] == '#')
+	if (line[0] == '\0' || line[0] == COMMENT_CHAR)
 		return ;
-	int i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\t' || line[i] == SEPARATOR_CHAR)
-			line[i] = ' ';
-		if (line[i] == COMMENT_CHAR)
-			line[i] = '\0';
-		i++;
-	}
+	epure_line(line);
 	if (!as->header->name)
 		ft_error(as, &free_asm, EMPTY_NAME);
 	if (!as->header->comment)
