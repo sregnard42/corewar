@@ -20,10 +20,20 @@ void	op_aff(void *vm_ptr)
 {
     t_vm			*vm;
     t_args          *args;
+    t_process		*proc;
+    unsigned int    reg;
     unsigned int    val;
 
     vm = (t_vm *)vm_ptr;
     args = &vm->procs.cur->args;
-    val = args->first->val % 256;
+    proc = vm->procs.cur;
+    reg = args->first->val;
+    val = reg % 256;
+    if (vm->verbose & V_OPERATIONS)
+    {
+        ft_printf("aff %u | ", val);
+        ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+        ft_printf("displayed character %c\n", val);
+    }
     vm->print("%c\n", val);
 }
