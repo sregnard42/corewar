@@ -49,7 +49,8 @@ void	op_add(void *vm_ptr)
 }
 
 /*
-**		Comment
+**		Takes 3 registers, puts the substraction of the 2 first registers in
+**      the third. Modifies the carry.
 */
 
 void	op_sub(void *vm_ptr)
