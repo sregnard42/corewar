@@ -26,7 +26,7 @@ void    store(t_vm *vm, unsigned int src, unsigned int dst)
     arena_store(vm, dst, &(proc->reg[src]), REG_SIZE, proc->champ->id);
     vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
     vm->print("stored value %u in address %u\n", proc->reg[src], dst);
-    vm->flags & VM_VISU ? wait_input() : 0;
+    vm->print == &printw ? wait_input() : 0;
 }
 
 /*
@@ -52,7 +52,6 @@ void	op_st(void *vm_ptr)
     else
     	dst = args->first->next->val;
     vm->print("st %u, %u | ", src, dst);
-    vm->flags & VM_VISU ? wait_input() : 0;
 	store(vm, src, vm->pc + dst % IDX_MOD);
 }
 
@@ -83,6 +82,5 @@ void	op_sti(void *vm_ptr)
 	else
         dst[1] = args->first->next->next->val;
     vm->print("sti %u, %u, %u | ", src, dst[0], dst[1]);
-    vm->flags & VM_VISU ? wait_input() : 0;
 	store(vm, src, vm->pc + ((dst[0] + dst[1]) % IDX_MOD));
 }

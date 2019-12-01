@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void	op_calc(t_vm *vm, unsigned int dst, unsigned val)
+static void	calc(t_vm *vm, unsigned int dst, unsigned val)
 {
 	t_process *proc;
 
