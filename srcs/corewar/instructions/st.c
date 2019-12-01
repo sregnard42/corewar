@@ -24,11 +24,9 @@ void    store(t_vm *vm, unsigned int src, unsigned int dst)
     proc = vm->procs.cur;
 	proc->carry = (src == 0);
     arena_store(vm, dst, &(proc->reg[src]), REG_SIZE, proc->champ->id);
-    if (vm->verbose & V_OPERATIONS)
-    {
-        ft_printf("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-        ft_printf("stored value %u in address %u\n", proc->reg[src], dst);
-    }
+    vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+    vm->print("stored value %u in address %u\n", proc->reg[src], dst);
+    vm->flags & VM_VISU ? wait_input() : 0;
 }
 
 /*
@@ -53,8 +51,8 @@ void	op_st(void *vm_ptr)
         ft_memcpy(&dst, &(proc->reg[args->first->next->val]), REG_SIZE);
     else
     	dst = args->first->next->val;
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("st %u, %u | ", src, dst);
+    vm->print("st %u, %u | ", src, dst);
+    vm->flags & VM_VISU ? wait_input() : 0;
 	store(vm, src, vm->pc + dst % IDX_MOD);
 }
 
@@ -84,7 +82,7 @@ void	op_sti(void *vm_ptr)
         ft_memcpy(&dst[1], &(proc->reg[args->first->next->next->val]), REG_SIZE);
 	else
         dst[1] = args->first->next->next->val;
-	if (vm->verbose & V_OPERATIONS)
-		ft_printf("sti %u, %u, %u | ", src, dst[0], dst[1]);
+    vm->print("sti %u, %u, %u | ", src, dst[0], dst[1]);
+    vm->flags & VM_VISU ? wait_input() : 0;
 	store(vm, src, vm->pc + ((dst[0] + dst[1]) % IDX_MOD));
 }

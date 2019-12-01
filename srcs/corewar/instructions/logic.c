@@ -23,11 +23,9 @@ void    logic(t_vm *vm, unsigned int dst, unsigned int val)
     proc = vm->procs.cur;
     proc->carry = (val == 0);
     ft_memcpy(&proc->reg[dst], &val, sizeof(t_reg));
-    if (vm->verbose & V_OPERATIONS)
-    {
-        vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-        vm->print("stored value %u in register %u\n", val, dst);
-    }
+    vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+    vm->print("stored value %u in register %u\n", val, dst);
+    vm->flags & VM_VISU ? wait_input() : 0;
 }
 
 /*
@@ -57,8 +55,8 @@ void	op_and(void *vm_ptr)
     else
         src[1] = args->first->next->val;
     dst = args->first->next->next->val;
-    if (vm->verbose & V_OPERATIONS)
-        vm->print("and %u, %u, %u | ", src[0], src[1], dst);
+    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
+    vm->flags & VM_VISU ? wait_input() : 0;
     logic(vm, dst, src[0] & src[1]);
 }
 
@@ -89,8 +87,8 @@ void	op_or(void *vm_ptr)
     else
         src[1] = args->first->next->val;
     dst = args->first->next->next->val;
-    if (vm->verbose & V_OPERATIONS)
-        vm->print("and %u, %u, %u | ", src[0], src[1], dst);
+    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
+    vm->flags & VM_VISU ? wait_input() : 0;
     logic(vm, dst, src[0] | src[1]);
 }
 
@@ -121,7 +119,7 @@ void	op_xor(void *vm_ptr)
     else
         src[1] = args->first->next->val;
     dst = args->first->next->next->val;
-    if (vm->verbose & V_OPERATIONS)
-        vm->print("and %u, %u, %u | ", src[0], src[1], dst);
+    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
+    vm->flags & VM_VISU ? wait_input() : 0;
     logic(vm, dst, src[0] ^ src[1]);
 }

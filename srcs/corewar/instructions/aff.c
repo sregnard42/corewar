@@ -29,11 +29,9 @@ void	op_aff(void *vm_ptr)
     proc = vm->procs.cur;
     reg = args->first->val;
     val = reg % 256;
-    if (vm->verbose & V_OPERATIONS)
-    {
-        vm->print("aff %u | ", val);
-        vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-        vm->print("displayed character %c\n", val);
-    }
+    vm->print("aff %u | ", val);
+    vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+    vm->print("displayed character %c\n", val);
     vm_print(vm, 0)("%c\n", val);
+    vm->flags & VM_VISU ? wait_input() : 0;
 }
