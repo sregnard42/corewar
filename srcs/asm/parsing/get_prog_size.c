@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/27 12:17:59 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:38:24 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ unsigned int	get_param_bytes(int opcode, char param)
 	return (0);
 }
 
+/*
+**	recuepere la taille total des parametres d'une commande
+*/
+
 unsigned int	get_params_bytes(t_instruc *tmp)
 {
 	int				i;
@@ -48,6 +52,10 @@ unsigned int	get_params_bytes(t_instruc *tmp)
 		prog_size += get_param_bytes(tmp->opcode, tmp->param_type[i]);
 	return (prog_size);
 }
+
+/*
+**	recuperer la taille de toutes les commandes
+*/
 
 void				get_prog_size(t_assembler *as)
 {

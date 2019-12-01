@@ -6,11 +6,23 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/11/26 13:21:25 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:41:45 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** {X, Y, Z} --> correspond aux 3 params
+** 0 = aucun param
+** 1 = registre
+** 2 = direct
+** 4 = indirect
+** 3 = 1 ou 2 (registre ou direct)
+** 5 = 1 ou 4
+** 6 = 2 ou 4
+** 7 = 1 ou 2 ou 4
+*/
 
 void	init_asm(t_assembler *as)
 {

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 13:04:12 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:44:05 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		check_label_chars(t_assembler *as, char *str)
 
 /*
 ** is_label() checks if it's a label /!\ possible d'avoir un label invalide ? (ex trop long)
-** returns 1 if it's a label, 0 if it's not, and -1 for comments to ignore
+** returns SUCCESS if it's a label, FAIL if it's not, and ERROR for comments
+** to ignore
 */
 
 int		is_label(t_assembler *as, char *part)

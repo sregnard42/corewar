@@ -6,11 +6,16 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 13:16:11 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:23:29 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** check_if_exists() depends on mode, returns SUCCESS if param is already
+** defined or FAIL it doesn't exist
+*/
 
 int		check_if_exists(t_assembler *as, char *param, int mode)
 {
@@ -28,6 +33,11 @@ int		check_if_exists(t_assembler *as, char *param, int mode)
 	}
 	return (FAIL);
 }
+
+/*
+** save_label_to_check() create a list of existing label, to check later if
+** we are trying to create an already existing label
+*/
 
 void	save_label_to_check(t_assembler *as, char *label)
 {
@@ -51,6 +61,11 @@ void	save_label_to_check(t_assembler *as, char *label)
 		ft_error(as, &free_asm, ERROR_MALLOC);
 }
 
+/*
+** save_label_param() create a list of label parameter, to check later if
+** the label associated truly exists
+*/
+
 void	save_label_param(t_assembler *as, char *param)
 {
 	t_label	*tmp;
@@ -73,6 +88,11 @@ void	save_label_param(t_assembler *as, char *param)
 		ft_error(as, &free_asm, ERROR_MALLOC);
 }
 
+/*
+** check_existing_labels() checks both lists of label and parameter containing
+** a label, to check if the label parameter refers to an existing label
+*/
+
 int		check_existing_labels(t_assembler *as)
 {
 	t_label	*tmp_label;
@@ -90,10 +110,10 @@ int		check_existing_labels(t_assembler *as)
 				break;
 			}
 			if (tmp_label->next == NULL)
-				return (ERROR);
+				return (FAIL);
 			tmp_label = tmp_label->next;
 		}
 		tmp_params = tmp_params->next;
 	}
-	return (FAIL);
+	return (SUCCESS);
 }

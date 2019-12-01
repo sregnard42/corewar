@@ -6,14 +6,16 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:13:46 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 13:25:13 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** parsing() if doesnt find .name or .comment, parse the line as a instruction
+** parsing() parse header, then if doesn't find .name or .comment, parse the
+** line as an instruction. Then calls function to check if parameter label
+** refers to existing label.
 */
 
 void	parsing(t_assembler *as)
@@ -31,7 +33,7 @@ void	parsing(t_assembler *as)
 	}
 	if (i == 0)
 		ft_error(as, &free_asm, EMPTY_FILE);
-	if (check_existing_labels(as) == ERROR)
+	if (check_existing_labels(as) == FAIL)
 		ft_error(as, &free_asm, NO_EXIST_LABEL);
 	get_prog_size(as);
 	/////////////
