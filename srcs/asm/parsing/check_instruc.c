@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 13:56:56 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:12:45 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void		check_label_chars(t_assembler *as, char *str)
 
 int		is_label(t_assembler *as, char *part)
 {
-	char *ret;
-	char *str;
-	char *label;
+	char	*ret;
+	char	*str;
+	char	*label;
 
 	ft_printf("(is_label)part = %s\n", part);
 	if (part[0] == COMMENT_CHAR)
@@ -111,6 +111,7 @@ void	check_instruc(t_assembler *as, char *line, int len, char **tab,
 
 	i = -1;
 	nb_param = 0;
+	id_command = 0;
 	while (++i < len)
 	{
 		if ((ret = (is_label(as, tab[i]))) == SUCCESS)
@@ -119,6 +120,8 @@ void	check_instruc(t_assembler *as, char *line, int len, char **tab,
 			break;
 		else if ((tmp = which_command(as, tab[i])) < 16)
 		{
+			if (id_command != 0)
+				ft_error(as, &free_asm, TOO_MANY_CMD);
 			id_command = tmp;
 			ft_printf("'%s' is a command\n", as->commands[id_command].command);
 		}

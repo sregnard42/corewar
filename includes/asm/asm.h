@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 13:10:12 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:08:49 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define	NOT_S_FILE			"Please give a .s file.\n"
 # define	WTF_IS_THIS			"syntax error, element is neither a label nor \
 								a command nor a parameter.\n"
+// COMMAND
+# define	TOO_MANY_CMD		"Must be one command per line.\n"
+# define	CMD_NOT_FOUND		"Command not found."
 
 // LABEL
 
