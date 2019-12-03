@@ -6,14 +6,12 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/03 16:27:28 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:41:10 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
-
-
 
 # include "common.h"
 # include "instruc.h"
@@ -26,11 +24,13 @@
 
 # define	ERROR_MALLOC		"Error with malloc.\n"
 # define	CANT_READ			"Can't read source file ds.\n"
+# define	AS_NULL				"Structure is null.\n"
 # define	EMPTY_FILE			"Empty file.\n"
 # define	NOT_S_FILE			"Please give a .s file.\n"
 # define	WTF_IS_THIS			"syntax error, element is neither a label nor \
 								a command nor a parameter.\n"
 // COMMAND
+
 # define	TOO_MANY_CMD		"Must be one command per line.\n"
 # define	CMD_NOT_FOUND		"Command not found.\n"
 
@@ -45,10 +45,10 @@
 //COMMENT/NAME
 
 # define	EMPTY_NAME			"Missing .name with its string parameter.\n"
+# define	EMPTY_COMMENT		"Missing .comment with its string parameter.\n"
 # define	QUOTES_NOT_CLOSED	"Quotes in header are not closed.\n"
 # define	NO_QUOTES			"No quotes after .name or .comment.\n"
 # define	NAME_TOO_LONG		"Program name is too long.\n"
-# define	EMPTY_COMMENT		"Missing .comment with its string parameter.\n"
 # define	COMM_TOO_LONG		"Comment is too long.\n"
 # define	NAME_COMMENT_EXIST	"Name or comment already exist.\n"
 # define	STUFF_AFTER			"There is some junk after quotes.\n"
@@ -89,28 +89,28 @@ typedef struct		s_assembler
 	t_instruc		*instruc;
 }					t_assembler;
 
-void			init_asm(t_assembler *as);
-int				check_header(t_assembler *as, char *line);
-void			create_cor(t_assembler *as);
-void			check_label(t_assembler *as, char *label);
-void			parsing(t_assembler *as);
-void			clean_line(char *line);
-void			parse_instruction(t_assembler *as, char *line);
-void			free_asm(void *a);
-void			add_instruct(t_assembler *as, char *line, char *ocp,
-				int id_command);
-void			is_param(t_assembler *as, int id_command, char *part,
-				int nb_param, char *ocp);
-void			save_label_to_check(t_assembler *as, char *param);
-void			save_label_param(t_assembler *as, char *param);
-int				check_existing_labels(t_assembler *as);
-void			write_header(t_assembler *as);
-void			get_prog_size(t_assembler *as);
-unsigned int	get_params_bytes(t_instruc *tmp);
-void			write_magic(int fd, int magic_number);
-unsigned int	get_param_bytes(int opcode, char param);
-void			write_instruc(t_assembler *as);
-void			get_ocp(t_instruc *instruc);
+void				init_asm(t_assembler *as);
+int					check_header(t_assembler *as, char *line);
+void				create_cor(t_assembler *as);
+void				check_label(t_assembler *as, char *label);
+void				parsing(t_assembler *as);
+void				clean_line(char *line);
+void				parse_instruction(t_assembler *as, char *line);
+void				free_asm(void *a);
+void				add_instruct(t_assembler *as, char *line, char *ocp,
+						int id_command);
+void				is_param(t_assembler *as, int id_command, char *part,
+						int nb_param, char *ocp);
+void				save_label_to_check(t_assembler *as, char *param);
+void				save_label_param(t_assembler *as, char *param);
+int					check_existing_labels(t_assembler *as);
+void				write_header(t_assembler *as);
+void				get_prog_size(t_assembler *as);
+unsigned int		get_params_bytes(t_instruc *tmp);
+void				write_magic(int fd, int magic_number);
+unsigned int		get_param_bytes(int opcode, char param);
+void				write_instruc(t_assembler *as);
+void				get_ocp(t_instruc *instruc);
 ////////////////////fonctions de print -- pour debug
 void	print_instruc(t_assembler *as);
 void	print_labels(t_assembler *as);

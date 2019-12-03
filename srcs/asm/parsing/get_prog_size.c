@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:59:22 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:39:51 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void				get_prog_size(t_assembler *as)
 	unsigned int	prog_size;
 
 	if (!as || !as->header || !as->instruc)
-		ft_error(as, &free_asm, "get_prog_size => as is NULL\n");
+		ft_error(as, &free_asm, AS_NULL);
 	ft_printf("prog_size = %d\n", as->header->prog_size);
 	tmp = as->instruc;
 	prog_size = 0;
@@ -74,6 +74,5 @@ void				get_prog_size(t_assembler *as)
 		ft_putstr("\n");
 	}
 	as->prog_size = prog_size + 6;	//pour passer en hexa...
-	ft_printf("as->prog_size = %d\n", as->prog_size);
-	ft_putstr("------------------\n");
+	ft_printf("as->prog_size = %d\n----------------\n", as->prog_size);
 }

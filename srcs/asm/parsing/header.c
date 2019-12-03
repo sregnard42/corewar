@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/03 16:08:27 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:42:26 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int		check_header(t_assembler *as, char *line)
 
 	if ((len = ft_strchr(line, ' ')) == NULL)
 		return (FAIL);
-	// clean_line(line);   //pas super obligé non? si je lenleve, change rien
-	part = ft_strsub(line, 0, len - line);
+	if (!(part = ft_strsub(line, 0, len - line)))
+		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
