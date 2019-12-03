@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 15:35:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:51:58 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
 
 /*
 ** is_param() checks if the params are compatible with the command given
+** nb_param stands for param 1, param 2, param 3, not the total number of params
 */
 
 void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
@@ -94,13 +95,13 @@ void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	// EN COURS
 	char	id_param;
 
-	if (nb_param == 3)
-		ft_error(as, &free_asm, TOO_MUCH_PARAM);
+	if (nb_param + 1 > as->commands[id_command].nb_params)
+		ft_error(as, &free_asm, TOO_MANY_PARAM);
+	ft_printf("id_command = %d		nb_param = %d as->commands[id_command].nb_params = %d\n", id_command, nb_param, as->commands[id_command].nb_params);
 	ft_putstr("----is_param----\n");
 	if ((id_param = which_params(as, part)) == FAIL)
 		ft_error(as, &free_asm, INVALID_PARAM);
 	param_type[nb_param] = id_param;
-	// ft_printf("id_param = %d	id_command = %d		nb_param = %d\n", id_param, id_command, nb_param);
 	if (check_param(as, id_command, id_param, nb_param) == FAIL)
 		ft_error(as, &free_asm, WRONG_COMMAND_PARAM);
 }

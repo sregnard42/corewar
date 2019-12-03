@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/24 14:50:26 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:26:49 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	print_instruc(t_assembler *as)
 		ft_printf("label: %s\ncommand: %s (opcode: %d)\n", tmp->label, tmp->command, tmp->opcode);
 		ft_putstr("----params:-----\n");
 		ft_print_tab(tmp->param);
+		ft_putstr("----stuffs:-----\n");
+		ft_printf("param_type = %s\n", tmp->param_type);
+		ft_printf("direct_size = %d\n", tmp->direct_size);
+		ft_printf("ocp = %c\n", tmp->ocp);
+		ft_printf("size = %d\n", tmp->size);
 		tmp = tmp->next;
 	}
 	ft_putstr("-----------------------------------------------\n");

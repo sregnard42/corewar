@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 15:41:25 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:45:15 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
 		ft_printf("'%s' is a command\n", as->commands[id_command].command);
 		while (*(++tmp))
 			is_param(as, id_command, *tmp, nb_param++, param_type);
+		if (nb_param != as->commands[id_command].nb_params)
+			ft_error(as, &free_asm, WRONG_NB_PARAM);
+		// ft_printf(" OUUUUUUIIIIIII			as->commands->nb_params = %d    nb_params = %d\n",as->commands[id_command].nb_params, nb_param);
 		add_instruct(as, line, param_type, id_command);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 15:35:25 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:52:13 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@
 
 # define	INVALID_PARAM		"Param with invalid syntax.\n"
 # define	WRONG_COMMAND_PARAM	"Invalid param for this command.\n"
-# define	TOO_MUCH_PARAM		"Too much params.\n"
+# define	TOO_MANY_PARAM		"Too many parameters for this command.\n"
+# define	WRONG_NB_PARAM		"Too few parameters for this command.\n"
 
 typedef	struct		s_commands
 {
 	char			*command;
 	int				param[3];
+	int				nb_params;
 }					t_commands;
 
 typedef struct		s_label
