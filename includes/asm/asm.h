@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/03 16:27:28 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:36:30 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct		s_assembler
 	t_header		*header;
 	char			*file_name_s;
 	t_commands		commands[16];
-	int				prog_size;
+	unsigned int	prog_size;
 	int				nb_sep;
 	t_label			*labels;
 	t_label			*param_labels;

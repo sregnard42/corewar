@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:59:22 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:45:04 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,15 @@ void				get_prog_size(t_assembler *as)
 	prog_size = 0;
 	while (tmp)
 	{
+		prog_size += 1;
+		if (!(tmp->opcode == 1 || tmp->opcode == 9 || tmp->opcode == 12 ||
+			tmp->opcode == 15 || tmp->opcode == 16))
+			prog_size += 1;
 		prog_size += get_params_bytes(tmp);
 		tmp = tmp->next;
 		ft_putstr("\n");
 	}
-	as->prog_size = prog_size + 6;	//pour passer en hexa...
+	as->prog_size = prog_size;
 	ft_printf("as->prog_size = %d\n", as->prog_size);
 	ft_putstr("------------------\n");
 }
