@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/03 16:28:11 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:30:05 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 char	which_params(t_assembler *as, char *param)
 {
-	char *cpy;
+	char	*cpy;
+	int		nb;
 
 	if (!param || !*param)
 		return (FAIL);
@@ -26,10 +27,10 @@ char	which_params(t_assembler *as, char *param)
 	{
 		ft_printf("%s is a registre\n", param);
 		param++;
-		if (ft_strlen(param) > 2)
-			return (FAIL);
-		if (ft_isnumber(param))
+		if (ft_strlen(param) <= 2 && ft_isnumber(param) &&
+			(nb = ft_atoi(param)) <= REG_NUMBER && nb > 0)
 			return (REG_CODE);
+		return (FAIL);
 	}
 	else if (*param == DIRECT_CHAR)
 	{
