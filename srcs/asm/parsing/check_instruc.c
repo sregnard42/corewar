@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/03 15:45:15 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:25:00 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
 
 	id_command = 0;
 	nb_param = 0;
+	ft_printf(" OUUUUUUIIIIIII			as->commands->nb_params = %d    nb_params = %d\n",as->commands[id_command].nb_params, nb_param);
 	if ((id_command = which_command(as, *tmp)) < 16)
 	{
 		ft_printf("'%s' is a command\n", as->commands[id_command].command);
@@ -116,7 +117,6 @@ void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
 			is_param(as, id_command, *tmp, nb_param++, param_type);
 		if (nb_param != as->commands[id_command].nb_params)
 			ft_error(as, &free_asm, WRONG_NB_PARAM);
-		// ft_printf(" OUUUUUUIIIIIII			as->commands->nb_params = %d    nb_params = %d\n",as->commands[id_command].nb_params, nb_param);
 		add_instruct(as, line, param_type, id_command);
 	}
 	else
@@ -146,18 +146,21 @@ void	check_instruc(t_assembler *as, char *line, char **tab, char *param_type)
 ** epure_line() change all tabulation or ',' by space and all '#' by \0
 */
 
-void	epure_line(char *line)
+void	epure_line(t_assembler *as, char *line)
 {
 	int		i;
 
 	i = -1;
 	while (line[++i])
 	{
+		if (line[i] == SEPARATOR_CHAR)
+			as->nb_sep++;
 		if (line[i] == '\t' || line[i] == SEPARATOR_CHAR)
 			line[i] = ' ';
 		if (line[i] == COMMENT_CHAR)
 			line[i] = '\0';
 	}
+	ft_printf("nb_sep = %d\n", as->nb_sep);
 }
 
 /*
@@ -170,9 +173,11 @@ void	parse_instruction(t_assembler *as, char *line)
 	char	**tab;
 	char	*param_type;
 
+	ft_printf("line  = %s\n", line);
+	as->nb_sep = 0;
 	if (line[0] == '\0' || line[0] == COMMENT_CHAR)
 		return ;
-	epure_line(line);
+	epure_line(as, line);
 	if (!as->header->name)
 		ft_error(as, &free_asm, EMPTY_NAME);
 	if (!as->header->comment)

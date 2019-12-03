@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/03 15:52:13 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:27:28 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # define	WRONG_COMMAND_PARAM	"Invalid param for this command.\n"
 # define	TOO_MANY_PARAM		"Too many parameters for this command.\n"
 # define	WRONG_NB_PARAM		"Too few parameters for this command.\n"
+# define	SEPARATOR_ERROR		"Input error with separators ','.\n"
 
 typedef	struct		s_commands
 {
@@ -79,6 +80,7 @@ typedef struct		s_assembler
 	char			*file_name_s;
 	t_commands		commands[16];
 	int				prog_size;
+	int				nb_sep;
 	t_label			*labels;
 	t_label			*param_labels;
 	char			*file_name_cor;
