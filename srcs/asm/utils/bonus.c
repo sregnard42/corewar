@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:21:00 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 15:07:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:16:57 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	activate_flag(unsigned int *flag, char c)
 {
+	ft_printf("c = %c\n", c);
 	c == 'h' ? *flag |= BONUS_HELP : 0;
 	c == 'e' ? *flag |= BONUS_MANAGE_ERROR : 0;
 	c == 'f' ? *flag |= BONUS_FOLDER : 0;

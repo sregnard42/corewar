@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 14:17:37 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:24:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	which_params(t_assembler *as, char *param)
 		if (ft_strlen(param) <= 2 && ft_isnumber(param) &&
 			(nb = ft_atoi(param)) <= REG_NUMBER && nb > 0)
 			return (REG_CODE);
-		manage_error(as, &free_asm, as->line, WRONG_REGISTER);
+		manage_error(as, &free_asm, as->epure_line, WRONG_REGISTER);
 	}
 	else if (*param == DIRECT_CHAR)
 	{
@@ -37,7 +37,7 @@ char	which_params(t_assembler *as, char *param)
 		if (*param == LABEL_CHAR)
 		{
 			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
-				manage_error(as, &free_asm, as->line, ERROR_MALLOC);
+				manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 			save_label_param(as, cpy);
 			ft_memdel((void**)&cpy);
 		}
@@ -92,12 +92,12 @@ void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	char	id_param;
 
 	if (as->nb_sep != as->commands[id_command].nb_params - 1)
-		manage_error(as, &free_asm, as->line, SEPARATOR_ERROR);
+		manage_error(as, &free_asm, as->epure_line, SEPARATOR_ERROR);
 	if (nb_param + 1 > as->commands[id_command].nb_params)
-		manage_error(as, &free_asm, as->line, TOO_MANY_PARAM);
+		manage_error(as, &free_asm, as->epure_line, TOO_MANY_PARAM);
 	if ((id_param = which_params(as, part)) == FAIL)
-		manage_error(as, &free_asm, as->line, INVALID_PARAM);
+		manage_error(as, &free_asm, as->epure_line, INVALID_PARAM);
 	param_type[nb_param] = id_param;
 	if (check_param(as, id_command, id_param, nb_param) == FAIL)
-		manage_error(as, &free_asm, as->line, WRONG_COMMAND_PARAM);
+		manage_error(as, &free_asm, as->epure_line, WRONG_COMMAND_PARAM);
 }

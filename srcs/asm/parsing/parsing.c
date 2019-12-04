@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 14:41:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:24:47 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	parsing(t_assembler *as)
 		ft_memdel((void*)&as->line);
 	}
 	if (i == 0)
-		manage_error(as, &free_asm, as->line, EMPTY_FILE);
+		manage_error(as, &free_asm, as->epure_line, EMPTY_FILE);
 	if (check_existing_labels(as) == FAIL)
-		manage_error(as, &free_asm, as->line, NO_EXIST_LABEL);
+		manage_error(as, &free_asm, as->epure_line, NO_EXIST_LABEL);
 	get_prog_size(as);
 	/////////////
 	print_instruc(as);
