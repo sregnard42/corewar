@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 13:16:31 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:21:58 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,6 @@ void	free_label(t_label *label)
 		label = label->next;
 		tmp->name ? ft_memdel((void **)&tmp->name) : 0;
 		ft_memdel((void **)&tmp);
-	}
-}
-
-void	free_commands(t_commands *commands)
-{
-	int			i;
-
-	i = 0;
-	(void)commands; // A supprimer aussi
-	while (i < NB_COMMANDS)
-	{
-		// if (commands[i].command != NULL)
-			// ft_memdel((void **)&commands[i].command); //J'arrive pas a free ça et j'ai faim
-		++i;
 	}
 }
 
@@ -91,5 +77,4 @@ void	free_asm(void *assembler)
 	my_asm->labels ? free_label(my_asm->labels) : 0;
 	my_asm->param_labels ? free_label(my_asm->param_labels) : 0;
 	my_asm->instruc ? free_instruc(my_asm->instruc) : 0;
-	free_commands(my_asm->commands);
 }

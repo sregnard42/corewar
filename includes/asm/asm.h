@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 11:56:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:50:54 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_label
 typedef struct		s_assembler
 {
 	t_header		*header;
+	char			*line;
 	char			*file_name_s;
 	char			*file_name_cor;
 	t_commands		commands[NB_COMMANDS];
@@ -88,8 +89,14 @@ typedef struct		s_assembler
 	t_label			*param_labels;
 	int				s_fd;
 	int				cor_fd;
+	unsigned int	bonus;
 	t_instruc		*instruc;
 }					t_assembler;
+
+enum				e_bonus
+{
+	BONUS_MANAGE_ERROR = (1 << 0),
+};
 
 void				init_asm(t_assembler *as);
 int					check_header(t_assembler *as, char *line);
@@ -113,6 +120,7 @@ void				write_magic(int fd, int magic_number);
 unsigned int		get_param_bytes(int opcode, char param);
 void				write_instruc(t_assembler *as);
 void				get_ocp(t_instruc *instruc);
+void manage_error(void *p, void (*f)(void *), char *line, char *msg);
 ////////////////////fonctions de print -- pour debug
 void	print_instruc(t_assembler *as);
 void	print_labels(t_assembler *as);

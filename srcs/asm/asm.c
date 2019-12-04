@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:08:08 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:49:54 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,20 @@ int			main(int argc, char **argv)
 	}
 	while (i < argc)
 	{
+		init_asm(&as);
 		if (ft_strcmp(argv[i], "-help") == 0)
 		{
-			ft_putstr("Usage: -error pour changer les trucs en errors, etc les bonus\n");
+			ft_putstr("Usage: -e pour changer les trucs en errors, etc les bonus\n");
+			//free as
 			return (0);
+		}
+		if (ft_strcmp(argv[i], "-e") == 0)
+		{
+			as.bonus |= BONUS_MANAGE_ERROR;
+			i++;
 		}
 		if (check_file_type(argv[i]) == 0)
 			return (0);
-		init_asm(&as);
 		if (open_file(&as, argv[i]) == -1)
 			ft_error(&as, &free_asm, CANT_READ);
 		as.file_name_s = ft_strdup(argv[i]);
