@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 12:14:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:52:32 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	free_commands(t_commands *commands)
 void	free_instruc(t_instruc *instruc)
 {
 	t_instruc	*tmp;
+	int			i;
 
 	if (!instruc)
 		return ;
@@ -65,6 +66,12 @@ void	free_instruc(t_instruc *instruc)
 		instruc = instruc->next;
 		tmp->label ? ft_memdel((void **)&tmp->label) : 0;
 		tmp->command ? ft_memdel((void **)&tmp->command) : 0;
+		i = -1;
+		while (++i < 3)
+		{
+			tmp->param[i] ? ft_printf("param[%d] = %s\n", i, tmp->param[i]) : 0;
+			tmp->param[i] ? ft_memdel((void **)&tmp->param[i]) : 0;
+		}
 		ft_memdel((void **)&tmp->param);
 		tmp->param_type ? ft_memdel((void **)&tmp->param_type) : 0;
 		ft_memdel((void **)&tmp);
