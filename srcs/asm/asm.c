@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 15:03:41 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:47:50 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int			check_file_type(char *argv)
 	return (1);
 }
 
+void		print_usage()
+{
+	ft_putstr("\e[32mUsage:\e[0m	./asm \e[35m[-hfqec]\e[0m mychampion1.s\n");
+	ft_putstr("\e[35mHelp\e[0m on program and bonus: ./asm \e[35m-h\e[0m\n");
+}
+
 int			main(int argc, char **argv)
 {
 	t_assembler		as;
@@ -39,7 +45,7 @@ int			main(int argc, char **argv)
 	i = 1;
 	if (argc == 1)
 	{
-		ft_putstr("Usage: ./asm [-help] mychampion1.s mychampion2.s\n");
+		print_usage();
 		return (0);
 	}
 	init_bonus(&flag, argv);
@@ -50,9 +56,9 @@ int			main(int argc, char **argv)
 			++i;
 			continue;
 		}
-		init_asm(&as, flag);
 		if (check_file_type(argv[i]) == 0)
 			return (0);
+		init_asm(&as, flag);
 		if (open_file(&as, argv[i]) == -1)
 			manage_error(&as, &free_asm, NULL, CANT_READ);
 		as.file_name_s = ft_strdup(argv[i]);

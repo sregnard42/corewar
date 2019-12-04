@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
+#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/12/04 14:29:32 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/12/04 16:43:54 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -164,6 +164,14 @@ CC						:=	gcc
 CFLAGS					:=	-Wall -Wextra -Werror -g3
 
 ######	COLORS
+
+# _GREEN=\e[32m
+# _PURPLE=\e[35m
+# _BLUE=\e[34m
+# _YELLOW=\e[33m
+# _CYAN=\e[36m
+# _RED=\e[31m
+# _END=\e[0m
 
 _RED					:=	\033[1;31m
 _GREEN					:=	\033[1;32m

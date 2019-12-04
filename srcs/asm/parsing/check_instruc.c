@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 15:24:10 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:48:48 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,6 @@ void	epure_line(t_assembler *as)
 	int		i;
 
 	i = -1;
-	if (!(as->epure_line = ft_strdup(as->line)))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	while (as->line[++i])
 	{
 		if (as->line[i] == SEPARATOR_CHAR)

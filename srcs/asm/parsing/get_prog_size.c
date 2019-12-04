@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 15:24:03 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:45:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void				get_prog_size(t_assembler *as)
 
 	if (!as || !as->header || !as->instruc)
 		manage_error(as, &free_asm, as->epure_line, AS_NULL);
-	ft_printf("prog_size = %d\n", as->header->prog_size);
 	tmp = as->instruc;
 	prog_size = 0;
 	while (tmp)
@@ -75,9 +74,6 @@ void				get_prog_size(t_assembler *as)
 			prog_size += 1;
 		prog_size += get_params_bytes(tmp);
 		tmp = tmp->next;
-		ft_putstr("\n");
 	}
 	as->prog_size = prog_size;
-	ft_printf("as->prog_size = %d\n", as->prog_size);
-	ft_putstr("------------------\n");
 }

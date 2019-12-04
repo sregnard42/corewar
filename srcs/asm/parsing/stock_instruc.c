@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 15:25:04 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:37:50 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void		get_size_instruction(t_instruc *new)
 	ret = get_params_bytes(new);
 	ret += new->ocp == 0 ? 1 : 2;
 	new->size = ret;
-	ft_printf("new->size = %d\n", new->size);
 }
 
 /*
@@ -99,5 +98,4 @@ void	add_instruct(t_assembler *as, char *param_type,
 	init_instruc(as, new, id_command);
 	get_ocp(new);
 	get_size_instruction(new);
-	ft_printf("new->size = %d\n", new->size);
 }

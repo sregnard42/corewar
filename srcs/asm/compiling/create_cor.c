@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 15:25:18 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:38:42 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*s_to_cor(t_assembler *as, char *s)
 void	create_cor(t_assembler *as)
 {
 	as->file_name_cor = s_to_cor(as, as->file_name_s);
-	ft_printf("cor file = %s\n", as->file_name_cor);
 	as->cor_fd = open(as->file_name_cor, O_RDWR | O_CREAT, 0644);
 	write_header(as);
 	write_instruc(as);
