@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 13:57:24 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:55:01 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 ** last number is the number of parameters for this command
 */
 
-void	init_asm(t_assembler *as)
+void	init_asm(t_assembler *as, unsigned int flag)
 {
 	t_header	*header;
 
@@ -51,4 +51,5 @@ void	init_asm(t_assembler *as)
 	as->commands[13] = (t_commands){"lldi", {7, 3, 1}, 3};
 	as->commands[14] = (t_commands){"lfork", {2, 0, 0}, 1};
 	as->commands[15] = (t_commands){"aff", {1, 0, 0}, 1};
+	as->bonus = flag;
 }

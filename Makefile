@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
+#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/12/04 13:42:43 by lgaultie         ###   ########.fr        #
+#    Updated: 2019/12/04 14:29:32 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,8 @@ SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 SUBDIR					:=	utils/
 SRCNAME					:=	free_asm.c			\
 							print.c				\
-							manage_error.c
+							manage_error.c		\
+							bonus.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 
