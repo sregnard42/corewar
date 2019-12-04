@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 14:16:40 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:15:05 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,11 @@ void manage_error(void *p, void (*f)(void *), char *line, char *msg)
 		write(2, line, ft_strlen(line));
 		write(2, "\n\t", 2);
 	}
-	ft_error(p, f, msg);
+	msg && tmp->bonus & BONUS_COLOR ? ft_putstr("\033[1;31m") : 0;
+	msg ? write(2, "ERROR: ", 7) : 0;
+	msg && tmp->bonus & BONUS_COLOR ? ft_putstr("\033[0m") : 0;
+	msg ? write(2, msg, ft_strlen(msg)) : 0;
+	if (f && p)
+		f(p);
+	exit(EXIT_FAILURE);
 }
