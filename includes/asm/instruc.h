@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:17:15 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 14:33:54 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:59:40 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct			s_instruc
 	int					direct_size;
 	char 				ocp;
 	struct s_instruc	*next;
-	struct s_instruc	*prev;
 }						t_instruc;
 
 #endif

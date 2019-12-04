@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 12:51:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:59:49 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,9 @@ void	add_instruct(t_assembler *as, char *line, char *param_type,
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = new;
-		new->prev = tmp;
 	}
 	else
-	{
-		new->prev = NULL;
 		as->instruc = new;
-	}
 	new->param_type = param_type;
 	init_instruc(as, new, line, id_command);
 	get_ocp(new);
