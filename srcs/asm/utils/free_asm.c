@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 12:52:32 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:16:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	free_commands(t_commands *commands)
 	while (i < NB_COMMANDS)
 	{
 		// if (commands[i].command != NULL)
-		// 	ft_memdel((void **)&commands[i].command); //J'arrive pas a free ça et j'ai faim
+			// ft_memdel((void **)&commands[i].command); //J'arrive pas a free ça et j'ai faim
 		++i;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:49:34 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 14:28:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:09:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	write_comment(t_assembler *as)
 
 	write(as->cor_fd, "\0\0\0\0", 4);
 	size_com = ft_strlen(as->header->comment);
-	write_big_endian1(as->cor_fd, as->prog_size); // pas la bonne valeur
+	write_big_endian1(as->cor_fd, as->prog_size);
 	write(as->cor_fd, as->header->comment, size_com);
 	to_fill = ft_memalloc(sizeof(char) * COMMENT_LENGTH - size_com);
 	write(as->cor_fd, to_fill, COMMENT_LENGTH - size_com);

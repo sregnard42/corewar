@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/01 14:41:34 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:10:52 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	write_big_endian(t_assembler *as, int nb, int size)
 
 void	write_register(t_assembler *as, char *param)
 {
-	// char c = 1;
-	// ft_printf("%c\n", c + '0');
 	int		ret;
 
 	param++;
@@ -59,7 +57,7 @@ void	write_register(t_assembler *as, char *param)
 void	write_neg_number(t_assembler *as, int nb, int size)
 {
 	unsigned char	octets[4];
-	unsigned char			max;
+	unsigned char	max;
 
 	max = 0xff;
 	octets[0] = nb >> 24;
@@ -97,13 +95,10 @@ void	write_label(t_assembler *as, t_instruc *now, char *param)
 	tmp = now;
 	res = 0;
 	param++;
-	// ft_printf("param(write label) = %s\n", param);
-	// ft_printf("now->label = %s\nparam = %s\n", now->label, param);
 	while (tmp)
 	{
 		if (tmp->label && ft_strcmp(tmp->label, param) == 0)
 		{
-			ft_printf("res = %d\n", res);
 			write_big_endian(as, res, now->direct_size);
 			return ;
 		}
@@ -119,10 +114,7 @@ void	write_label(t_assembler *as, t_instruc *now, char *param)
 			while (tmp)
 			{
 				if (tmp == now)
-				{
-					ft_printf("neg res = %d\n", res);
 					write_neg_number(as, res, now->direct_size);
-				}
 				res += tmp->size;
 				tmp = tmp->next;
 			}

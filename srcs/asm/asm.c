@@ -6,19 +6,19 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/27 14:24:04 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:08:08 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int		open_file(t_assembler *as, char *argv)
+static int	open_file(t_assembler *as, char *argv)
 {
 	as->s_fd = open(argv, O_RDONLY);
 	return (as->s_fd);
 }
 
-int		check_file_type(char *argv)
+int			check_file_type(char *argv)
 {
 	char		*s;
 
@@ -30,7 +30,7 @@ int		check_file_type(char *argv)
 	return (1);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_assembler	as;
 	int			i;
@@ -46,7 +46,7 @@ int		main(int argc, char **argv)
 		if (ft_strcmp(argv[i], "-help") == 0)
 		{
 			ft_putstr("Usage: -error pour changer les trucs en errors, etc les bonus\n");
-				return (0);
+			return (0);
 		}
 		if (check_file_type(argv[i]) == 0)
 			return (0);
