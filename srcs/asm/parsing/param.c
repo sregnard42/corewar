@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 13:56:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:17:37 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ char	which_params(t_assembler *as, char *param)
 		return (FAIL);
 	if (*param == 'r')
 	{
-		ft_printf("%s is a registre\n", param);
 		param++;
 		if (ft_strlen(param) <= 2 && ft_isnumber(param) &&
 			(nb = ft_atoi(param)) <= REG_NUMBER && nb > 0)
 			return (REG_CODE);
-		return (FAIL);
+		manage_error(as, &free_asm, as->line, WRONG_REGISTER);
 	}
 	else if (*param == DIRECT_CHAR)
 	{
 		param++;
-		ft_printf("%s is a direct\n", param);
 		if (*param == LABEL_CHAR)
 		{
 			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
@@ -48,11 +46,9 @@ char	which_params(t_assembler *as, char *param)
 	}
 	else
 	{
-		ft_printf("%s is an indirect\n", param);
 		if (*param == LABEL_CHAR || ft_isnumber(param))
 			return (IND_CODE);
 	}
-	ft_printf("param |%s|   end of which_params\n", param);
 	return (FAIL);
 }
 
@@ -73,7 +69,6 @@ char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
 	int	type;
 
 	type = as->commands[id_command].param[nb_param];
-	ft_printf("type = %d\n", type);
 	if (type == 7 || type == id_param)
 		return (1);
 	else if (id_param == REG_CODE)
@@ -100,8 +95,6 @@ void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
 		manage_error(as, &free_asm, as->line, SEPARATOR_ERROR);
 	if (nb_param + 1 > as->commands[id_command].nb_params)
 		manage_error(as, &free_asm, as->line, TOO_MANY_PARAM);
-	ft_printf("id_command = %d		nb_param = %d as->commands[id_command].nb_params = %d\n", id_command, nb_param, as->commands[id_command].nb_params);
-	ft_putstr("----is_param----\n");
 	if ((id_param = which_params(as, part)) == FAIL)
 		manage_error(as, &free_asm, as->line, INVALID_PARAM);
 	param_type[nb_param] = id_param;

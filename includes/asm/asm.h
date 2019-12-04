@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:54:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:15:13 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 
 //PARAMS
 
+# define	WRONG_REGISTER		"Register must be from 1 to REG_NUMBER.\n"
 # define	INVALID_PARAM		"Param with invalid syntax.\n"
 # define	WRONG_COMMAND_PARAM	"Invalid param for this command.\n"
 # define	TOO_MANY_PARAM		"Too many parameters for this command.\n"
