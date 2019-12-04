@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/03 16:48:11 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:56:23 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define	SUCCESS 1
 # define	FAIL 0
 # define	ERROR -1
+
+# define	NB_COMMANDS 16
 
 // GENERAL
 
@@ -78,12 +80,12 @@ typedef struct		s_assembler
 {
 	t_header		*header;
 	char			*file_name_s;
-	t_commands		commands[16];
+	char			*file_name_cor;
+	t_commands		commands[NB_COMMANDS];
 	unsigned int	prog_size;
 	int				nb_sep;
 	t_label			*labels;
 	t_label			*param_labels;
-	char			*file_name_cor;
 	int				s_fd;
 	int				cor_fd;
 	t_instruc		*instruc;
