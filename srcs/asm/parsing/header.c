@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/03 16:42:26 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:59:04 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,25 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 	char *str;
 
 	if (dst && *dst)
-		ft_error(as, &free_asm, NAME_COMMENT_EXIST);
+		manage_error(as, &free_asm, as->line, NAME_COMMENT_EXIST);
 	if (!ft_strchr(line, '"'))
-		ft_error(as, &free_asm, NO_QUOTES);
+		manage_error(as, &free_asm, as->line, NO_QUOTES);
 	str = ft_strchr(line, '"') + 1;
 	if (ft_strchr(str, '"') == NULL)
-		ft_error(as, &free_asm, QUOTES_NOT_CLOSED);
+		manage_error(as, &free_asm, as->line, QUOTES_NOT_CLOSED);
 	if ((ft_strcmp("", ft_strchr(str, '"') + 1) != 0))
-		ft_error(as, &free_asm, STUFF_AFTER);
+		manage_error(as, &free_asm, as->line, STUFF_AFTER);
 	if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
-		ft_error(as, &free_asm, ERROR_MALLOC);
+		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	if (choice == 1)
 	{
 		if (ft_strlen(str) > PROG_NAME_LENGTH)
-			ft_error(as, &free_asm, NAME_TOO_LONG);
+			manage_error(as, &free_asm, as->line, NAME_TOO_LONG);
 	}
 	if (choice == 2)
 	{
 		if (ft_strlen(str) > COMMENT_LENGTH)
-			ft_error(as, &free_asm, COMM_TOO_LONG);
+			manage_error(as, &free_asm, as->line, COMM_TOO_LONG);
 	}
 	*dst = str;
 }
@@ -69,7 +69,7 @@ int		check_header(t_assembler *as, char *line)
 	if ((len = ft_strchr(line, ' ')) == NULL)
 		return (FAIL);
 	if (!(part = ft_strsub(line, 0, len - line)))
-		ft_error(as, &free_asm, ERROR_MALLOC);
+		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);

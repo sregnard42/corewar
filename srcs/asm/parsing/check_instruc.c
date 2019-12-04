@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:15:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:01:08 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void		check_label_chars(t_assembler *as, char *str)
 		j++;
 		if (j == len_j)
 		{
-			ft_printf("%s --> ", str);
-			ft_error(as, &free_asm, INVALID_LABEL);
+			manage_error(as, &free_asm, as->line, INVALID_LABEL);
 		}
 		if (str[i] == LABEL_CHARS[j])
 		{
@@ -62,16 +61,16 @@ int		is_label(t_assembler *as, char *part)
 		|| ft_strchr(part, DIRECT_CHAR) != NULL)
 		return (FAIL);
 	if (ft_strlen(ret) > 1)
-		ft_error(as, &free_asm, SPACE_LABEL);
+		manage_error(as, &free_asm, as->line, SPACE_LABEL);
 	if (!(str = ft_strsub(part, 0, ret - part)))
-		ft_error(as, &free_asm, ERROR_MALLOC);
+		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	if (ft_strlen(ret) == 1 && ret[0] == LABEL_CHAR)
 	{
 		check_label_chars(as, str);
 		if (!(label = ft_strsub(str, 0, ft_strchr(part, LABEL_CHAR) - part)))
-			ft_error(as, &free_asm, ERROR_MALLOC);
+			manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 		if (ft_strlen(label) == 0)
-			ft_error(as, &free_asm, EMPTY_LABEL);
+			manage_error(as, &free_asm, as->line, EMPTY_LABEL);
 		save_label_to_check(as, label);
 		ft_memdel((void**)&label);
 		ft_memdel((void**)&str);
@@ -113,11 +112,11 @@ void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
 		while (*(++tmp))
 			is_param(as, id_command, *tmp, nb_param++, param_type);
 		if (nb_param != as->commands[id_command].nb_params)
-			ft_error(as, &free_asm, WRONG_NB_PARAM);
+			manage_error(as, &free_asm, as->line, WRONG_NB_PARAM);
 		add_instruct(as, line, param_type, id_command);
 	}
 	else
-		ft_error(as, &free_asm, CMD_NOT_FOUND);
+		manage_error(as, &free_asm, as->line, CMD_NOT_FOUND);
 }
 
 /*
@@ -173,12 +172,12 @@ void	parse_instruction(t_assembler *as, char *line)
 		return ;
 	epure_line(as, line);
 	if (!as->header->name)
-		ft_error(as, &free_asm, EMPTY_NAME);
+		manage_error(as, &free_asm, as->line, EMPTY_NAME);
 	if (!as->header->comment)
-		ft_error(as, &free_asm, EMPTY_COMMENT);
+		manage_error(as, &free_asm, as->line, EMPTY_COMMENT);
 	if (!(tab = ft_strsplit(line, ' ')))
-		ft_error(as, &free_asm, ERROR_MALLOC);
+		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
-		ft_error(as, &free_asm, ERROR_MALLOC);
+		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	check_instruc(as, line, tab, param_type);
 }

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:49:54 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:54:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			main(int argc, char **argv)
 		if (check_file_type(argv[i]) == 0)
 			return (0);
 		if (open_file(&as, argv[i]) == -1)
-			ft_error(&as, &free_asm, CANT_READ);
+			manage_error(as, &free_asm, as.line, CANT_READ);
 		as.file_name_s = ft_strdup(argv[i]);
 		parsing(&as);
 		close(as.s_fd);

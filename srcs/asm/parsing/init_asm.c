@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/03 15:30:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:57:24 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_asm(t_assembler *as)
 
 	ft_bzero(as, sizeof(t_assembler));
 	if ((header = ft_memalloc(sizeof(t_header))) == NULL)
-		ft_error(as, (void *)&free_asm, ERROR_MALLOC);
+		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	header->magic = COREWAR_EXEC_MAGIC;
 	as->header = header;
 	as->commands[0] = (t_commands){"live", {2, 0, 0}, 1};

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/03 16:30:05 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:56:47 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	which_params(t_assembler *as, char *param)
 		if (*param == LABEL_CHAR)
 		{
 			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
-				ft_error(as, &free_asm, ERROR_MALLOC);
+				manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 			save_label_param(as, cpy);
 			ft_memdel((void**)&cpy);
 		}
@@ -97,14 +97,14 @@ void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	char	id_param;
 
 	if (as->nb_sep != as->commands[id_command].nb_params - 1)
-		ft_error(as, &free_asm, SEPARATOR_ERROR);
+		manage_error(as, &free_asm, as->line, SEPARATOR_ERROR);
 	if (nb_param + 1 > as->commands[id_command].nb_params)
-		ft_error(as, &free_asm, TOO_MANY_PARAM);
+		manage_error(as, &free_asm, as->line, TOO_MANY_PARAM);
 	ft_printf("id_command = %d		nb_param = %d as->commands[id_command].nb_params = %d\n", id_command, nb_param, as->commands[id_command].nb_params);
 	ft_putstr("----is_param----\n");
 	if ((id_param = which_params(as, part)) == FAIL)
-		ft_error(as, &free_asm, INVALID_PARAM);
+		manage_error(as, &free_asm, as->line, INVALID_PARAM);
 	param_type[nb_param] = id_param;
 	if (check_param(as, id_command, id_param, nb_param) == FAIL)
-		ft_error(as, &free_asm, WRONG_COMMAND_PARAM);
+		manage_error(as, &free_asm, as->line, WRONG_COMMAND_PARAM);
 }
