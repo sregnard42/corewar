@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 13:51:38 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:01:09 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,18 @@
 
 void	parsing(t_assembler *as)
 {
-	char	*line;
 	int		i;
 
 	i = 0;
-	while (get_next_line(as->s_fd, &line) == 1)
+	while (get_next_line(as->s_fd, &as->line) == 1)
 	{
 		i++; //pour savoir les lignes
-		if (check_header(as, line) == FAIL)
-			parse_instruction(as, line);
-		ft_memdel((void*)&line);
+		if (check_header(as) == FAIL)
+			parse_instruction(as);
+		ft_memdel((void*)&as->line);
 	}
 	if (i == 0)
-		manage_error(as, &free_asm, line, EMPTY_FILE);
+		manage_error(as, &free_asm, as->line, EMPTY_FILE);
 		// ft_error(as, &free_asm, EMPTY_FILE);
 	if (check_existing_labels(as) == FAIL)
 		ft_error(as, &free_asm, NO_EXIST_LABEL);

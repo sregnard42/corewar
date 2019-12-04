@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:15:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:00:18 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		which_command(t_assembler *as, char *part)
 ** Ensuite, ajoute l'instruction dans la structure as
 */
 
-void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
+void	is_command(t_assembler *as, char **tmp, char *param_type)
 {
 	int		id_command;
 	int		nb_param;
@@ -114,7 +114,7 @@ void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
 			is_param(as, id_command, *tmp, nb_param++, param_type);
 		if (nb_param != as->commands[id_command].nb_params)
 			ft_error(as, &free_asm, WRONG_NB_PARAM);
-		add_instruct(as, line, param_type, id_command);
+		add_instruct(as, param_type, id_command);
 	}
 	else
 		ft_error(as, &free_asm, CMD_NOT_FOUND);
@@ -126,15 +126,15 @@ void	is_command(t_assembler *as, char *line, char **tmp, char *param_type)
 ** et envoie le reste dans is_command
 */
 
-void	check_instruc(t_assembler *as, char *line, char **tab, char *param_type)
+void	check_instruc(t_assembler *as, char **tab, char *param_type)
 {
 	char	**tmp;
 
 	tmp = tab;
 	if (is_label(as, *tmp) == SUCCESS)
-		is_command(as, line, ++tmp, param_type);
+		is_command(as, ++tmp, param_type);
 	else
-		is_command(as, line, tmp, param_type);
+		is_command(as, tmp, param_type);
 	ft_free_tab(&tab);
 }
 
@@ -142,19 +142,19 @@ void	check_instruc(t_assembler *as, char *line, char **tab, char *param_type)
 ** epure_line() change all tabulation or ',' by space and all '#' by \0
 */
 
-void	epure_line(t_assembler *as, char *line)
+void	epure_line(t_assembler *as)
 {
 	int		i;
 
 	i = -1;
-	while (line[++i])
+	while (as->line[++i])
 	{
-		if (line[i] == SEPARATOR_CHAR)
+		if (as->line[i] == SEPARATOR_CHAR)
 			as->nb_sep++;
-		if (line[i] == '\t' || line[i] == SEPARATOR_CHAR)
-			line[i] = ' ';
-		if (line[i] == COMMENT_CHAR)
-			line[i] = '\0';
+		if (as->line[i] == '\t' || as->line[i] == SEPARATOR_CHAR)
+			as->line[i] = ' ';
+		if (as->line[i] == COMMENT_CHAR)
+			as->line[i] = '\0';
 	}
 }
 
@@ -163,22 +163,22 @@ void	epure_line(t_assembler *as, char *line)
 ** to send each parts in check_instruc.
 */
 
-void	parse_instruction(t_assembler *as, char *line)
+void	parse_instruction(t_assembler *as)
 {
 	char	**tab;
 	char	*param_type;
 
 	as->nb_sep = 0;
-	if (line[0] == '\0' || line[0] == COMMENT_CHAR)
+	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR)
 		return ;
-	epure_line(as, line);
+	epure_line(as);
 	if (!as->header->name)
 		ft_error(as, &free_asm, EMPTY_NAME);
 	if (!as->header->comment)
 		ft_error(as, &free_asm, EMPTY_COMMENT);
-	if (!(tab = ft_strsplit(line, ' ')))
+	if (!(tab = ft_strsplit(as->line, ' ')))
 		ft_error(as, &free_asm, ERROR_MALLOC);
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
 		ft_error(as, &free_asm, ERROR_MALLOC);
-	check_instruc(as, line, tab, param_type);
+	check_instruc(as, tab, param_type);
 }
