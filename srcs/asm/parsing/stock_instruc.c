@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:55:48 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:04:32 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** init_instruct()
 */
 
-void	init_instruc(t_assembler *as, t_instruc *new, char *line, int id_command)
+void	init_instruc(t_assembler *as, t_instruc *new, int id_command)
 {
 	char	**tab;
 	int		i;
@@ -25,7 +25,7 @@ void	init_instruc(t_assembler *as, t_instruc *new, char *line, int id_command)
 	i = 0;
 	j = 0;
 	new->opcode = id_command + 1;
-	if (!(tab = ft_strsplit(line, ' ')))
+	if (!(tab = ft_strsplit(as->line, ' ')))
 		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
@@ -78,7 +78,7 @@ void		get_size_instruction(t_instruc *new)
 ** add_instruct() add one line of instruction to our list
 */
 
-void	add_instruct(t_assembler *as, char *line, char *param_type,
+void	add_instruct(t_assembler *as, char *param_type,
 		int id_command)
 {
 	t_instruc	*tmp;
@@ -96,7 +96,7 @@ void	add_instruct(t_assembler *as, char *line, char *param_type,
 	else
 		as->instruc = new;
 	new->param_type = param_type;
-	init_instruc(as, new, line, id_command);
+	init_instruc(as, new, id_command);
 	get_ocp(new);
 	get_size_instruction(new);
 	ft_printf("new->size = %d\n", new->size);

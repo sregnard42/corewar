@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:59:04 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:05:28 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	clean_line(char *line)
 ** (ex: .name "yes"no)
 */
 
-void	parse_header(t_assembler *as, char *line, char **dst, int choice)
+void	parse_header(t_assembler *as, char **dst, int choice)
 {
 	char *str;
 
 	if (dst && *dst)
 		manage_error(as, &free_asm, as->line, NAME_COMMENT_EXIST);
-	if (!ft_strchr(line, '"'))
+	if (!ft_strchr(as->line, '"'))
 		manage_error(as, &free_asm, as->line, NO_QUOTES);
-	str = ft_strchr(line, '"') + 1;
+	str = ft_strchr(as->line, '"') + 1;
 	if (ft_strchr(str, '"') == NULL)
 		manage_error(as, &free_asm, as->line, QUOTES_NOT_CLOSED);
 	if ((ft_strcmp("", ft_strchr(str, '"') + 1) != 0))
@@ -61,25 +61,25 @@ void	parse_header(t_assembler *as, char *line, char **dst, int choice)
 ** if finds .name or .comment, parse string between quotes in our list.
 */
 
-int		check_header(t_assembler *as, char *line)
+int		check_header(t_assembler *as)
 {
 	char	*len;
 	char	*part;
 
-	if ((len = ft_strchr(line, ' ')) == NULL)
+	if ((len = ft_strchr(as->line, ' ')) == NULL)
 		return (FAIL);
-	if (!(part = ft_strsub(line, 0, len - line)))
+	if (!(part = ft_strsub(as->line, 0, len - as->line)))
 		manage_error(as, &free_asm, as->line, ERROR_MALLOC);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-		parse_header(as, line, &as->header->name, 1);
+		parse_header(as, &as->header->name, 1);
 		return (SUCCESS);
 	}
 	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-		parse_header(as, line, &as->header->comment, 2);
+		parse_header(as, &as->header->comment, 2);
 		return (SUCCESS);
 	}
 	ft_memdel((void**)&part);
