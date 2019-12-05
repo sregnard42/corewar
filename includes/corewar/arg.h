@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:01:34 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 17:02:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/22 00:48:14 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 typedef struct			s_arg
 {
+	int					val;
+	unsigned int		type;
+	unsigned int		size;
 	struct s_arg		*next;
 	struct s_champ		*champ;
 	struct s_process	*proc;

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:44:20 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/13 18:39:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:22:39 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		parse_file(t_vm *vm, char *file)
 	champ->file = file;
 	champ->size = read(fd, champ->content, BUFF_SIZE);
 	if (close(fd) != 0)
-		ft_error(vm, &free_all, "parse_file couldn't close file !\n");
+		ft_error(vm, &vm_free, "parse_file couldn't close file !\n");
 	champ->size < FILE_MIN_SIZE ? error_too_small(vm) : 0;
 	champ->content[champ->size] = '\0';
 	//ft_hexdump(champ->content, champ->size);
@@ -56,7 +56,7 @@ void		parse_args(t_vm *vm)
 	!vm->ac ? error_usage(vm) : 0;
 	while(vm->ac--)
 	{
-		ft_printf("[%s]\n", *vm->av);
+//		ft_printf("[%s]\n", *vm->av);
 		if (**vm->av == '-')
 			parse_option(vm);
 		else
@@ -65,5 +65,5 @@ void		parse_args(t_vm *vm)
 	vm->champs.size == 0 || vm->champs.size > MAX_PLAYERS ?
 	error_usage(vm) : champs_ids(vm);
 	champs_sort(vm);
-	champs_print(&vm->champs);
+//	champs_print(&vm->champs);
 }

@@ -129,7 +129,8 @@ SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	arena/
 SRCNAME					:=	arena.c		\
-							fight.c
+							fight.c		\
+							print.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	parsing/
@@ -139,14 +140,19 @@ SRCNAME					:=	parsing.c	\
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	instructions/
-SRCNAME					:=	live.c      \
-							ld.c        \
-							st.c        \
-							logic.c     \
-							aff.c       \
-							fork.c      \
-							zjmp.c      \
-							calc.c
+SRCNAME					:=	ocp.c		\
+							live.c      \
+                            ld.c        \
+                            st.c        \
+                            logic.c     \
+                            aff.c       \
+                            fork.c      \
+                            zjmp.c      \
+                            calc.c
+SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	visu/
+SRCNAME					:=	visu.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SRCNAME					:=	common.c
@@ -162,6 +168,8 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 
 CC						:=	gcc
 CFLAGS					:=	-Wall -Wextra -Werror -g3
+FLAGS_ASM				:=
+FLAGS_WAR				:=	-lncurses
 
 ######	COLORS
 
@@ -196,12 +204,12 @@ $(LIBFT)				:
 	@make -C $(LIBDIR)
 
 $(ASM)					:	$(LIBFT) $(OBJ_ASM) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
+	@$(CC) $(CFLAGS) $(FLAGS_ASM) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(ASM)
 
 $(COREWAR)				:	$(LIBFT) $(OBJ_WAR) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_WAR) -o $@ $(OBJ_COM) $(OBJ_WAR) $(LIBFT)
+	@$(CC) $(CFLAGS) $(FLAGS_WAR) $(INCLUDES_WAR) -o $@ $(OBJ_COM) $(OBJ_WAR) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(COREWAR)
 

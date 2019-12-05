@@ -2,3 +2,4 @@
 .comment "live"
 
 live %1
+live %2

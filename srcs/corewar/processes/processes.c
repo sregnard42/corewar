@@ -19,7 +19,7 @@
 void		procs_add(t_vm *vm, t_processes *procs, t_process *proc)
 {
 	if (!vm || !procs || !proc)
-		ft_error(vm, &free_all, "procs_add args\n");
+		ft_error(vm, &vm_free, "procs_add args\n");
 	if (!procs->first)
 	{
 		procs->first = proc;
