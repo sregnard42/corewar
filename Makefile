@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
+#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/29 13:08:14 by sregnard         ###   ########.fr        #
+#    Updated: 2019/12/04 16:43:54 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,23 +70,40 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 ######	SOURCES
 ######	#######	ASM
 
-SRCNAME					:=	asm.c				\
-							init_asm.c			\
-							parsing.c			\
-							header.c			\
-							create_cor.c		\
-							free_asm.c			\
-							parse_instruction.c	\
-							print.c				\
-							check_instruc.c		\
-							param.c
-
+SRCNAME					:=	asm.c
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
+
+SUBDIR					:=	parsing/
+SRCNAME					:=	parsing.c			\
+							header.c			\
+							stock_instruc.c		\
+							labels.c			\
+							init_asm.c			\
+							param.c				\
+							get_prog_size.c		\
+							get_ocp.c			\
+							check_instruc.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	compiling/
+SRCNAME					:=	header.c			\
+							create_cor.c		\
+							instruc.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	utils/
+SRCNAME					:=	free_asm.c			\
+							print.c				\
+							manage_error.c		\
+							bonus.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+
+######	#######	VM
 
 SRCNAME					:=	corewar.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
-######	#######	VM
 
 SUBDIR					:=	champs/
 SRCNAME					:=	champs.c	\
@@ -156,6 +173,14 @@ FLAGS_WAR				:=	-lncurses
 
 ######	COLORS
 
+# _GREEN=\e[32m
+# _PURPLE=\e[35m
+# _BLUE=\e[34m
+# _YELLOW=\e[33m
+# _CYAN=\e[36m
+# _RED=\e[31m
+# _END=\e[0m
+
 _RED					:=	\033[1;31m
 _GREEN					:=	\033[1;32m
 _YELLOW					:=	\033[1;33m
@@ -195,7 +220,7 @@ $(OBJDIR_ASM)%.o		:	$(SRCDIR_ASM)%.c $(INC_ASM) $(INC_COM)
 		tput el; \
 		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" $(ASM) $(dir $<); \
 	fi;
-	@mkdir -p $(OBJDIR_ASM);
+	@mkdir -p $(dir $@);
 	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ -c $<
 	@printf "$(_BG_GREEN) $(_RESET)"
 
