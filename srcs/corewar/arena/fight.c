@@ -6,52 +6,76 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 11:25:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:17:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	round_procs(t_vm *vm, t_champ *champ)
-{
-	t_process	*proc;
-
-	proc = champ->procs.first;
-	while (proc)
-	{
-		if (vm->cycle % vm->cycle_to_die == 0 && !proc->live)
-		{
-			ft_printf("A process is now dead !\n");
-			procs_del(vm, &champ->procs, &proc);
-			proc = champ->procs.cur;
-			continue ;
-		}
-		proc_exec(vm, champ, proc);
-		proc = proc->next;
-	}
-}
-
-static void	round_champs(t_vm *vm)
+static void	check_champs(t_vm *vm)
 {
 	t_champs	*champs;
 	t_champ		*champ;
 
 	champs = &vm->champs;
-	champ = champs->last;
+	champ = champs->first;
 	while (champ)
 	{
 		if (champs->size < 2)
 			return ;
-		round_procs(vm, champ);
-		if (champ->procs.size == 0)
+		if (champ->lives == 0)
 		{
-			ft_printf("Player %d, \"%s\" died !\n", champ->id, champ->name);
+			vm_print(vm, V_DEATHS)("Player %d, \"%s\" died !\n",
+			champ->id, champ->name);
 			champs->cur = champ->prev;
 			champs_del(champs, &champ);
 			champ = champs->cur;
 			continue ;
 		}
-		champ = champ->prev;
+		champ->lives = 0;
+		champ = champ->next;
+	}
+}
+
+static void	cycle_to_die(t_vm *vm)
+{
+		if (vm->cycle % vm->cycle_to_die == 0)
+		{
+			check_champs(vm);
+			if 	(vm->nbr_live >= NBR_LIVE || vm->checks > MAX_CHECKS)
+			{
+				vm->cycle_to_die -= CYCLE_DELTA;
+				vm_print(vm, V_CYCLES)("Cycle to die is now %d\n",
+				vm->cycle_to_die);
+			}
+		}
+		else
+			++vm->checks;
+}
+
+static void	check_procs(t_vm *vm)
+{
+	t_process	*proc;
+
+	proc = vm->procs.last;
+	while (proc)
+	{
+		if (vm->cycle % vm->cycle_to_die == 0)
+		{
+			if (proc->live)
+			{
+				proc->live = 0;
+				break ;
+			}
+			vm_print(vm, V_DEATHS)
+			("Process %d hasn't lived for %d cycles (CTD %d)\n",
+			proc->pid, vm->cycle_to_die, vm->cycle_to_die);
+			procs_del(vm, &vm->procs, &proc);
+			proc = vm->procs.cur;
+			continue ;
+		}
+		proc_exec(vm, proc->champ, proc);
+		proc = proc->prev;
 	}
 }
 
@@ -59,39 +83,41 @@ static void	fight_intro(t_vm *vm)
 {
 	t_champ	*champ;
 
-	ft_printf("Introducing contestants...\n");
+	vm->print("Introducing contestants...\n");
 	champ = vm->champs.first;
 	while (champ)
 	{
-		ft_printf ("* Player %d, weighing %d, \"%s\", (\"%s\")\n", champ->id,
-		champ->prog_size, champ->name, champ->comment);
+		vm->print("* Player %d, weighing %d bytes, \"%s\", (\"%s\") !\n",
+		champ->id, champ->prog_size, champ->name, champ->comment);
 		champ = champ->next;
 	}
+	vm->winner = vm->champs.last;
+	vm->flags & VM_VISU ? wait_input() : 0;
 }
 
 void		fight(t_vm *vm)
 {
 	fight_intro(vm);
-	vm->cycle = 1;
+	vm->cycle = 0;
 	while (vm->champs.size > 1 &&
 		vm->cycle_to_die > 0 &&
 		!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
 	{
-		//ft_printf("It is now cycle %d\n", vm->cycle);
-		round_champs(vm);
-		if (vm->cycle % vm->cycle_to_die == 0 &&
-			(vm->nbr_live >= NBR_LIVE || vm->checks > MAX_CHECKS))
-		{
-			vm->cycle_to_die -= CYCLE_DELTA;
-			//ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
-		}
-		else
-			++vm->checks;
 		++vm->cycle;
+		vm->flags & VM_VISU ? erase() : 0;
+		vm_print(vm, V_CYCLES)("It is now cycle %d\n", vm->cycle);
+		if (vm->flags & VM_VISU && vm->cycle % 1 == 0)
+			arena_print(vm, VISU_COLS);
+		check_procs(vm);
+		cycle_to_die(vm);
 	}
 	if (vm->champs.size == 1)
-		ft_printf("Contestant %d, \"%s\", has won !\n",
-		vm->champs.first->id, vm->champs.first->name);
+		vm->print("Contestant %d, \"%s\", has won !\n",
+		vm->winner->id, vm->winner->name);
 	else if (vm->flags & VM_DUMP)
-		arena_print(vm);
+	{
+		vm->flags & VM_VISU ? erase() : 0;
+		arena_print(vm, DUMP_COLS);
+	}
+	vm->flags & VM_VISU ? wait_input() : 0;
 }

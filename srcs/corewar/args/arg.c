@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:03:38 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 17:04:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:14:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_arg		*arg_new(t_vm *vm)
 {
 	t_arg	*arg;
 
-	if (!vm || !vm->champs.cur || !vm->champs.cur->procs.cur)
-		ft_error(vm, &free_all, "arg_new args\n");
+	if (!vm || !vm->champs.cur || !vm->procs.cur)
+		ft_error(vm, &vm_free, "arg_new args\n");
 	if (!(arg = ft_memalloc(sizeof(t_arg))))
-		ft_error(vm, &free_all, "arg_new memalloc\n");
+		ft_error(vm, &vm_free, "arg_new memalloc\n");
 	arg->champ = vm->champs.cur;
-	arg->proc = arg->champ->procs.cur;
+	arg->proc = vm->procs.cur;
 	arg->list = &arg->proc->args;
 	args_add(vm, arg->list, arg);
 	return (arg);
