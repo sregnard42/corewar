@@ -19,7 +19,7 @@
 void 		args_add(t_vm *vm, t_args *args, t_arg *arg)
 {
 	if (!vm || !args || !arg)
-		ft_error(vm, &free_all, "args_add args\n");
+		ft_error(vm, &vm_free, "args_add args\n");
 	if (!args->first)
 	{
 		args->first = arg;

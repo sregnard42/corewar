@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:02:25 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/17 17:09:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 13:41:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void		args_free(t_args *args)
         arg_free(&args->first);
         args->first = args->cur;
     }
+	ft_bzero(args, sizeof(t_args));
 }

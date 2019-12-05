@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:55:54 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/11/18 17:55:56 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/11/22 00:07:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
 
+# define REG_SIZE				1
+# define DIR_SIZE				4
 # define IND_SIZE				2
-# define REG_SIZE				4
-# define DIR_SIZE				REG_SIZE
 
 # define REG_CODE				1
 # define DIR_CODE				2
@@ -28,7 +28,8 @@
 
 # define MAX_ARGS_NUMBER		4
 # define MAX_PLAYERS			4
-# define MEM_SIZE				(4*1024)
+//# define MEM_SIZE				(4*1024)
+# define MEM_SIZE				(4*64)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:50:59 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/12 15:54:11 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:59:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void		champ_print(t_champ *champ)
 
 void		champs_print(t_champs *champs)
 {
-	t_champ	*champ;
-	int		i;
+	t_champ			*champ;
+	unsigned int	i;
 
 	if (!champs->size)
 		return ;
@@ -43,5 +43,11 @@ void		champs_print(t_champs *champs)
 		ft_printf("\n##### CHAMPION NO. %d #####\n", i++);
 		champ_print(champ);
 		champ = champ->next;
+	}
+	i = 1;
+	while (i <= champs->size)
+	{
+		ft_printf("champs.byId[%d] = ", i);
+		ft_printf("%s\n", champs->byId[i++]->name);
 	}
 }

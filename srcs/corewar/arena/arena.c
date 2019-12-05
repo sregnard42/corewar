@@ -6,60 +6,63 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 15:24:24 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:21:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
+unsigned int	arena_id(t_vm *vm, int index)
 {
-	unsigned int	i;
-	unsigned int	color;
-
-	i = cur * len;
-	while (i - (cur * len) < len)
-	{
-		color = vm->colors[i] + 30;
-		ft_printf("\033[1;%dm", color);
-		ft_printf("%02x", vm->arena[i++]);
-		ft_printf("\033[0m");
-		i  - (cur * len) < len ? ft_printf(" ") : 0;
-	}
-	ft_putln();
-}
-
-void		arena_print(t_vm *vm)
-{
-	unsigned int	cur;
-
-	if (!vm)
-		return ; 
-	cur = 0;
-	while (cur < MEM_SIZE / COLUMNS)
-		print_line(vm, cur++, COLUMNS);
+	if (index >= MEM_SIZE)
+		index %= MEM_SIZE;
+	else if (index < 0)
+		index = index % -MEM_SIZE + MEM_SIZE - 1;
+	if (index < 0 || index >= MEM_SIZE)
+		ft_error(vm, &vm_free, "arena_get out of bounds\n");
+	return (index);
 }
 
 unsigned char	arena_get(t_vm *vm, int index)
 {
-	if (index >= MEM_SIZE)
-		index %= MEM_SIZE;
-	else if (index < 0)
-		index = index % -MEM_SIZE + MEM_SIZE - 1;
-	if (index < 0 || index >= MEM_SIZE)
-		ft_error(vm, &free_all, "arena_get out of bounds\n");
-	return (vm->arena[index]);
+	return (vm->arena[arena_id(vm, index)]);
 }
 
-void			arena_set(t_vm *vm, int index, unsigned char c)
+void			arena_set(t_vm *vm, int index, unsigned char c,
+							unsigned int id_player)
 {
-	if (index >= MEM_SIZE)
-		index %= MEM_SIZE;
-	else if (index < 0)
-		index = index % -MEM_SIZE + MEM_SIZE - 1;
-	if (index < 0 || index >= MEM_SIZE)
-		ft_error(vm, &free_all, "arena_set out of bounds\n");
-	vm->arena[index] = c;
+	unsigned int	id;
+
+	id = arena_id(vm, index);
+	vm->arena[id] = c;
+	vm->colors[id] = id_player;
+}
+
+/*
+**				Copies n bytes from the arena to the destination
+*/
+
+void			arena_load(t_vm *vm, int index, void *dst, size_t n)
+{
+	char		*dest;
+
+	dest = (char *)dst;
+	while (n-- > 0)
+		dest[n] = arena_get(vm, index + n);
+}
+
+/*
+**				Copies n bytes from the source to the arena
+*/
+
+void			arena_store(t_vm *vm, int index, const void *src, size_t n,
+							unsigned int id)
+{
+	const char	*source;
+
+	source = (const char *)src;
+	while (n-- > 0)
+		arena_set(vm, index + n, source[n], id);
 }
 
 void			arena_init(t_vm *vm)

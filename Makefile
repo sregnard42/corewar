@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
+#    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/20 09:31:20 by sregnard         ###   ########.fr        #
+#    Updated: 2019/12/04 16:43:54 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,23 +70,40 @@ INC_COM					:=	$(addprefix $(INCDIR_COM), $(INCNAME))
 ######	SOURCES
 ######	#######	ASM
 
-SRCNAME					:=	asm.c				\
-							init_asm.c			\
-							parsing.c			\
-							header.c			\
-							create_cor.c		\
-							free_asm.c			\
-							parse_instruction.c	\
-							print.c				\
-							check_instruc.c		\
-							param.c
-
+SRCNAME					:=	asm.c
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
+
+SUBDIR					:=	parsing/
+SRCNAME					:=	parsing.c			\
+							header.c			\
+							stock_instruc.c		\
+							labels.c			\
+							init_asm.c			\
+							param.c				\
+							get_prog_size.c		\
+							get_ocp.c			\
+							check_instruc.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	compiling/
+SRCNAME					:=	header.c			\
+							create_cor.c		\
+							instruc.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	utils/
+SRCNAME					:=	free_asm.c			\
+							print.c				\
+							manage_error.c		\
+							bonus.c
+SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
+
+
+######	#######	VM
 
 SRCNAME					:=	corewar.c
 SRC_WAR					:=	$(addprefix $(SRCDIR_WAR), $(SRCNAME))
 
-######	#######	VM
 
 SUBDIR					:=	champs/
 SRCNAME					:=	champs.c	\
@@ -112,7 +129,8 @@ SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	arena/
 SRCNAME					:=	arena.c		\
-							fight.c
+							fight.c		\
+							print.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	parsing/
@@ -122,7 +140,8 @@ SRCNAME					:=	parsing.c	\
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	instructions/
-SRCNAME					:=	live.c      \
+SRCNAME					:=	ocp.c		\
+							live.c      \
                             ld.c        \
                             st.c        \
                             logic.c     \
@@ -130,6 +149,10 @@ SRCNAME					:=	live.c      \
                             fork.c      \
                             zjmp.c      \
                             calc.c
+SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					:=	visu/
+SRCNAME					:=	visu.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SRCNAME					:=	common.c
@@ -145,8 +168,18 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 
 CC						:=	gcc
 CFLAGS					:=	-Wall -Wextra -Werror -g3
+FLAGS_ASM				:=
+FLAGS_WAR				:=	-lncurses
 
 ######	COLORS
+
+# _GREEN=\e[32m
+# _PURPLE=\e[35m
+# _BLUE=\e[34m
+# _YELLOW=\e[33m
+# _CYAN=\e[36m
+# _RED=\e[31m
+# _END=\e[0m
 
 _RED					:=	\033[1;31m
 _GREEN					:=	\033[1;32m
@@ -171,12 +204,12 @@ $(LIBFT)				:
 	@make -C $(LIBDIR)
 
 $(ASM)					:	$(LIBFT) $(OBJ_ASM) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
+	@$(CC) $(CFLAGS) $(FLAGS_ASM) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(ASM)
 
 $(COREWAR)				:	$(LIBFT) $(OBJ_WAR) $(OBJ_COM)
-	@$(CC) $(CFLAGS) $(INCLUDES_WAR) -o $@ $(OBJ_COM) $(OBJ_WAR) $(LIBFT)
+	@$(CC) $(CFLAGS) $(FLAGS_WAR) $(INCLUDES_WAR) -o $@ $(OBJ_COM) $(OBJ_WAR) $(LIBFT)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(COREWAR)
 
@@ -187,7 +220,7 @@ $(OBJDIR_ASM)%.o		:	$(SRCDIR_ASM)%.c $(INC_ASM) $(INC_COM)
 		tput el; \
 		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" $(ASM) $(dir $<); \
 	fi;
-	@mkdir -p $(OBJDIR_ASM);
+	@mkdir -p $(dir $@);
 	@$(CC) $(CFLAGS) $(INCLUDES_ASM) -o $@ -c $<
 	@printf "$(_BG_GREEN) $(_RESET)"
 
