@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 16:48:48 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/05 16:08:14 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,18 @@ void	is_command(t_assembler *as, char **tmp, char *param_type)
 			is_param(as, id_command, *tmp, nb_param++, param_type);
 		if (nb_param != as->commands[id_command].nb_params)
 			manage_error(as, &free_asm, as->epure_line, WRONG_NB_PARAM);
-		add_instruct(as, param_type, id_command);
+		if (!(as->bonus & BONUS_DONT_QUIT))
+			add_instruct(as, param_type, id_command);
 	}
 	else
+	{
 		manage_error(as, &free_asm, as->epure_line, CMD_NOT_FOUND);
+		if (as->bonus & BONUS_DONT_QUIT)
+		{
+			while (*(++tmp))
+				is_param(as, id_command, *tmp, nb_param++, param_type);
+		}
+	}
 }
 
 /*
@@ -171,9 +179,9 @@ void	parse_instruction(t_assembler *as)
 	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR)
 		return ;
 	epure_line(as);
-	if (!as->header->name)
+	if (!as->header->name  && (!(as->bonus & BONUS_GOT_ERROR)))
 		manage_error(as, &free_asm, as->epure_line, EMPTY_NAME);
-	if (!as->header->comment)
+	if (!as->header->comment && (!(as->bonus & BONUS_GOT_ERROR)))
 		manage_error(as, &free_asm, as->epure_line, EMPTY_COMMENT);
 	if (!(tab = ft_strsplit(as->line, ' ')))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 17:47:50 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/05 15:56:15 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ int			main(int argc, char **argv)
 		init_asm(&as, flag);
 		if (open_file(&as, argv[i]) == -1)
 			manage_error(&as, &free_asm, NULL, CANT_READ);
-		as.file_name_s = ft_strdup(argv[i]);
+		if (!(as.file_name_s = ft_strdup(argv[i])))
+		{
+			// faire les free necessaires
+			return(0);
+		}
 		parsing(&as);
 		close(as.s_fd);
 		create_cor(&as);

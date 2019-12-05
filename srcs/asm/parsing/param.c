@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 15:24:40 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/05 15:19:06 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	which_params(t_assembler *as, char *param)
 			(nb = ft_atoi(param)) <= REG_NUMBER && nb > 0)
 			return (REG_CODE);
 		manage_error(as, &free_asm, as->epure_line, WRONG_REGISTER);
+			return (REG_CODE);	//pour le mode -q, evite davoir error sur numero trop haut de registre ET syntax param
 	}
 	else if (*param == DIRECT_CHAR)
 	{
@@ -88,10 +89,10 @@ char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
 void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
 				char *param_type)
 {
-	// EN COURS
 	char	id_param;
 
-	if (as->nb_sep != as->commands[id_command].nb_params - 1)
+	if (!(as->bonus & BONUS_DONT_QUIT) \
+		&& as->nb_sep != as->commands[id_command].nb_params - 1)
 		manage_error(as, &free_asm, as->epure_line, SEPARATOR_ERROR);
 	if (nb_param + 1 > as->commands[id_command].nb_params)
 		manage_error(as, &free_asm, as->epure_line, TOO_MANY_PARAM);

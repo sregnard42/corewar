@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 17:02:42 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/05 15:36:31 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	parsing(t_assembler *as)
 	int		i;
 
 	i = 0;
+	if (as->bonus & BONUS_DONT_QUIT)
+		ft_printf("------------%s-------------\n", as->file_name_s);
 	while (get_next_line(as->s_fd, &as->line) == 1)
 	{
 		if (!(as->epure_line = ft_strdup(as->line)))
@@ -35,9 +37,7 @@ void	parsing(t_assembler *as)
 	}
 	if (i == 0)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_FILE);
-	if (check_existing_labels(as) == FAIL)	//si je supprime ca le prog marche
-	//alors que check_existing_labels fait manage_error!
-		manage_error(as, &free_asm, as->epure_line, NO_EXIST_LABEL);
+	check_existing_labels(as);
 	get_prog_size(as);
 	/////////////
 	// print_instruc(as);
