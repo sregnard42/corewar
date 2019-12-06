@@ -6,23 +6,11 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:21:00 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/05 17:06:14 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:02:18 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-void	print_help()
-{
-	ft_putstr("\e[32mUsage:\n\t\e[0m ./asm \e[36m[-hfqec]\e[0m mychampion1.s\n");
-	ft_putstr("\e[32mBonus:\e[0m\n");
-	ft_putstr("	\e[36m*\e[0m can create several .cor from different .s files at once: ./asm [-hfqec] mychampion1.s mychampion2.s\n");
-	ft_putstr("\e[36m-q	quit\e[0m: lists all errors from .s file instead of quitting at first error. Will prevent creation of .cor in case of errors. \n");
-	ft_putstr("\e[36m-f	folder\e[0m: create a folder my_champs if it doesn't already exist or add all new .cor to this folder if it already exists.\n");
-	ft_putstr("\e[36m-e	error\e[0m: tell which line has an input error.\n");
-	ft_putstr("\e[36m-c	color\e[0m: add some \e[33mc\e[36mo\e[35ml\e[32mo\e[31m\e[33mr\e[0m.\n");
-	exit(0); //faut pas exit proprement?
-}
 
 void	activate_flag(unsigned int *flag, char c)
 {

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/05 16:37:47 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:02:53 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ int			check_file_type(char *argv)
 		return (0); // truc a faire $ manage error et leaks
 	}
 	return (1);
-}
-
-void		print_usage()
-{
-	ft_putstr("\e[32mUsage:\e[0m	./asm \e[35m[-hfqec]\e[0m mychampion1.s\n");
-	ft_putstr("\e[35mHelp\e[0m on program and bonus: ./asm \e[35m-h\e[0m\n");
 }
 
 int			main(int argc, char **argv)
@@ -69,6 +63,8 @@ int			main(int argc, char **argv)
 		parsing(&as);
 		close(as.s_fd);
 		create_cor(&as);
+		if (as.bonus & BONUS_GOT_ERROR)
+			print_advices(&as);
 		i++;
 	}
 	free_asm(&as);

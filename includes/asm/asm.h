@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/06 15:51:24 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:05:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct		s_assembler
 {
 	t_header		*header;
 	char			*line;
+	int				nb_line;
 	char			*epure_line;
 	char			*file_name_s;
 	char			*file_name_cor;
@@ -139,6 +140,10 @@ void				write_instruc(t_assembler *as);
 void				get_ocp(t_instruc *instruc);
 void				manage_error(void *p, void (*f)(void *), char *line, char *msg);
 void				init_bonus(unsigned int *flag, char **av);
+void				print_usage();
+void				print_help();
+void				print_advices(t_assembler *as);
+void				print_file_name(t_assembler *as);
 
 /*
 ** print functions

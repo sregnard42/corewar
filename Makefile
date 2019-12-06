@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/12/06 16:14:01 by lgaultie         ###   ########.fr        #
+#    Updated: 2019/12/06 17:02:09 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,8 @@ SUBDIR					:=	utils/
 SRCNAME					:=	free_asm.c			\
 							print.c				\
 							manage_error.c		\
-							bonus.c
+							bonus.c				\
+							debug.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 
