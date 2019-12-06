@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/05 17:06:01 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:14:31 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void manage_error(void *p, void (*f)(void *), char *line, char *msg)
 	msg ? write(2, "ERROR: ", 7) : 0;
 	msg && tmp->bonus & BONUS_COLOR ? write(2, "\e[0m", 4) : 0;
 	msg ? write(2, msg, ft_strlen(msg)) : 0;
+
 	if (!(tmp->bonus & BONUS_DONT_QUIT))
 	{
 		if (f && p)

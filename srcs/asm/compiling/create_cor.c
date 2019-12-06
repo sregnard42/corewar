@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/05 15:50:13 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:23:06 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,24 @@ void	create_cor(t_assembler *as)
 {
 	if (as->bonus & BONUS_DONT_QUIT && as->bonus & BONUS_GOT_ERROR)
 	{
-		//j'empeche la creation du .cor avec -q
+		if (as->bonus & BONUS_COLOR)
+			ft_putstr("\e[1;31m");
+		ft_putstr("\n\n.cor not created because of error(s).\e[0m");
+		if (as->bonus & BONUS_COLOR)
+			ft_putstr("\e[1;32m");
+		ft_putstr("\nREMINDERS :\n");
+		if (as->bonus & BONUS_COLOR)
+		{
+			ft_putstr("\e[0m");
+			ft_putstr("\e[32m");
+		}
+		ft_putstr("\t* Header:\e[0m\n");
+		ft_putstr("\t.name \"champion's name\"\n");
+		ft_putstr("\t.comment \"some comment\"\n");
+		if (as->bonus & BONUS_COLOR)
+			ft_putstr("\e[32m");
+		ft_putstr("\t* One instruction per line:\e[0m\n");
+		ft_putstr("\t<label> <command> <argument1> , <argument2> , ..\n");
 		return ;
 	}
 	as->file_name_cor = s_to_cor(as, as->file_name_s);

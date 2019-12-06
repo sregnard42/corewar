@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/05 15:56:03 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 15:51:24 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,53 +16,63 @@
 # include "common.h"
 # include "instruc.h"
 
-# define	SUCCESS 1
-# define	FAIL 0
-# define	ERROR -1
+# define SUCCESS 1
+# define FAIL 0
+# define ERROR -1
 
-# define	NB_COMMANDS 16
+# define NB_COMMANDS 16
 
-// GENERAL
+/*
+** GENERAL
+*/
 
-# define	ERROR_MALLOC		"Error with malloc.\n"
-# define	CANT_READ			"Can't read source file ds.\n"
-# define	AS_NULL				"Structure is null.\n"
-# define	EMPTY_FILE			"Empty file.\n"
-# define	NOT_S_FILE			"Please give a .s file.\n"
-# define	WTF_IS_THIS			"syntax error, element is neither a label nor \
-								a command nor a parameter.\n"
-// COMMAND
+# define ERROR_MALLOC	"Error with malloc.\n"
+# define CANT_READ		"Can't read source file ds.\n"
+# define AS_NULL		"Structure is null.\n"
+# define EMPTY_FILE 	"Empty file.\n"
+# define NOT_S_FILE 	"Please give a .s file.\n"
+# define WTF_IS_THIS "syntax error, element isn't a label/command/parameter.\n"
 
-# define	TOO_MANY_CMD		"Must be one command per line.\n"
-# define	CMD_NOT_FOUND		"Command not found.\n"
+/*
+** COMMAND
+*/
 
-// LABEL
+# define TOO_MANY_CMD	"Must be one command per line.\n"
+# define CMD_NOT_FOUND	"Command not found.\n"
 
-# define	EMPTY_LABEL			"Label is empty.\n"
-# define	SPACE_LABEL			"No space after label.\n"
-# define	INVALID_LABEL		"Label with invalid characters.\n"
-# define	NO_EXIST_LABEL		"Label in argument doesn't exist.\n"
-# define	LABEL_ALRDY_EXIST	"This label already exists.\n"
+/*
+** LABEL
+*/
 
-//COMMENT/NAME
+# define EMPTY_LABEL		"Label is empty.\n"
+# define SPACE_LABEL		"No space after label.\n"
+# define INVALID_LABEL		"Label with invalid characters.\n"
+# define NO_EXIST_LABEL		"Label in argument doesn't exist.\n"
+# define LABEL_ALRDY_EXIST	"This label already exists.\n"
 
-# define	EMPTY_NAME			"Missing .name with its string parameter.\n"
-# define	EMPTY_COMMENT		"Missing .comment with its string parameter.\n"
-# define	QUOTES_NOT_CLOSED	"Quotes in header are not closed.\n"
-# define	NO_QUOTES			"No quotes after .name or .comment.\n"
-# define	NAME_TOO_LONG		"Program name is too long.\n"
-# define	COMM_TOO_LONG		"Comment is too long.\n"
-# define	NAME_COMMENT_EXIST	"Name or comment already exist.\n"
-# define	STUFF_AFTER			"There is some junk after quotes.\n"
+/*
+** COMMENT/NAME
+*/
 
-//PARAMS
+# define EMPTY_NAME "Missing name well formated: .name \"champion's name\" \n"
+# define EMPTY_COMMENT "Missing .comment well formated: .comment \"comment\"\n"
+# define QUOTES_NOT_CLOSED	"Quotes in header are not closed.\n"
+# define NO_QUOTES			"No quotes after .name or .comment.\n"
+# define NAME_TOO_LONG		"Program name is too long.\n"
+# define COMM_TOO_LONG		"Comment is too long.\n"
+# define NAME_COMMENT_EXIST	"Name or comment already exist.\n"
+# define STUFF_AFTER		"There is some junk after quotes.\n"
 
-# define	WRONG_REGISTER		"Register must be from 1 to REG_NUMBER.\n"
-# define	INVALID_PARAM		"Param with invalid syntax.\n"
-# define	WRONG_COMMAND_PARAM	"Invalid param for this command.\n"
-# define	TOO_MANY_PARAM		"Too many parameters for this command.\n"
-# define	WRONG_NB_PARAM		"Too few parameters for this command.\n"
-# define	SEPARATOR_ERROR		"Input error with separators ','.\n"
+/*
+** PARAMS
+*/
+
+# define WRONG_REGISTER			"Register must be from 1 to REG_NUMBER.\n"
+# define INVALID_PARAM			"Param with invalid syntax.\n"
+# define WRONG_COMMAND_PARAM	"Invalid param for this command.\n"
+# define TOO_MANY_PARAM			"Too many parameters for this command.\n"
+# define WRONG_NB_PARAM			"Too few parameters for this command.\n"
+# define SEPARATOR_ERROR		"Input error with separators ','.\n"
 
 typedef	struct		s_commands
 {
@@ -130,9 +140,12 @@ void				get_ocp(t_instruc *instruc);
 void				manage_error(void *p, void (*f)(void *), char *line, char *msg);
 void				init_bonus(unsigned int *flag, char **av);
 
-////////////////////fonctions de print -- pour debug
-void	print_instruc(t_assembler *as);
-void	print_labels(t_assembler *as);
-void	print_param_labels(t_assembler *as);
+/*
+** print functions
+*/
+
+void				print_instruc(t_assembler *as);
+void				print_labels(t_assembler *as);
+void				print_param_labels(t_assembler *as);
 
 #endif
