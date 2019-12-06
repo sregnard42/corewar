@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/06 17:02:53 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:15:25 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	open_file(t_assembler *as, char *argv)
 	return (as->s_fd);
 }
 
-int			check_file_type(char *argv)
+static int	check_file_type(char *argv)
 {
 	char		*s;
 
@@ -63,8 +63,7 @@ int			main(int argc, char **argv)
 		parsing(&as);
 		close(as.s_fd);
 		create_cor(&as);
-		if (as.bonus & BONUS_GOT_ERROR)
-			print_advices(&as);
+		print_advices(&as);
 		i++;
 	}
 	free_asm(&as);

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:21:00 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/06 17:02:18 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:18:02 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	activate_flag(unsigned int *flag, char c)
 	c == 'q' ? *flag |= BONUS_DONT_QUIT : 0;
 	c == 'c' ? *flag |= BONUS_COLOR : 0;
 }
-
 
 void	init_bonus(unsigned int *flag, char **av)
 {

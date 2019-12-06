@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/06 17:05:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/06 17:14:26 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ void				write_magic(int fd, int magic_number);
 unsigned int		get_param_bytes(int opcode, char param);
 void				write_instruc(t_assembler *as);
 void				get_ocp(t_instruc *instruc);
-void				manage_error(void *p, void (*f)(void *), char *line, char *msg);
+void				manage_error(void *p, void (*f)(void *), char *line,
+						char *msg);
 void				init_bonus(unsigned int *flag, char **av);
 void				print_usage();
 void				print_help();
