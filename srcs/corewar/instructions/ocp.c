@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:48:56 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/27 00:29:16 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/12/08 17:10:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	get_type(unsigned int ocp, int nb)
 void		get_val(t_vm *vm, t_arg *arg, int opcode)
 {
 	if (arg->type == REG_CODE)
-		arg->size = REG_SIZE;
+		arg->size = RID_SIZE;
 	else if (arg->type == DIR_CODE)
 		if (opcode == ZJMP || opcode == LDI || opcode == LLDI ||
 			opcode == STI || opcode == FORK || opcode == LFORK)
