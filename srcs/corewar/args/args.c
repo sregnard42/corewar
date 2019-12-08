@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:09:26 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 17:09:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/12/08 16:31:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void 		args_add(t_vm *vm, t_args *args, t_arg *arg)
 		args->last->next = arg;
 		args->last = arg;
 	}
-	++args->size;
+	args->byId[args->size++] = arg;
 }
