@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/29 14:13:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/12/09 20:43:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_process	*proc_new(t_vm *vm)
 	proc->champ = vm->champs.cur;
 	proc->list = &vm->procs;
 	procs_add(vm, proc->list, proc);
-	ft_memcpy(&proc->reg[1], &proc->champ->id, sizeof(int));
+	ft_bzero(&proc->reg, sizeof(t_reg) * (REG_NUMBER + 1));
+	regcpy(&proc->reg[1], &proc->champ->id, REG_SIZE);
 	proc->pc = proc->champ->pos;
 	vm->colors[proc->pc] = proc->champ->id + 10;
-	ft_memcpy(&proc->reg[0], &proc->champ->id, sizeof(REG_SIZE));
 	return (proc);
 }
 

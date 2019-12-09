@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:01:50 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/29 13:39:55 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/12/09 20:45:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,28 @@ static void	load(t_vm *vm, unsigned int src, unsigned int dst)
 void	op_ld(void *vm_ptr)
 {
 	t_vm			*vm;
+	t_process		*proc;
 	t_args			*args;
-	unsigned int	src;
-	unsigned int	dst;
+	int				src;
+	int				dst;
 
 	vm = (t_vm *)vm_ptr;
+	proc = vm->procs.cur;
 	args = &vm->procs.cur->args;
-	src = args->first->val;
-	dst = args->first->next->val;
-	vm->print("ld %u, %u | ", src, dst);
-	load(vm, vm->pc + src % IDX_MOD, dst);
+	src = args->byId[0]->val;
+	dst = args->byId[1]->val;
+	if (args->byId[0]->type == DIR_CODE)
+	{
+		vm->print("ld %d, %d | ", src, dst);
+		regcpy(&args->first->proc->reg[dst], &src, DIR_SIZE);
+		vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+		vm->print("loaded value %u into R%u\n", src, dst);
+	}
+	else
+	{
+		vm->print("ld %%%d, %d | ", src, dst);
+		load(vm, vm->pc + src % IDX_MOD, dst);
+	}
 }
 
 /*

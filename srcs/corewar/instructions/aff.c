@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:12:47 by cmouele           #+#    #+#             */
-/*   Updated: 2019/12/08 15:18:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:54:22 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	op_aff(void *vm_ptr)
     args = &vm->procs.cur->args;
     proc = vm->procs.cur;
     reg = args->first->val;
-	ft_memcpy(&c, &proc->reg[reg], sizeof(unsigned char));
+	regcpy(&c, &proc->reg[reg], sizeof(unsigned char));
     vm->print("aff %u | ", c);
     vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
     vm->print("displayed character %c\n", c);
     vm_print(vm, 0)("%c\n", c);
-    vm->flags & VM_VISU ? wait_input() : 0;
+    vm->print == &printw ? wait_input() : 0;
 }
