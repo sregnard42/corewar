@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/06 17:17:26 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 13:42:53 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		manage_error(void *p, void (*f)(void *), char *line, char *msg)
 	t_assembler	*tmp;
 
 	tmp = (t_assembler *)p;
-	epure_line2(line);
+	line ? epure_line2(line) : 0;
 	if (tmp->bonus & BONUS_MANAGE_ERROR && line)
 	{
 		msg && tmp->bonus & BONUS_COLOR ? write(2, "\e[35m", 5) : 0;

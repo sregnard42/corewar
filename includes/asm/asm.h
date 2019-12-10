@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/06 17:14:26 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 13:43:20 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 */
 
 # define ERROR_MALLOC	"Error with malloc.\n"
-# define CANT_READ		"Can't read source file ds.\n"
+# define CANT_READ		"Can't read source file. Does it exist?\n"
 # define AS_NULL		"Structure is null.\n"
 # define EMPTY_FILE 	"Empty file.\n"
 # define NOT_S_FILE 	"Please give a .s file.\n"
