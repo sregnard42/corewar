@@ -1,4 +1,5 @@
 .name "FORK"
 .comment "fork"
 
-fork %20
+live:   live %1
+fork:   fork %:live
