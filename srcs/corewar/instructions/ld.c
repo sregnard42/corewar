@@ -26,15 +26,10 @@ void	op_ld(void *vm_ptr)
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
-	val = args->byId[0]->val;
+	get_val(vm, args->byId[0], &val, IDX_MOD);
 	reg = args->byId[1]->val;
 	if (args->byId[0]->type == IND_CODE)
-	{
-		val = (short int)val;
-		vm->print("ld %d, %d | ", val, reg);
-		arena_load(vm, vm->pc + val % IDX_MOD, &val, sizeof(int));
-		ft_memrev(&val, sizeof(int));
-	}
+		vm->print("ld %d, %d | ", (short int)args->byId[0]->val, reg);
 	else
 		vm->print("ld %%%d, %d | ", val, reg);
 	load(vm, reg, val);
