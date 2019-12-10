@@ -37,7 +37,7 @@ static unsigned int	get_target(t_vm *vm)
 
 	arg = arg_new(vm);
 	arg->type = DIR_CODE; 
-	get_val(vm, arg, FORK);
+	get_param(vm, arg, FORK);
 	return (arg->val);
 }
 

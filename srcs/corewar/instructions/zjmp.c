@@ -18,7 +18,7 @@ static int  get_target(t_vm *vm)
 
     arg = arg_new(vm);
     arg->type = DIR_CODE;
-    get_val(vm, arg, ZJMP);
+    get_param(vm, arg, ZJMP);
     return (arg->val);
 }
 

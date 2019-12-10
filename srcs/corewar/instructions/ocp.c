@@ -40,7 +40,7 @@ static int	get_type(unsigned int ocp, int nb)
 	return (0);
 }
 
-void		get_val(t_vm *vm, t_arg *arg, int opcode)
+void		get_param(t_vm *vm, t_arg *arg, int opcode)
 {
 	if (arg->type == REG_CODE)
 		arg->size = RID_SIZE;
@@ -71,7 +71,7 @@ static void	add_arg(t_vm *vm, int opcode, unsigned int ocp, int nb)
 		return ;
 	arg = arg_new(vm);
 	arg->type = type; 
-	get_val(vm, arg, opcode);
+	get_param(vm, arg, opcode);
 }
 
 /*

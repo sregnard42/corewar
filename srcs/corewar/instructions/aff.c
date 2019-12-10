@@ -32,7 +32,7 @@ void	op_aff(void *vm_ptr)
     vm->print("aff r%d | ", reg);
     if (!is_reg(reg))
     {
-        vm->print("Invalid register.\n");
+		vm->print("Register is invalid, nothing happens !\n");
         return ;
     }
 	regcpy(&c, &proc->reg[reg], sizeof(unsigned char));

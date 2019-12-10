@@ -20,7 +20,7 @@ static t_champ	*get_target(t_vm *vm)
 	id = 0;
 	arg = arg_new(vm);
 	arg->type = DIR_CODE; 
-	get_val(vm, arg, LIVE);
+	get_param(vm, arg, LIVE);
 	id = arg->val;
 	if (id < 1 || id > vm->champs.size)
 		return (NULL);

@@ -192,7 +192,8 @@ t_arg					*arg_new(t_vm *vm);
 */
 
 void					ocp(t_vm *vm, int opcode);
-void					get_val(t_vm *vm, t_arg *arg, int opcode);
+void					get_param(t_vm *vm, t_arg *arg, int opcode);
+int						get_val(t_vm *vm, t_arg *arg, int *val, int modulo);
 void					load(t_vm *vm, int dst, int val);
 
 #endif

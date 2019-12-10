@@ -23,24 +23,25 @@ void	op_and(void *vm_ptr)
     t_vm            *vm;
     t_process		*proc;
     t_args			*args;
-    unsigned int    src[2];
-    unsigned int    dst;
+	int				val[2];
+    int             reg;
 
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
     args = &vm->procs.cur->args;
-    ft_bzero(&src, sizeof(src));
-    if (args->first->type == REG_CODE)
-        ft_memcpy(&src[0], &(proc->reg[args->first->val]), REG_SIZE);
-    else
-        src[0] = args->first->val;
-    if (args->first->next->type == REG_CODE)
-        ft_memcpy(&src[1], &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-        src[1] = args->first->next->val;
-    dst = args->first->next->next->val;
-    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    load(vm, dst, src[0] & src[1]);
+    reg = args->byId[2]->val;
+    vm->print("and ");
+    if (!(
+        get_val(vm, args->byId[0], &val[0], IDX_MOD) == 1 &&
+        get_val(vm, args->byId[1], &val[1], IDX_MOD) == 1 &&
+        is_reg(reg)
+        ))
+    {
+        vm->print("| Register is invalid, nothing happens !\n");
+        return ;
+    }
+    vm->print("%d, %d, r%d | ", val[0], val[1], reg);
+	load(vm, reg, val[0] & val[1]);
 }
 
 /*
@@ -54,24 +55,25 @@ void	op_or(void *vm_ptr)
     t_vm            *vm;
     t_process		*proc;
     t_args			*args;
-    unsigned int    src[2];
-    unsigned int    dst;
+	int				val[2];
+    int             reg;
 
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
     args = &vm->procs.cur->args;
-    ft_bzero(&src, sizeof(src));
-    if (args->first->type == REG_CODE)
-        ft_memcpy(&src[0], &(proc->reg[args->first->val]), REG_SIZE);
-    else
-        src[0] = args->first->val;
-    if (args->first->next->type == REG_CODE)
-        ft_memcpy(&src[1], &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-        src[1] = args->first->next->val;
-    dst = args->first->next->next->val;
-    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    load(vm, dst, src[0] | src[1]);
+    reg = args->byId[2]->val;
+    vm->print("or ");
+    if (!(
+        get_val(vm, args->byId[0], &val[0], IDX_MOD) == 1 &&
+        get_val(vm, args->byId[1], &val[1], IDX_MOD) == 1 &&
+        is_reg(reg)
+        ))
+    {
+        vm->print("| Register is invalid, nothing happens !\n");
+        return ;
+    }
+    vm->print("%d, %d, r%d | ", val[0], val[1], reg);
+	load(vm, reg, val[0] | val[1]);
 }
 
 /*
@@ -85,22 +87,23 @@ void	op_xor(void *vm_ptr)
     t_vm            *vm;
     t_process		*proc;
     t_args			*args;
-    unsigned int    src[2];
-    unsigned int    dst;
+	int				val[2];
+    int             reg;
 
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
     args = &vm->procs.cur->args;
-    ft_bzero(&src, sizeof(src));
-    if (args->first->type == REG_CODE)
-        ft_memcpy(&src[0], &(proc->reg[args->first->val]), REG_SIZE);
-    else
-        src[0] = args->first->val;
-    if (args->first->next->type == REG_CODE)
-        ft_memcpy(&src[1], &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-        src[1] = args->first->next->val;
-    dst = args->first->next->next->val;
-    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    load(vm, dst, src[0] ^ src[1]);
+    reg = args->byId[2]->val;
+    vm->print("xor ");
+    if (!(
+        get_val(vm, args->byId[0], &val[0], IDX_MOD) == 1 &&
+        get_val(vm, args->byId[1], &val[1], IDX_MOD) == 1 &&
+        is_reg(reg)
+        ))
+    {
+        vm->print("| Register is invalid, nothing happens !\n");
+        return ;
+    }
+    vm->print("%d, %d, r%d | ", val[0], val[1], reg);
+	load(vm, reg, val[0] ^ val[1]);
 }

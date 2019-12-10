@@ -33,7 +33,10 @@ void	op_add(void *vm_ptr)
     reg[2] = args->byId[2]->val;
     vm->print("add r%d, r%d, r%d | ", reg[0], reg[1], reg[2]);
 	if (!(is_reg(reg[0]) && is_reg(reg[1]) && is_reg(reg[2])))
-		return ;
+    {
+		vm->print("Register is invalid, nothing happens !\n");
+        return ;
+    }
 	ft_bzero(&val, sizeof(int) * 2);
 	regcpy(&val[0], &proc->reg[reg[0]], sizeof(int));
 	regcpy(&val[1], &proc->reg[reg[1]], sizeof(int));
@@ -61,7 +64,10 @@ void	op_sub(void *vm_ptr)
     reg[2] = args->byId[2]->val;
     vm->print("sub r%d, r%d, r%d | ", reg[0], reg[1], reg[2]);
 	if (!(is_reg(reg[0]) && is_reg(reg[1]) && is_reg(reg[2])))
-		return ;
+    {
+		vm->print("Register is invalid, nothing happens !\n");
+        return ;
+    }
 	ft_bzero(&val, sizeof(int) * 2);
 	regcpy(&val[0], &proc->reg[reg[0]], sizeof(int));
 	regcpy(&val[1], &proc->reg[reg[1]], sizeof(int));
