@@ -26,18 +26,16 @@ static void logic(t_vm *vm, int opcode)
     int             reg;
 
     args = &vm->procs.cur->args;
+	if (args->size < 3)
+		return ;
     reg = args->byId[2]->val;
-    vm->print("%s ", op_names[opcode]);
     if (!(
         get_val(vm, args->byId[0], &val[0], IDX_MOD) == 1 &&
         get_val(vm, args->byId[1], &val[1], IDX_MOD) == 1 &&
         is_reg(reg)
         ))
-    {
-        vm->print("| Register is invalid, nothing happens !\n");
         return ;
-    }
-    vm->print("%d, %d, r%d | ", val[0], val[1], reg);
+    vm->print("%s %d, %d, r%d | ", op_names[opcode], val[0], val[1], reg);
     if (opcode == AND)
 	    load(vm, reg, val[0] & val[1]);
     else if (opcode == OR)

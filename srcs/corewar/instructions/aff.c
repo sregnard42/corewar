@@ -27,15 +27,14 @@ void	op_aff(void *vm_ptr)
 
     vm = (t_vm *)vm_ptr;
     args = &vm->procs.cur->args;
-    proc = vm->procs.cur;
+	if (args->size < 1)
+		return ;
     reg = args->first->val;
-    vm->print("aff r%d | ", reg);
     if (!is_reg(reg))
-    {
-		vm->print("Register is invalid, nothing happens !\n");
         return ;
-    }
+    vm->print("aff r%d | ", reg);
 	regcpy(&c, &proc->reg[reg], sizeof(unsigned char));
+    proc = vm->procs.cur;
     vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
     vm->print("displayed character %c\n", c);
     vm_print(vm, 0)("%c\n", c);

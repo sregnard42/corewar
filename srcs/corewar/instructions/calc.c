@@ -21,15 +21,14 @@ static void calc(t_vm *vm, int opcode)
 
     proc = vm->procs.cur;
     args = &vm->procs.cur->args;
+	if (args->size < 3)
+		return ;
     reg[0] = args->byId[0]->val;
     reg[1] = args->byId[1]->val;
     reg[2] = args->byId[2]->val;
-    vm->print("%s r%d, r%d, r%d | ", op_names[opcode], reg[0], reg[1], reg[2]);
 	if (!(is_reg(reg[0]) && is_reg(reg[1]) && is_reg(reg[2])))
-    {
-		vm->print("Register is invalid, nothing happens !\n");
         return ;
-    }
+    vm->print("%s r%d, r%d, r%d | ", op_names[opcode], reg[0], reg[1], reg[2]);
 	ft_bzero(&val, sizeof(int) * 2);
 	regcpy(&val[0], &proc->reg[reg[0]], sizeof(int));
 	regcpy(&val[1], &proc->reg[reg[1]], sizeof(int));

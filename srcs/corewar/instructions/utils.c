@@ -24,6 +24,8 @@ int		get_val(t_vm *vm, t_arg *arg, int *val, int modulo)
 {
 	t_process	*proc;
 
+	if (!arg)
+		return (0);
 	proc = vm->procs.cur;
 	ft_bzero(val, sizeof(int));
     if (arg->type == REG_CODE)
@@ -43,22 +45,40 @@ int		get_val(t_vm *vm, t_arg *arg, int *val, int modulo)
 **      Loads a value inside a registry
 */
 
-void    load(t_vm *vm, int dst, int val)
+void    load(t_vm *vm, int reg, int val)
 {
 	t_process   *proc;
-    t_reg       *reg;
 
-	proc = vm->procs.cur;
-	if (!is_reg(dst))
+	if (!is_reg(reg))
 	{
 		vm->print("Register is invalid, nothing happens !\n");
 		return ;
 	}
+	proc = vm->procs.cur;
 	proc->carry = (val == 0);
-    reg = &proc->reg[dst];
-    ft_bzero(reg, REG_SIZE);
-	regcpy(reg, &val, REG_SIZE);
+    ft_bzero(&proc->reg, REG_SIZE);
+	regcpy(&proc->reg, &val, REG_SIZE);
 	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-	vm->print("loaded value %d in r%d\n", val, dst);
+	vm->print("loaded value %d in r%d\n", val, reg);
 	vm->print == &printw ? wait_input() : 0;
+}
+
+/*
+**      Takes a register and copies its value at the given address
+*/
+
+void    store(t_vm *vm, int reg, int addr)
+{
+    t_process		*proc;
+
+	if (!is_reg(reg))
+	{
+		vm->print("Register is invalid, nothing happens !\n");
+		return ;
+	}
+    proc = vm->procs.cur;
+    arena_store(vm, addr, &proc->reg[reg], REG_SIZE, proc->champ->id);
+    vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
+    vm->print("stored value of r%d at address %d\n", reg, addr);
+    vm->print == &printw ? wait_input() : 0;
 }

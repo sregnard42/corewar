@@ -26,6 +26,8 @@ void	op_ld(void *vm_ptr)
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
+	if (args->size < 2)
+		return ;
 	get_val(vm, args->byId[0], &val, IDX_MOD);
 	reg = args->byId[1]->val;
 	if (args->byId[0]->type == IND_CODE)
@@ -49,6 +51,8 @@ void	op_ldi(void *vm_ptr)
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
+	if (args->size < 3)
+		return ;
 	get_val(vm, args->byId[0], &val[0], IDX_MOD);
 	get_val(vm, args->byId[1], &val[1], IDX_MOD);
 	arena_load(vm, val[0] + val[1], &val[2], sizeof(int));
@@ -70,6 +74,8 @@ void	op_lld(void *vm_ptr)
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
+	if (args->size < 2)
+		return ;
 	get_val(vm, args->byId[0], &val, 1);
 	reg = args->byId[1]->val;
 	if (args->byId[0]->type == IND_CODE)
@@ -92,6 +98,8 @@ void	op_lldi(void *vm_ptr)
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
+	if (args->size < 3)
+		return ;
 	get_val(vm, args->byId[0], &val[0], 1);
 	get_val(vm, args->byId[1], &val[1], 1);
 	arena_load(vm, val[0] + val[1], &val[2], sizeof(int));
