@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/06 17:03:59 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:36:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	parsing(t_assembler *as)
 	if (as->nb_line == 0)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_FILE);
 	check_existing_labels(as);
+
 	get_prog_size(as);
 	/////////////
 	// print_instruc(as);

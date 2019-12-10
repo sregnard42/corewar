@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/05 15:06:53 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:42:48 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	save_label_param(t_assembler *as, char *param)
 ** a label, to check if the label parameter refers to an existing label
 */
 
-int		check_existing_labels(t_assembler *as)
+void	check_existing_labels(t_assembler *as)
 {
 	t_label	*tmp_label;
 	t_label	*tmp_params;
@@ -102,18 +102,22 @@ int		check_existing_labels(t_assembler *as)
 	tmp_params = as->param_labels;
 	while (tmp_params)
 	{
+		ft_printf("PROUT mp_label->name = %s && tmp_params->name = %s\n", tmp_label->name, tmp_params->name);
 		while (tmp_label)
 		{
+			ft_printf("mp_label->name = %s && tmp_params->name = %s\n", tmp_label->name, tmp_params->name);
 			if (ft_strcmp(tmp_label->name, tmp_params->name) == 0)
 			{
 				tmp_label = as->labels;
 				break;
 			}
 			if (tmp_label->next == NULL)
+			{
 				manage_error(as, &free_asm, tmp_params->name, NO_EXIST_LABEL);
+				// tmp_label = as->labels;
+			}
 			tmp_label = tmp_label->next;
 		}
 		tmp_params = tmp_params->next;
 	}
-	return (SUCCESS);
 }

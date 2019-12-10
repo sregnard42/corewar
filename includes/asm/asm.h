@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/10 14:17:56 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:37:30 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int					is_param(t_assembler *as, int id_command, char *part,
 						int nb_param, char *ocp);
 void				save_label_to_check(t_assembler *as, char *param);
 void				save_label_param(t_assembler *as, char *param);
-int					check_existing_labels(t_assembler *as);
+void				check_existing_labels(t_assembler *as);
 void				write_header(t_assembler *as);
 void				get_prog_size(t_assembler *as);
 unsigned int		get_params_bytes(t_instruc *tmp);
