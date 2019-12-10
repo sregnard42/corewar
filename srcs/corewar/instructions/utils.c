@@ -35,10 +35,7 @@ int		get_val(t_vm *vm, t_arg *arg, int *val, int modulo)
     else if (arg->type == DIR_CODE)
         *val = arg->val;
     else if (arg->type == IND_CODE)
-	{
         arena_load(vm, vm->pc + (short int)arg->val % modulo, val, sizeof(int));
-		ft_memrev(val, sizeof(int));
-	}
 	return (1);
 }
 

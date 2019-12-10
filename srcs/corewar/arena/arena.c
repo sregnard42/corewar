@@ -40,29 +40,35 @@ void			arena_set(t_vm *vm, int index, unsigned char c,
 
 /*
 **				Copies n bytes from the arena to the destination
+**				IN REVERSE ORDER !
 */
 
 void			arena_load(t_vm *vm, int index, void *dst, size_t n)
 {
+	size_t		i;
 	char		*dest;
 
+	i = 0;
 	dest = (char *)dst;
-	while (n-- > 0)
-		dest[n] = arena_get(vm, index + n);
+	while (i++ < n)
+		dest[i - 1] = arena_get(vm, index + n - i );
 }
 
 /*
 **				Copies n bytes from the source to the arena
+**				IN REVERSE ORDER !
 */
 
 void			arena_store(t_vm *vm, int index, const void *src, size_t n,
 							unsigned int id)
 {
+	size_t		i;
 	const char	*source;
 
+	i = 0;
 	source = (const char *)src;
-	while (n-- > 0)
-		arena_set(vm, index + n, source[n], id);
+	while (i++ < n)
+		arena_set(vm, index + n - i, source[i - 1], id);
 }
 
 void			arena_init(t_vm *vm)

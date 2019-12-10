@@ -29,14 +29,14 @@ void	op_ld(void *vm_ptr)
 	get_val(vm, args->byId[0], &val, IDX_MOD);
 	reg = args->byId[1]->val;
 	if (args->byId[0]->type == IND_CODE)
-		vm->print("ld %d, %d | ", (short int)args->byId[0]->val, reg);
+		vm->print("ld %d, r%d | ", (short int)args->byId[0]->val, reg);
 	else
-		vm->print("ld %%%d, %d | ", val, reg);
+		vm->print("ld %%%d, r%d | ", val, reg);
 	load(vm, reg, val);
 }
 
 /*
-**		Takes and 2 directs and a register. Puts the value of the sum of the 2
+**		Takes 2 indexes and a register. Puts the value of the sum of the 2
 **		directs in the register.
 */
 
@@ -44,14 +44,17 @@ void	op_ldi(void *vm_ptr)
 {
 	t_vm			*vm;
 	t_args			*args;
-	int				val[2];
+	int				val[3];
 	int				reg;
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
-	val[0] = args->byId[0]->val;
-	val[1] = args->byId[1]->val;
+	get_val(vm, args->byId[0], &val[0], IDX_MOD);
+	get_val(vm, args->byId[1], &val[1], IDX_MOD);
+	arena_load(vm, val[0] + val[1], &val[2], sizeof(int));
 	reg = args->byId[2]->val;
+	vm->print("ldi %%%d, %%%d, r%d | ", val[0], val[1], reg);
+	load(vm, reg, val[2]);
 }
 
 /*
@@ -62,15 +65,18 @@ void	op_lld(void *vm_ptr)
 {
 	t_vm			*vm;
 	t_args			*args;
-	unsigned int	src;
-	unsigned int	dst;
+	int				val;
+	int				reg;
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
-	src = args->first->val;
-	dst = args->first->next->val;
-	vm->print("lld %u, %u | ", src, dst);
-	load(vm, vm->pc + src, dst);
+	get_val(vm, args->byId[0], &val, 1);
+	reg = args->byId[1]->val;
+	if (args->byId[0]->type == IND_CODE)
+		vm->print("lld %d, r%d | ", (short int)args->byId[0]->val, reg);
+	else
+		vm->print("lld %%%d, r%d | ", val, reg);
+	load(vm, reg, val);
 }
 
 /*
@@ -81,14 +87,15 @@ void	op_lldi(void *vm_ptr)
 {
 	t_vm			*vm;
 	t_args			*args;
-	unsigned int	src[2];
-	unsigned int	dst;
+	int				val[3];
+	int				reg;
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
-	src[0] = args->first->val;
-	src[1] = args->first->next->val;
-	dst = args->first->next->next->val;
-	vm_print(vm, V_OPERATIONS)("lldi %u, %u, %u | ", src[0], src[1], dst);
-	load(vm, vm->pc + src[0] + src[1], dst);
+	get_val(vm, args->byId[0], &val[0], 1);
+	get_val(vm, args->byId[1], &val[1], 1);
+	arena_load(vm, val[0] + val[1], &val[2], sizeof(int));
+	reg = args->byId[2]->val;
+	vm->print("lldi %%%d, %%%d, r%d | ", val[0], val[1], reg);
+	load(vm, reg, val[2]);
 }

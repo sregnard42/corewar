@@ -53,7 +53,6 @@ void		get_param(t_vm *vm, t_arg *arg, int opcode)
 	else if (arg->type == IND_CODE)
 		arg->size = IND_SIZE;
 	arena_load(vm, arg->proc->pc, &arg->val, arg->size);
-	ft_memrev(&arg->val, arg->size);
 	proc_set_pc(vm, arg->proc, arg->proc->pc + arg->size);
 }
 
