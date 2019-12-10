@@ -1,4 +1,9 @@
 .name "XOR"
 .comment "xor"
 
-and r3,%5,r13
+ld %1, r2
+ld %3, r3
+xor r2, r3, r4
+xor %1, %3, r4
+xor -5, 12, r4
+
