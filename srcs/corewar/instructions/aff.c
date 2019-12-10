@@ -20,13 +20,14 @@
 void	op_aff(void *vm_ptr)
 {
     t_vm			*vm;
-    t_args          *args;
     t_process		*proc;
+    t_args          *args;
     int             reg;
     unsigned char   c;
 
     vm = (t_vm *)vm_ptr;
-    args = &vm->procs.cur->args;
+    proc = vm->procs.cur;
+    args = &proc->args;
 	if (args->size < 1)
 		return ;
     reg = args->first->val;
@@ -34,7 +35,6 @@ void	op_aff(void *vm_ptr)
         return ;
     vm->print("aff r%d | ", reg);
 	regcpy(&c, &proc->reg[reg], sizeof(unsigned char));
-    proc = vm->procs.cur;
     vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
     vm->print("displayed character %c\n", c);
     vm_print(vm, 0)("%c\n", c);
