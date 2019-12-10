@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/05 16:08:14 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:17:21 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int		which_command(t_assembler *as, char *part)
 ** Regarde si le premier element de tmp est une commande, si oui, on verifie que
 ** les prochains element de tmp sont bien des parametres
 ** Ensuite, ajoute l'instruction dans la structure as
+** si is_param fail c'est quil y a deux commandes a la suite, donc on diminue
+** le nombre de parametres
 */
 
 void	is_command(t_assembler *as, char **tmp, char *param_type)
@@ -110,7 +112,10 @@ void	is_command(t_assembler *as, char **tmp, char *param_type)
 	if ((id_command = which_command(as, *tmp)) < 16)
 	{
 		while (*(++tmp))
-			is_param(as, id_command, *tmp, nb_param++, param_type);
+		{
+			if (is_param(as, id_command, *tmp, nb_param++, param_type) == FAIL)
+				nb_param--;
+		}
 		if (nb_param != as->commands[id_command].nb_params)
 			manage_error(as, &free_asm, as->epure_line, WRONG_NB_PARAM);
 		if (!(as->bonus & BONUS_DONT_QUIT))

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/05 15:19:06 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:16:50 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
 	int	type;
 
 	type = as->commands[id_command].param[nb_param];
+	ft_printf("type = %d && id_param = %d\n", type, id_param);
 	if (type == 7 || type == id_param)
 		return (1);
 	else if (id_param == REG_CODE)
@@ -84,13 +85,21 @@ char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
 /*
 ** is_param() checks if the params are compatible with the command given
 ** nb_param stands for param 1, param 2, param 3, not the total number of params
+** returns FAIL if we have 2 commands so is_command can lower the number of
+** parameters.
 */
 
-void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
+int		is_param(t_assembler *as, int id_command, char *part, int nb_param,
 				char *param_type)
 {
 	char	id_param;
 
+	if (which_command(as, part) < 16)
+	{
+		manage_error(as, &free_asm, as->epure_line, TOO_MANY_CMD);
+		if (as->bonus & BONUS_DONT_QUIT)
+			return (FAIL);
+	}
 	if (!(as->bonus & BONUS_DONT_QUIT) \
 		&& as->nb_sep != as->commands[id_command].nb_params - 1)
 		manage_error(as, &free_asm, as->epure_line, SEPARATOR_ERROR);
@@ -101,4 +110,5 @@ void	is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	param_type[nb_param] = id_param;
 	if (check_param(as, id_command, id_param, nb_param) == FAIL)
 		manage_error(as, &free_asm, as->epure_line, WRONG_COMMAND_PARAM);
+	return (SUCCESS);
 }
