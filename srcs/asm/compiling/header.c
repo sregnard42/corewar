@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:49:34 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 13:09:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:27:53 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ void	write_name(t_assembler *as)
 	len_name = ft_strlen(as->header->name);
 	write(as->cor_fd, as->header->name, len_name);
 	len_reserved = PROG_NAME_LENGTH - len_name;
-	reserved = ft_memalloc(sizeof(char) * len_reserved);
+	if (!(reserved = ft_memalloc(sizeof(char) * len_reserved)))
+	{
+		//free correct ça ?
+		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
 	write(as->cor_fd, reserved, len_reserved);
 	ft_memdel((void *)&reserved);
 }
@@ -62,7 +66,11 @@ void	write_comment(t_assembler *as)
 	size_com = ft_strlen(as->header->comment);
 	write_big_endian1(as->cor_fd, as->prog_size);
 	write(as->cor_fd, as->header->comment, size_com);
-	to_fill = ft_memalloc(sizeof(char) * COMMENT_LENGTH - size_com);
+	if (!(to_fill = ft_memalloc(sizeof(char) * COMMENT_LENGTH - size_com)))
+	{
+		//free correct ça ?
+		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
 	write(as->cor_fd, to_fill, COMMENT_LENGTH - size_com);
 	write(as->cor_fd, "\0\0\0\0", 4);
 	ft_memdel((void*)&to_fill);

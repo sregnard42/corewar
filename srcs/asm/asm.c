@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/06 17:15:25 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:25:18 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ int			main(int argc, char **argv)
 	t_assembler		as;
 	unsigned int	flag;
 	int				i;
+	int				flag_on;
 
 	i = 1;
+	flag_on = 0;	// utile de faire un new int au lieu dutiliser flag dans le cas ou on fait ./asm -
 	if (argc == 1)
 	{
 		print_usage();
@@ -47,6 +49,7 @@ int			main(int argc, char **argv)
 	{
 		if (argv[i][0] == '-')
 		{
+			flag_on = 1;
 			++i;
 			continue;
 		}
@@ -66,6 +69,8 @@ int			main(int argc, char **argv)
 		print_advices(&as);
 		i++;
 	}
+	if (flag_on != 0 && i == 2)
+		print_usage();
 	free_asm(&as);
 	return (0);
 }

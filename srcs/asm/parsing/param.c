@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/10 14:16:50 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:26:17 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
 	int	type;
 
 	type = as->commands[id_command].param[nb_param];
-	ft_printf("type = %d && id_param = %d\n", type, id_param);
 	if (type == 7 || type == id_param)
 		return (1);
 	else if (id_param == REG_CODE)
