@@ -34,7 +34,7 @@ t_process	*proc_new(t_vm *vm)
 	ft_bzero(&proc->reg, sizeof(t_reg) * (REG_NUMBER + 1));
 	regcpy(&proc->reg[1], &proc->champ->id, REG_SIZE);
 	proc->pc = proc->champ->pos;
-	vm->colors[proc->pc] = proc->champ->id + 10;
+	vm->colors_pc[proc->pc] = proc->champ->id + 10;
 	return (proc);
 }
 
@@ -46,7 +46,10 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 	vm->procs.cur = proc;
 	opcode = arena_get(vm, proc->pc);
 	if (opcode < 1 || opcode > 16)
+	{
+		proc_set_pc(vm, proc, proc->pc + 1);
 		return ;
+	}
 	if (proc->cycle == 0)
 		proc->cycle = vm->cycle + op_cycles[opcode];
 	if (proc->cycle > vm->cycle)
@@ -63,13 +66,9 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 
 void		proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc)
 {
-	vm->colors[proc->pc] = proc->champ->id;
-	if (pc >= MEM_SIZE)
-		pc &= MEM_SIZE;
-	else if (pc < 0)
-		pc = pc & -MEM_SIZE + MEM_SIZE - 1;
-	if (pc < 0 || pc >= MEM_SIZE)
-		ft_error(vm, &vm_free, "PC out of arena !\n");
-	proc->pc = pc;
-	vm->colors[pc] = proc->champ->id + 10;
+	vm->colors_pc[proc->pc] = 0;
+	proc->pc = arena_id(vm, pc);
+	if (proc->pc < 0 || proc->pc >= MEM_SIZE)
+		ft_error(vm, &vm_free, "proc_set_pc out of bounds.\n");
+	vm->colors_pc[proc->pc] = proc->champ->id + 10;
 }

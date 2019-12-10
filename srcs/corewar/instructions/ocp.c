@@ -52,7 +52,7 @@ void		get_val(t_vm *vm, t_arg *arg, int opcode)
 			arg->size = DIR_SIZE;
 	else if (arg->type == IND_CODE)
 		arg->size = IND_SIZE;
-	ft_memcpy(&arg->val, vm->arena + arg->proc->pc, arg->size);
+	arena_load(vm, arg->proc->pc, &arg->val, arg->size);
 	ft_memrev(&arg->val, arg->size);
 	proc_set_pc(vm, arg->proc, arg->proc->pc + arg->size);
 }

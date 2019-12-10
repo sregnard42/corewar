@@ -13,53 +13,31 @@
 #include "corewar.h"
 
 /*
-**		Loads a value in a registry
-**		Source is the value
-**		Destination is the registry number
-*/
-
-static void	load(t_vm *vm, unsigned int src, unsigned int dst)
-{
-	t_process	*proc;
-
-	proc = vm->procs.cur;
-	proc->carry = (arena_get(vm, src) == 0);
-	arena_load(vm, src, &proc->reg[dst], REG_SIZE);
-	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-	vm->print("loaded value %u into R%u\n", arena_get(vm, src), dst);
-	vm->print == &printw ? wait_input() : 0;
-}
-
-/*
-**		Takes a direct / indirect, and a register. Charges the value of the
+**		Takes a direct / indirect, and a register. Loads the value of the
 **		direct / indirect in the register. Modifies the carry.
 */
 
 void	op_ld(void *vm_ptr)
 {
 	t_vm			*vm;
-	t_process		*proc;
 	t_args			*args;
-	int				src;
-	int				dst;
+	int				val;
+	int				reg;
 
 	vm = (t_vm *)vm_ptr;
-	proc = vm->procs.cur;
 	args = &vm->procs.cur->args;
-	src = args->byId[0]->val;
-	dst = args->byId[1]->val;
-	if (args->byId[0]->type == DIR_CODE)
+	val = args->byId[0]->val;
+	reg = args->byId[1]->val;
+	if (args->byId[0]->type == IND_CODE)
 	{
-		vm->print("ld %d, %d | ", src, dst);
-		regcpy(&args->first->proc->reg[dst], &src, DIR_SIZE);
-		vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-		vm->print("loaded value %u into R%u\n", src, dst);
+		val = (short int)val;
+		vm->print("ld %d, %d | ", val, reg);
+		arena_load(vm, vm->pc + val % IDX_MOD, &val, sizeof(int));
+		ft_memrev(&val, sizeof(int));
 	}
 	else
-	{
-		vm->print("ld %%%d, %d | ", src, dst);
-		load(vm, vm->pc + src % IDX_MOD, dst);
-	}
+		vm->print("ld %%%d, %d | ", val, reg);
+	load(vm, reg, val);
 }
 
 /*
@@ -71,16 +49,14 @@ void	op_ldi(void *vm_ptr)
 {
 	t_vm			*vm;
 	t_args			*args;
-	unsigned int	src[2];
-	unsigned int	dst;
+	int				val[2];
+	int				reg;
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
-	src[0] = args->first->val;
-	src[1] = args->first->next->val;
-	dst = args->first->next->next->val;
-	vm->print("ldi %u, %u, %u | ", src[0], src[1], dst);
-	load(vm, vm->pc + (src[0] + src[1]) % IDX_MOD, dst);
+	val[0] = args->byId[0]->val;
+	val[1] = args->byId[1]->val;
+	reg = args->byId[2]->val;
 }
 
 /*

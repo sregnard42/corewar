@@ -52,6 +52,7 @@ typedef struct			s_vm
 	unsigned int		pc;
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		colors[MEM_SIZE];
+	unsigned char		colors_pc[MEM_SIZE];
 	unsigned int		flags;
 	int					cycle;
 	int					cycle_to_die;
@@ -192,5 +193,6 @@ t_arg					*arg_new(t_vm *vm);
 
 void					ocp(t_vm *vm, int opcode);
 void					get_val(t_vm *vm, t_arg *arg, int opcode);
+void					load(t_vm *vm, int dst, int val);
 
 #endif

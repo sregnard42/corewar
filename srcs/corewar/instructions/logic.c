@@ -13,22 +13,6 @@
 #include "corewar.h"
 
 /*
-**      Stores the result of the logical operations in a register.
-*/
-
-void    logic(t_vm *vm, unsigned int dst, unsigned int val)
-{
-    t_process		*proc;
-
-    proc = vm->procs.cur;
-    proc->carry = (val == 0);
-    ft_memcpy(&proc->reg[dst], &val, sizeof(t_reg));
-    vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-    vm->print("stored value %u in register %u\n", val, dst);
-    vm->print == &printw ? wait_input() : 0;
-}
-
-/*
 **		Takes two registers / directs / indirects, applies a logical AND
 **      between the two, and stores the result in the third parameter that is a
 **      register. Modifies the carry.
@@ -56,7 +40,7 @@ void	op_and(void *vm_ptr)
         src[1] = args->first->next->val;
     dst = args->first->next->next->val;
     vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    logic(vm, dst, src[0] & src[1]);
+    load(vm, dst, src[0] & src[1]);
 }
 
 /*
@@ -87,7 +71,7 @@ void	op_or(void *vm_ptr)
         src[1] = args->first->next->val;
     dst = args->first->next->next->val;
     vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    logic(vm, dst, src[0] | src[1]);
+    load(vm, dst, src[0] | src[1]);
 }
 
 /*
@@ -118,5 +102,5 @@ void	op_xor(void *vm_ptr)
         src[1] = args->first->next->val;
     dst = args->first->next->next->val;
     vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    logic(vm, dst, src[0] ^ src[1]);
+    load(vm, dst, src[0] ^ src[1]);
 }
