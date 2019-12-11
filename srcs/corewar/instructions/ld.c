@@ -55,7 +55,8 @@ void	op_ldi(void *vm_ptr)
 		return ;
 	get_val(vm, args->byId[0], &val[0], IDX_MOD);
 	get_val(vm, args->byId[1], &val[1], IDX_MOD);
-	arena_load(vm, val[0] + val[1], &val[2], sizeof(int));
+	arena_load(vm, vm->pc + val[0] % IDX_MOD + val[1] % IDX_MOD,
+	&val[2], sizeof(int));
 	reg = args->byId[2]->val;
 	vm->print("ldi %%%d, %%%d, r%d | ", val[0], val[1], reg);
 	load(vm, reg, val[2]);
@@ -102,7 +103,7 @@ void	op_lldi(void *vm_ptr)
 		return ;
 	get_val(vm, args->byId[0], &val[0], 1);
 	get_val(vm, args->byId[1], &val[1], 1);
-	arena_load(vm, val[0] + val[1], &val[2], sizeof(int));
+	arena_load(vm, vm->pc + val[0] + val[1], &val[2], sizeof(int));
 	reg = args->byId[2]->val;
 	vm->print("lldi %%%d, %%%d, r%d | ", val[0], val[1], reg);
 	load(vm, reg, val[2]);
