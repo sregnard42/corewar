@@ -58,5 +58,5 @@ void		op_sti(void *vm_ptr)
         get_val(vm, args->byId[2], &addr[1], IDX_MOD) == 1))
 		return ;
 	vm->print("sti r%d, %d, %d | ", reg, addr[0], addr[1]);
-	store(vm, reg, vm->pc + addr[0] + addr[1]);
+	store(vm, reg, vm->pc + (addr[0] + addr[1]) % IDX_MOD);
 }

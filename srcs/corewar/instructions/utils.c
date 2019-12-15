@@ -23,9 +23,11 @@
 int		get_val(t_vm *vm, t_arg *arg, int *val, int modulo)
 {
 	t_process	*proc;
+	int			opcode;
 
 	if (!arg)
 		return (0);
+	opcode = arena_get(vm, vm->pc);
 	proc = vm->procs.cur;
 	ft_bzero(val, sizeof(int));
     if (arg->type == REG_CODE)
@@ -35,9 +37,20 @@ int		get_val(t_vm *vm, t_arg *arg, int *val, int modulo)
         regcpy(val, &proc->reg[arg->val], sizeof(int));
 	}
     else if (arg->type == DIR_CODE)
-        *val = arg->val;
+	{
+		if (opcode == ZJMP || opcode == LDI || opcode == LLDI ||
+			opcode == STI || opcode == FORK || opcode == LFORK)
+			*val = (short int)arg->val;
+		else
+			*val = arg->val;
+	}
     else if (arg->type == IND_CODE)
-        arena_load(vm, vm->pc + (short int)arg->val % modulo, val, sizeof(int));
+	{
+		if (opcode == ST)
+			*val = arg->val % modulo;
+		else
+			arena_load(vm, vm->pc + (short int)arg->val % modulo, val, sizeof(int));
+	}
 	return (1);
 }
 
@@ -56,10 +69,11 @@ void    load(t_vm *vm, int reg, int val)
 	}
 	proc = vm->procs.cur;
 	proc->carry = (val == 0);
-    ft_bzero(&proc->reg, REG_SIZE);
-	regcpy(&proc->reg, &val, REG_SIZE);
+    ft_bzero(&proc->reg[reg], REG_SIZE);
+	regcpy(&proc->reg[reg], &val, REG_SIZE);
 	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
 	vm->print("loaded value %d in r%d\n", val, reg);
+	print_reg(vm, &proc->reg[reg]);
 	vm->print == &printw ? wait_input() : 0;
 }
 
@@ -80,5 +94,6 @@ void    store(t_vm *vm, int reg, int addr)
     arena_store(vm, addr, &proc->reg[reg], REG_SIZE, proc->champ->id);
     vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
     vm->print("stored value of r%d at address %d\n", reg, addr);
+    print_reg(vm, &proc->reg[reg]);
     vm->print == &printw ? wait_input() : 0;
 }
