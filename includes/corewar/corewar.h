@@ -166,6 +166,7 @@ t_champ					*champ_new(t_vm *vm);
 **-----------------------------------------------------------------------------
 */
 
+void					print_reg(t_vm *vm, t_reg *reg);
 int						is_reg(int id);
 void					regcpy(void *dst, const void *src, size_t n);
 void					proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc);

@@ -12,6 +12,15 @@
 
 #include "corewar.h"
 
+void			print_reg(t_vm *vm, t_reg *reg)
+{
+	int val;
+
+	val = 0;
+	regcpy(&val, reg, sizeof(int));
+	vm->print("reg value: %d\n", val);
+}
+
 int			is_reg(int id)
 {
 	return (id >= 1 && id <= REG_NUMBER);
