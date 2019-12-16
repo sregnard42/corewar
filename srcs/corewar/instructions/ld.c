@@ -13,8 +13,8 @@
 #include "corewar.h"
 
 /*
-**		Takes a direct / indirect, and a register. Loads the value of the
-**		direct / indirect in the register. Modifies the carry.
+**		Takes an index and a register. Loads the value of the index in the
+**		register. Modifies the carry.
 */
 
 void	op_ld(void *vm_ptr)
@@ -39,7 +39,7 @@ void	op_ld(void *vm_ptr)
 
 /*
 **		Takes 2 indexes and a register. Puts the value of the sum of the 2
-**		directs in the register.
+**		indexes in the register.
 */
 
 void	op_ldi(void *vm_ptr)

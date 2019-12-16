@@ -14,9 +14,9 @@
 
 
 /*
-**		Takes two registers / directs / indirects, applies a logical operation
-**      between the two, and stores the result in the third parameter that is a
-**      register. Modifies the carry.
+**		Takes two indexes and a register, applies a logical operation between
+**      the first two parameters, and stores the result in the third one.
+**      Modifies the carry.
 */
 
 static void logic(t_vm *vm, int opcode)

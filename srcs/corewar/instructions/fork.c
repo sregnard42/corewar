@@ -42,7 +42,7 @@ static short int	get_target(t_vm *vm)
 }
 
 /*
-**		Takes an indirect. Creates a new process that inherits from his parent
+**		Takes an index. Creates a new process that inherits from his parent
 **      except for the PC, that must be PC + (1st param % IDX_MOD).
 */
 
@@ -58,7 +58,7 @@ void	    op_fork(void *vm_ptr)
 }
 
 /*
-**		Takes an indirect. Creates a new process that inherits from his parent
+**		Takes an index. Creates a new process that inherits from his parent
 **      except for the PC, that must be PC + 1st param.
 */
 
