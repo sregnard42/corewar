@@ -34,9 +34,9 @@ void	    op_zjmp(void *vm_ptr)
 
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
+    target = get_target(vm);
     if (!proc->carry)
         return ;
-    target = get_target(vm);
     proc_set_pc(vm, proc, vm->pc + target);
     vm->print("zjmp %d | ", target);
     vm->print("Player %d \"%s\", ", proc->champ->id, proc->champ->name);
