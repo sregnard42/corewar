@@ -47,9 +47,14 @@ int		get_val(t_vm *vm, t_arg *arg, int *val, int modulo)
     else if (arg->type == IND_CODE)
 	{
 		if (opcode == ST)
-			*val = arg->val % modulo;
+			*val = arg->val % IDX_MOD;
 		else
-			arena_load(vm, vm->pc + (short int)arg->val % modulo, val, sizeof(int));
+		{
+			if (modulo)
+				arena_load(vm, vm->pc + (short int)arg->val % IDX_MOD, val, sizeof(int));
+			else
+				arena_load(vm, vm->pc + (short int)arg->val, val, sizeof(int));
+		}
 	}
 	return (1);
 }

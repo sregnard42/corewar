@@ -78,7 +78,7 @@ void	op_lld(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	if (args->size < 2)
 		return ;
-	get_val(vm, args->byId[0], &val, 1);
+	get_val(vm, args->byId[0], &val, 0);
 	reg = args->byId[1]->val;
 	if (args->byId[0]->type == IND_CODE)
 		vm->print("lld %d, r%d | ", (short int)args->byId[0]->val, reg);
@@ -102,8 +102,8 @@ void	op_lldi(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	if (args->size < 3)
 		return ;
-	get_val(vm, args->byId[0], &val[0], 1);
-	get_val(vm, args->byId[1], &val[1], 1);
+	get_val(vm, args->byId[0], &val[0], 0);
+	get_val(vm, args->byId[1], &val[1], 0);
 	arena_load(vm, vm->pc + val[0] + val[1], &val[2], sizeof(int));
 	reg = args->byId[2]->val;
 	vm->print("lldi %%%d, %%%d, r%d | ", val[0], val[1], reg);
