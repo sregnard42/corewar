@@ -53,7 +53,7 @@ void		op_lfork(void *);
 void		op_aff(void *);
 
 static char	*op_names[17] = { NULL, "live", "ld", "st", "add",
-								"sub", "and", "op", "xor",
+								"sub", "and", "or", "xor",
 								"zjmp", "ldi", "sti", "fork",
 								"lld", "lldi", "lfork", "aff"};
 
