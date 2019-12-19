@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 16:04:05 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/01 13:57:29 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:13:02 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_ocp(t_instruc *command)
 	unsigned char	ocp;
 
 	if (command->opcode == 1 || command->opcode == 9 || command->opcode == 12 \
-		|| command->opcode == 15 || command->opcode == 16)
+		|| command->opcode == 15)
 	{ // Remplacer les 1 9 12 par les alias qui sont dans le dossier common
 		command->ocp = 0;
 		return ;

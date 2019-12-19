@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/05 15:29:02 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:13:30 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void				get_prog_size(t_assembler *as)
 	{
 		prog_size += 1;
 		if (!(tmp->opcode == 1 || tmp->opcode == 9 || tmp->opcode == 12 ||
-			tmp->opcode == 15 || tmp->opcode == 16))
+			tmp->opcode == 15))
 			prog_size += 1;
 		prog_size += get_params_bytes(tmp);
 		tmp = tmp->next;
