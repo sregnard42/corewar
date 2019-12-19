@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:55:54 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 14:28:42 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/19 16:04:20 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define DIRECT_CHAR			'%'
 # define SEPARATOR_CHAR			','
 
-# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
+# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789 ."
 
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"

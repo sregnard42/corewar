@@ -6,21 +6,11 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 14:43:36 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:00:43 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-void	clean_line(char *line)
-{
-	char	replace[3];
-
-	replace[0] = '\t';
-	replace[1] = SEPARATOR_CHAR;
-	replace[2] = '\0';
-	line = ft_strreplace(line, replace, ' ');
-}
 
 /*
 ** parse_header() parse only the name or comment (without ""), checks if they
@@ -82,7 +72,38 @@ void	parse_header(t_assembler *as, char **dst, int choice)
 		if (ft_strlen(str) > COMMENT_LENGTH)
 			manage_error(as, &free_asm, as->epure_line, COMM_TOO_LONG);
 	}
-		*dst = str;
+	*dst = str;
+}
+
+/*
+** epure name or comment line
+*/
+
+void	between_name_quote(t_assembler *as)
+{
+	char	*str;
+	int		i;
+	int		mode;
+
+	str = as->line;
+	i = 0;
+	if (ft_strncmp(NAME_CMD_STRING, str, ft_strlen(NAME_CMD_STRING)) == 0)
+		mode = 1;
+	if (ft_strncmp(COMMENT_CMD_STRING, str, ft_strlen(COMMENT_CMD_STRING)) == 0)
+		mode = 2;
+	if (mode != 1 && mode != 2)
+		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
+	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
+	while (str[i])
+	{
+		if (str[i] == '\t')
+			str[i] = ' ';
+		if (str[i] == '"')
+			return ;
+		if (str[i] != ' ')
+			manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
+		++i;
+	}
 }
 
 /*
@@ -95,20 +116,25 @@ int		check_header(t_assembler *as)
 	char	*len;
 	char	*part;
 
+	between_name_quote(as);
 	if ((len = ft_strchr(as->line, ' ')) == NULL)
 		return (FAIL);
 	if (!(part = ft_strsub(as->line, 0, len - as->line)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	ft_printf("part = %s\n", part);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-			parse_header(as, &as->header->name, SAVE_NAME);
+		// between_name_quote(as, as->line + ft_strlen(NAME_CMD_STRING));
+		ft_printf("'%s'\n", as->line);
+		parse_header(as, &as->header->name, SAVE_NAME);
 		return (SUCCESS);
 	}
 	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-			parse_header(as, &as->header->comment, SAVE_COMMENT);
+		// between_name_quote(as, as->line);
+		parse_header(as, &as->header->comment, SAVE_COMMENT);
 		return (SUCCESS);
 	}
 	ft_memdel((void**)&part);

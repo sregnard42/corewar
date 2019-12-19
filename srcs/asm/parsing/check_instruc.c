@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 15:09:34 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/19 16:09:42 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,15 @@ void	epure_line(t_assembler *as)
 	i = -1;
 	while (as->line[++i])
 	{
+		if (as->line[i] == COMMENT_CHAR)
+		{
+			as->line[i] = '\0';
+			return ;
+		}
 		if (as->line[i] == SEPARATOR_CHAR)
 			as->nb_sep++;
 		if (as->line[i] == '\t' || as->line[i] == SEPARATOR_CHAR)
 			as->line[i] = ' ';
-		if (as->line[i] == COMMENT_CHAR)
-			as->line[i] = '\0';
 	}
 }
 

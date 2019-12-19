@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 14:43:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/19 16:21:53 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 ** COMMENT/NAME
 */
 
+# define BAD_FORMAT ".name and .comment must be followed by string in quote \n"
 # define EMPTY_NAME "Missing name well formated: .name \"champion's name\" \n"
 # define EMPTY_COMMENT "Missing .comment well formated: .comment \"comment\"\n"
 # define QUOTES_NOT_CLOSED	"Quotes in header are not closed.\n"
