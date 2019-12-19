@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/10 14:39:45 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 12:51:31 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ void		manage_error(void *p, void (*f)(void *), char *line, char *msg)
 		if (f && p)
 			f(p);
 	if (tmp->bonus & BONUS_DONT_QUIT)
-	{
-		ft_putstr("on continueeee\n");
 		tmp->bonus |= BONUS_GOT_ERROR;
-	}
 	else
 		exit(EXIT_FAILURE);
 }

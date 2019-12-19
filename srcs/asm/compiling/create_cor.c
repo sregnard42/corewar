@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/06 17:06:00 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 12:49:15 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	create_cor(t_assembler *as)
 		}
 	}
 	if (as->bonus & BONUS_COLOR)
-		ft_putstr("\e[1;31m");
+		ft_putstr("\e[1;32m");
 	ft_putstr("Created .cor.\e[0m\n");
 	as->file_name_cor = s_to_cor(as, as->file_name_s);
 	as->cor_fd = open(as->file_name_cor, O_RDWR | O_CREAT, 0644);

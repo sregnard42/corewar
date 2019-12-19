@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/06 17:15:40 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 12:50:41 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_advices(t_assembler *as)
 	if (as->bonus & BONUS_GOT_ERROR)
 	{
 		if (as->bonus & BONUS_COLOR)
-			ft_putstr("\e[1;32m");
+			ft_putstr("\e[32m");
 		ft_putstr("\nREMINDERS:\n");
 		if (as->bonus & BONUS_COLOR)
 		{
