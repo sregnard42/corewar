@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/10 14:17:21 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 15:09:34 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		which_command(t_assembler *as, char *part)
 	int		i;
 
 	i = 0;
-	while (i < 16 && ft_strcmp(part, as->commands[i].command) != 0)
+	while (part && i < 16 && ft_strcmp(part, as->commands[i].command) != 0)
 		i++;
 	return (i);
 }

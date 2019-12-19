@@ -6,11 +6,26 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:49:34 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/10 14:27:53 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:56:26 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** write_padding with padding_size
+*/
+
+void	write_padding(int fd, int size)
+{
+	int	i;
+
+	i = -1;
+	if (size <= 0)
+		return ;
+	while (++i)
+		write(fd, "\0", 1);
+}
 
 /*
 ** write_big_endian1() change the order of magic number's bytes
@@ -62,6 +77,7 @@ void	write_comment(t_assembler *as)
 	char	*to_fill;
 	int		size_com;
 
+	// write_padding(as->cor_fd, PADDING);
 	write(as->cor_fd, "\0\0\0\0", 4);
 	size_com = ft_strlen(as->header->comment);
 	write_big_endian1(as->cor_fd, as->prog_size);
@@ -72,6 +88,7 @@ void	write_comment(t_assembler *as)
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	}
 	write(as->cor_fd, to_fill, COMMENT_LENGTH - size_com);
+	// write_padding(as->cor_fd, PADDING);
 	write(as->cor_fd, "\0\0\0\0", 4);
 	ft_memdel((void*)&to_fill);
 }

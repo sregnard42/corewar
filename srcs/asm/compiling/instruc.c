@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 14:28:19 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:58:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	write_big_endian(t_assembler *as, int nb, int size)
 	octets[1] = nb >> 16;
 	octets[2] = nb >> 8;
 	octets[3] = nb >> 0;
-	if (size == 2)
+	if (size == IND_SIZE)
 	{
 		write(as->cor_fd, &octets[2], 1);
-		write(as->cor_fd, &octets[3], 1);
+		write(as->cor_fd, &octets[3], 1); // A vir si on change le IND_SIZE si on fais la bonne chose
 	}
-	if (size == 4)
+	if (size == DIR_SIZE)
 		write(as->cor_fd, octets, size);
 }
 
@@ -69,12 +69,12 @@ void	write_neg_number(t_assembler *as, int nb, int size)
 	octets[2] = octets[2] ^ max;
 	octets[3] = octets[3] ^ max;
 	octets[3] += 1;
-	if (size == 2)
+	if (size == IND_SIZE)
 	{
-		write(as->cor_fd, &octets[2], 1);
+		write(as->cor_fd, &octets[2], 1);  // A vir si on change le IND_SIZE si on fais la bonne chose
 		write(as->cor_fd, &octets[3], 1);
 	}
-	if (size == 4)
+	if (size == DIR_SIZE)
 		write(as->cor_fd, octets, size);
 }
 
@@ -152,7 +152,7 @@ void	write_indirect(t_assembler *as, char *param)
 	int		ret;
 
 	ret = ft_atoi(param);
-	write_big_endian(as, ret, 4);
+	write_big_endian(as, ret, IND_SIZE);
 }
 
 /*

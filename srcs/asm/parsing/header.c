@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/05 16:56:19 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:43:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ void	parse_header(t_assembler *as, char **dst, int choice)
 		if (!(str = ft_strdup("")))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	}
-	if (choice == 1)
+	if (choice == SAVE_NAME)
 	{
 		if (ft_strlen(str) > PROG_NAME_LENGTH)
 			manage_error(as, &free_asm, as->epure_line, NAME_TOO_LONG);
 	}
-	if (choice == 2)
+	if (choice == SAVE_COMMENT)
 	{
 		if (ft_strlen(str) > COMMENT_LENGTH)
 			manage_error(as, &free_asm, as->epure_line, COMM_TOO_LONG);
@@ -102,13 +102,13 @@ int		check_header(t_assembler *as)
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-			parse_header(as, &as->header->name, 1);
+			parse_header(as, &as->header->name, SAVE_NAME);
 		return (SUCCESS);
 	}
 	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-			parse_header(as, &as->header->comment, 2);
+			parse_header(as, &as->header->comment, SAVE_COMMENT);
 		return (SUCCESS);
 	}
 	ft_memdel((void**)&part);

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/19 14:13:30 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:41:44 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ unsigned int	get_param_bytes(int opcode, char param)
 {
 	if (param == 0)
 		return (0);
-	else if (param == 1)
-		return (1);
-	else if (param == 2)
+	else if (param == REG_CODE)
+		return (RID_SIZE);
+	else if (param == DIR_CODE)
 	{
-		if ((opcode >= 9 && opcode <= 12) || (opcode == 14 || opcode == 15))
-			return (2);
-		return (4);
+		if ((opcode >= ZJMP && opcode <= FORK) \
+			|| (opcode == LLDI || opcode == LFORK))
+			return (IND_SIZE);
+		return (DIR_SIZE);
 	}
-	else if (param == 3)
-		return (2);
+	else if (param == IND_CODE)
+		return (IND_SIZE);
 	return (0);
 }
 
@@ -69,8 +70,8 @@ void				get_prog_size(t_assembler *as)
 	while (tmp)
 	{
 		prog_size += 1;
-		if (!(tmp->opcode == 1 || tmp->opcode == 9 || tmp->opcode == 12 ||
-			tmp->opcode == 15))
+		if (!(tmp->opcode == LIVE || tmp->opcode == ZJMP	\
+			|| tmp->opcode == FORK || tmp->opcode == LFORK))
 			prog_size += 1;
 		prog_size += get_params_bytes(tmp);
 		tmp = tmp->next;
