@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 17:00:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:10:56 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ void	between_name_quote(t_assembler *as)
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 	while (str[i])
 	{
+		ft_printf("str = %s\nstr[i] = %c\n", str, str[i]);
+		if (str[i] == COMMENT_CHAR)
+			str[i] = '\0';
 		if (str[i] == '\t')
 			str[i] = ' ';
 		if (str[i] == '"')
@@ -103,6 +106,24 @@ void	between_name_quote(t_assembler *as)
 		if (str[i] != ' ')
 			manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
 		++i;
+	}
+}
+
+void	change_sharp(t_assembler *as)
+{
+	char	*str;
+	int		i;
+
+	str = as->line;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == COMMENT_CHAR)
+		{
+			str[i] = '\0';
+			return ;
+		}
+		i++;
 	}
 }
 
@@ -116,24 +137,21 @@ int		check_header(t_assembler *as)
 	char	*len;
 	char	*part;
 
+	change_sharp(as);
 	between_name_quote(as);
 	if ((len = ft_strchr(as->line, ' ')) == NULL)
 		return (FAIL);
 	if (!(part = ft_strsub(as->line, 0, len - as->line)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	ft_printf("part = %s\n", part);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-		// between_name_quote(as, as->line + ft_strlen(NAME_CMD_STRING));
-		ft_printf("'%s'\n", as->line);
 		parse_header(as, &as->header->name, SAVE_NAME);
 		return (SUCCESS);
 	}
 	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-		// between_name_quote(as, as->line);
 		parse_header(as, &as->header->comment, SAVE_COMMENT);
 		return (SUCCESS);
 	}
