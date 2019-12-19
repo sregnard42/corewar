@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:10:52 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:28:19 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	write_register(t_assembler *as, char *param)
 
 	param++;
 	ret = ft_atoi(param);
-	write(as->cor_fd, &ret, 1);
+	write(as->cor_fd, &ret, RID_SIZE);
 }
 
 /*
@@ -175,11 +175,11 @@ void	write_instruc(t_assembler *as)
 		while (i < 3)
 		{
 			tmp->direct_size = get_param_bytes(tmp->opcode, tmp->param_type[i]);
-			if (tmp->param_type[i] == 1)
+			if (tmp->param_type[i] == REG_CODE)
 				write_register(as, tmp->param[i]);
-			else if (tmp->param_type[i] == 2)
+			else if (tmp->param_type[i] == DIR_CODE)
 				write_direct(as, tmp->param[i], tmp);
-			else if (tmp->param_type[i] == 3)
+			else if (tmp->param_type[i] == IND_CODE)
 				write_indirect(as, tmp->param[i]);
 			i++;
 		}
