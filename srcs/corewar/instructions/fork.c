@@ -53,7 +53,7 @@ void	    op_fork(void *vm_ptr)
 
     vm = (t_vm *)vm_ptr;
 	val = get_target(vm);
-	vm->print("fork %d | ", val);
+	vm->print("fork %%%d | ", val);
     vm_fork(vm, vm->procs.cur, vm->pc + (val % IDX_MOD));
 }
 
@@ -69,6 +69,6 @@ void	    op_lfork(void *vm_ptr)
 
     vm = (t_vm *)vm_ptr;
 	val = get_target(vm);
-	vm->print("lfork %d | ", val);
+	vm->print("lfork %%%d | ", val);
     vm_fork(vm, vm->procs.cur, vm->pc + val);
 }
