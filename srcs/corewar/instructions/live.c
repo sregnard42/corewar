@@ -45,6 +45,7 @@ void   			 op_live(void *vm_ptr)
 	vm->winner = champ;
 	champ->last_alive = vm->cycle;
 	++champ->lives;
+	++vm->nbr_live;
 	vm->print("live %%%d | ", champ->id);
 	vm_print(vm, V_LIVES | V_OPERATIONS)
 	("A process shows that player %u (%s) is alive\n",

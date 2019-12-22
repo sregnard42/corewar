@@ -56,6 +56,7 @@ typedef struct			s_vm
 	unsigned int		flags;
 	int					cycle;
 	int					cycle_to_die;
+	int					cycle_check;
 	int					nbr_live;
 	int					checks;
 }						t_vm;

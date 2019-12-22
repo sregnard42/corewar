@@ -39,18 +39,19 @@ static void	check_champs(t_vm *vm)
 
 static void	cycle_to_die(t_vm *vm)
 {
-		if (vm->cycle % vm->cycle_to_die == 0)
+		if (vm->cycle == vm->cycle_check)
 		{
 			check_champs(vm);
-			if 	(vm->nbr_live >= NBR_LIVE || vm->checks > MAX_CHECKS)
+			if 	(vm->nbr_live >= NBR_LIVE || ++vm->checks >= MAX_CHECKS)
 			{
 				vm->cycle_to_die -= CYCLE_DELTA;
 				vm_print(vm, V_CYCLES)("Cycle to die is now %d\n",
 				vm->cycle_to_die);
+				vm->checks = 0;
 			}
+			vm->nbr_live = 0;
+			vm->cycle_check = vm->cycle + vm->cycle_to_die;
 		}
-		else
-			++vm->checks;
 }
 
 static void	check_procs(t_vm *vm)
@@ -60,19 +61,19 @@ static void	check_procs(t_vm *vm)
 	proc = vm->procs.last;
 	while (proc)
 	{
-		if (vm->cycle % vm->cycle_to_die == 0)
+		if (vm->cycle == vm->cycle_check)
 		{
 			if (proc->live)
-			{
 				proc->live = 0;
-				break ;
+			else
+			{
+				vm_print(vm, V_DEATHS)
+				("Process %d hasn't lived for %d cycles (CTD %d)\n",
+				proc->pid, vm->cycle_to_die, vm->cycle_to_die);
+				procs_del(vm, &vm->procs, &proc);
+				proc = vm->procs.cur;
+				continue ;
 			}
-			vm_print(vm, V_DEATHS)
-			("Process %d hasn't lived for %d cycles (CTD %d)\n",
-			proc->pid, vm->cycle_to_die, vm->cycle_to_die);
-			procs_del(vm, &vm->procs, &proc);
-			proc = vm->procs.cur;
-			continue ;
 		}
 		proc_exec(vm, proc->champ, proc);
 		proc = proc->prev;
@@ -111,13 +112,13 @@ void		fight(t_vm *vm)
 		check_procs(vm);
 		cycle_to_die(vm);
 	}
-	if (vm->champs.size == 1)
-		vm->print("Contestant %d, \"%s\", has won !\n",
-		vm->winner->id, vm->winner->name);
-	else if (vm->flags & VM_DUMP)
+	if (vm->flags & VM_DUMP && vm->cycle >= vm->dump)
 	{
 		vm->flags & VM_VISU ? erase() : 0;
 		arena_print(vm, DUMP_COLS);
 	}
+	else
+		vm->print("Contestant %d, \"%s\", has won !\n",
+				  vm->winner->id, vm->winner->name);
 	vm->flags & VM_VISU ? wait_input() : 0;
 }

@@ -51,7 +51,7 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 		return ;
 	}
 	if (proc->cycle == 0)
-		proc->cycle = vm->cycle + op_cycles[opcode];
+		proc->cycle = vm->cycle + op_cycles[opcode] - 1;
 	if (proc->cycle > vm->cycle)
 		return ;
 	proc->cycle = 0;
