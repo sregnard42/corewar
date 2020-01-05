@@ -21,7 +21,8 @@ static t_champ	*get_target(t_vm *vm)
 	arg = arg_new(vm);
 	arg->type = DIR_CODE; 
 	get_param(vm, arg, LIVE);
-	id = arg->val;
+	id = -arg->val;
+    vm->print("live %d\n", arg->val);
 	if (id < 1 || id > vm->champs.size)
 		return (NULL);
 	return (vm->champs.byId[id]);
@@ -46,8 +47,7 @@ void   			 op_live(void *vm_ptr)
 	champ->last_alive = vm->cycle;
 	++champ->lives;
 	++vm->nbr_live;
-	vm->print("live %%%d | ", champ->id);
-	vm_print(vm, V_LIVES | V_OPERATIONS)
+	vm_print(vm, V_LIVES)
 	("A process shows that player %u (%s) is alive\n",
 	champ->id, champ->name);
 	(vm->print == &printw) || (vm_print(vm, V_LIVES) == &printw) ?

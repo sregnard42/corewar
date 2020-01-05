@@ -21,6 +21,7 @@ t_process	*proc_new(t_vm *vm)
 {
 	static int	pid = 1;
 	t_process	*proc;
+	int         reg_id;
 
 	if (!vm || !vm->champs.cur)
 		ft_error(vm, &vm_free, "proc_new args\n");
@@ -32,7 +33,8 @@ t_process	*proc_new(t_vm *vm)
 	proc->list = &vm->procs;
 	procs_add(vm, proc->list, proc);
 	ft_bzero(&proc->reg, sizeof(t_reg) * (REG_NUMBER + 1));
-	regcpy(&proc->reg[1], &proc->champ->id, REG_SIZE);
+	reg_id = -proc->champ->id;
+	regcpy(&proc->reg[1], &reg_id, REG_SIZE);
 	proc->pc = proc->champ->pos;
 	vm->colors_pc[proc->pc] = proc->champ->id + 10;
 	return (proc);

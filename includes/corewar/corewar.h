@@ -35,7 +35,7 @@
 
 # define FILE_MIN_SIZE 2192
 # define DUMP_COLS 32
-# define VISU_COLS 32
+# define VISU_COLS 32*2
 
 typedef struct			s_vm
 {
