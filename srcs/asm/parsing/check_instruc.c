@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 16:09:42 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/05 10:58:17 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,11 @@ void	epure_line(t_assembler *as)
 		if (as->line[i] == COMMENT_CHAR)
 		{
 			as->line[i] = '\0';
+			i = -1;
+			while (as->line[++i])
+				if (as->line[i] != ' ')
+					return ;
+			as->line[0] = '\0';
 			return ;
 		}
 		if (as->line[i] == SEPARATOR_CHAR)
@@ -171,6 +176,12 @@ void	epure_line(t_assembler *as)
 		if (as->line[i] == '\t' || as->line[i] == SEPARATOR_CHAR)
 			as->line[i] = ' ';
 	}
+	i = -1;
+	while (as->line[++i])
+		if (as->line[i] != ' ')
+			return ;
+	as->line[0] = '\0';
+	return ;
 }
 
 /*
@@ -184,9 +195,10 @@ void	parse_instruction(t_assembler *as)
 	char	*param_type;
 
 	as->nb_sep = 0;
+	ft_printf("line = %s\nnb = %d\n", as->line, as->nb_line);
+	epure_line(as);
 	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR)
 		return ;
-	epure_line(as);
 	if (!as->header->name  && (!(as->bonus & BONUS_GOT_ERROR)))
 		manage_error(as, &free_asm, as->epure_line, EMPTY_NAME);
 	if (!as->header->comment && (!(as->bonus & BONUS_GOT_ERROR)))

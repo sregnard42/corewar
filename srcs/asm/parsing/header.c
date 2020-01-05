@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 17:10:56 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/05 13:26:08 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,19 @@ void	between_name_quote(t_assembler *as)
 
 	str = as->line;
 	i = 0;
+	mode = 0;
 	if (ft_strncmp(NAME_CMD_STRING, str, ft_strlen(NAME_CMD_STRING)) == 0)
 		mode = 1;
 	if (ft_strncmp(COMMENT_CMD_STRING, str, ft_strlen(COMMENT_CMD_STRING)) == 0)
 		mode = 2;
 	if (mode != 1 && mode != 2)
+	{
+		ft_printf("Miskine tu tombes ici lol\nstr = [%s]\n", as->epure_line);
+		ft_printf("line = %d\n", as->nb_line);
+		if (ft_strcmp(as->line, "") == 0)
+			return ;
 		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
+	}
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 	while (str[i])
 	{
@@ -121,10 +128,20 @@ void	change_sharp(t_assembler *as)
 		if (str[i] == COMMENT_CHAR)
 		{
 			str[i] = '\0';
+			i = -1;
+			while (as->line[++i])
+				if (as->line[i] != ' ')
+					return ;
+			as->line[0] = '\0';
 			return ;
 		}
 		i++;
 	}
+	i = -1;
+	while (as->line[++i])
+		if (as->line[i] != ' ')
+			return ;
+	as->line[0] = '\0';
 }
 
 /*
@@ -137,6 +154,8 @@ int		check_header(t_assembler *as)
 	char	*len;
 	char	*part;
 
+	if (as->header->name && as->header->comment)
+		return (FAIL);
 	change_sharp(as);
 	between_name_quote(as);
 	if ((len = ft_strchr(as->line, ' ')) == NULL)
