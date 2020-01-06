@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/05 13:26:08 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/06 11:50:45 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ void	between_name_quote(t_assembler *as)
 		mode = 2;
 	if (mode != 1 && mode != 2)
 	{
-		ft_printf("Miskine tu tombes ici lol\nstr = [%s]\n", as->epure_line);
-		ft_printf("line = %d\n", as->nb_line);
 		if (ft_strcmp(as->line, "") == 0)
 			return ;
 		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
@@ -103,7 +101,6 @@ void	between_name_quote(t_assembler *as)
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 	while (str[i])
 	{
-		ft_printf("str = %s\nstr[i] = %c\n", str, str[i]);
 		if (str[i] == COMMENT_CHAR)
 			str[i] = '\0';
 		if (str[i] == '\t')

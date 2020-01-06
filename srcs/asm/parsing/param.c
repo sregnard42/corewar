@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/10 14:26:17 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/06 13:10:44 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ char	which_params(t_assembler *as, char *param)
 	}
 	else
 	{
+		if (*param == LABEL_CHAR)
+		{
+			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
+				manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			// ft_printf("cpy= %s\n", cpy);
+			save_label_param(as, cpy);
+			ft_memdel((void**)&cpy);
+		}
 		if (*param == LABEL_CHAR || ft_isnumber(param))
 			return (IND_CODE);
 	}

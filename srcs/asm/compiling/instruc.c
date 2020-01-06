@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 14:58:35 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/06 11:45:48 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,15 @@ void	write_direct(t_assembler *as, char *param, t_instruc *now)
 ** write_indirect()
 */
 
-void	write_indirect(t_assembler *as, char *param)
+void	write_indirect(t_assembler *as, char *param, t_instruc *now)
 {
 	int		ret;
 
 	ret = ft_atoi(param);
-	write_big_endian(as, ret, IND_SIZE);
+	if (*param != LABEL_CHAR)
+		write_big_endian(as, ret, IND_SIZE);
+	else
+		write_label(as, now, param);
 }
 
 /*
@@ -180,7 +183,7 @@ void	write_instruc(t_assembler *as)
 			else if (tmp->param_type[i] == DIR_CODE)
 				write_direct(as, tmp->param[i], tmp);
 			else if (tmp->param_type[i] == IND_CODE)
-				write_indirect(as, tmp->param[i]);
+				write_indirect(as, tmp->param[i], tmp);
 			i++;
 		}
 		tmp = tmp->next;
