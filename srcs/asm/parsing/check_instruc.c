@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/05 10:58:17 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/06 12:04:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,8 +203,17 @@ void	parse_instruction(t_assembler *as)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_NAME);
 	if (!as->header->comment && (!(as->bonus & BONUS_GOT_ERROR)))
 		manage_error(as, &free_asm, as->epure_line, EMPTY_COMMENT);
-	if (!(tab = ft_strsplit(as->line, ' ')))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	ft_printf("as->line = %s\n", as->line);
+	if (ft_strchr(as->line, ' '))
+	{
+		if (!(tab = ft_strsplit(as->line, ' ')))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
+	else
+	{
+		//save si c'est un label
+		return ;
+	}
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	check_instruc(as, tab, param_type);
