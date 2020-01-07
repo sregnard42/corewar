@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 14:09:01 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:36:13 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,8 @@ void	parse_instruction(t_assembler *as)
 	t_instruc	*new;
 
 	as->nb_sep = 0;
-	ft_printf("line = %s\nnb = %d\n", as->line, as->nb_line);
 	epure_line(as);
+	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
 	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR)
 		return ;
 	if (!as->header->name)
