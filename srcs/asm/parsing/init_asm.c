@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 14:50:24 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 19:28:13 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,12 @@ void	init_asm(t_assembler *as, unsigned int flag)
 	if (as->bonus & BONUS_FOLDER)
 	{
 		mkdir("my_champs", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-		as->folder = ft_strdup("./my_champs/");
+		if (!(as->folder = ft_strdup("./my_champs/")))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	}
 	else
-		as->folder = ft_strdup("./");
+	{
+		if (!(as->folder = ft_strdup("./")))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
 }
