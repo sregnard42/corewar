@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 14:09:32 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:06:38 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 void	print_usage(void)
 {
-	ft_putstr("\e[32mUsage:\e[0m	./asm \e[35m[-hfqec]\e[0m mychampion1.s\n");
+	ft_putstr("\e[32mUsage:\e[0m	./asm \e[35m[-hfec]\e[0m mychampion1.s\n");
 	ft_putstr("\e[35mHelp\e[0m on program and bonus: ./asm \e[35m-h\e[0m\n");
 }
 
 void	print_help(void)
 {
 	ft_putstr("\e[32m");
-	ft_putstr("Usage:\n\t\e[0m ./asm \e[36m[-hfqec]\e[0m mychampion1.s\n");
+	ft_putstr("Usage:\n\t\e[0m ./asm \e[36m[-hfec]\e[0m mychampion1.s\n");
 	ft_putstr("\e[32mBonus:\e[0m\n");
 	ft_putstr("	\e[36m*\e[0m can create several .cor from different .s files ");
-	ft_putstr("at once: ./asm [-hfqec] mychampion1.s mychampion2.s\n");
-	ft_putstr("\e[36m-q	quit\e[0m: lists all errors from .s file instead of ");
-	ft_putstr("quitting at first error. Will prevent creation of .cor in ");
-	ft_putstr("case of errors. \n\e[36m-f	folder\e[0m: create a folder");
+	ft_putstr("at once:\n\t\t./asm [-hfec] mychampion1.s mychampion2.s\n");
+	ft_putstr("\e[36m-f	folder\e[0m: create a folder");
 	ft_putstr(" my_champs if it doesn't already exist or add all new .cor ");
 	ft_putstr("to this folder if it already exists.\n");
 	ft_putstr("\e[36m-e	error\e[0m: tell which line has an input error.\n");
