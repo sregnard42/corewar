@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 14:49:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:57:30 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 ** GENERAL
 */
 
+# define JUNK	"There is some junk on a line.\n"
 # define ERROR_MALLOC	"Error with malloc.\n"
 # define CANT_READ		"Can't read source file. Does it exist?\n"
 # define AS_NULL		"Structure is null.\n"

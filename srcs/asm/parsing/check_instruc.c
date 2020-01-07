@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 16:36:13 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 18:09:43 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ void	parse_instruction(t_assembler *as)
 	}
 	else
 	{
+		if (!(ft_strchr(as->line, LABEL_CHAR)))
+			manage_error(as, &free_asm, as->epure_line, JUNK);
 		if (as->newline == 1)
 			manage_error(as, &free_asm, as->epure_line, REDEF_LABEL);
 		//sauver le label dans le maillon en cours
@@ -215,7 +217,7 @@ void	parse_instruction(t_assembler *as)
 		i = 0;
 		while (as->line[i])
 		{
-			if (as->line[i] == ':')
+			if (as->line[i] == LABEL_CHAR)
 				as->line[i] = '\0';
 			i++;
 		}
