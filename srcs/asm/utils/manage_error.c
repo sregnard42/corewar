@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 12:51:31 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:07:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		manage_error(void *p, void (*f)(void *), char *line, char *msg)
 {
 	t_assembler	*tmp;
 
+	(void)f;
 	tmp = (t_assembler *)p;
 	line ? epure_line2(line) : 0;
 	if (tmp->bonus & BONUS_MANAGE_ERROR && line)
@@ -54,11 +55,5 @@ void		manage_error(void *p, void (*f)(void *), char *line, char *msg)
 	msg ? write(2, "ERROR: ", 7) : 0;
 	msg && tmp->bonus & BONUS_COLOR ? write(2, "\e[0m", 4) : 0;
 	msg ? write(2, msg, ft_strlen(msg)) : 0;
-	if (!(tmp->bonus & BONUS_DONT_QUIT))
-		if (f && p)
-			f(p);
-	if (tmp->bonus & BONUS_DONT_QUIT)
-		tmp->bonus |= BONUS_GOT_ERROR;
-	else
-		exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }

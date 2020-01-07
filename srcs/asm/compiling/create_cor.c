@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/19 12:49:15 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:07:00 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ char	*s_to_cor(t_assembler *as, char *s)
 
 void	create_cor(t_assembler *as)
 {
-	if (as->bonus & BONUS_DONT_QUIT)
-	{
-		if (as->bonus & BONUS_GOT_ERROR)
-		{
-			if (as->bonus & BONUS_COLOR)
-				ft_putstr("\e[1;31m");
-			ft_putstr("\n.cor not created because of error(s).\e[0m\n");
-			return ;
-		}
-	}
 	if (as->bonus & BONUS_COLOR)
 		ft_putstr("\e[1;32m");
 	ft_putstr("Created .cor.\e[0m\n");

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 12:50:41 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:09:32 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void	print_help(void)
 
 void	print_advices(t_assembler *as)
 {
-	if (as->bonus & BONUS_GOT_ERROR)
-	{
-		if (as->bonus & BONUS_COLOR)
+	if (as->bonus & BONUS_COLOR)
 			ft_putstr("\e[32m");
 		ft_putstr("\nREMINDERS:\n");
 		if (as->bonus & BONUS_COLOR)
@@ -55,7 +53,6 @@ void	print_advices(t_assembler *as)
 			ft_putstr("\e[32m");
 		ft_putstr("\t* One instruction per line:\e[0m\n");
 		ft_putstr("\t<label> <command> <argument1> , <argument2> , ..\n");
-	}
 }
 
 void	print_file_name(t_assembler *as)

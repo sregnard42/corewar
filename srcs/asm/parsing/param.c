@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/06 13:10:44 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:05:49 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,8 @@ int		is_param(t_assembler *as, int id_command, char *part, int nb_param,
 	char	id_param;
 
 	if (which_command(as, part) < 16)
-	{
 		manage_error(as, &free_asm, as->epure_line, TOO_MANY_CMD);
-		if (as->bonus & BONUS_DONT_QUIT)
-			return (FAIL);
-	}
-	if (!(as->bonus & BONUS_DONT_QUIT) \
-		&& as->nb_sep != as->commands[id_command].nb_params - 1)
+	if (as->nb_sep != as->commands[id_command].nb_params - 1)
 		manage_error(as, &free_asm, as->epure_line, SEPARATOR_ERROR);
 	if (nb_param + 1 > as->commands[id_command].nb_params)
 		manage_error(as, &free_asm, as->epure_line, TOO_MANY_PARAM);

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 11:59:40 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:08:34 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,7 @@ enum				e_bonus
 	BONUS_HELP = (1 << 0),
 	BONUS_MANAGE_ERROR = (1 << 1),
 	BONUS_FOLDER = (1 << 2),
-	BONUS_DONT_QUIT = (1 << 3),
-	BONUS_COLOR = (1 << 4),
-	BONUS_GOT_ERROR = (1 << 5),
+	BONUS_COLOR = (1 << 3),
 };
 
 void				init_asm(t_assembler *as, unsigned int flag);

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/19 14:41:44 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:05:47 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void				get_prog_size(t_assembler *as)
 	t_instruc		*tmp;
 	unsigned int	prog_size;
 
-	if ((!as || !as->header || !as->instruc) && !(as->bonus & BONUS_DONT_QUIT))
+	if (!as || !as->header || !as->instruc)
 		manage_error(as, &free_asm, as->epure_line, AS_NULL);
 	tmp = as->instruc;
 	prog_size = 0;

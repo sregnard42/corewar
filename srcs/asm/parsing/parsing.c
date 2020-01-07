@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 11:47:48 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:03:19 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 
 void	parsing(t_assembler *as)
 {
-	if (as->bonus & BONUS_DONT_QUIT)
-		print_file_name(as);
 	while (get_next_line(as->s_fd, &as->line) == 1)
 	{
 		if (!(as->epure_line = ft_strdup(as->line)))
