@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 15:44:57 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 16:35:01 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:53:49 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_strclean(char *str)
 
 	if (!str)
 		return (NULL);
-	if ((clean = ft_memalloc(sizeof(char) * ft_strlen(str))) == NULL)
+	if ((clean = ft_memalloc(sizeof(char) * (ft_strlen(str) + 1))) == NULL)
 		return (NULL);
 	str = delete_begin(str);
 	delete_between(str, clean);
