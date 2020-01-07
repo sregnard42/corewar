@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 15:44:57 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 16:53:49 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:03:17 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	delete_end(char *clean)
 	int	i;
 
 	i = ft_strlen(clean) - 1;
+	if (i < 0)
+		return ;
 	while (clean[i] == ' ' || clean[i] == '\t')
 		clean[i--] = '\0';
 }
