@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 11:43:58 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 12:00:11 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,9 @@ void	parse_instruction(t_assembler *as)
 {
 	char	**tab;
 	char	*param_type;
+	int		i;
+	t_instruc	*tmp;
+	t_instruc	*new;
 
 	as->nb_sep = 0;
 	ft_printf("line = %s\nnb = %d\n", as->line, as->nb_line);
@@ -203,7 +206,6 @@ void	parse_instruction(t_assembler *as)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_NAME);
 	if (!as->header->comment && (!(as->bonus & BONUS_GOT_ERROR)))
 		manage_error(as, &free_asm, as->epure_line, EMPTY_COMMENT);
-	ft_printf("as->line = %s\n", as->line);
 	if (ft_strchr(as->line, ' '))
 	{
 		if (!(tab = ft_strsplit(as->line, ' ')))
@@ -211,20 +213,18 @@ void	parse_instruction(t_assembler *as)
 	}
 	else
 	{
+		if (as->newline == 1)
+			manage_error(as, &free_asm, as->epure_line, REDEF_LABEL);
 		//sauver le label dans le maillon en cours
 		//sauver le label dans la liste des instructions
 		//ne pas passer au maillon suivant pour la ligne d'après
-		ft_printf("ligne sans espace = %s\n", as->line);
-		int	i = 0;
+		i = 0;
 		while (as->line[i])
 		{
 			if (as->line[i] == ':')
 				as->line[i] = '\0';
 			i++;
 		}
-		t_instruc	*tmp;
-		t_instruc	*new;
-
 		tmp = as->instruc;
 		if (!(new = ft_memalloc(sizeof(t_instruc))))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
@@ -236,7 +236,8 @@ void	parse_instruction(t_assembler *as)
 		}
 		else
 			as->instruc = new;
-		new->label = ft_strdup(as->line);
+		if (!(new->label = ft_strdup(as->line)))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 		save_label_to_check(as, as->line);
 		as->newline = 1;
 		print_instruc(as);

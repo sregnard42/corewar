@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 11:37:34 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 11:59:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 ** LABEL
 */
 
+# define REDEF_LABEL		"Redefinition of label.\n"
 # define EMPTY_LABEL		"Label is empty.\n"
 # define SPACE_LABEL		"No space after label.\n"
 # define INVALID_LABEL		"Label with invalid characters.\n"
