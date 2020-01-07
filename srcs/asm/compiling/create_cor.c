@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 14:07:00 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 15:19:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,20 @@ char	*s_to_cor(t_assembler *as, char *s)
 	int		len;
 	char	*cor;
 
-	len = ft_strlen(s);
+	if (as->bonus & BONUS_FOLDER)
+	{
+		ft_strchr(s, '/') ? s = ft_strrchr(s, '/') : 0;
+		len = ft_strlen(s) + ft_strlen("./my_champs/");
+	}
+	else
+		len = ft_strlen(s);
 	if ((cor = ft_memalloc(sizeof(char) * (len + 4))) == NULL)
 	{
 		ft_memdel((void **)&cor);
 		manage_error(as, &free_asm,as->epure_line, ERROR_MALLOC);
 	}
-	ft_strncat(cor, s, len - 1);
+	as->bonus & BONUS_FOLDER ? ft_strcat(cor, "./my_champs/") : 0;
+	ft_strncat(cor, s, ft_strlen(s) - 1);
 	ft_strcat(cor, "cor");
 	cor[len + 2] = '\0';
 	return (cor);

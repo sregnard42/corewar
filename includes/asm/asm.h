@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 14:08:34 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:49:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
+# include <sys/stat.h>
 # include "common.h"
 # include "instruc.h"
 
@@ -109,6 +110,7 @@ typedef struct		s_assembler
 	int				s_fd;
 	int				cor_fd;
 	unsigned int	bonus;
+	char			*folder;
 	t_instruc		*instruc;
 }					t_assembler;
 

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 14:03:19 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 15:08:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	parsing(t_assembler *as)
 
 	get_prog_size(as);
 	/////////////
-	print_instruc(as);
+	// print_instruc(as);
 	// print_labels(as);
 	// print_param_labels(as);
 }
