@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/06 12:04:38 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 11:43:58 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,36 @@ void	parse_instruction(t_assembler *as)
 	}
 	else
 	{
-		//save si c'est un label
+		//sauver le label dans le maillon en cours
+		//sauver le label dans la liste des instructions
+		//ne pas passer au maillon suivant pour la ligne d'après
+		ft_printf("ligne sans espace = %s\n", as->line);
+		int	i = 0;
+		while (as->line[i])
+		{
+			if (as->line[i] == ':')
+				as->line[i] = '\0';
+			i++;
+		}
+		t_instruc	*tmp;
+		t_instruc	*new;
+
+		tmp = as->instruc;
+		if (!(new = ft_memalloc(sizeof(t_instruc))))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		if (tmp != NULL)
+		{
+			while (tmp->next != NULL)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
+		else
+			as->instruc = new;
+		new->label = ft_strdup(as->line);
+		save_label_to_check(as, as->line);
+		as->newline = 1;
+		print_instruc(as);
+		// print_labels(as);
 		return ;
 	}
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 16:37:50 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 11:47:44 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,30 @@ void	add_instruct(t_assembler *as, char *param_type,
 	t_instruc	*tmp;
 	t_instruc	*new;
 
-	tmp = as->instruc;
-	if (!(new = ft_memalloc(sizeof(t_instruc))))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	if (tmp != NULL)
+	if (as->newline != 1)
 	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new;
+		tmp = as->instruc;
+		if (!(new = ft_memalloc(sizeof(t_instruc))))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			if (tmp != NULL)
+			{
+				while (tmp->next != NULL)
+					tmp = tmp->next;
+				tmp->next = new;
+			}
+		else
+			as->instruc = new;
 	}
 	else
-		as->instruc = new;
+	{
+		tmp = as->instruc;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		new = tmp;
+	}
 	new->param_type = param_type;
 	init_instruc(as, new, id_command);
 	get_ocp(new);
 	get_size_instruction(new);
+	as->newline = 0;
 }
