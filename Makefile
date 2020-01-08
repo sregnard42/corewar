@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/12/06 17:02:09 by lgaultie         ###   ########.fr        #
+#    Updated: 2020/01/08 11:36:30 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,7 @@ INCLUDES_ASM			+=	-I $(INCDIR_ASM)
 INCLUDES_WAR			:=	$(INCLUDES)
 INCLUDES_WAR			+=	-I $(INCDIR_WAR)
 
-INCNAME					:=	asm.h		\
-							instruc.h
+INCNAME					:=	asm.h
 INC_ASM					:=	$(addprefix $(INCDIR_ASM), $(INCNAME))
 
 INCNAME					:=	corewar.h	\
