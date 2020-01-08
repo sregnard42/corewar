@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 18:09:43 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:40:16 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,46 @@ void	epure_line(t_assembler *as)
 	return ;
 }
 
+void	save_label(t_assembler *as)
+{
+	t_instruc	*tmp;
+	t_instruc	*new;
+	int			i;
+
+	if (!(ft_strchr(as->line, LABEL_CHAR)))
+		manage_error(as, &free_asm, as->epure_line, JUNK);
+	if (as->newline == 1)
+		manage_error(as, &free_asm, as->epure_line, REDEF_LABEL);
+	//sauver le label dans le maillon en cours
+	//sauver le label dans la liste des instructions
+	//ne pas passer au maillon suivant pour la ligne d'après
+	i = 0;
+	while (as->line[i])
+	{
+		if (as->line[i] == LABEL_CHAR)
+			as->line[i] = '\0';
+		i++;
+	}
+	tmp = as->instruc;
+	if (!(new = ft_memalloc(sizeof(t_instruc))))
+		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	if (tmp != NULL)
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+		as->instruc = new;
+	if (!(new->label = ft_strdup(as->line)))
+		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	save_label_to_check(as, as->line);
+	as->newline = 1;
+	print_instruc(as);
+	// print_labels(as);
+	return ;
+}
+
 /*
 ** parse_instruction() checks if header is complete. Then cut the instruction
 ** to send each parts in check_instruc.
@@ -187,13 +227,11 @@ void	parse_instruction(t_assembler *as)
 {
 	char	**tab;
 	char	*param_type;
-	int		i;
-	t_instruc	*tmp;
-	t_instruc	*new;
 
 	as->nb_sep = 0;
 	epure_line(as);
 	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
+	ft_printf("my_line = %s\n", as->line);
 	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR)
 		return ;
 	if (!as->header->name)
@@ -205,39 +243,9 @@ void	parse_instruction(t_assembler *as)
 		if (!(tab = ft_strsplit(as->line, ' ')))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	}
-	else
+	else // Si on as label: saut a la ligne
 	{
-		if (!(ft_strchr(as->line, LABEL_CHAR)))
-			manage_error(as, &free_asm, as->epure_line, JUNK);
-		if (as->newline == 1)
-			manage_error(as, &free_asm, as->epure_line, REDEF_LABEL);
-		//sauver le label dans le maillon en cours
-		//sauver le label dans la liste des instructions
-		//ne pas passer au maillon suivant pour la ligne d'après
-		i = 0;
-		while (as->line[i])
-		{
-			if (as->line[i] == LABEL_CHAR)
-				as->line[i] = '\0';
-			i++;
-		}
-		tmp = as->instruc;
-		if (!(new = ft_memalloc(sizeof(t_instruc))))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-		if (tmp != NULL)
-		{
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = new;
-		}
-		else
-			as->instruc = new;
-		if (!(new->label = ft_strdup(as->line)))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-		save_label_to_check(as, as->line);
-		as->newline = 1;
-		print_instruc(as);
-		// print_labels(as);
+		save_label(as);
 		return ;
 	}
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
