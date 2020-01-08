@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 17:57:30 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:25:55 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <sys/stat.h>
 # include "common.h"
-# include "instruc.h"
 
 # define SUCCESS 1
 # define FAIL 0
@@ -80,6 +79,20 @@
 # define TOO_MANY_PARAM			"Too many parameters for this command.\n"
 # define WRONG_NB_PARAM			"Wrong number of parameters for this command.\n"
 # define SEPARATOR_ERROR		"Input error with separators ','.\n"
+
+typedef struct			s_instruc
+{
+	char				*label;
+	unsigned int		size;
+	char				*command;
+	int					opcode;
+	char				*param[4];
+	char				*param_type;  // "112" --> premier param = 1 = registre
+	//deuxieme param = 1 = registre     //troisieme param = 2 = direct
+	int					direct_size;
+	char 				ocp;
+	struct s_instruc	*next;
+}						t_instruc;
 
 typedef	struct		s_commands
 {
