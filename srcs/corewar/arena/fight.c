@@ -41,7 +41,6 @@ static void	cycle_to_die(t_vm *vm)
 {
 		if (vm->cycle == vm->cycle_check)
 		{
-		    vm->print("vm->checks: %d - MAX_CHECKS: %d\n", vm->checks, MAX_CHECKS);
 			check_champs(vm);
 			if 	(vm->nbr_live >= NBR_LIVE || ++vm->checks >= MAX_CHECKS)
 			{
@@ -71,6 +70,7 @@ static void	check_procs(t_vm *vm)
 				vm_print(vm, V_DEATHS)
 				("Process %d hasn't lived for %d cycles (CTD %d)\n",
 				proc->pid, vm->cycle_to_die, vm->cycle_to_die);
+                vm->print == &printw ? wait_input() : 0;
 				vm->procs.cur = proc->prev;
 				procs_del(vm, &vm->procs, &proc);
 				proc = vm->procs.cur;
@@ -90,7 +90,7 @@ static void	fight_intro(t_vm *vm)
 	champ = vm->champs.first;
 	while (champ)
 	{
-		vm->print("* Player %d, weighing %d bytes, \"%s\", (\"%s\") !\n",
+		vm->print("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 		champ->id, champ->prog_size, champ->name, champ->comment);
 		champ = champ->next;
 	}

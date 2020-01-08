@@ -48,7 +48,8 @@
 
 # define CYCLE_TO_DIE			1536
 # define CYCLE_DELTA			50
-# define NBR_LIVE				21
+# define NBR_LIVE				4
+//# define NBR_LIVE				21
 # define MAX_CHECKS				10
 
 typedef char					t_arg_type;

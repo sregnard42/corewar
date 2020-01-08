@@ -111,6 +111,7 @@ int (*vm_print(t_vm *vm, unsigned int flag))(const char *format, ...);
 void					arena_print(t_vm *vm, unsigned int cols);
 void					champ_print(t_champ *champ);
 void					champs_print(t_champs *champs);
+void                    proc_print(t_vm *vm, t_process *proc);
 
 /*
 **-----------------------------------------------------------------------------

@@ -61,6 +61,7 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 	proc_set_pc(vm, proc, proc->pc + 1);
 	ocp(vm, opcode);
 	vm->print = vm_print(vm, V_OPERATIONS);
+    vm->print("P %4d | ", vm->procs.cur->pid);
 	op[opcode](vm);
 	vm->print = vm_print(vm, 0);
 	args_free(&proc->args);

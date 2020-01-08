@@ -19,10 +19,13 @@
 
 static void vm_fork(t_vm *vm, t_process *proc_cur, int pc)
 {
+    int i;
     t_process   *proc;
 
     proc = proc_new(vm);
-    ft_memcpy(proc->reg, proc_cur->reg, sizeof(t_reg));
+    i = 0;
+    while (++i <= REG_NUMBER)
+        regcpy(&proc->reg[i], &proc_cur->reg[i], sizeof(REG_SIZE));
     proc->live = proc_cur->live;
     proc->carry = proc_cur->carry;
 	proc_set_pc(vm, proc, pc);
