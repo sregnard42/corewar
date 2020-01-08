@@ -3,14 +3,17 @@ name_s=$1
 name=${name_s%??}
 name_c="${name}.cor"
 
+clear
+echo "*********************************************"
 if [ -f "$name_s" ]
 then
-	echo "We found a file named $name_s"
+	echo "   We found a file named $name_s"
 else
-	echo "No file named $name_s >:("
+	echo "   No file named $name_s >:("
+	echo "*********************************************"
 	exit 0
 fi
-
+echo "*********************************************"
 rm -rf mine
 rm -rf your
 
