@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 18:05:04 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 16:10:46 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,12 @@ void				get_prog_size(t_assembler *as)
 		if (!(tmp->opcode == LIVE || tmp->opcode == ZJMP	\
 			|| tmp->opcode == FORK || tmp->opcode == LFORK))
 			prog_size += 1;
-		if (!tmp->opcode && !tmp->param_type)
-			manage_error(as, &free_asm, as->epure_line, AS_NULL);
+		if (tmp->next && !tmp->next->opcode && !tmp->next->param_type)
+		{
+			//faut free_labels_dernier_maillon(tmp->label->next);
+			//faut free maillon
+			tmp->next = NULL;
+		}
 		prog_size += get_params_bytes(tmp);
 		tmp = tmp->next;
 	}
