@@ -6,11 +6,38 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 11:47:44 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:14:25 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+**	same_label()
+*/
+
+void	save_same_label(t_assembler *as, t_instruc *new, char *name)
+{
+	t_same_label	*tmp;
+
+	if (!new->label)
+	{
+		if (!(new->label = ft_memalloc(sizeof(t_same_label))))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		if (!(new->label->name = ft_strdup(name)))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
+	else
+	{
+		if (!(tmp = ft_memalloc(sizeof(t_same_label))))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		if (!(tmp->name = ft_strdup(name)))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		while (new->label->next)
+			new->label = new->label->next;
+		new->label->next = tmp;
+	}
+}
 
 /*
 ** init_instruct()
@@ -30,11 +57,13 @@ void	init_instruc(t_assembler *as, t_instruc *new, int id_command)
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
 		tab[0][ft_strlen(tab[0]) - 1] = '\0';
-		if (!(new->label = ft_strdup(tab[0])))
-		{
-			//faire les free necessaires ?
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-		}
+		save_same_label(as, new, tab[0]);
+		// Creer maillon ou ajoutez a la fin de la liste
+		// if (!(new->label = ft_strdup(tab[0])))
+		// {
+		// 	//faire les free necessaires ?
+		// 	manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		// }
 		i++;
 	}
 	if (!(new->command = ft_strdup(tab[i])))

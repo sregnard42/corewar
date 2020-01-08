@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 12:08:41 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:14:34 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,8 +209,9 @@ void	save_label(t_assembler *as)
 	else
 		as->instruc = new;
 	//il faut creer la liste chainée same_label et copier as->line dans son dernier maillon
-	if (!(new->label = ft_strdup(as->line)))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	save_same_label(as, new, as->line);
+	// if (!(new->label = ft_strdup(as->line)))
+	// 	manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	//copier le label dans la liste chainée des labels
 	save_label_to_check(as, as->line);
 	//dire qu'on a eu un passage a la ligne

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:01:50 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 17:04:01 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:53:13 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,26 @@
 void	print_instruc(t_assembler *as)
 {
 	t_instruc *tmp;
+	t_same_label *tmp_label;
+
 	tmp = as->instruc;
+	ft_putstr("-----------------------------------------------\n");
+	ft_putstr("-----------------------------------------------\n");
+	ft_putstr("-----------------------------------------------\n");
+	ft_putstr("-----------------------------------------------\n");
 	ft_putstr("-----------------------------------------------\n");
 	ft_putstr("      called print_instruc dans print.c\n");
 	while (tmp)
 	{
 		ft_putstr("-----------------maillon-----------------------\n");
-		ft_printf("label: %s\ncommand: %s (opcode: %d)\n", tmp->label, tmp->command, tmp->opcode);
+		tmp_label = tmp->label;
+		while (tmp_label)
+		{
+
+			ft_printf("label: %s\n", tmp_label->name);
+			tmp_label = tmp_label->next;
+		}
+		ft_printf("command: %s (opcode: %d)\n", tmp->command, tmp->opcode);
 		ft_putstr("----params:-----\n");
 		ft_print_tab(tmp->param);
 		ft_putstr("----stuffs:-----\n");

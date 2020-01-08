@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/07 18:01:28 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:30:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,38 +89,49 @@ void	write_neg_number(t_assembler *as, int nb, int size)
 
 void	write_label(t_assembler *as, t_instruc *now, char *param)
 {
-	int			res;
-	t_instruc	*tmp;
+	int				res;
+	t_instruc		*instruc;
+	t_same_label	*label;
 
-	tmp = now;
+	instruc = now;
 	res = 0;
 	param++;
-	while (tmp)
+	while (instruc)
 	{
-		if (tmp->label && ft_strcmp(tmp->label, param) == 0)
+		label = instruc->label;
+		while (label)
 		{
-			write_big_endian(as, res, now->direct_size);
-			return ;
-		}
-		res += tmp->size;
-		tmp = tmp->next;
-	}
-	tmp = as->instruc;
-	res = 0;
-	while (tmp)
-	{
-		if (tmp->label && ft_strcmp(tmp->label, param) == 0)
-		{
-			while (tmp)
+			if (label && ft_strcmp(label->name, param) == 0)
 			{
-				if (tmp == now)
-					write_neg_number(as, res, now->direct_size);
-				res += tmp->size;
-				tmp = tmp->next;
+				write_big_endian(as, res, now->direct_size);
+				return ;
 			}
-			return ;
+			label = label->next;
 		}
-		tmp = tmp->next;
+		res += instruc->size;
+		instruc = instruc->next;
+	}
+	instruc = as->instruc;
+	res = 0;
+	while (instruc)
+	{
+		label = instruc->label;
+		while (label)
+		{
+			if (label && ft_strcmp(label->name, param) == 0) // Faut derouler
+			{
+				while (instruc)
+				{
+					if (instruc == now)
+						write_neg_number(as, res, now->direct_size);
+					res += instruc->size;
+					instruc = instruc->next;
+				}
+				return ;
+			}
+			label = label->next;
+		}
+		instruc = instruc->next;
 	}
 }
 

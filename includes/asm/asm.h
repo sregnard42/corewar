@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 11:25:55 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:14:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,15 @@
 # define WRONG_NB_PARAM			"Wrong number of parameters for this command.\n"
 # define SEPARATOR_ERROR		"Input error with separators ','.\n"
 
+typedef struct			s_same_label
+{
+	char				*name;
+	struct s_same_label	*next;
+}						t_same_label;
+
 typedef struct			s_instruc
 {
-	char				*label;
+	t_same_label		*label;
 	unsigned int		size;
 	char				*command;
 	int					opcode;
@@ -166,7 +172,7 @@ void				print_help();
 void				print_advices(t_assembler *as);
 void				print_file_name(t_assembler *as);
 int					which_command(t_assembler *as, char *part);
-
+void				save_same_label(t_assembler *as, t_instruc *new, char *name);
 /*
 ** print functions
 */
