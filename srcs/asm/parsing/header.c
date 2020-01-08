@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/06 11:50:45 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:16:57 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int		check_header(t_assembler *as)
 	if (as->header->name && as->header->comment)
 		return (FAIL);
 	change_sharp(as);
+	as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
 	between_name_quote(as);
 	if ((len = ft_strchr(as->line, ' ')) == NULL)
 		return (FAIL);
