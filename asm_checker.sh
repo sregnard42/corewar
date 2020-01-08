@@ -14,7 +14,7 @@ clear
 
 echo -e "${CYAN}************************************************************************${NC}"
 echo -e "			    ${PURPLE}ASM CHECKER${NC}"
-echo -e "${PURPLE}			chrhuang & lgaultie${NC}"
+echo -e "			${PURPLE}chrhuang & lgaultie${NC}"
 echo -e "${CYAN}************************************************************************${NC}"
 echo ""
 if [ -f "$name_s" ]
@@ -22,7 +22,7 @@ then
 	echo -e "You want to check ${PURPLE}$name_s${NC}"
 	echo ""
 else
-	echo "We couldn't find a file named $name_s..."
+	echo -e "${B_RED}ERROR:${NC} we couldn't find a file named ${B_RED}$name_s${NC}"
 	echo ""
 	exit 0
 fi
