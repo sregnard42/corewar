@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 11:40:16 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:08:41 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,13 +184,10 @@ void	save_label(t_assembler *as)
 	t_instruc	*new;
 	int			i;
 
+	//dans le cas ou on a une ligne avec un mot
 	if (!(ft_strchr(as->line, LABEL_CHAR)))
 		manage_error(as, &free_asm, as->epure_line, JUNK);
-	if (as->newline == 1)
-		manage_error(as, &free_asm, as->epure_line, REDEF_LABEL);
-	//sauver le label dans le maillon en cours
-	//sauver le label dans la liste des instructions
-	//ne pas passer au maillon suivant pour la ligne d'après
+	//dans le cas ou on a une ligne avec un mot qui est un label
 	i = 0;
 	while (as->line[i])
 	{
@@ -198,6 +195,8 @@ void	save_label(t_assembler *as)
 			as->line[i] = '\0';
 		i++;
 	}
+	//le : en fin est écrasé
+	// creation du maillon contenant cette ligne (juste un label)
 	tmp = as->instruc;
 	if (!(new = ft_memalloc(sizeof(t_instruc))))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
@@ -209,9 +208,12 @@ void	save_label(t_assembler *as)
 	}
 	else
 		as->instruc = new;
+	//il faut creer la liste chainée same_label et copier as->line dans son dernier maillon
 	if (!(new->label = ft_strdup(as->line)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	//copier le label dans la liste chainée des labels
 	save_label_to_check(as, as->line);
+	//dire qu'on a eu un passage a la ligne
 	as->newline = 1;
 	print_instruc(as);
 	// print_labels(as);
