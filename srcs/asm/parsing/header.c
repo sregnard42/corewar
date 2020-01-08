@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/06 11:50:45 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:23:23 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	between_name_quote(t_assembler *as)
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 	while (str[i])
 	{
-		if (str[i] == COMMENT_CHAR)
+		if (str[i] == COMMENT_CHAR || str[i] == ';')
 			str[i] = '\0';
 		if (str[i] == '\t')
 			str[i] = ' ';
@@ -122,7 +122,7 @@ void	change_sharp(t_assembler *as)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == COMMENT_CHAR)
+		if (str[i] == COMMENT_CHAR || str[i] == ';')
 		{
 			str[i] = '\0';
 			i = -1;
@@ -154,6 +154,7 @@ int		check_header(t_assembler *as)
 	if (as->header->name && as->header->comment)
 		return (FAIL);
 	change_sharp(as);
+	as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
 	between_name_quote(as);
 	if ((len = ft_strchr(as->line, ' ')) == NULL)
 		return (FAIL);

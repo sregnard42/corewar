@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/01/08 14:14:34 by lgaultie         ###   ########.fr       */
+=======
+/*   Updated: 2020/01/08 12:24:23 by chrhuang         ###   ########.fr       */
+>>>>>>> 8c9bd19b4e02a744c7739e83a05d84396946c258
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +59,7 @@ int		is_label(t_assembler *as, char *part)
 	char	*str;
 	char	*label;
 
-	if (part[0] == COMMENT_CHAR)
+	if (part[0] == COMMENT_CHAR || part[0] == ';')
 		return (ERROR);
 	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL \
 		|| ft_strchr(part, DIRECT_CHAR) != NULL)
@@ -155,7 +159,7 @@ void	epure_line(t_assembler *as)
 	i = -1;
 	while (as->line[++i])
 	{
-		if (as->line[i] == COMMENT_CHAR)
+		if (as->line[i] == COMMENT_CHAR || as->line[i] == ';')
 		{
 			as->line[i] = '\0';
 			i = -1;
@@ -235,7 +239,7 @@ void	parse_instruction(t_assembler *as)
 	epure_line(as);
 	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
 	ft_printf("my_line = %s\n", as->line);
-	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR)
+	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR || as->line[0] == ';')
 		return ;
 	if (!as->header->name)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_NAME);

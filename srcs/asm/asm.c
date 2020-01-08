@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:14:04 by lgaultie          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/01/08 14:15:31 by lgaultie         ###   ########.fr       */
+=======
+/*   Updated: 2020/01/08 12:12:01 by chrhuang         ###   ########.fr       */
+>>>>>>> 8c9bd19b4e02a744c7739e83a05d84396946c258
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +26,7 @@ static int	check_file_type(char *argv)
 {
 	char		*s;
 
-	if (!(s = ft_strchr(argv, '.')) || ft_strcmp(s, ".s") != 0)
+	if (!(s = ft_strrchr(argv, '.')) || ft_strcmp(s, ".s") != 0)
 	{
 		ft_putstr(NOT_S_FILE);
 		return (0); // truc a faire $ manage error et leaks
