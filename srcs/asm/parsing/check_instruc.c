@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:33:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 14:33:15 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:57:00 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void	save_label(t_assembler *as)
 	if (!(ft_strchr(as->line, LABEL_CHAR)))
 		manage_error(as, &free_asm, as->epure_line, JUNK);
 	//dans le cas ou on a une ligne avec un mot qui est un label
+	ft_printf("ya un label tout seul: %s\n", as->line);
 	i = 0;
 	while (as->line[i])
 	{
@@ -197,17 +198,27 @@ void	save_label(t_assembler *as)
 	}
 	//le : en fin est écrasé
 	// creation du maillon contenant cette ligne (juste un label)
-	tmp = as->instruc;
-	if (!(new = ft_memalloc(sizeof(t_instruc))))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	if (tmp != NULL)
+	if (as->newline != 1)
 	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new;
+		tmp = as->instruc;
+		if (!(new = ft_memalloc(sizeof(t_instruc))))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		if (tmp != NULL)
+		{
+			while (tmp->next != NULL)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
+		else
+			as->instruc = new;
 	}
 	else
-		as->instruc = new;
+	{
+		tmp = as->instruc;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		new = tmp;
+	}
 	//il faut creer la liste chainée same_label et copier as->line dans son dernier maillon
 	save_same_label(as, new, as->line);
 	// if (!(new->label = ft_strdup(as->line)))
@@ -233,6 +244,7 @@ void	parse_instruction(t_assembler *as)
 
 	as->nb_sep = 0;
 	epure_line(as);
+	ft_printf("as->newline = %d\nline = %s\n", as->newline, as->line);
 	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
 	ft_printf("my_line = %s\n", as->line);
 	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR || as->line[0] == ';')
