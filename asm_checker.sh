@@ -29,7 +29,15 @@ fi
 rm -rf mine
 rm -rf your
 
-./asm -ec $name_s > /dev/null
+# ./asm -ec $name_s > /dev/null
+./asm -ec $name_s > result
+# if file is not empty -> errors
+if [ ! -s result ]
+then
+	echo -e "${B_RED}ERROR in .s file: your asm couldn't create .cor.${NC}"
+	exit 0
+fi
+
 echo ""
 
 if [ -f "$name_c" ]
@@ -54,7 +62,7 @@ diff mine your > diff
 if [ -s diff ]
 then
 	echo ""
-	echo "${B_RED}We found differences ! :(${NC}"
+	echo -e "${B_RED}We found differences ! :(${NC}"
 	echo ""
 	cat diff
 else
@@ -75,6 +83,7 @@ else
 	echo ""
 fi
 
+rm -rf result
 rm -rf mine
 rm -rf your
 rm -rf diff

@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 14:30:40 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:08:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,18 +183,23 @@ void	write_instruc(t_assembler *as)
 	while (tmp)
 	{
 		i = 0;
-		write(as->cor_fd, &tmp->opcode, 1);
-		if (tmp->ocp != 0)
+		if (tmp->opcode)
+			write(as->cor_fd, &tmp->opcode, 1);
+		if (tmp->ocp && tmp->ocp != 0)
 			write(as->cor_fd, &tmp->ocp, 1);
 		while (i < 3)
 		{
-			tmp->direct_size = get_param_bytes(tmp->opcode, tmp->param_type[i]);
-			if (tmp->param_type[i] == REG_CODE)
-				write_register(as, tmp->param[i]);
-			else if (tmp->param_type[i] == DIR_CODE)
-				write_direct(as, tmp->param[i], tmp);
-			else if (tmp->param_type[i] == IND_CODE)
-				write_indirect(as, tmp->param[i], tmp);
+			if (tmp->opcode && tmp->param_type)
+				tmp->direct_size = get_param_bytes(tmp->opcode, tmp->param_type[i]);
+			if (tmp->param_type)
+			{
+				if (tmp->param_type[i] == REG_CODE)
+					write_register(as, tmp->param[i]);
+				else if (tmp->param_type[i] == DIR_CODE)
+					write_direct(as, tmp->param[i], tmp);
+				else if (tmp->param_type[i] == IND_CODE)
+					write_indirect(as, tmp->param[i], tmp);
+			}
 			i++;
 		}
 		tmp = tmp->next;

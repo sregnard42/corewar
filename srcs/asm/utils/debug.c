@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:01:50 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 12:53:13 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/09 15:46:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	print_instruc(t_assembler *as)
 		ft_putstr("----stuffs:-----\n");
 		ft_printf("param_type = %s\n", tmp->param_type);
 		ft_printf("direct_size = %d\n", tmp->direct_size);
-		ft_printf("ocp = %c\n", tmp->ocp);
 		ft_printf("size = %d\n", tmp->size);
 		tmp = tmp->next;
 	}

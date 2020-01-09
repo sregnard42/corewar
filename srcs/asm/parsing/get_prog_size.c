@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/08 16:26:45 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:09:07 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,21 @@ void				get_prog_size(t_assembler *as)
 	while (tmp)
 	{
 		prog_size += 1;
-		if (!(tmp->opcode == LIVE || tmp->opcode == ZJMP	\
-			|| tmp->opcode == FORK || tmp->opcode == LFORK))
-			prog_size += 1;
-		// if (tmp->next && !tmp->next->opcode && !tmp->next->param_type) // Pas bon
-		// {
-		// 	//faut free_labels_dernier_maillon(tmp->label->next);
-		// 	//faut free maillon
-		// 	tmp->next = NULL;
-		// }
-		if (!tmp->opcode && !tmp->param_type)
+		if (tmp->opcode)
+		{
+			if (!(tmp->opcode == LIVE || tmp->opcode == ZJMP	\
+				|| tmp->opcode == FORK || tmp->opcode == LFORK))
+				prog_size += 1;
+		}
+		//erreur seulement si opcode et param_type n'existe pas dans un maillon
+		//au pleins milieu de la chaine, sinon c'est un fichier qui fini par
+		//un label vide, l'instruction est de poids combien du coup ?..
+		if (!tmp->opcode && !tmp->param_type && tmp->next != NULL)
 			manage_error(as, &free_asm, as->epure_line, AS_NULL);
-		prog_size += get_params_bytes(tmp);
+		if (tmp->opcode && tmp->param_type)
+			prog_size += get_params_bytes(tmp);
+		else
+			prog_size--;
 		tmp = tmp->next;
 	}
 	as->prog_size = prog_size;
