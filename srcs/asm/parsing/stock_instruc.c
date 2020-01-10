@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stock_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 14:14:25 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/10 14:03:14 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 void	save_same_label(t_assembler *as, t_instruc *new, char *name)
 {
+	t_same_label	*label;
 	t_same_label	*tmp;
 
 	if (!new->label)
@@ -29,13 +30,14 @@ void	save_same_label(t_assembler *as, t_instruc *new, char *name)
 	}
 	else
 	{
-		if (!(tmp = ft_memalloc(sizeof(t_same_label))))
+		if (!(label = ft_memalloc(sizeof(t_same_label))))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-		if (!(tmp->name = ft_strdup(name)))
+		if (!(label->name = ft_strdup(name)))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-		while (new->label->next)
-			new->label = new->label->next;
-		new->label->next = tmp;
+		tmp = new->label;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = label;
 	}
 }
 
