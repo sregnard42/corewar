@@ -6,20 +6,20 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 15:44:57 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 17:03:17 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/10 14:24:20 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*delete_begin(char *str)
+static char	*delete_begin(char *str)
 {
 	while (str && *str && (*str == ' ' || *str == '\t'))
 		++str;
 	return (str);
 }
 
-void	delete_between(char *str, char *clean)
+static void	delete_between(char *str, char *clean)
 {
 	int		i;
 
@@ -41,7 +41,7 @@ void	delete_between(char *str, char *clean)
 	clean[i] = '\0';
 }
 
-void	delete_end(char *clean)
+static void	delete_end(char *clean)
 {
 	int	i;
 

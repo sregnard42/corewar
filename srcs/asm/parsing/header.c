@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 12:23:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/10 14:35:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,23 @@ void	change_sharp(t_assembler *as)
 	as->line[0] = '\0';
 }
 
+char	*delete_space_after(t_assembler *as, char *str)
+{
+	char	*clean;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	if ((clean = ft_strdup(str)) == NULL)
+		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	i = ft_strlen(clean) - 1;
+	if (i < 0)
+		return (clean);
+	while (clean[i] == ' ' || clean[i] == '\t')
+		clean[i--] = '\0';
+	return (clean);
+}
+
 /*
 ** check_header() if there is no space in the header line, quit.
 ** if finds .name or .comment, parse string between quotes in our list.
@@ -154,7 +171,8 @@ int		check_header(t_assembler *as)
 	if (as->header->name && as->header->comment)
 		return (FAIL);
 	change_sharp(as);
-	as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
+	as->line = delete_space_after(as, as->line); // Leaks ICI ! ATTENTION
+	// as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
 	between_name_quote(as);
 	if ((len = ft_strchr(as->line, ' ')) == NULL)
 		return (FAIL);
