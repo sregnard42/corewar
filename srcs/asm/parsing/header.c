@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/12 16:49:43 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/12 21:32:27 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void	between_name_quote(t_assembler *as)
 	i = 0;
 	mode = 0;
 	str = ft_strchr(str, '.'); //pour eviter de buger sur \t.name ou space.comment
-	if (ft_strncmp(NAME_CMD_STRING, str, ft_strlen(NAME_CMD_STRING)) == 0)
+	if (str && ft_strncmp(NAME_CMD_STRING, str, ft_strlen(NAME_CMD_STRING)) == 0)
 		mode = 1;
-	if (ft_strncmp(COMMENT_CMD_STRING, str, ft_strlen(COMMENT_CMD_STRING)) == 0)
+	if (str && ft_strncmp(COMMENT_CMD_STRING, str, ft_strlen(COMMENT_CMD_STRING)) == 0)
 		mode = 2;
 	ft_printf("mode = %d\n", mode);
 	if (mode != 1 && mode != 2)
@@ -179,8 +179,9 @@ int		check_header(t_assembler *as)
 	// as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
 	between_name_quote(as);
 	str = as->line;
-	str = ft_strchr(str, '.'); //pour eviter de buger sur \t.name ou space.comment
-	if ((len = ft_strchr(str, ' ')) == NULL)
+	if (str)
+		str = ft_strchr(str, '.'); //pour eviter de buger sur \t.name ou space.comment
+	if (str == NULL || (len = ft_strchr(str, ' ')) == NULL)
 		return (FAIL);
 	if (!(part = ft_strsub(str, 0, len - str)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
