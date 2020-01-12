@@ -23,10 +23,10 @@ lock:	add	r3, r4, r3
 	zjmp	%:nolock
 	xor	r5, r5, r5
 	zjmp	%:lock
-nolock:	
+nolock:
 	xor	r1, r1, r1
 	add	r1, r1, r1
-	.code	00 00 00
+#	.code	00 00 00
 live:	live	%1
 
 
@@ -46,4 +46,3 @@ l2:	live	%1
 l3:	live	%1
 l4:	live	%1
 	zjmp	%:l1
-
