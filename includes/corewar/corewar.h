@@ -133,6 +133,8 @@ void					error_open(t_vm *vm, char *file);
 void					error_too_small(t_vm *vm);
 void					error_prog_size(t_vm *vm);
 void					error_magic(t_vm *vm);
+void					error_name(t_vm *vm);
+void					error_comment(t_vm *vm);
 
 /*
 **-----------------------------------------------------------------------------

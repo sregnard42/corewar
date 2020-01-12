@@ -28,6 +28,7 @@ static void calc(t_vm *vm, int opcode)
     reg[2] = args->byId[2]->val;
 	if (!(is_reg(reg[0]) && is_reg(reg[1]) && is_reg(reg[2])))
         return ;
+	vm->print("P %4d | ", proc->pid);
     vm->print("%s r%d, r%d, r%d | ", op_names[opcode], reg[0], reg[1], reg[2]);
 	ft_bzero(&val, sizeof(int) * 2);
 	regcpy(&val[0], &proc->reg[reg[0]], sizeof(int));

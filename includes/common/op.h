@@ -27,7 +27,7 @@
 # define DIR_CODE				2
 # define IND_CODE				3
 
-# define MAX_ARGS_NUMBER		4
+# define MAX_ARGS_NUMBER		3
 # define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
 //# define MEM_SIZE				(4*64)
@@ -48,8 +48,7 @@
 
 # define CYCLE_TO_DIE			1536
 # define CYCLE_DELTA			50
-# define NBR_LIVE				4
-//# define NBR_LIVE				21
+# define NBR_LIVE				21
 # define MAX_CHECKS				10
 
 typedef char					t_arg_type;

@@ -30,6 +30,9 @@ void	op_ld(void *vm_ptr)
 		return ;
 	get_val(vm, args->byId[0], &val, IDX_MOD);
 	reg = args->byId[1]->val;
+	if (!is_reg(reg))
+		return ;
+	vm->print("P %4d | ", vm->procs.cur->pid);
 	if (args->byId[0]->type == IND_CODE)
 		vm->print("ld %d, r%d | ", (short int)args->byId[0]->val, reg);
 	else
@@ -57,8 +60,10 @@ void	op_ldi(void *vm_ptr)
 	get_val(vm, args->byId[1], &val[1], IDX_MOD);
 	arena_load(vm, vm->pc + (val[0] + val[1]) % IDX_MOD,
 	&val[2], sizeof(int));
-	vm->print("addr : %d\n", (val[0] + val[1]) % IDX_MOD);
 	reg = args->byId[2]->val;
+	if (!is_reg(reg))
+		return ;
+	vm->print("P %4d | ", vm->procs.cur->pid);
 	vm->print("ldi %%%d, %%%d, r%d | ", val[0], val[1], reg);
 	load(vm, reg, val[2]);
 }
@@ -80,6 +85,9 @@ void	op_lld(void *vm_ptr)
 		return ;
 	get_val(vm, args->byId[0], &val, 0);
 	reg = args->byId[1]->val;
+	if (!is_reg(reg))
+		return ;
+	vm->print("P %4d | ", vm->procs.cur->pid);
 	if (args->byId[0]->type == IND_CODE)
 		vm->print("lld %d, r%d | ", (short int)args->byId[0]->val, reg);
 	else
@@ -106,6 +114,9 @@ void	op_lldi(void *vm_ptr)
 	get_val(vm, args->byId[1], &val[1], 0);
 	arena_load(vm, vm->pc + val[0] + val[1], &val[2], sizeof(int));
 	reg = args->byId[2]->val;
+	if (!is_reg(reg))
+		return ;
+	vm->print("P %4d | ", vm->procs.cur->pid);
 	vm->print("lldi %%%d, %%%d, r%d | ", val[0], val[1], reg);
 	load(vm, reg, val[2]);
 }

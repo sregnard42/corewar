@@ -26,8 +26,13 @@ void	error_prog_size(t_vm *vm)
 	t_champ	*champ;
 
 	champ = vm->champs.cur;
-	ft_printf("ERROR: File %s has too large a code ", champ->file);
-	ft_printf("(%d bytes > %d bytes)\n", champ->prog_size, CHAMP_MAX_SIZE);
+	if (champ->prog_size == 0)
+		ft_printf("ERROR: File %s has no code\n", champ->file);
+	else
+	{
+		ft_printf("ERROR: File %s has too large a code ", champ->file);
+		ft_printf("(%d bytes > %d bytes)\n", champ->prog_size, CHAMP_MAX_SIZE);
+	}
 	ft_error(vm, &vm_free, NULL);
 }
 
@@ -60,3 +65,14 @@ void	error_usage(t_vm *vm)
 	ft_error(vm, &vm_free, NULL);
 }
 
+void	error_name(t_vm *vm)
+{
+	ft_printf("ERROR: File %s has an invalid name length\n", vm->champs.cur->file);
+	ft_error(vm, &vm_free, NULL);
+}
+
+void	error_comment(t_vm *vm)
+{
+	ft_printf("ERROR: File %s has an invalid comment length\n", vm->champs.cur->file);
+	ft_error(vm, &vm_free, NULL);
+}

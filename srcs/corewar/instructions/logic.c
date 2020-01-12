@@ -35,6 +35,7 @@ static void logic(t_vm *vm, int opcode)
         is_reg(reg)
         ))
         return ;
+	vm->print("P %4d | ", vm->procs.cur->pid);
     vm->print("%s %d, %d, r%d | ", op_names[opcode], val[0], val[1], reg);
     if (opcode == AND)
 	    load(vm, reg, val[0] & val[1]);

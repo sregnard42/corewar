@@ -22,6 +22,7 @@ static t_champ	*get_target(t_vm *vm)
 	arg->type = DIR_CODE; 
 	get_param(vm, arg, LIVE);
 	id = -arg->val;
+	vm->print("P %4d | ", vm->procs.cur->pid);
     vm->print("live %d\n", arg->val);
     (vm->print == &printw) && (vm_print(vm, V_LIVES) != &printw) ?
     wait_input() : 0;

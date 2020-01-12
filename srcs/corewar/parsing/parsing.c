@@ -26,11 +26,15 @@ static void	parse_header(t_vm *vm)
 	champ->cursor += PROG_NAME_LENGTH + PADDING;
 	ft_memcpy(&champ->prog_size, champ->content + champ->cursor, sizeof(unsigned int));
 	ft_memrev(&champ->prog_size, sizeof(unsigned int));
-	if (champ->prog_size > CHAMP_MAX_SIZE)
+	if (champ->prog_size == 0 || champ->prog_size > CHAMP_MAX_SIZE)
 		error_prog_size(vm);
 	champ->cursor += sizeof(unsigned int);
 	ft_memcpy(&champ->comment, champ->content + champ->cursor, COMMENT_LENGTH);
 	champ->cursor += COMMENT_LENGTH + PADDING;
+	if (!ft_strlen(champ->name) || ft_strlen(champ->name) > PROG_NAME_LENGTH)
+		error_name(vm);
+	if (!(ft_strlen(champ->comment)) || ft_strlen(champ->comment) > COMMENT_LENGTH)
+		error_comment(vm);
 }
 
 static void		parse_file(t_vm *vm, char *file)

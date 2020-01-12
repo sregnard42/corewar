@@ -33,6 +33,7 @@ void	op_aff(void *vm_ptr)
     reg = args->first->val;
     if (!is_reg(reg))
         return ;
+    vm->print("P %4d | ", proc->pid);
     vm->print("aff r%d | ", reg);
 	regcpy(&c, &proc->reg[reg], sizeof(unsigned char));
     vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);

@@ -35,6 +35,7 @@ void	    op_zjmp(void *vm_ptr)
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
     target = get_target(vm);
+    vm->print("P %4d | ", proc->pid);
     vm->print("zjmp %d ", target);
     if (!proc->carry)
     {

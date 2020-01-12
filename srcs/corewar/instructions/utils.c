@@ -68,10 +68,7 @@ void    load(t_vm *vm, int reg, int val)
 	t_process   *proc;
 
 	if (!is_reg(reg))
-	{
-		vm->print("Register is invalid, nothing happens !\n");
 		return ;
-	}
 	proc = vm->procs.cur;
 	proc->carry = (val == 0);
     ft_bzero(&proc->reg[reg], REG_SIZE);
@@ -90,10 +87,7 @@ void    store(t_vm *vm, int reg, int addr)
     t_process		*proc;
 
 	if (!is_reg(reg))
-	{
-		vm->print("Register is invalid, nothing happens !\n");
 		return ;
-	}
     proc = vm->procs.cur;
     arena_store(vm, addr, &proc->reg[reg], REG_SIZE, proc->champ->id);
     vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
