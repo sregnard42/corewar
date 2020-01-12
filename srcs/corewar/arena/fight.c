@@ -12,36 +12,10 @@
 
 #include "corewar.h"
 
-static void	check_champs(t_vm *vm)
-{
-	t_champs	*champs;
-	t_champ		*champ;
-
-	champs = &vm->champs;
-	champ = champs->first;
-	while (champ)
-	{
-		if (champs->size < 2)
-			return ;
-		if (champ->lives == 0)
-		{
-			vm_print(vm, V_DEATHS)("Player %d, \"%s\" died !\n",
-			champ->id, champ->name);
-			champs->cur = champ->prev;
-			champs_del(champs, &champ);
-			champ = champs->cur;
-			continue ;
-		}
-		champ->lives = 0;
-		champ = champ->next;
-	}
-}
-
 static void	cycle_to_die(t_vm *vm)
 {
 		if (vm->cycle == vm->cycle_check)
 		{
-			check_champs(vm);
 			if 	(vm->nbr_live >= NBR_LIVE || ++vm->checks >= MAX_CHECKS)
 			{
 				vm->cycle_to_die -= CYCLE_DELTA;
