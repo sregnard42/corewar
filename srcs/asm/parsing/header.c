@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/10 14:35:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/12 16:49:43 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,17 @@ void	between_name_quote(t_assembler *as)
 	str = as->line;
 	i = 0;
 	mode = 0;
+	str = ft_strchr(str, '.'); //pour eviter de buger sur \t.name ou space.comment
 	if (ft_strncmp(NAME_CMD_STRING, str, ft_strlen(NAME_CMD_STRING)) == 0)
 		mode = 1;
 	if (ft_strncmp(COMMENT_CMD_STRING, str, ft_strlen(COMMENT_CMD_STRING)) == 0)
 		mode = 2;
+	ft_printf("mode = %d\n", mode);
 	if (mode != 1 && mode != 2)
 	{
 		if (ft_strcmp(as->line, "") == 0)
 			return ;
+		ft_printf("str = %s\n", str);
 		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
 	}
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
@@ -167,6 +170,7 @@ int		check_header(t_assembler *as)
 {
 	char	*len;
 	char	*part;
+	char	*str;
 
 	if (as->header->name && as->header->comment)
 		return (FAIL);
@@ -174,12 +178,15 @@ int		check_header(t_assembler *as)
 	as->line = delete_space_after(as, as->line); // Leaks ICI ! ATTENTION
 	// as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
 	between_name_quote(as);
-	if ((len = ft_strchr(as->line, ' ')) == NULL)
+	str = as->line;
+	str = ft_strchr(str, '.'); //pour eviter de buger sur \t.name ou space.comment
+	if ((len = ft_strchr(str, ' ')) == NULL)
 		return (FAIL);
-	if (!(part = ft_strsub(as->line, 0, len - as->line)))
+	if (!(part = ft_strsub(str, 0, len - str)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
+		ft_printf("we go to save the name!\n");
 		ft_memdel((void**)&part);
 		parse_header(as, &as->header->name, SAVE_NAME);
 		return (SUCCESS);
