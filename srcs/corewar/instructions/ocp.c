@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:48:56 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/27 00:29:16 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/12/08 17:10:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static int	get_type(unsigned int ocp, int nb)
 	return (0);
 }
 
-void		get_val(t_vm *vm, t_arg *arg, int opcode)
+void		get_param(t_vm *vm, t_arg *arg, int opcode)
 {
 	if (arg->type == REG_CODE)
-		arg->size = REG_SIZE;
+		arg->size = RID_SIZE;
 	else if (arg->type == DIR_CODE)
 		if (opcode == ZJMP || opcode == LDI || opcode == LLDI ||
 			opcode == STI || opcode == FORK || opcode == LFORK)
@@ -52,8 +52,7 @@ void		get_val(t_vm *vm, t_arg *arg, int opcode)
 			arg->size = DIR_SIZE;
 	else if (arg->type == IND_CODE)
 		arg->size = IND_SIZE;
-	ft_memcpy(&arg->val, vm->arena + arg->proc->pc, arg->size);
-	ft_memrev(&arg->val, arg->size);
+	arena_load(vm, arg->proc->pc, &arg->val, arg->size);
 	proc_set_pc(vm, arg->proc, arg->proc->pc + arg->size);
 }
 
@@ -71,7 +70,7 @@ static void	add_arg(t_vm *vm, int opcode, unsigned int ocp, int nb)
 		return ;
 	arg = arg_new(vm);
 	arg->type = type; 
-	get_val(vm, arg, opcode);
+	get_param(vm, arg, opcode);
 }
 
 /*

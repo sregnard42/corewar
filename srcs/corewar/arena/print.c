@@ -17,7 +17,7 @@ static void		print_visu(t_vm *vm, unsigned int cur, unsigned int len,
 {
 	unsigned int	color;
 
-	color = vm->colors[i];
+	color = vm->colors_pc[i] ? vm->colors_pc[i] : vm->colors[i];
 	color < 10 ?
 		init_pair(color, color, -1) : init_pair(color, -1, color -10);
 	attron(COLOR_PAIR(color));

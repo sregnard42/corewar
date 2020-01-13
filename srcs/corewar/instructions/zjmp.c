@@ -18,7 +18,7 @@ static int  get_target(t_vm *vm)
 
     arg = arg_new(vm);
     arg->type = DIR_CODE;
-    get_val(vm, arg, ZJMP);
+    get_param(vm, arg, ZJMP);
     return (arg->val);
 }
 
@@ -34,12 +34,17 @@ void	    op_zjmp(void *vm_ptr)
 
     vm = (t_vm *)vm_ptr;
     proc = vm->procs.cur;
-    if (!proc->carry)
-        return ;
     target = get_target(vm);
+    vm->print("P %4d | ", proc->pid);
+    vm->print("zjmp %d ", target);
+    if (!proc->carry)
+    {
+        vm->print("FAILED\n");
+        vm->print == &printw ? wait_input() : 0;
+        return ;
+    }
     proc_set_pc(vm, proc, vm->pc + target);
-    vm->print("zjmp %d | ", target);
-    vm->print("Player %d \"%s\", ", proc->champ->id, proc->champ->name);
+    vm->print("| Player %d \"%s\", ", proc->champ->id, proc->champ->name);
     vm->print("process %d ", proc->pid);
     vm->print("jumped to the address %u\n", proc->pc);
     vm->print == &printw ? wait_input() : 0;

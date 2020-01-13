@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/29 13:32:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/12/09 19:03:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define FILE_MIN_SIZE 2192
 # define DUMP_COLS 32
-# define VISU_COLS 32
+# define VISU_COLS 32*2
 
 typedef struct			s_vm
 {
@@ -52,9 +52,11 @@ typedef struct			s_vm
 	unsigned int		pc;
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		colors[MEM_SIZE];
+	unsigned char		colors_pc[MEM_SIZE];
 	unsigned int		flags;
 	int					cycle;
 	int					cycle_to_die;
+	int					cycle_check;
 	int					nbr_live;
 	int					checks;
 }						t_vm;
@@ -109,6 +111,7 @@ int (*vm_print(t_vm *vm, unsigned int flag))(const char *format, ...);
 void					arena_print(t_vm *vm, unsigned int cols);
 void					champ_print(t_champ *champ);
 void					champs_print(t_champs *champs);
+void                    proc_print(t_vm *vm, t_process *proc);
 
 /*
 **-----------------------------------------------------------------------------
@@ -130,6 +133,8 @@ void					error_open(t_vm *vm, char *file);
 void					error_too_small(t_vm *vm);
 void					error_prog_size(t_vm *vm);
 void					error_magic(t_vm *vm);
+void					error_name(t_vm *vm);
+void					error_comment(t_vm *vm);
 
 /*
 **-----------------------------------------------------------------------------
@@ -165,10 +170,15 @@ t_champ					*champ_new(t_vm *vm);
 **-----------------------------------------------------------------------------
 */
 
+void					print_reg(t_vm *vm, t_reg *reg);
+int						is_reg(int id);
+void					regcpy(void *dst, const void *src, size_t n);
 void					proc_set_pc(t_vm *vm, t_process *proc, unsigned int pc);
 void					proc_exec(t_vm *vm, t_champ *champ, t_process *proc);
-void 					procs_add(t_vm *vm, t_processes *procs, t_process *proc);
-void 					procs_del(t_vm *vm, t_processes *procs, t_process **proc_ptr);
+void 					procs_add(t_vm *vm, t_processes *procs,
+						t_process *proc);
+void 					procs_del(t_vm *vm, t_processes *procs,
+						t_process **proc_ptr);
 t_process				*proc_new(t_vm *vm);
 
 /*
@@ -187,6 +197,9 @@ t_arg					*arg_new(t_vm *vm);
 */
 
 void					ocp(t_vm *vm, int opcode);
-void					get_val(t_vm *vm, t_arg *arg, int opcode);
+void					get_param(t_vm *vm, t_arg *arg, int opcode);
+int						get_val(t_vm *vm, t_arg *arg, int *val, int modulo);
+void					load(t_vm *vm, int reg, int val);
+void					store(t_vm *vm, int reg, int addr);
 
 #endif

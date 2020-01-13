@@ -30,6 +30,7 @@ static void	vm_init(t_vm *vm, int ac, char **av)
 	vm->exe = *--av;
 	ft_bzero(&vm->champs, sizeof(t_champs));
 	vm->cycle_to_die = CYCLE_TO_DIE;
+	vm->cycle_check = CYCLE_TO_DIE;
 	vm->verbose = 1;
 }
 

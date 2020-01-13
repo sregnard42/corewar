@@ -12,111 +12,50 @@
 
 #include "corewar.h"
 
+
 /*
-**      Stores the result of the logical operations in a register.
+**		Takes two indexes and a register, applies a logical operation between
+**      the first two parameters, and stores the result in the third one.
+**      Modifies the carry.
 */
 
-void    logic(t_vm *vm, unsigned int dst, unsigned int val)
+static void logic(t_vm *vm, int opcode)
 {
-    t_process		*proc;
+    t_args			*args;
+	int				val[2];
+    int             reg;
 
-    proc = vm->procs.cur;
-    proc->carry = (val == 0);
-    ft_memcpy(&proc->reg[dst], &val, sizeof(t_reg));
-    vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-    vm->print("stored value %u in register %u\n", val, dst);
-    vm->print == &printw ? wait_input() : 0;
+    args = &vm->procs.cur->args;
+	if (args->size < 3)
+		return ;
+    reg = args->byId[2]->val;
+    if (!(
+        get_val(vm, args->byId[0], &val[0], IDX_MOD) == 1 &&
+        get_val(vm, args->byId[1], &val[1], IDX_MOD) == 1 &&
+        is_reg(reg)
+        ))
+        return ;
+	vm->print("P %4d | ", vm->procs.cur->pid);
+    vm->print("%s %d, %d, r%d | ", op_names[opcode], val[0], val[1], reg);
+    if (opcode == AND)
+	    load(vm, reg, val[0] & val[1]);
+    else if (opcode == OR)
+	    load(vm, reg, val[0] | val[1]);
+    else if (opcode == XOR)
+	    load(vm, reg, val[0] ^ val[1]);
 }
-
-/*
-**		Takes two registers / directs / indirects, applies a logical AND
-**      between the two, and stores the result in the third parameter that is a
-**      register. Modifies the carry.
-*/
 
 void	op_and(void *vm_ptr)
 {
-    t_vm            *vm;
-    t_process		*proc;
-    t_args			*args;
-    unsigned int    src[2];
-    unsigned int    dst;
-
-    vm = (t_vm *)vm_ptr;
-    proc = vm->procs.cur;
-    args = &vm->procs.cur->args;
-    ft_bzero(&src, sizeof(src));
-    if (args->first->type == REG_CODE)
-        ft_memcpy(&src[0], &(proc->reg[args->first->val]), REG_SIZE);
-    else
-        src[0] = args->first->val;
-    if (args->first->next->type == REG_CODE)
-        ft_memcpy(&src[1], &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-        src[1] = args->first->next->val;
-    dst = args->first->next->next->val;
-    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    logic(vm, dst, src[0] & src[1]);
+    logic(vm_ptr, AND);
 }
-
-/*
-**		Takes two registers / directs / indirects, applies a logical OR
-**      between the two, and stores the result in the third parameter that is a
-**      register. Modifies the carry.
-*/
 
 void	op_or(void *vm_ptr)
 {
-    t_vm            *vm;
-    t_process		*proc;
-    t_args			*args;
-    unsigned int    src[2];
-    unsigned int    dst;
-
-    vm = (t_vm *)vm_ptr;
-    proc = vm->procs.cur;
-    args = &vm->procs.cur->args;
-    ft_bzero(&src, sizeof(src));
-    if (args->first->type == REG_CODE)
-        ft_memcpy(&src[0], &(proc->reg[args->first->val]), REG_SIZE);
-    else
-        src[0] = args->first->val;
-    if (args->first->next->type == REG_CODE)
-        ft_memcpy(&src[1], &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-        src[1] = args->first->next->val;
-    dst = args->first->next->next->val;
-    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    logic(vm, dst, src[0] | src[1]);
+    logic(vm_ptr, OR);
 }
-
-/*
-**		Takes two registers / directs / indirects, applies a logical XOR
-**      between the two, and stores the result in the third parameter that is a
-**      register. Modifies the carry.
-*/
 
 void	op_xor(void *vm_ptr)
 {
-    t_vm            *vm;
-    t_process		*proc;
-    t_args			*args;
-    unsigned int    src[2];
-    unsigned int    dst;
-
-    vm = (t_vm *)vm_ptr;
-    proc = vm->procs.cur;
-    args = &vm->procs.cur->args;
-    ft_bzero(&src, sizeof(src));
-    if (args->first->type == REG_CODE)
-        ft_memcpy(&src[0], &(proc->reg[args->first->val]), REG_SIZE);
-    else
-        src[0] = args->first->val;
-    if (args->first->next->type == REG_CODE)
-        ft_memcpy(&src[1], &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-        src[1] = args->first->next->val;
-    dst = args->first->next->next->val;
-    vm->print("and %u, %u, %u | ", src[0], src[1], dst);
-    logic(vm, dst, src[0] ^ src[1]);
+    logic(vm_ptr, XOR);
 }

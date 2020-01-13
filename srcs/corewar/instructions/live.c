@@ -20,8 +20,12 @@ static t_champ	*get_target(t_vm *vm)
 	id = 0;
 	arg = arg_new(vm);
 	arg->type = DIR_CODE; 
-	get_val(vm, arg, LIVE);
-	id = arg->val;
+	get_param(vm, arg, LIVE);
+	id = -arg->val;
+	vm->print("P %4d | ", vm->procs.cur->pid);
+    vm->print("live %d\n", arg->val);
+    (vm->print == &printw) && (vm_print(vm, V_LIVES) != &printw) ?
+    wait_input() : 0;
 	if (id < 1 || id > vm->champs.size)
 		return (NULL);
 	return (vm->champs.byId[id]);
@@ -38,13 +42,17 @@ void   			 op_live(void *vm_ptr)
 	t_process	*proc;
 
     vm = (t_vm *)vm_ptr;
+    proc = vm->procs.cur;
+    proc->live = 1;
 	if (!(champ = get_target(vm)))
 		return ;
-	proc = vm->procs.cur;
-    proc->live = 1;
 	vm->winner = champ;
 	champ->last_alive = vm->cycle;
 	++champ->lives;
-	vm_print(vm, V_LIVES)("A process shows that player %u (%s) is alive\n",
+	++vm->nbr_live;
+	vm_print(vm, V_LIVES)
+	("A process shows that player %u (%s) is alive\n",
 	champ->id, champ->name);
+	(vm->print == &printw) || (vm_print(vm, V_LIVES) == &printw) ?
+	wait_input() : 0;
 }

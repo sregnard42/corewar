@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   register.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/29 13:04:29 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/29 14:06:45 by sregnard         ###   ########.fr       */
+/*   Created: 2019/12/09 18:46:17 by sregnard          #+#    #+#             */
+/*   Updated: 2019/12/09 19:10:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	bin(const char *format, ...)
+void			print_reg(t_vm *vm, t_reg *reg)
 {
-	format += 0;
-	return (0);
+	int val;
+
+	val = 0;
+	regcpy(&val, reg, sizeof(int));
+	vm->print("reg value: %d\n", val);
 }
 
-int			(*vm_print(t_vm *vm, unsigned int flag))(const char *format, ...)
+int			is_reg(int id)
 {
-	if (flag && !(vm->verbose & flag))
-		return (&bin);
-	if (vm->flags & VM_VISU)
-		return (&printw);
-	return (&ft_printf);
+	return (id >= 1 && id <= REG_NUMBER);
+}
+
+void		regcpy(void *dst, const void *src, size_t n)
+{
+	(n > REG_SIZE) ? ft_memcpy(dst, src, REG_SIZE) : ft_memcpy(dst, src, n);
 }

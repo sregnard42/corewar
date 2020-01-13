@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:55:54 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 17:15:02 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:12:11 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@
 # define DIR_CODE				2
 # define IND_CODE				3
 
-# define MAX_ARGS_NUMBER		4
+# define MAX_ARGS_NUMBER		3
 # define MAX_PLAYERS			4
-//# define MEM_SIZE				(4*1024)
-# define MEM_SIZE				(4*64)
+# define MEM_SIZE				(4*1024)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 

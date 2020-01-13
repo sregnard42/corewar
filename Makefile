@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2020/01/08 11:36:30 by lgaultie         ###   ########.fr        #
+#    Updated: 2020/01/13 17:01:56 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,6 +116,7 @@ SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 SUBDIR					:=	processes/
 SRCNAME					:=	processes.c	\
 							process.c	\
+							register.c	\
 							free.c		\
 							print.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
@@ -141,6 +142,7 @@ SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	instructions/
 SRCNAME					:=	ocp.c		\
+							utils.c		\
 							live.c      \
                             ld.c        \
                             st.c        \

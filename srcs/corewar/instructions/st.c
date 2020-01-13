@@ -13,74 +13,53 @@
 #include "corewar.h"
 
 /*
-**      Takes a register and a register / indirect. Copies the value of the
-**      first argument to the address of the second argument.
-*/
-
-void    store(t_vm *vm, unsigned int src, unsigned int dst)
-{
-    t_process		*proc;
-
-    proc = vm->procs.cur;
-	proc->carry = (src == 0);
-    arena_store(vm, dst, &(proc->reg[src]), REG_SIZE, proc->champ->id);
-    vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
-    vm->print("stored value %u in address %u\n", proc->reg[src], dst);
-    vm->print == &printw ? wait_input() : 0;
-}
-
-/*
 **		Takes a register and a register / indirect. Copies the value of the
 **		first argument in the second argument.
 */
 
-void	op_st(void *vm_ptr)
+void		op_st(void *vm_ptr)
 {
-	t_vm			*vm;
-	t_args			*args;
-	t_process		*proc;
-	unsigned int	src;
-	unsigned int	dst;
+	t_vm	*vm;
+	t_args	*args;
+	int		reg;
+	int		addr;
 
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
-	proc = vm->procs.cur;
-	src = args->first->val;
-	dst = 0;
-    if (args->first->next->type == REG_CODE)
-        ft_memcpy(&dst, &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-    	dst = args->first->next->val;
-    vm->print("st %u, %u | ", src, dst);
-	store(vm, src, vm->pc + dst % IDX_MOD);
+	if (args->size < 2)
+		return;
+	reg = args->byId[0]->val;
+	if (!(get_val(vm, args->byId[1], &addr, IDX_MOD) == 1 &&
+		is_reg(reg)))
+		return;
+	vm->print("P %4d | ", vm->procs.cur->pid);
+	vm->print("st r%d, %d | ", reg, addr);
+	store(vm, reg, vm->pc + addr);
 }
 
 /*
-**		Takes a register and 2 indirects. Copies the register to the address of
-**		the sum of the 2 indirects.
+**		Takes a register and 2 indexes / registers. Copies the register value
+**		to the address of the sum of the 2 indexes.
 */
 
-void	op_sti(void *vm_ptr)
+void		op_sti(void *vm_ptr)
 {
-    t_vm			*vm;
-    t_process		*proc;
-	t_args			*args;
-	unsigned int	src;
-	unsigned int	dst[2];
+	t_vm	*vm;
+	t_args	*args;
+	int		reg;
+	int		addr[2];
 
 	vm = (t_vm *)vm_ptr;
-    proc = vm->procs.cur;
 	args = &vm->procs.cur->args;
-	src = args->first->val;
-    ft_bzero(&dst, sizeof(dst));
-	if (args->first->next->type == REG_CODE)
-        ft_memcpy(&dst[0], &(proc->reg[args->first->next->val]), REG_SIZE);
-    else
-        dst[0] = args->first->next->val;
-    if (args->first->next->next->type == REG_CODE)
-        ft_memcpy(&dst[1], &(proc->reg[args->first->next->next->val]), REG_SIZE);
-	else
-        dst[1] = args->first->next->next->val;
-    vm->print("sti %u, %u, %u | ", src, dst[0], dst[1]);
-	store(vm, src, vm->pc + ((dst[0] + dst[1]) % IDX_MOD));
+	if (args->size < 3)
+		return;
+	reg = args->byId[0]->val;
+	if (!(
+        get_val(vm, args->byId[1], &addr[0], IDX_MOD) == 1 &&
+        get_val(vm, args->byId[2], &addr[1], IDX_MOD) == 1 &&
+		is_reg(reg)))
+		return ;
+	vm->print("P %4d | ", vm->procs.cur->pid);
+	vm->print("sti r%d, %d, %d | ", reg, addr[0], addr[1]);
+	store(vm, reg, vm->pc + (addr[0] + addr[1]) % IDX_MOD);
 }
