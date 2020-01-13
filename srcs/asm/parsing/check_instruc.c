@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 17:30:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 16:48:48 by lgaultie         ###   ########.fr       */
+/*   Created: 2020/01/08 14:33:13 by lgaultie          #+#    #+#             */
+/*   Updated: 2020/01/08 15:58:34 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		is_label(t_assembler *as, char *part)
 	char	*str;
 	char	*label;
 
-	if (part[0] == COMMENT_CHAR)
+	if (part[0] == COMMENT_CHAR || part[0] == ';')
 		return (ERROR);
 	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL \
 		|| ft_strchr(part, DIRECT_CHAR) != NULL)
@@ -89,7 +89,7 @@ int		which_command(t_assembler *as, char *part)
 	int		i;
 
 	i = 0;
-	while (i < 16 && ft_strcmp(part, as->commands[i].command) != 0)
+	while (part && i < 16 && ft_strcmp(part, as->commands[i].command) != 0)
 		i++;
 	return (i);
 }
@@ -98,6 +98,8 @@ int		which_command(t_assembler *as, char *part)
 ** Regarde si le premier element de tmp est une commande, si oui, on verifie que
 ** les prochains element de tmp sont bien des parametres
 ** Ensuite, ajoute l'instruction dans la structure as
+** si is_param fail c'est quil y a deux commandes a la suite, donc on diminue
+** le nombre de parametres
 */
 
 void	is_command(t_assembler *as, char **tmp, char *param_type)
@@ -110,13 +112,18 @@ void	is_command(t_assembler *as, char **tmp, char *param_type)
 	if ((id_command = which_command(as, *tmp)) < 16)
 	{
 		while (*(++tmp))
-			is_param(as, id_command, *tmp, nb_param++, param_type);
+		{
+			if (is_param(as, id_command, *tmp, nb_param++, param_type) == FAIL)
+				nb_param--;
+		}
 		if (nb_param != as->commands[id_command].nb_params)
 			manage_error(as, &free_asm, as->epure_line, WRONG_NB_PARAM);
 		add_instruct(as, param_type, id_command);
 	}
 	else
+	{
 		manage_error(as, &free_asm, as->epure_line, CMD_NOT_FOUND);
+	}
 }
 
 /*
@@ -148,13 +155,81 @@ void	epure_line(t_assembler *as)
 	i = -1;
 	while (as->line[++i])
 	{
+		if (as->line[i] == COMMENT_CHAR || as->line[i] == ';')
+		{
+			as->line[i] = '\0';
+			i = -1;
+			while (as->line[++i])
+				if (as->line[i] != ' ')
+					return ;
+			as->line[0] = '\0';
+			return ;
+		}
 		if (as->line[i] == SEPARATOR_CHAR)
 			as->nb_sep++;
 		if (as->line[i] == '\t' || as->line[i] == SEPARATOR_CHAR)
 			as->line[i] = ' ';
-		if (as->line[i] == COMMENT_CHAR)
-			as->line[i] = '\0';
 	}
+	i = -1;
+	while (as->line[++i])
+		if (as->line[i] != ' ')
+			return ;
+	as->line[0] = '\0';
+	return ;
+}
+
+void	save_label(t_assembler *as)
+{
+	t_instruc	*tmp;
+	t_instruc	*new;
+	int			i;
+
+	//dans le cas ou on a une ligne avec un mot
+	if (!(ft_strchr(as->line, LABEL_CHAR)))
+		manage_error(as, &free_asm, as->epure_line, JUNK);
+	//dans le cas ou on a une ligne avec un mot qui est un label
+	ft_printf("ya un label tout seul: %s\n", as->line);
+	i = 0;
+	while (as->line[i])
+	{
+		if (as->line[i] == LABEL_CHAR)
+			as->line[i] = '\0';
+		i++;
+	}
+	//le : en fin est écrasé
+	// creation du maillon contenant cette ligne (juste un label)
+	if (as->newline != 1)
+	{
+		tmp = as->instruc;
+		if (!(new = ft_memalloc(sizeof(t_instruc))))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		if (tmp != NULL)
+		{
+			while (tmp->next != NULL)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
+		else
+			as->instruc = new;
+	}
+	else
+	{
+		tmp = as->instruc;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		new = tmp;
+	}
+	//il faut creer la liste chainée same_label et copier as->line dans son dernier maillon
+	save_same_label(as, new, as->line);
+	// if (!(new->label = ft_strdup(as->line)))
+	// 	manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	//copier le label dans la liste chainée des labels
+	save_label_to_check(as, as->line);
+	//dire qu'on a eu un passage a la ligne
+	as->newline = 1;
+	print_instruc(as);
+	// print_labels(as);
+	return ;
 }
 
 /*
@@ -168,15 +243,26 @@ void	parse_instruction(t_assembler *as)
 	char	*param_type;
 
 	as->nb_sep = 0;
-	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR)
-		return ;
 	epure_line(as);
+	ft_printf("as->newline = %d\nline = %s\n", as->newline, as->line);
+	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
+	ft_printf("my_line = %s\n", as->line);
+	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR || as->line[0] == ';')
+		return ;
 	if (!as->header->name)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_NAME);
 	if (!as->header->comment)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_COMMENT);
-	if (!(tab = ft_strsplit(as->line, ' ')))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	if (ft_strchr(as->line, ' '))
+	{
+		if (!(tab = ft_strsplit(as->line, ' ')))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
+	else // Si on as label: saut a la ligne
+	{
+		save_label(as);
+		return ;
+	}
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	check_instruc(as, tab, param_type);

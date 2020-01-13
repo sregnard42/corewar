@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/11/17 14:31:10 by chrhuang         ###   ########.fr        #
+#    Updated: 2020/01/07 15:50:57 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,8 @@ SRCNAME			=	ft_strlen.c \
 					ft_strsplit.c \
 					ft_strrev.c \
 					ft_stradd.c \
-					ft_strreplace.c
+					ft_strreplace.c \
+					ft_strclean.c
 SRC				+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR			=	ft_put/

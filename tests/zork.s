@@ -1,6 +1,6 @@
 #Ahah
-.name "zork"
-.comment "I'M ALIIIIVE"
+.name .name "Staying' Alive"
+.comment "And we're stayin' alive, stayin' alive"
 
 l2: sti r1, %:live, %1
 	and r1, %0, r1

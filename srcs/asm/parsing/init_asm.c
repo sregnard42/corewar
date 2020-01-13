@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 15:24:05 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/07 19:28:13 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,15 @@ void	init_asm(t_assembler *as, unsigned int flag)
 	as->commands[14] = (t_commands){"lfork", {2, 0, 0}, 1};
 	as->commands[15] = (t_commands){"aff", {1, 0, 0}, 1};
 	as->bonus = flag;
+	if (as->bonus & BONUS_FOLDER)
+	{
+		mkdir("my_champs", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		if (!(as->folder = ft_strdup("./my_champs/")))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
+	else
+	{
+		if (!(as->folder = ft_strdup("./")))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
 }

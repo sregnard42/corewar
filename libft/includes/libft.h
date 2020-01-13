@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:49:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/17 14:39:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/07 15:51:12 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char				**ft_strsplit(char const *s, char c);
 char				*ft_strrev(const char *str);
 char				*ft_stradd(char *s1, char *s2);
 char				*ft_strreplace(char *str, char *src, char dst);
+char				*ft_strclean(char *str);
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);

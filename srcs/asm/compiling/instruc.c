@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 13:10:52 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:08:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	write_big_endian(t_assembler *as, int nb, int size)
 	octets[1] = nb >> 16;
 	octets[2] = nb >> 8;
 	octets[3] = nb >> 0;
-	if (size == 2)
+	if (size == IND_SIZE)
 	{
 		write(as->cor_fd, &octets[2], 1);
-		write(as->cor_fd, &octets[3], 1);
+		write(as->cor_fd, &octets[3], 1); // A vir si on change le IND_SIZE si on fais la bonne chose
 	}
-	if (size == 4)
+	if (size == DIR_SIZE)
 		write(as->cor_fd, octets, size);
 }
 
@@ -44,7 +44,7 @@ void	write_register(t_assembler *as, char *param)
 
 	param++;
 	ret = ft_atoi(param);
-	write(as->cor_fd, &ret, 1);
+	write(as->cor_fd, &ret, RID_SIZE);
 }
 
 /*
@@ -69,12 +69,12 @@ void	write_neg_number(t_assembler *as, int nb, int size)
 	octets[2] = octets[2] ^ max;
 	octets[3] = octets[3] ^ max;
 	octets[3] += 1;
-	if (size == 2)
+	if (size == IND_SIZE)
 	{
-		write(as->cor_fd, &octets[2], 1);
+		write(as->cor_fd, &octets[2], 1);  // A vir si on change le IND_SIZE si on fais la bonne chose
 		write(as->cor_fd, &octets[3], 1);
 	}
-	if (size == 4)
+	if (size == DIR_SIZE)
 		write(as->cor_fd, octets, size);
 }
 
@@ -89,38 +89,49 @@ void	write_neg_number(t_assembler *as, int nb, int size)
 
 void	write_label(t_assembler *as, t_instruc *now, char *param)
 {
-	int			res;
-	t_instruc	*tmp;
+	int				res;
+	t_instruc		*instruc;
+	t_same_label	*label;
 
-	tmp = now;
+	instruc = now;
 	res = 0;
 	param++;
-	while (tmp)
+	while (instruc)
 	{
-		if (tmp->label && ft_strcmp(tmp->label, param) == 0)
+		label = instruc->label;
+		while (label)
 		{
-			write_big_endian(as, res, now->direct_size);
-			return ;
-		}
-		res += tmp->size;
-		tmp = tmp->next;
-	}
-	tmp = as->instruc;
-	res = 0;
-	while (tmp)
-	{
-		if (tmp->label && ft_strcmp(tmp->label, param) == 0)
-		{
-			while (tmp)
+			if (label && ft_strcmp(label->name, param) == 0)
 			{
-				if (tmp == now)
-					write_neg_number(as, res, now->direct_size);
-				res += tmp->size;
-				tmp = tmp->next;
+				write_big_endian(as, res, now->direct_size);
+				return ;
 			}
-			return ;
+			label = label->next;
 		}
-		tmp = tmp->next;
+		res += instruc->size;
+		instruc = instruc->next;
+	}
+	instruc = as->instruc;
+	res = 0;
+	while (instruc)
+	{
+		label = instruc->label;
+		while (label)
+		{
+			if (label && ft_strcmp(label->name, param) == 0) // Faut derouler
+			{
+				while (instruc)
+				{
+					if (instruc == now)
+						write_neg_number(as, res, now->direct_size);
+					res += instruc->size;
+					instruc = instruc->next;
+				}
+				return ;
+			}
+			label = label->next;
+		}
+		instruc = instruc->next;
 	}
 }
 
@@ -147,12 +158,15 @@ void	write_direct(t_assembler *as, char *param, t_instruc *now)
 ** write_indirect()
 */
 
-void	write_indirect(t_assembler *as, char *param)
+void	write_indirect(t_assembler *as, char *param, t_instruc *now)
 {
 	int		ret;
 
 	ret = ft_atoi(param);
-	write_big_endian(as, ret, 4);
+	if (*param != LABEL_CHAR)
+		write_big_endian(as, ret, IND_SIZE);
+	else
+		write_label(as, now, param);
 }
 
 /*
@@ -169,18 +183,23 @@ void	write_instruc(t_assembler *as)
 	while (tmp)
 	{
 		i = 0;
-		write(as->cor_fd, &tmp->opcode, 1);
-		if (tmp->ocp != 0)
+		if (tmp->opcode)
+			write(as->cor_fd, &tmp->opcode, 1);
+		if (tmp->ocp && tmp->ocp != 0)
 			write(as->cor_fd, &tmp->ocp, 1);
 		while (i < 3)
 		{
-			tmp->direct_size = get_param_bytes(tmp->opcode, tmp->param_type[i]);
-			if (tmp->param_type[i] == 1)
-				write_register(as, tmp->param[i]);
-			else if (tmp->param_type[i] == 2)
-				write_direct(as, tmp->param[i], tmp);
-			else if (tmp->param_type[i] == 3)
-				write_indirect(as, tmp->param[i]);
+			if (tmp->opcode && tmp->param_type)
+				tmp->direct_size = get_param_bytes(tmp->opcode, tmp->param_type[i]);
+			if (tmp->param_type)
+			{
+				if (tmp->param_type[i] == REG_CODE)
+					write_register(as, tmp->param[i]);
+				else if (tmp->param_type[i] == DIR_CODE)
+					write_direct(as, tmp->param[i], tmp);
+				else if (tmp->param_type[i] == IND_CODE)
+					write_indirect(as, tmp->param[i], tmp);
+			}
 			i++;
 		}
 		tmp = tmp->next;
