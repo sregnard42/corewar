@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/04 17:04:58 by lgaultie         ###   ########.fr       */
+/*   Updated: 2019/12/19 12:48:48 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	save_label_param(t_assembler *as, char *param)
 ** a label, to check if the label parameter refers to an existing label
 */
 
-int		check_existing_labels(t_assembler *as)
+void	check_existing_labels(t_assembler *as)
 {
 	t_label	*tmp_label;
 	t_label	*tmp_params;
@@ -110,14 +110,9 @@ int		check_existing_labels(t_assembler *as)
 				break;
 			}
 			if (tmp_label->next == NULL)
-			{
-				// je mets tmp_params->name pour avoir le label faux
 				manage_error(as, &free_asm, tmp_params->name, NO_EXIST_LABEL);
-				return (FAIL);
-			}
 			tmp_label = tmp_label->next;
 		}
 		tmp_params = tmp_params->next;
 	}
-	return (SUCCESS);
 }

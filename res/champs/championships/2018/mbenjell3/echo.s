@@ -12,18 +12,18 @@ load_1:
 
 	# chargement de bouts d'instructions dans les registres
 	ld		%57672193, r2
-	ld		%4278415363, r3
-	ld		%33424240, r4 
-	ld		%67239171, r5 
-	ld		%1879376380, r6 
-	ld		%57673217, r7 
-	ld		%4211306503, r8 
+	ld		%4278415363, r3 #coucou
+	ld		%33424240, r4
+	ld		%67239171, r5
+	ld		%1879376380, r6
+	ld		%57673217, r7
+	ld		%4211306503, r8
 	ld		%33162096, r9
 	ld		%134347011, r10
 	ld		%1879638520, r11
 	ld		%57674241, r12
 	ld		%4144197643, r13
-	ld		%32899952, r14 	
+	ld		%32899952, r14
 	ld		%590124, r15 # copy zjmp
 
 live:

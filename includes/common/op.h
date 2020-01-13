@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:55:54 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/08 16:48:59 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:12:11 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define MAX_ARGS_NUMBER		3
 # define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
-//# define MEM_SIZE				(4*64)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 

@@ -19,18 +19,18 @@ ok:
 	fork	%:gen
 	ld	%0, r5
 	zjmp	%:gen
-	
+
 no:
-	live	%1	
+	live	%1
 	sti	r8, %:end, r2
 	add	r2, r3, r2
 	sub	r4, r2, r5	#r4 = r2
 	zjmp	%:boucle2
 	ld	%0, r5
 	zjmp	%:no
-	
+
 boucle2:
 	ld	%0, r2
 	zjmp	%:no
 
-end:	
+end:

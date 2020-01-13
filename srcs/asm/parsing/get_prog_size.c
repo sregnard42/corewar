@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/04 16:45:40 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:09:07 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ unsigned int	get_param_bytes(int opcode, char param)
 {
 	if (param == 0)
 		return (0);
-	else if (param == 1)
-		return (1);
-	else if (param == 2)
+	else if (param == REG_CODE)
+		return (RID_SIZE);
+	else if (param == DIR_CODE)
 	{
-		if ((opcode >= 9 && opcode <= 12) || (opcode == 14 || opcode == 15))
-			return (2);
-		return (4);
+		if ((opcode >= ZJMP && opcode <= FORK) \
+			|| (opcode == LLDI || opcode == LFORK))
+			return (IND_SIZE);
+		return (DIR_SIZE);
 	}
-	else if (param == 3)
-		return (2);
+	else if (param == IND_CODE)
+		return (IND_SIZE);
 	return (0);
 }
 
@@ -49,7 +50,9 @@ unsigned int	get_params_bytes(t_instruc *tmp)
 	i = -1;
 	prog_size = 0;
 	while (++i < 3)
+	{
 		prog_size += get_param_bytes(tmp->opcode, tmp->param_type[i]);
+	}
 	return (prog_size);
 }
 
@@ -69,10 +72,21 @@ void				get_prog_size(t_assembler *as)
 	while (tmp)
 	{
 		prog_size += 1;
-		if (!(tmp->opcode == 1 || tmp->opcode == 9 || tmp->opcode == 12 ||
-			tmp->opcode == 15 || tmp->opcode == 16))
-			prog_size += 1;
-		prog_size += get_params_bytes(tmp);
+		if (tmp->opcode)
+		{
+			if (!(tmp->opcode == LIVE || tmp->opcode == ZJMP	\
+				|| tmp->opcode == FORK || tmp->opcode == LFORK))
+				prog_size += 1;
+		}
+		//erreur seulement si opcode et param_type n'existe pas dans un maillon
+		//au pleins milieu de la chaine, sinon c'est un fichier qui fini par
+		//un label vide, l'instruction est de poids combien du coup ?..
+		if (!tmp->opcode && !tmp->param_type && tmp->next != NULL)
+			manage_error(as, &free_asm, as->epure_line, AS_NULL);
+		if (tmp->opcode && tmp->param_type)
+			prog_size += get_params_bytes(tmp);
+		else
+			prog_size--;
 		tmp = tmp->next;
 	}
 	as->prog_size = prog_size;

@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/12/10 14:45:51 by sregnard         ###   ########.fr        #
+#    Updated: 2020/01/13 17:01:56 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,7 @@ INCLUDES_ASM			+=	-I $(INCDIR_ASM)
 INCLUDES_WAR			:=	$(INCLUDES)
 INCLUDES_WAR			+=	-I $(INCDIR_WAR)
 
-INCNAME					:=	asm.h		\
-							instruc.h
+INCNAME					:=	asm.h
 INC_ASM					:=	$(addprefix $(INCDIR_ASM), $(INCNAME))
 
 INCNAME					:=	corewar.h	\
@@ -95,7 +94,8 @@ SUBDIR					:=	utils/
 SRCNAME					:=	free_asm.c			\
 							print.c				\
 							manage_error.c		\
-							bonus.c
+							bonus.c				\
+							debug.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 
