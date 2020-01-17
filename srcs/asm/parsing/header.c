@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/12 21:32:27 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:58:51 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,13 @@ int		check_header(t_assembler *as)
 	char	*len;
 	char	*part;
 	char	*str;
+	char	*tmp;
 
 	if (as->header->name && as->header->comment)
 		return (FAIL);
 	change_sharp(as);
-	as->line = delete_space_after(as, as->line); // Leaks ICI ! ATTENTION
+	tmp = as->line;
+	as->line = delete_space_after(as, tmp); // Leaks ICI ! ATTENTION
 	// as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
 	between_name_quote(as);
 	str = as->line;

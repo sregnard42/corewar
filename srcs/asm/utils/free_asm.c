@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/06 17:17:46 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:45:33 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	free_asm(void *assembler)
 	if (!my_asm)
 		return ;
 	my_asm->header ? free_header(my_asm->header) : 0;
+	my_asm->folder ? ft_memdel((void **)&my_asm->folder) : 0;
 	my_asm->file_name_s ? ft_memdel((void **)&my_asm->file_name_s) : 0;
 	my_asm->file_name_cor ? ft_memdel((void **)&my_asm->file_name_cor) : 0;
 	my_asm->labels ? free_label(my_asm->labels) : 0;
