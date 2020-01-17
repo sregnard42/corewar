@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2020/01/13 17:01:56 by sregnard         ###   ########.fr        #
+#    Updated: 2020/01/17 15:30:15 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,15 +73,15 @@ SRCNAME					:=	asm.c
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
 SUBDIR					:=	parsing/
-SRCNAME					:=	parsing.c			\
+SRCNAME					:=	read.c				\
 							header.c			\
-							stock_instruc.c		\
+							parser.c			\
 							labels.c			\
 							init_asm.c			\
 							param.c				\
 							get_prog_size.c		\
 							get_ocp.c			\
-							check_instruc.c
+							lexer.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	compiling/

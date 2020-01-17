@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:18:43 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/17 14:50:08 by lgaultie         ###   ########.fr       */
+/*   Created: 2020/01/17 15:29:39 by lgaultie          #+#    #+#             */
+/*   Updated: 2020/01/17 17:06:41 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** parsing() parse header, then if doesn't find .name or .comment, parse the
-** line as an instruction. Then calls function to check if parameter label
+** read_function() parse header, then if doesn't find .name or .comment, parse
+** the line as an instruction. Then calls function to check if parameter label
 ** refers to existing label.
 */
 
-void	parsing(t_assembler *as)
+void	read_function(t_assembler *as)
 {
 	while (get_next_line(as->s_fd, &as->line) == 1)
 	{
@@ -26,17 +26,15 @@ void	parsing(t_assembler *as)
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 		as->nb_line++;
 		if (check_header(as) == FAIL)
-			parse_instruction(as);
+			analyse_instruction(as);
 		ft_memdel((void*)&as->line);
 		ft_memdel((void*)&as->epure_line);
 	}
 	if (as->nb_line == 0)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_FILE);
 	check_existing_labels(as);
-
 	get_prog_size(as);
 	/////////////
 	print_instruc(as);
 	print_labels(as);
-	// print_param_labels(as);
 }

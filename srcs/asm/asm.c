@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 14:33:01 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/17 15:29:21 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			main(int argc, char **argv)
 			// faire les free necessaires
 			return(0);
 		}
-		parsing(&as);
+		read_function(&as);
 		close(as.s_fd);
 		create_cor(&as);
 		print_advices(&as);

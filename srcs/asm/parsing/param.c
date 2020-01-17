@@ -6,11 +6,48 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 14:05:49 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:05:44 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** is_register() the parameter is a register type
+*/
+
+char	is_register(t_assembler *as, char *param)
+{
+	int		nb;
+
+	param++;
+	if (ft_strlen(param) <= 2 && ft_isnumber(param) &&
+		(nb = ft_atoi(param)) <= REG_NUMBER && nb > 0)
+		return (REG_CODE);
+	manage_error(as, &free_asm, as->epure_line, WRONG_REGISTER);
+	return (ERROR);
+}
+
+/*
+** is_direct() the parameter is a direct type
+*/
+
+char	is_direct(t_assembler *as, char *param)
+{
+	char	*cpy;
+
+	param++;
+	if (*param == LABEL_CHAR)
+	{
+		if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		save_label_param(as, cpy);
+		ft_memdel((void**)&cpy);
+	}
+	if (*param == LABEL_CHAR || ft_isnumber(param))
+		return (DIR_CODE);
+	return (ERROR);
+}
 
 /*
 ** which_param() checks the type of the params
@@ -18,40 +55,20 @@
 
 char	which_params(t_assembler *as, char *param)
 {
-	char	*cpy;
-	int		nb;
+	char *cpy;
 
 	if (!param || !*param)
 		return (FAIL);
 	if (*param == 'r')
-	{
-		param++;
-		if (ft_strlen(param) <= 2 && ft_isnumber(param) &&
-			(nb = ft_atoi(param)) <= REG_NUMBER && nb > 0)
-			return (REG_CODE);
-		manage_error(as, &free_asm, as->epure_line, WRONG_REGISTER);
-			return (REG_CODE);	//pour le mode -q, evite davoir error sur numero trop haut de registre ET syntax param
-	}
+		return (is_register(as, param));
 	else if (*param == DIRECT_CHAR)
-	{
-		param++;
-		if (*param == LABEL_CHAR)
-		{
-			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
-				manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-			save_label_param(as, cpy);
-			ft_memdel((void**)&cpy);
-		}
-		if (*param == LABEL_CHAR || ft_isnumber(param))
-			return (DIR_CODE);
-	}
+		return (is_direct(as, param));
 	else
 	{
 		if (*param == LABEL_CHAR)
 		{
 			if (!(cpy = ft_strsub(param, 1, ft_strlen(param))))
 				manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-			// ft_printf("cpy= %s\n", cpy);
 			save_label_param(as, cpy);
 			ft_memdel((void**)&cpy);
 		}
@@ -73,7 +90,8 @@ char	which_params(t_assembler *as, char *param)
 ** 7 = 1 or 2 or 4 (all parameters accepted)
 */
 
-char	check_param(t_assembler *as, int id_command, char id_param, int nb_param)
+char	check_param(t_assembler *as, int id_command, char id_param,
+		int nb_param)
 {
 	int	type;
 

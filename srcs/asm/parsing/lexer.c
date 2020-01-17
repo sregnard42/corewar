@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_instruc.c                                    :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/08 14:33:13 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 15:58:34 by lgaultie         ###   ########.fr       */
+/*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
+/*   Updated: 2020/01/17 17:06:48 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,11 +233,11 @@ void	save_label(t_assembler *as)
 }
 
 /*
-** parse_instruction() checks if header is complete. Then cut the instruction
+** analyse_instruction() checks if header is complete. Then cut the instruction
 ** to send each parts in check_instruc.
 */
 
-void	parse_instruction(t_assembler *as)
+void	analyse_instruction(t_assembler *as)
 {
 	char	**tab;
 	char	*param_type;

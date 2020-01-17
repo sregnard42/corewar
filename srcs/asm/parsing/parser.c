@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stock_instruc.c                                    :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/21 17:40:46 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/10 14:03:14 by chrhuang         ###   ########.fr       */
+/*   Created: 2020/01/17 15:28:28 by lgaultie          #+#    #+#             */
+/*   Updated: 2020/01/17 16:56:25 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-**	same_label()
+**	save_same_label() create or add to end of list of one node's label. As
+** several labels can points to the same instruction line, we stock this
+** instruction in our node with a list of all labels pointing to it.
 */
 
-void	save_same_label(t_assembler *as, t_instruc *new, char *name)
+void		save_same_label(t_assembler *as, t_instruc *new, char *name)
 {
 	t_same_label	*label;
 	t_same_label	*tmp;
@@ -41,18 +43,37 @@ void	save_same_label(t_assembler *as, t_instruc *new, char *name)
 	}
 }
 
+void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
+{
+	int		j;
+
+	j = 0;
+	while (j < 3)
+	{
+		if (tab[i])
+		{
+			if (!(new->param[j++] = ft_strdup(tab[i++])))
+			{
+				ft_free_tab(&tab);
+				manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			}
+		}
+		else
+			break ;
+	}
+}
+
 /*
-** init_instruct()
+** init_instruct() calls save_same_label() to save all labels pointing to this
+** instruction. Then save in the node the command and its parameters.
 */
 
-void	init_instruc(t_assembler *as, t_instruc *new, int id_command)
+void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 {
 	char	**tab;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	new->opcode = id_command + 1;
 	if (!(tab = ft_strsplit(as->line, ' ')))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
@@ -60,55 +81,42 @@ void	init_instruc(t_assembler *as, t_instruc *new, int id_command)
 	{
 		tab[0][ft_strlen(tab[0]) - 1] = '\0';
 		save_same_label(as, new, tab[0]);
-		// Creer maillon ou ajoutez a la fin de la liste
-		// if (!(new->label = ft_strdup(tab[0])))
-		// {
-		// 	//faire les free necessaires ?
-		// 	manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-		// }
 		i++;
 	}
 	if (!(new->command = ft_strdup(tab[i])))
 	{
-		//faire les free necessaires ?
+		ft_free_tab(&tab);
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	}
 	i++;
-	while (j < 3)
-	{
-		if (tab[i])
-		{
-			if (!(new->param[j++] = ft_strdup(tab[i++])))
-			{
-				//faire les free necessaires ?
-				manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-			}
-		}
-		else
-			break ;
-	}
+	save_params(as, tab, i, new);
 	ft_free_tab(&tab);
 }
 
 /*
-** get_size_instruction() add one for opcode when ocp doesn't exist, add 2 for
+** init_new() add one to size for opcode when ocp doesn't exist, add 2 for
 ** opcode et ocp. Calculates the total nb of bytes of the instruction
 */
 
-void		get_size_instruction(t_instruc *new)
+void		init_new(t_assembler *as, t_instruc *new, char *param_type,
+			int id_command)
 {
 	int		ret;
 
+	new->param_type = param_type;
+	init_instruc(as, new, id_command);
+	get_ocp(new);
 	ret = get_params_bytes(new);
 	ret += new->ocp == 0 ? 1 : 2;
 	new->size = ret;
+	as->newline = 0;
 }
 
 /*
-** add_instruct() add one line of instruction to our list
+** add_instruct() add one line of instruction to our list of instruction
 */
 
-void	add_instruct(t_assembler *as, char *param_type,
+void		add_instruct(t_assembler *as, char *param_type,
 		int id_command)
 {
 	t_instruc	*tmp;
@@ -119,12 +127,12 @@ void	add_instruct(t_assembler *as, char *param_type,
 		tmp = as->instruc;
 		if (!(new = ft_memalloc(sizeof(t_instruc))))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-			if (tmp != NULL)
-			{
-				while (tmp->next != NULL)
-					tmp = tmp->next;
-				tmp->next = new;
-			}
+		if (tmp != NULL)
+		{
+			while (tmp->next != NULL)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
 		else
 			as->instruc = new;
 	}
@@ -135,9 +143,5 @@ void	add_instruct(t_assembler *as, char *param_type,
 			tmp = tmp->next;
 		new = tmp;
 	}
-	new->param_type = param_type;
-	init_instruc(as, new, id_command);
-	get_ocp(new);
-	get_size_instruction(new);
-	as->newline = 0;
+	init_new(as, new, param_type, id_command);
 }

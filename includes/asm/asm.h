@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/08 14:14:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:06:57 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,9 @@ void				init_asm(t_assembler *as, unsigned int flag);
 int					check_header(t_assembler *as);
 void				create_cor(t_assembler *as);
 void				check_label(t_assembler *as, char *label);
-void				parsing(t_assembler *as);
+void				read_function(t_assembler *as);
 void				clean_line(char *line);
-void				parse_instruction(t_assembler *as);
+void				analyse_instruction(t_assembler *as);
 void				free_asm(void *a);
 void				add_instruct(t_assembler *as, char *ocp,
 						int id_command);
