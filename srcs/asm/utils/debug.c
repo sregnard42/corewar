@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:01:50 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/09 15:46:40 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:34:01 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	print_instruc(t_assembler *as)
 {
-	t_instruc *tmp;
-	t_same_label *tmp_label;
+	t_instruc		*tmp;
+	t_same_label	*tmp_label;
 
 	tmp = as->instruc;
 	ft_putstr("-----------------------------------------------\n");
@@ -30,7 +30,6 @@ void	print_instruc(t_assembler *as)
 		tmp_label = tmp->label;
 		while (tmp_label)
 		{
-
 			ft_printf("label: %s\n", tmp_label->name);
 			tmp_label = tmp_label->next;
 		}
@@ -49,6 +48,7 @@ void	print_instruc(t_assembler *as)
 void	print_labels(t_assembler *as)
 {
 	t_label *tmp;
+
 	tmp = as->labels;
 	ft_putstr("-----------------------------------------------\n");
 	ft_putstr("      called print_labels dans print.c\n");
@@ -64,6 +64,7 @@ void	print_labels(t_assembler *as)
 void	print_param_labels(t_assembler *as)
 {
 	t_label *tmp;
+
 	tmp = as->param_labels;
 	ft_putstr("-----------------------------------------------\n");
 	ft_putstr("      called print_param_labels dans print.c\n");
