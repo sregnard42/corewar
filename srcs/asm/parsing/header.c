@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/17 14:58:51 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 11:57:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void	between_name_quote(t_assembler *as)
 		mode = 1;
 	if (str && ft_strncmp(COMMENT_CMD_STRING, str, ft_strlen(COMMENT_CMD_STRING)) == 0)
 		mode = 2;
-	ft_printf("mode = %d\n", mode);
+	// ft_printf("mode = %d\n", mode);
 	if (mode != 1 && mode != 2)
 	{
 		if (ft_strcmp(as->line, "") == 0)
 			return ;
-		ft_printf("str = %s\n", str);
+		// ft_printf("str = %s\n", str);
 		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
 	}
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
@@ -189,7 +189,7 @@ int		check_header(t_assembler *as)
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
-		ft_printf("we go to save the name!\n");
+		// ft_printf("we go to save the name!\n");
 		ft_memdel((void**)&part);
 		parse_header(as, &as->header->name, SAVE_NAME);
 		return (SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:29:39 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/17 17:06:41 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 11:52:50 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void	read_function(t_assembler *as)
 	check_existing_labels(as);
 	get_prog_size(as);
 	/////////////
-	print_instruc(as);
-	print_labels(as);
+	// print_instruc(as);
+	// print_labels(as);
 }

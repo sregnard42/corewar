@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/17 17:06:48 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 12:00:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	save_label(t_assembler *as)
 	if (!(ft_strchr(as->line, LABEL_CHAR)))
 		manage_error(as, &free_asm, as->epure_line, JUNK);
 	//dans le cas ou on a une ligne avec un mot qui est un label
-	ft_printf("ya un label tout seul: %s\n", as->line);
+	// ft_printf("ya un label tout seul: %s\n", as->line);
 	i = 0;
 	while (as->line[i])
 	{
@@ -227,7 +227,7 @@ void	save_label(t_assembler *as)
 	save_label_to_check(as, as->line);
 	//dire qu'on a eu un passage a la ligne
 	as->newline = 1;
-	print_instruc(as);
+	// print_instruc(as);
 	// print_labels(as);
 	return ;
 }
@@ -244,9 +244,9 @@ void	analyse_instruction(t_assembler *as)
 
 	as->nb_sep = 0;
 	epure_line(as);
-	ft_printf("as->newline = %d\nline = %s\n", as->newline, as->line);
+	// ft_printf("as->newline = %d\nline = %s\n", as->newline, as->line);
 	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
-	ft_printf("my_line = %s\n", as->line);
+	// ft_printf("my_line = %s\n", as->line);
 	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR || as->line[0] == ';')
 		return ;
 	if (!as->header->name)
