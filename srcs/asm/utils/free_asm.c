@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/17 14:45:33 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:09:20 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	free_header(t_header *header)
+static void	free_header(t_header *header)
 {
 	if (!header)
 		return ;
@@ -21,7 +21,7 @@ void	free_header(t_header *header)
 	ft_memdel((void **)&header);
 }
 
-void	free_label(t_label *label)
+static void	free_label(t_label *label)
 {
 	t_label	*tmp;
 
@@ -37,7 +37,7 @@ void	free_label(t_label *label)
 	}
 }
 
-void	free_instruc(t_instruc *instruc)
+static void	free_instruc(t_instruc *instruc)
 {
 	t_instruc	*tmp;
 	int			i;
@@ -60,7 +60,7 @@ void	free_instruc(t_instruc *instruc)
 	}
 }
 
-void	free_asm(void *assembler)
+void		free_asm(void *assembler)
 {
 	t_assembler *my_asm;
 
