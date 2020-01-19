@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 15:56:38 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:57:15 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:08:20 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** we need to calculate its place with write_label()
 */
 
-void		write_direct(t_assembler *as, char *param, t_instruc *now)
+static void		write_direct(t_assembler *as, char *param, t_instruc *now)
 {
 	int		ret;
 
@@ -35,7 +35,7 @@ void		write_direct(t_assembler *as, char *param, t_instruc *now)
 ** write_indirect()
 */
 
-void		write_indirect(t_assembler *as, char *param, t_instruc *now)
+static void		write_indirect(t_assembler *as, char *param, t_instruc *now)
 {
 	int		ret;
 
@@ -46,7 +46,7 @@ void		write_indirect(t_assembler *as, char *param, t_instruc *now)
 		write_label(as, now, param);
 }
 
-static void	write_params(t_assembler *as, t_instruc *tmp, int i)
+static void		write_params(t_assembler *as, t_instruc *tmp, int i)
 {
 	if (tmp->opcode && tmp->param_type)
 		tmp->direct_size = get_param_bytes(tmp->opcode, tmp->param_type[i]);
@@ -66,7 +66,7 @@ static void	write_params(t_assembler *as, t_instruc *tmp, int i)
 ** is one. Then for all parameters, write them depending on their types.
 */
 
-void		write_instruc(t_assembler *as)
+void			write_instruc(t_assembler *as)
 {
 	t_instruc		*tmp;
 	int				i;

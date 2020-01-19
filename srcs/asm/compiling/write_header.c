@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 15:56:44 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:56:45 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:07:36 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** write_padding with padding_size
 */
 
-void	write_padding(int fd, int size)
+void		write_padding(int fd, int size)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ void	write_padding(int fd, int size)
 ** write_big_endian1() change the order of magic number's bytes
 */
 
-void	write_big_endian1(int fd, int magic_number)
+static void	write_big_endian1(int fd, int magic_number)
 {
 	unsigned char	octets[4];
 
@@ -47,7 +47,7 @@ void	write_big_endian1(int fd, int magic_number)
 ** then fills the rest of the place reserved for the name with 0.
 */
 
-void	write_name(t_assembler *as)
+static void	write_name(t_assembler *as)
 {
 	int		len_name;
 	int		len_reserved;
@@ -72,7 +72,7 @@ void	write_name(t_assembler *as)
 ** another padding.
 */
 
-void	write_comment(t_assembler *as)
+static void	write_comment(t_assembler *as)
 {
 	char	*to_fill;
 	int		size_com;
@@ -91,7 +91,7 @@ void	write_comment(t_assembler *as)
 	ft_memdel((void*)&to_fill);
 }
 
-void	write_header(t_assembler *as)
+void		write_header(t_assembler *as)
 {
 	write_name(as);
 	write_comment(as);
