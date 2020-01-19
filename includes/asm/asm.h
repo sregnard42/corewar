@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/17 17:06:57 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:43:17 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,12 @@ void				create_cor(t_assembler *as);
 void				check_label(t_assembler *as, char *label);
 void				read_function(t_assembler *as);
 void				clean_line(char *line);
+void				write_register(t_assembler *as, char *param);
+void				write_neg_number(t_assembler *as, int nb, int size);
+void				write_big_endian(t_assembler *as, int nb, int size);
 void				analyse_instruction(t_assembler *as);
 void				free_asm(void *a);
+void				write_label(t_assembler *as, t_instruc *now, char *param);
 void				add_instruct(t_assembler *as, char *ocp,
 						int id_command);
 int					is_param(t_assembler *as, int id_command, char *part,
