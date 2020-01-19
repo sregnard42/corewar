@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:27:24 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 12:16:38 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:16:56 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,19 @@ void	write_neg_number(t_assembler *as, int nb, int size)
 	octets[3] += 1;
 	if (size == IND_SIZE)
 	{
-		write(as->cor_fd, &octets[2], 1);  // A vir si on change le IND_SIZE si on fais la bonne chose
+		if (octets[3] == 0)
+		{
+			octets[2] += 1;
+			write(as->cor_fd, &octets[2], 1);  // A vir si on change le IND_SIZE si on fais la bonne chose
+		}
+		else
+			write(as->cor_fd, &octets[2], 1);  // A vir si on change le IND_SIZE si on fais la bonne chose
 		write(as->cor_fd, &octets[3], 1);
 	}
 	if (size == DIR_SIZE)
+	{
 		write(as->cor_fd, octets, size);
+	}
 }
 
 /*
