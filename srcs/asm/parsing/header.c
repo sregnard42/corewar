@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 11:57:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:24:32 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,7 @@
 /*
 ** parse_header() parse only the name or comment (without ""), checks if they
 ** are too long or checks if invalid input after the name or comment
-** (ex: .name "yes"no)
-//a mettre en anglais:
-//si on trouve pas de " dans la ligne ->error
-// on chope la partie apres la premiere "
-// si il y a pas une deuxieme " -->error
-// on reverifie si il y a bien une deuxieme " (verif obligatoire pour -q),
-// et on regarde ce quil y apres
-// alors on va choper ce qui est entre parenthese, mais pas si
-// il y a eu une erreur, parceque la size du malloc sera caca, dans ce
-// je fais un malloc vide pour empecher les breakfree
+** (ex: .name "yes"no), etc...
 */
 
 void	parse_header(t_assembler *as, char **dst, int choice)
@@ -35,23 +26,15 @@ void	parse_header(t_assembler *as, char **dst, int choice)
 	error = 0;
 	if (dst && *dst)
 		manage_error(as, &free_asm, as->epure_line, NAME_COMMENT_EXIST);
-		//si on trouve pas de " dans la ligne ->error
 	if (!ft_strchr(as->line, '"'))
 		manage_error(as, &free_asm, as->epure_line, NO_QUOTES);
-	// on chope la partie apres la premiere "
 	str = ft_strchr(as->line, '"') + 1;
-	// si il y a pas une deuxieme " -->error
 	if (ft_strchr(str, '"') == NULL)
 		manage_error(as, &free_asm, as->epure_line, QUOTES_NOT_CLOSED);
-	// on reverifie si il y a bien une deuxieme " (verif obligatoire pour -q),
 	if (!(ft_strchr(str, '"')))
 		error = 1;
-	// et on regarde ce quil y apres
 	if (error == 0 && (ft_strcmp("", ft_strchr(str, '"') + 1) != 0))
 		manage_error(as, &free_asm, as->epure_line, STUFF_AFTER);
-	// alors on va choper ce qui est entre parenthese, mais pas si
-	// il y a eu une erreur, parceque la size du malloc sera caca, dans ce
-	// je fais un malloc vide pour empecher les breakfree
 	if (error == 0)
 	{
 		if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
@@ -84,21 +67,22 @@ void	between_name_quote(t_assembler *as)
 	char	*str;
 	int		i;
 	int		mode;
+	int		length;
 
 	str = as->line;
 	i = 0;
 	mode = 0;
-	str = ft_strchr(str, '.'); //pour eviter de buger sur \t.name ou space.comment
-	if (str && ft_strncmp(NAME_CMD_STRING, str, ft_strlen(NAME_CMD_STRING)) == 0)
+	str = ft_strchr(str, '.');
+	length = ft_strlen(NAME_CMD_STRING);
+	if (str && ft_strncmp(NAME_CMD_STRING, str, length) == 0)
 		mode = 1;
-	if (str && ft_strncmp(COMMENT_CMD_STRING, str, ft_strlen(COMMENT_CMD_STRING)) == 0)
+	length = ft_strlen(COMMENT_CMD_STRING);
+	if (str && ft_strncmp(COMMENT_CMD_STRING, str, length) == 0)
 		mode = 2;
-	// ft_printf("mode = %d\n", mode);
 	if (mode != 1 && mode != 2)
 	{
 		if (ft_strcmp(as->line, "") == 0)
 			return ;
-		// ft_printf("str = %s\n", str);
 		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
 	}
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
@@ -177,19 +161,17 @@ int		check_header(t_assembler *as)
 		return (FAIL);
 	change_sharp(as);
 	tmp = as->line;
-	as->line = delete_space_after(as, tmp); // Leaks ICI ! ATTENTION
-	// as->line = ft_strclean(as->line); // Leaks ICI ! ATTENTION
+	as->line = delete_space_after(as, tmp);
 	between_name_quote(as);
 	str = as->line;
 	if (str)
-		str = ft_strchr(str, '.'); //pour eviter de buger sur \t.name ou space.comment
+		str = ft_strchr(str, '.');
 	if (str == NULL || (len = ft_strchr(str, ' ')) == NULL)
 		return (FAIL);
 	if (!(part = ft_strsub(str, 0, len - str)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
-		// ft_printf("we go to save the name!\n");
 		ft_memdel((void**)&part);
 		parse_header(as, &as->header->name, SAVE_NAME);
 		return (SUCCESS);
