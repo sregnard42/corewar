@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 12:00:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:59:32 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,12 +240,15 @@ void	save_label(t_assembler *as)
 void	analyse_instruction(t_assembler *as)
 {
 	char	**tab;
+	char	*tmp;
 	char	*param_type;
 
 	as->nb_sep = 0;
 	epure_line(as);
 	// ft_printf("as->newline = %d\nline = %s\n", as->newline, as->line);
+	tmp = as->line;
 	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
+	ft_memdel((void **)&tmp);
 	// ft_printf("my_line = %s\n", as->line);
 	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR || as->line[0] == ';')
 		return ;

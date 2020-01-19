@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:24:32 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:59:46 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ char	*delete_space_after(t_assembler *as, char *str)
 		return (NULL);
 	if ((clean = ft_strdup(str)) == NULL)
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	ft_printf("clean = %s\n", clean);
 	i = ft_strlen(clean) - 1;
 	if (i < 0)
 		return (clean);
@@ -162,12 +163,16 @@ int		check_header(t_assembler *as)
 	change_sharp(as);
 	tmp = as->line;
 	as->line = delete_space_after(as, tmp);
+	ft_memdel((void **)&tmp);
 	between_name_quote(as);
 	str = as->line;
 	if (str)
 		str = ft_strchr(str, '.');
 	if (str == NULL || (len = ft_strchr(str, ' ')) == NULL)
+	{
+		// ft_memdel((void **)as->line);
 		return (FAIL);
+	}
 	if (!(part = ft_strsub(str, 0, len - str)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)

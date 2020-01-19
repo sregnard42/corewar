@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:29:39 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:54:13 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:59:51 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	read_function(t_assembler *as)
 		as->nb_line++;
 		if (check_header(as) == FAIL)
 			analyse_instruction(as);
-		// ft_printf("after as->line = %s\n", as->line);
 		ft_memdel((void*)&as->line);
 		ft_memdel((void*)&as->epure_line);
 	}
