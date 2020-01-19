@@ -28,13 +28,13 @@ void	op_ld(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	if (args->size < 2)
 		return ;
-	get_val(vm, args->byId[0], &val, IDX_MOD);
-	reg = args->byId[1]->val;
+	get_val(vm, args->by_id[0], &val, IDX_MOD);
+	reg = args->by_id[1]->val;
 	if (!is_reg(reg))
 		return ;
 	vm->print("P %4d | ", vm->procs.cur->pid);
-	if (args->byId[0]->type == IND_CODE)
-		vm->print("ld %d, r%d | ", (short int)args->byId[0]->val, reg);
+	if (args->by_id[0]->type == IND_CODE)
+		vm->print("ld %d, r%d | ", (short int)args->by_id[0]->val, reg);
 	else
 		vm->print("ld %%%d, r%d | ", val, reg);
 	load(vm, reg, val);
@@ -56,11 +56,11 @@ void	op_ldi(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	if (args->size < 3)
 		return ;
-	get_val(vm, args->byId[0], &val[0], IDX_MOD);
-	get_val(vm, args->byId[1], &val[1], IDX_MOD);
+	get_val(vm, args->by_id[0], &val[0], IDX_MOD);
+	get_val(vm, args->by_id[1], &val[1], IDX_MOD);
 	arena_load(vm, vm->pc + (val[0] + val[1]) % IDX_MOD,
 	&val[2], sizeof(int));
-	reg = args->byId[2]->val;
+	reg = args->by_id[2]->val;
 	if (!is_reg(reg))
 		return ;
 	vm->print("P %4d | ", vm->procs.cur->pid);
@@ -83,13 +83,13 @@ void	op_lld(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	if (args->size < 2)
 		return ;
-	get_val(vm, args->byId[0], &val, 0);
-	reg = args->byId[1]->val;
+	get_val(vm, args->by_id[0], &val, 0);
+	reg = args->by_id[1]->val;
 	if (!is_reg(reg))
 		return ;
 	vm->print("P %4d | ", vm->procs.cur->pid);
-	if (args->byId[0]->type == IND_CODE)
-		vm->print("lld %d, r%d | ", (short int)args->byId[0]->val, reg);
+	if (args->by_id[0]->type == IND_CODE)
+		vm->print("lld %d, r%d | ", (short int)args->by_id[0]->val, reg);
 	else
 		vm->print("lld %%%d, r%d | ", val, reg);
 	load(vm, reg, val);
@@ -110,10 +110,10 @@ void	op_lldi(void *vm_ptr)
 	args = &vm->procs.cur->args;
 	if (args->size < 3)
 		return ;
-	get_val(vm, args->byId[0], &val[0], 0);
-	get_val(vm, args->byId[1], &val[1], 0);
+	get_val(vm, args->by_id[0], &val[0], 0);
+	get_val(vm, args->by_id[1], &val[1], 0);
 	arena_load(vm, vm->pc + val[0] + val[1], &val[2], sizeof(int));
-	reg = args->byId[2]->val;
+	reg = args->by_id[2]->val;
 	if (!is_reg(reg))
 		return ;
 	vm->print("P %4d | ", vm->procs.cur->pid);

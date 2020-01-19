@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:36:10 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/29 14:20:39 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:19:57 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	vm_init(t_vm *vm, int ac, char **av)
 	vm->verbose = 1;
 }
 
-int main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_vm	vm;
 

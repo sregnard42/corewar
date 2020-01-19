@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 17:09:26 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 15:23:36 by sregnard         ###   ########.fr       */
+/*   Created: 2020/01/19 14:05:34 by sregnard          #+#    #+#             */
+/*   Updated: 2020/01/19 14:06:49 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-/*
-**			Adds an existing argeter to an existing argeters list
-*/
-
-void		args_add(t_vm *vm, t_args *args, t_arg *arg)
+void			arena_init(t_vm *vm)
 {
-	if (!vm || !args || !arg)
-		ft_error(vm, &vm_free, "args_add args\n");
-	if (!args->first)
+	unsigned int	nb_players;
+	t_champ			*champ;
+
+	nb_players = vm->champs.size;
+	champ = vm->champs.first;
+	while (champ)
 	{
-		args->first = arg;
-		args->cur = arg;
-		args->last = arg;
+		champ->pos = (champ->id - 1) * (MEM_SIZE / nb_players);
+		ft_memcpy(&vm->arena[champ->pos], &champ->content[champ->cursor],
+				champ->prog_size);
+		ft_memset(&vm->colors[champ->pos], champ->id, champ->prog_size);
+		vm->champs.cur = champ;
+		proc_new(vm);
+		champ = champ->next;
 	}
-	else
-	{
-		args->last->next = arg;
-		args->last = arg;
-	}
-	args->by_id[args->size++] = arg;
 }

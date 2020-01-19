@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/29 14:13:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:13:55 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 
 # include "corewar.h"
 
-typedef struct          s_reg
+typedef struct			s_reg
 {
-    unsigned char       reg[REG_SIZE];
-}                       t_reg;
+	unsigned char		reg[REG_SIZE];
+}						t_reg;
 
 typedef struct			s_process
 {
 	int					pid;
 	int					pc;
 	int					cycle;
-    t_reg       		reg[REG_NUMBER + 1];
+	t_reg				reg[REG_NUMBER + 1];
 	bool				live;
 	bool				carry;
 	t_args				args;

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 14:19:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/29 14:20:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:50:01 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void		visu_init(t_vm *vm)
 	if (!(vm->flags & VM_VISU))
 		return ;
 	initscr();
+	wait_input();
 	start_color();
 	use_default_colors();
 	curs_set(FALSE);
 }
-

@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 17:01:34 by sregnard          #+#    #+#             */
-/*   Updated: 2019/12/08 16:30:38 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:12:04 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct			s_arg
 
 typedef struct			s_args
 {
-	t_arg				*byId[MAX_ARGS_NUMBER];
+	t_arg				*by_id[MAX_ARGS_NUMBER];
 	t_arg				*first;
 	t_arg				*cur;
 	t_arg				*last;

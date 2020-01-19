@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:02:25 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/20 13:41:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:17:19 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void		arg_free(t_arg **arg)
 {
-    ft_memdel((void **)arg);
+	ft_memdel((void **)arg);
 }
 
 /*
@@ -27,11 +27,11 @@ void		arg_free(t_arg **arg)
 
 void		args_free(t_args *args)
 {
-    while (args->first)
-    {
-        args->cur = args->first->next;
-        arg_free(&args->first);
-        args->first = args->cur;
-    }
+	while (args->first)
+	{
+		args->cur = args->first->next;
+		arg_free(&args->first);
+		args->first = args->cur;
+	}
 	ft_bzero(args, sizeof(t_args));
 }
