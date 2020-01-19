@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2019/12/19 12:48:48 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:28:07 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	check_existing_labels(t_assembler *as)
 			if (ft_strcmp(tmp_label->name, tmp_params->name) == 0)
 			{
 				tmp_label = as->labels;
-				break;
+				break ;
 			}
 			if (tmp_label->next == NULL)
 				manage_error(as, &free_asm, tmp_params->name, NO_EXIST_LABEL);

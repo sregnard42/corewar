@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:29:39 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:34:30 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:54:13 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,4 @@ void	read_function(t_assembler *as)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_FILE);
 	check_existing_labels(as);
 	get_prog_size(as);
-	/////////////
-	// print_instruc(as);
-	// print_labels(as);
 }
