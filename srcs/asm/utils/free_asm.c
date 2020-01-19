@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/17 14:45:33 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:10:56 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@ void	free_header(t_header *header)
 	header->comment ? ft_memdel((void **)&header->comment) : 0;
 	ft_memdel((void **)&header);
 }
+
+// void	free_same_label(t_same_label *label)
+// {
+// 	t_same_label	*tmp;
+// 	t_same_label	*current;
+
+// 	if (!label)
+// 		return ;
+// 	current = label;
+// 	while (current)
+// 	{
+// 		tmp = current;
+// 		current = current->next;
+// 		ft_memdel((void **)tmp->name);
+// 		ft_memdel((void **)tmp);
+// 	}
+// }
 
 void	free_label(t_label *label)
 {
@@ -50,6 +67,7 @@ void	free_instruc(t_instruc *instruc)
 		tmp = instruc;
 		instruc = instruc->next;
 		tmp->label ? ft_memdel((void **)&tmp->label) : 0;
+		// tmp->label ? free_same_label(tmp->label) : 0;
 		tmp->command ? ft_memdel((void **)&tmp->command) : 0;
 		i = -1;
 		while (++i < 3)
