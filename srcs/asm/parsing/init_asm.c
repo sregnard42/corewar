@@ -6,11 +6,26 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 19:28:13 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:27:22 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void	bonus_folder(t_assembler *as)
+{
+	if (as->bonus & BONUS_FOLDER)
+	{
+		mkdir("my_champs", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		if (!(as->folder = ft_strdup("./my_champs/")))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
+	else
+	{
+		if (!(as->folder = ft_strdup("./")))
+			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	}
+}
 
 /*
 ** {X, Y, Z} -->  X is the first parameter, Y second, Z third parameter
@@ -52,15 +67,5 @@ void	init_asm(t_assembler *as, unsigned int flag)
 	as->commands[14] = (t_commands){"lfork", {2, 0, 0}, 1};
 	as->commands[15] = (t_commands){"aff", {1, 0, 0}, 1};
 	as->bonus = flag;
-	if (as->bonus & BONUS_FOLDER)
-	{
-		mkdir("my_champs", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-		if (!(as->folder = ft_strdup("./my_champs/")))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	}
-	else
-	{
-		if (!(as->folder = ft_strdup("./")))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	}
+	bonus_folder(as);
 }
