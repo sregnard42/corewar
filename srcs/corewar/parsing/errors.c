@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:36:24 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 15:52:44 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:06:04 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ void	error_usage(t_vm *vm)
 	ft_printf("\t%-6s: %s", "- 2", VERBOSE_2);
 	ft_printf("\t%-6s: %s", "- 4", VERBOSE_4);
 	ft_printf("\t%-6s: %s", "- 8", VERBOSE_8);
-	ft_printf("\t%-6s: %s", "- 16", VERBOSE_16);
 	ft_error(vm, &vm_free, NULL);
 }

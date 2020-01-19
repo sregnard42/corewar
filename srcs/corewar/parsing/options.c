@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 23:08:25 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 15:55:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:08:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	verbose(t_vm *vm)
 {
 	!vm->ac-- ? error_usage(vm) : ++vm->av;
 	ft_isinteger(*vm->av) ? vm->verbose = ft_atoi(*vm->av) : error_usage(vm);
-	vm->verbose < 0 || vm->verbose > 31 ? error_usage(vm) : 0;
+	vm->verbose < 0 || vm->verbose > 15 ? error_usage(vm) : 0;
 	vm->flags |= VM_VERBOSE;
 }
 

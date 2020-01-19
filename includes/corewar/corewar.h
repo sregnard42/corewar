@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 16:09:39 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:05:46 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define VERBOSE_2 "Show cycles\n"
 # define VERBOSE_4 "Show operations (Params are NOT litteral ...)\n"
 # define VERBOSE_8 "Show deaths\n"
-# define VERBOSE_16 "Show PC movements (Except for jumps)\n"
 
 # define FILE_MIN_SIZE 2192
 # define DUMP_COLS 32
