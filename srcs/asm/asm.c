@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 11:51:53 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:27:23 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ int			main(int argc, char **argv)
 		close(as.s_fd);
 		create_cor(&as);
 		print_advices(&as);
+		free_asm(&as);
 		i++;
 	}
 	if (flag_on != 0 && i == 2)
 		print_usage();
-	free_asm(&as);
+
 	return (0);
 }
