@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:59:32 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:31:36 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,11 +184,8 @@ void	save_label(t_assembler *as)
 	t_instruc	*new;
 	int			i;
 
-	//dans le cas ou on a une ligne avec un mot
 	if (!(ft_strchr(as->line, LABEL_CHAR)))
 		manage_error(as, &free_asm, as->epure_line, JUNK);
-	//dans le cas ou on a une ligne avec un mot qui est un label
-	// ft_printf("ya un label tout seul: %s\n", as->line);
 	i = 0;
 	while (as->line[i])
 	{
@@ -196,8 +193,6 @@ void	save_label(t_assembler *as)
 			as->line[i] = '\0';
 		i++;
 	}
-	//le : en fin est écrasé
-	// creation du maillon contenant cette ligne (juste un label)
 	if (as->newline != 1)
 	{
 		tmp = as->instruc;
@@ -219,16 +214,9 @@ void	save_label(t_assembler *as)
 			tmp = tmp->next;
 		new = tmp;
 	}
-	//il faut creer la liste chainée same_label et copier as->line dans son dernier maillon
 	save_same_label(as, new, as->line);
-	// if (!(new->label = ft_strdup(as->line)))
-	// 	manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	//copier le label dans la liste chainée des labels
 	save_label_to_check(as, as->line);
-	//dire qu'on a eu un passage a la ligne
 	as->newline = 1;
-	// print_instruc(as);
-	// print_labels(as);
 	return ;
 }
 
@@ -245,12 +233,12 @@ void	analyse_instruction(t_assembler *as)
 
 	as->nb_sep = 0;
 	epure_line(as);
-	// ft_printf("as->newline = %d\nline = %s\n", as->newline, as->line);
 	tmp = as->line;
-	as->line = ft_strclean(as->line); // On doit free le as->line vu que j'ecrase le malloc
+	// On doit free le as->line vu que j'ecrase le malloc
+	as->line = ft_strclean(as->line);
 	ft_memdel((void **)&tmp);
-	// ft_printf("my_line = %s\n", as->line);
-	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR || as->line[0] == ';')
+	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR \
+		|| as->line[0] == ';')
 		return ;
 	if (!as->header->name)
 		manage_error(as, &free_asm, as->epure_line, EMPTY_NAME);
@@ -261,7 +249,7 @@ void	analyse_instruction(t_assembler *as)
 		if (!(tab = ft_strsplit(as->line, ' ')))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	}
-	else // Si on as label: saut a la ligne
+	else
 	{
 		save_label(as);
 		return ;

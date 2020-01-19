@@ -3,22 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:59:46 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:21:34 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+static void	save_name_comment(t_assembler *as, int choice, char *str,
+			char **dst)
+{
+	if (choice == SAVE_NAME)
+	{
+		if (ft_strlen(str) > PROG_NAME_LENGTH)
+			manage_error(as, &free_asm, as->epure_line, NAME_TOO_LONG);
+	}
+	if (choice == SAVE_COMMENT)
+	{
+		if (ft_strlen(str) > COMMENT_LENGTH)
+			manage_error(as, &free_asm, as->epure_line, COMM_TOO_LONG);
+	}
+	*dst = str;
+}
+
 /*
-** parse_header() parse only the name or comment (without ""), checks if they
+** check_quotes() parse only the name or comment (without ""), checks if they
 ** are too long or checks if invalid input after the name or comment
 ** (ex: .name "yes"no), etc...
 */
 
-void	parse_header(t_assembler *as, char **dst, int choice)
+void	check_quotes(t_assembler *as, char **dst, int choice)
 {
 	char	*str;
 	int		error;
@@ -45,17 +61,23 @@ void	parse_header(t_assembler *as, char **dst, int choice)
 		if (!(str = ft_strdup("")))
 			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
 	}
-	if (choice == SAVE_NAME)
+	save_name_comment(as, choice, str, dst);
+}
+
+static void	replace_by_spaces(t_assembler *as, char *str, int i)
+{
+	while (str[i])
 	{
-		if (ft_strlen(str) > PROG_NAME_LENGTH)
-			manage_error(as, &free_asm, as->epure_line, NAME_TOO_LONG);
+		if (str[i] == COMMENT_CHAR || str[i] == ';')
+			str[i] = '\0';
+		if (str[i] == '\t')
+			str[i] = ' ';
+		if (str[i] == '"')
+			return ;
+		if (str[i] != ' ')
+			manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
+		++i;
 	}
-	if (choice == SAVE_COMMENT)
-	{
-		if (ft_strlen(str) > COMMENT_LENGTH)
-			manage_error(as, &free_asm, as->epure_line, COMM_TOO_LONG);
-	}
-	*dst = str;
 }
 
 /*
@@ -86,18 +108,7 @@ void	between_name_quote(t_assembler *as)
 		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
 	}
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
-	while (str[i])
-	{
-		if (str[i] == COMMENT_CHAR || str[i] == ';')
-			str[i] = '\0';
-		if (str[i] == '\t')
-			str[i] = ' ';
-		if (str[i] == '"')
-			return ;
-		if (str[i] != ' ')
-			manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
-		++i;
-	}
+	replace_by_spaces(as, str, i);
 }
 
 void	change_sharp(t_assembler *as)
@@ -178,13 +189,13 @@ int		check_header(t_assembler *as)
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-		parse_header(as, &as->header->name, SAVE_NAME);
+		check_quotes(as, &as->header->name, SAVE_NAME);
 		return (SUCCESS);
 	}
 	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
-		parse_header(as, &as->header->comment, SAVE_COMMENT);
+		check_quotes(as, &as->header->comment, SAVE_COMMENT);
 		return (SUCCESS);
 	}
 	ft_memdel((void**)&part);

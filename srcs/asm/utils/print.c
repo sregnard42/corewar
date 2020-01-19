@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 16:05:51 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:02:17 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ void	print_help(void)
 {
 	ft_putstr("\e[32m");
 	ft_putstr("Usage:\n\t\e[0m ./asm \e[36m[-hfec]\e[0m mychampion1.s\n");
-	ft_putstr("\e[32mBonus:\e[0m\n");
+	ft_putstr("\e[32mBonuses:\e[0m\n");
 	ft_putstr("	\e[36m*\e[0m can create several .cor from different .s files ");
-	ft_putstr("at once:\n\t\t./asm [-hfec] mychampion1.s mychampion2.s\n");
+	ft_putstr("at once:\n\t\t\e[36m./asm [-hfec] champion1.s champion2.s\n");
+	ft_putstr("	*\e[0m use \e[36m./asm_checker.sh champion1.s ");
+	ft_putstr("champion2.s\e[0m A script to see differences with ");
+	ft_putstr("the asm given in ressources.\n");
+	ft_putstr("\e[32mBonuses flags:\e[0m\n");
 	ft_putstr("\e[36m-f	folder\e[0m: create a folder");
 	ft_putstr(" my_champs if it doesn't already exist or add all new .cor ");
 	ft_putstr("to this folder if it already exists.\n");
