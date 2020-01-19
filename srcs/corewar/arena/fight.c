@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 14:16:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:38:21 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,7 @@ void		fight(t_vm *vm)
 		check_procs(vm);
 		cycle_to_die(vm);
 	}
-	if (vm->flags & VM_DUMP && vm->cycle >= vm->dump)
-	{
-		vm->flags & VM_VISU ? erase() : 0;
-		arena_print(vm, DUMP_COLS);
-	}
-	else
+	if (!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
 		vm->print("Contestant %d, \"%s\", has won !\n",
 				vm->winner->id, vm->winner->name);
 	vm->flags & VM_VISU ? wait_input() : 0;

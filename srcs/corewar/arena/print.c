@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:47:50 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 14:49:21 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:33:32 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
 
 	i = cur * len;
 	f = (vm->flags & VM_VISU) ? &print_visu : &print_dump;
+	(vm->flags & VM_VISU) ? 0 : vm->print("%07x ", cur * DUMP_COLS);
 	while (i - (cur * len) < len)
 		f(vm, cur, len, i++);
 }
