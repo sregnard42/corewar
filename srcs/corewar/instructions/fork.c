@@ -31,7 +31,7 @@ static void			vm_fork(t_vm *vm, t_process *proc_cur, int pc)
 	proc_set_pc(vm, proc, pc);
 	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
 	vm->print("forked a new process at PC %d\n", proc->pc);
-	vm->print == &printw ? wait_input() : 0;
+	vm->print == &printw ? ++vm->nbr_inst : 0;
 }
 
 static short int	get_target(t_vm *vm)

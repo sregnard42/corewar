@@ -25,7 +25,7 @@ static t_champ	*get_target(t_vm *vm)
 	vm->print("P %4d | ", vm->procs.cur->pid);
 	vm->print("live %d\n", arg->val);
 	(vm->print == &printw) && (vm_print(vm, V_LIVES) != &printw) ?
-		wait_input() : 0;
+		++vm->nbr_inst : 0;
 	if (id < 1 || id > vm->champs.size)
 		return (NULL);
 	return (vm->champs.by_id[id]);
@@ -54,5 +54,5 @@ void			op_live(void *vm_ptr)
 		("A process shows that player %u (%s) is alive\n",
 		champ->id, champ->name);
 	(vm->print == &printw) || (vm_print(vm, V_LIVES) == &printw) ?
-		wait_input() : 0;
+		++vm->nbr_inst : 0;
 }

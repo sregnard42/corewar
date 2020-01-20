@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 17:05:46 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/20 12:44:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct			s_vm
 	int					cycle_check;
 	int					nbr_live;
 	int					checks;
+	int					nbr_inst;
 }						t_vm;
 
 typedef int(*t_print)(const char *format, ...);

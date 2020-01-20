@@ -40,12 +40,12 @@ void		op_zjmp(void *vm_ptr)
 	if (!proc->carry)
 	{
 		vm->print("FAILED\n");
-		vm->print == &printw ? wait_input() : 0;
+		vm->print == &printw ? ++vm->nbr_inst : 0;
 		return ;
 	}
 	proc_set_pc(vm, proc, vm->pc + target);
 	vm->print("| Player %d \"%s\", ", proc->champ->id, proc->champ->name);
 	vm->print("process %d ", proc->pid);
 	vm->print("jumped to the address %u\n", proc->pc);
-	vm->print == &printw ? wait_input() : 0;
+	vm->print == &printw ? ++vm->nbr_inst : 0;
 }

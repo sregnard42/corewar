@@ -39,5 +39,5 @@ void	op_aff(void *vm_ptr)
 	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
 	vm->print("displayed character %c\n", c);
 	vm_print(vm, 0)("%c\n", c);
-	vm->print == &printw ? wait_input() : 0;
+	vm->print == &printw ? ++vm->nbr_inst : 0;
 }

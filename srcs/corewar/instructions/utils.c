@@ -86,7 +86,7 @@ void		load(t_vm *vm, int reg, int val)
 	regcpy(&proc->reg[reg], &val, REG_SIZE);
 	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
 	vm->print("loaded value %d in r%d\n", val, reg);
-	vm->print == &printw ? wait_input() : 0;
+	vm->print == &printw ? ++vm->nbr_inst : 0;
 }
 
 /*
@@ -103,5 +103,5 @@ void		store(t_vm *vm, int reg, int addr)
 	arena_store(vm, addr, &proc->reg[reg], REG_SIZE);
 	vm->print("Player %d \"%s\" ", proc->champ->id, proc->champ->name);
 	vm->print("stored value of r%d at address %d\n", reg, addr);
-	vm->print == &printw ? wait_input() : 0;
+	vm->print == &printw ? ++vm->nbr_inst : 0;
 }

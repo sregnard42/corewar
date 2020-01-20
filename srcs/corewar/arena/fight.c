@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 17:38:21 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/20 13:01:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,35 @@ static void	fight_intro(t_vm *vm)
 	vm->flags & VM_VISU ? wait_input() : 0;
 }
 
+void		display(t_vm *vm)
+{
+
+	if (vm->flags & VM_VISU)
+	{
+		if (vm->nbr_inst > 0)
+		{
+			wait_input();
+			vm->nbr_inst = 0;
+		}
+		erase();
+	}
+	vm_print(vm, V_CYCLES)("It is now cycle %d\n", vm->cycle);
+	if (vm->flags & VM_VISU)
+		arena_print(vm, VISU_COLS);
+}
+
 void		fight(t_vm *vm)
 {
 	fight_intro(vm);
 	vm->cycle = 0;
+	display(vm);
 	while (vm->champs.size > 1 &&
 			vm->cycle_to_die > 0 &&
 			!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
 	{
 		++vm->cycle;
-		vm->flags & VM_VISU ? erase() : 0;
-		vm_print(vm, V_CYCLES)("It is now cycle %d\n", vm->cycle);
-		if (vm->flags & VM_VISU && vm->cycle % 1 == 0)
-			arena_print(vm, VISU_COLS);
 		check_procs(vm);
+		display(vm);
 		cycle_to_die(vm);
 	}
 	if (!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
