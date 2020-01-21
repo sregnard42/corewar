@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 17:40:04 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:19:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,7 @@ void	epure_line(t_assembler *as)
 			as->line[0] = '\0';
 			return ;
 		}
-		if (as->line[i] == SEPARATOR_CHAR)
-			as->nb_sep++;
+		as->line[i] == SEPARATOR_CHAR ? as->nb_sep++ : 0;
 		if (as->line[i] == '\t' || as->line[i] == SEPARATOR_CHAR)
 			as->line[i] = ' ';
 	}
