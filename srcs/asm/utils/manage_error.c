@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:56:16 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:31:09 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void		manage_error(void *p, void (*f)(void *), char *msg)
 	t_assembler	*tmp;
 	char		*line;
 
-	(void)f;
 	tmp = (t_assembler *)p;
 	line = tmp->epure_line;
 	line ? epure_line2(line) : 0;
@@ -57,5 +56,7 @@ void		manage_error(void *p, void (*f)(void *), char *msg)
 	msg ? write(2, "ERROR: ", 7) : 0;
 	msg && tmp->bonus & BONUS_COLOR ? write(2, "\e[0m", 4) : 0;
 	msg ? write(2, msg, ft_strlen(msg)) : 0;
+	if (f && p)
+		f(p);
 	exit(EXIT_FAILURE);
 }

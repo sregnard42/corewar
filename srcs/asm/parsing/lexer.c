@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:01:55 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:32:30 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	check_label_chars(t_assembler *as, char *str)
 	{
 		j++;
 		if (j == len_j)
-		{
 			manage_error(as, &free_asm, INVALID_LABEL);
-		}
 		if (str[i] == LABEL_CHARS[j])
 		{
 			i++;
@@ -60,8 +58,7 @@ int		is_label(t_assembler *as, char *part)
 	if ((ret = ft_strchr(part, LABEL_CHAR)) == NULL \
 		|| ft_strchr(part, DIRECT_CHAR) != NULL)
 		return (FAIL);
-	if (ft_strlen(ret) > 1)
-		manage_error(as, &free_asm, SPACE_LABEL);
+	ft_strlen(ret) > 1 ? manage_error(as, &free_asm, SPACE_LABEL) : 0;
 	if (!(str = ft_strsub(part, 0, ret - part)))
 		manage_error(as, &free_asm, ERROR_MALLOC);
 	if (ft_strlen(ret) == 1 && ret[0] == LABEL_CHAR)
@@ -69,8 +66,7 @@ int		is_label(t_assembler *as, char *part)
 		check_label_chars(as, str);
 		if (!(label = ft_strsub(str, 0, ft_strchr(part, LABEL_CHAR) - part)))
 			manage_error(as, &free_asm, ERROR_MALLOC);
-		if (ft_strlen(label) == 0)
-			manage_error(as, &free_asm, EMPTY_LABEL);
+		ft_strlen(label) == 0 ? manage_error(as, &free_asm, EMPTY_LABEL) : 0;
 		save_label_to_check(as, label);
 		ft_memdel((void**)&label);
 		ft_memdel((void**)&str);
@@ -177,21 +173,11 @@ void	epure_line(t_assembler *as)
 	return ;
 }
 
-void	save_label(t_assembler *as)
+void	add_label(t_assembler *as)
 {
 	t_instruc	*tmp;
 	t_instruc	*new;
-	int			i;
 
-	if (!(ft_strchr(as->line, LABEL_CHAR)))
-		manage_error(as, &free_asm, JUNK);
-	i = 0;
-	while (as->line[i])
-	{
-		if (as->line[i] == LABEL_CHAR)
-			as->line[i] = '\0';
-		i++;
-	}
 	if (as->newline != 1)
 	{
 		tmp = as->instruc;
@@ -214,6 +200,18 @@ void	save_label(t_assembler *as)
 		new = tmp;
 	}
 	save_same_label(as, new, as->line);
+}
+
+void	save_label(t_assembler *as)
+{
+	int			i;
+
+	!ft_strchr(as->line, LABEL_CHAR) ? manage_error(as, &free_asm, JUNK) : 0;
+	i = -1;
+	while (as->line[++i])
+		if (as->line[i] == LABEL_CHAR)
+			as->line[i] = '\0';
+	add_label(as);
 	save_label_to_check(as, as->line);
 	as->newline = 1;
 	return ;
@@ -233,26 +231,19 @@ void	analyse_instruction(t_assembler *as)
 	as->nb_sep = 0;
 	epure_line(as);
 	tmp = as->line;
-	// On doit free le as->line vu que j'ecrase le malloc
 	as->line = ft_strclean(as->line);
 	ft_memdel((void **)&tmp);
-	if (as->line[0] == '\0' || as->line[0] == COMMENT_CHAR \
-		|| as->line[0] == ';')
+	if (*as->line == '\0' || *as->line == COMMENT_CHAR || *as->line == ';')
 		return ;
-	if (!as->header->name)
-		manage_error(as, &free_asm, EMPTY_NAME);
-	if (!as->header->comment)
-		manage_error(as, &free_asm, EMPTY_COMMENT);
+	!as->header->name ? manage_error(as, &free_asm, EMPTY_NAME) : 0;
+	!as->header->comment ? manage_error(as, &free_asm, EMPTY_COMMENT) : 0;
 	if (ft_strchr(as->line, ' '))
 	{
 		if (!(tab = ft_strsplit(as->line, ' ')))
 			manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 	else
-	{
-		save_label(as);
-		return ;
-	}
+		return (save_label(as));
 	if (!(param_type = ft_memalloc(sizeof(char) * 3)))
 		manage_error(as, &free_asm, ERROR_MALLOC);
 	check_instruc(as, tab, param_type);
