@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:28 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:59:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:49:29 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** instruction in our node with a list of all labels pointing to it.
 */
 
-void		save_same_label(t_assembler *as, t_instruc *new, char *name)
+void			save_same_label(t_assembler *as, t_instruc *new, char *name)
 {
 	t_same_label	*label;
 	t_same_label	*tmp;
@@ -43,7 +43,7 @@ void		save_same_label(t_assembler *as, t_instruc *new, char *name)
 	}
 }
 
-void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
+static void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
 {
 	int		j;
 
@@ -68,7 +68,7 @@ void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
 ** instruction. Then save in the node the command and its parameters.
 */
 
-void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
+static void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 {
 	char	**tab;
 	int		i;
@@ -98,7 +98,7 @@ void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 ** opcode et ocp. Calculates the total nb of bytes of the instruction
 */
 
-void		init_new(t_assembler *as, t_instruc *new, char *param_type,
+static void		init_new(t_assembler *as, t_instruc *new, char *param_type,
 			int id_command)
 {
 	int		ret;
@@ -116,7 +116,7 @@ void		init_new(t_assembler *as, t_instruc *new, char *param_type,
 ** add_instruct() add one line of instruction to our list of instruction
 */
 
-void		add_instruct(t_assembler *as, char *param_type,
+void			add_instruct(t_assembler *as, char *param_type,
 		int id_command)
 {
 	t_instruc	*tmp;

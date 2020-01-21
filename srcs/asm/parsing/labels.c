@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   labels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:59:30 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:48:57 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** defined or FAIL it doesn't exist
 */
 
-int		check_if_exists(t_assembler *as, char *param, int mode)
+static int	check_if_exists(t_assembler *as, char *param, int mode)
 {
 	t_label	*tmp;
 
@@ -39,7 +39,7 @@ int		check_if_exists(t_assembler *as, char *param, int mode)
 ** we are trying to create an already existing label
 */
 
-void	save_label_to_check(t_assembler *as, char *label)
+void		save_label_to_check(t_assembler *as, char *label)
 {
 	t_label	*tmp;
 	t_label	*new;
@@ -66,7 +66,7 @@ void	save_label_to_check(t_assembler *as, char *label)
 ** the label associated truly exists
 */
 
-void	save_label_param(t_assembler *as, char *param)
+void		save_label_param(t_assembler *as, char *param)
 {
 	t_label	*tmp;
 	t_label	*new;
@@ -93,7 +93,7 @@ void	save_label_param(t_assembler *as, char *param)
 ** a label, to check if the label parameter refers to an existing label
 */
 
-void	check_existing_labels(t_assembler *as)
+void		check_existing_labels(t_assembler *as)
 {
 	t_label	*tmp_label;
 	t_label	*tmp_params;

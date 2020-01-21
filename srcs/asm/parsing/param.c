@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/21 18:37:07 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:49:41 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** is_register() the parameter is a register type
 */
 
-char	is_register(t_assembler *as, char *param)
+static char	is_register(t_assembler *as, char *param)
 {
 	int		nb;
 
@@ -32,7 +32,7 @@ char	is_register(t_assembler *as, char *param)
 ** is_direct() the parameter is a direct type
 */
 
-char	is_direct(t_assembler *as, char *param)
+static char	is_direct(t_assembler *as, char *param)
 {
 	char	*cpy;
 
@@ -53,7 +53,7 @@ char	is_direct(t_assembler *as, char *param)
 ** which_param() checks the type of the params
 */
 
-char	which_params(t_assembler *as, char *param)
+static char	which_params(t_assembler *as, char *param)
 {
 	char *cpy;
 
@@ -90,7 +90,7 @@ char	which_params(t_assembler *as, char *param)
 ** 7 = 1 or 2 or 4 (all parameters accepted)
 */
 
-char	check_param(t_assembler *as, int id_command, char id_param,
+static char	check_param(t_assembler *as, int id_command, char id_param,
 		int nb_param)
 {
 	int	type;
@@ -114,7 +114,7 @@ char	check_param(t_assembler *as, int id_command, char id_param,
 ** parameters.
 */
 
-int		is_param(t_assembler *as, char *part, int nb_param,
+int			is_param(t_assembler *as, char *part, int nb_param,
 				char *param_type)
 {
 	char	id_param;
