@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:28:41 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 16:13:55 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:29:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct			s_process
 	int					pid;
 	int					pc;
 	int					cycle;
+	int					last_alive;
 	t_reg				reg[REG_NUMBER + 1];
 	bool				live;
 	bool				carry;

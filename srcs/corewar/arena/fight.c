@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/20 13:01:47 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:04:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	check_procs(t_vm *vm)
 			{
 				vm_print(vm, V_DEATHS)
 					("Process %d hasn't lived for %d cycles (CTD %d)\n",
-					proc->pid, vm->cycle_to_die, vm->cycle_to_die);
+					proc->pid, vm->cycle - proc->last_alive, vm->cycle_to_die);
 				vm->print == &printw ? wait_input() : 0;
 				vm->procs.cur = proc->prev;
 				procs_del(vm, &vm->procs, &proc);
@@ -94,7 +94,7 @@ void		fight(t_vm *vm)
 	fight_intro(vm);
 	vm->cycle = 0;
 	display(vm);
-	while (vm->champs.size > 1 &&
+	while (vm->procs.size > 0 &&
 			vm->cycle_to_die > 0 &&
 			!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
 	{
