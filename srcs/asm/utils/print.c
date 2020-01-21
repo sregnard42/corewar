@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 17:02:17 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:14:39 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_help(void)
 	ft_putstr("\e[36m-e	error\e[0m: tell which line has an input error.\n");
 	ft_putstr("\e[36m-c	color\e[0m: add some ");
 	ft_putstr("\e[33mc\e[36mo\e[35ml\e[32mo\e[31m\e[33mr\e[0m.\n");
-	exit(0); //faut pas exit proprement?
+	exit(0);
 }
 
 void	print_advices(t_assembler *as)

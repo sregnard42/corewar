@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 16:05:08 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:14:33 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void		manage_error(void *p, void (*f)(void *), char *line, char *msg)
 	if (tmp->bonus & BONUS_MANAGE_ERROR && line)
 	{
 		msg && tmp->bonus & BONUS_COLOR ? write(2, "\e[35m", 5) : 0;
-		// faut print tmp->nb_line en erreur output 2
 		ft_printf("line %d:\e[0m ", tmp->nb_line);
 		msg && tmp->bonus & BONUS_COLOR ? write(2, "\e[36m", 5) : 0;
 		write(2, line, ft_strlen(line));

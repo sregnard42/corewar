@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 15:36:01 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 16:08:42 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:12:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void			write_big_endian(t_assembler *as, int nb, int size)
 	{
 		write(as->cor_fd, &octets[2], 1);
 		write(as->cor_fd, &octets[3], 1);
-		// A vir si on change le IND_SIZE si on fais la bonne chose
 	}
 	if (size == DIR_SIZE)
 		write(as->cor_fd, octets, size);
@@ -57,11 +56,9 @@ static void		write_neg_number2(t_assembler *as, int size,
 		{
 			octets[2] += 1;
 			write(as->cor_fd, &octets[2], 1);
-			// A vir si on change le IND_SIZE si on fais la bonne chose
 		}
 		else
 			write(as->cor_fd, &octets[2], 1);
-			// A vir si on change le IND_SIZE si on fais la bonne chose
 		write(as->cor_fd, &octets[3], 1);
 	}
 	if (size == DIR_SIZE)

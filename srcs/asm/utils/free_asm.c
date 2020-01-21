@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/19 16:16:05 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:15:10 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	free_header(t_header *header)
 	ft_memdel((void **)&header);
 }
 
-void	free_same_label(t_same_label *label)
+void		free_same_label(t_same_label *label)
 {
 	t_same_label	*tmp;
 	t_same_label	*current;
@@ -38,7 +38,7 @@ void	free_same_label(t_same_label *label)
 	}
 }
 
-void	free_label(t_label *label)
+void		free_label(t_label *label)
 {
 	t_label	*tmp;
 
