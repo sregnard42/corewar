@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:17:53 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:38:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct			s_assembler
 	char				*line;
 	int					newline;
 	int					nb_line;
+	int					id_command;
 	char				*epure_line;
 	char				*file_name_s;
 	char				*file_name_cor;
@@ -162,7 +163,7 @@ void					write_label(t_assembler *as, t_instruc *now,
 							char *param);
 void					add_instruct(t_assembler *as, char *ocp,
 							int id_command);
-int						is_param(t_assembler *as, int id_command, char *part,
+int						is_param(t_assembler *as, char *part,
 							int nb_param, char *ocp);
 void					save_label_to_check(t_assembler *as, char *param);
 void					save_label_param(t_assembler *as, char *param);

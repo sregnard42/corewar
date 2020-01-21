@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:32:30 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:37:42 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,21 +100,20 @@ int		which_command(t_assembler *as, char *part)
 
 void	is_command(t_assembler *as, char **tmp, char *param_type)
 {
-	int		id_command;
 	int		nb_param;
 
-	id_command = 0;
+	as->id_command = 0;
 	nb_param = 0;
-	if ((id_command = which_command(as, *tmp)) < 16)
+	if ((as->id_command = which_command(as, *tmp)) < 16)
 	{
 		while (*(++tmp))
 		{
-			if (is_param(as, id_command, *tmp, nb_param++, param_type) == FAIL)
+			if (is_param(as, *tmp, nb_param++, param_type) == FAIL)
 				nb_param--;
 		}
-		if (nb_param != as->commands[id_command].nb_params)
+		if (nb_param != as->commands[as->id_command].nb_params)
 			manage_error(as, &free_asm, WRONG_NB_PARAM);
-		add_instruct(as, param_type, id_command);
+		add_instruct(as, param_type, as->id_command);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:08:23 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/21 18:00:21 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:37:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,21 +114,21 @@ char	check_param(t_assembler *as, int id_command, char id_param,
 ** parameters.
 */
 
-int		is_param(t_assembler *as, int id_command, char *part, int nb_param,
+int		is_param(t_assembler *as, char *part, int nb_param,
 				char *param_type)
 {
 	char	id_param;
 
 	if (which_command(as, part) < 16)
 		manage_error(as, &free_asm, TOO_MANY_CMD);
-	if (as->nb_sep != as->commands[id_command].nb_params - 1)
+	if (as->nb_sep != as->commands[as->id_command].nb_params - 1)
 		manage_error(as, &free_asm, SEPARATOR_ERROR);
-	if (nb_param + 1 > as->commands[id_command].nb_params)
+	if (nb_param + 1 > as->commands[as->id_command].nb_params)
 		manage_error(as, &free_asm, TOO_MANY_PARAM);
 	if ((id_param = which_params(as, part)) == FAIL)
 		manage_error(as, &free_asm, INVALID_PARAM);
 	param_type[nb_param] = id_param;
-	if (check_param(as, id_command, id_param, nb_param) == FAIL)
+	if (check_param(as, as->id_command, id_param, nb_param) == FAIL)
 		manage_error(as, &free_asm, WRONG_COMMAND_PARAM);
 	return (SUCCESS);
 }
