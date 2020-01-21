@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:19:04 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:45:55 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void		check_quotes(t_assembler *as, char **dst, int choice, int error)
 ** epure name or comment line
 */
 
-void			between_name_quote(t_assembler *as)
+static void		between_name_quote(t_assembler *as)
 {
 	char	*str;
 	int		i;

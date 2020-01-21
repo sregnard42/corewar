@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/21 18:00:06 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:46:11 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	bonus_folder(t_assembler *as)
+static void	bonus_folder(t_assembler *as)
 {
 	if (as->bonus & BONUS_FOLDER)
 	{
@@ -41,7 +41,7 @@ void	bonus_folder(t_assembler *as)
 ** last number is the number of parameters for this command
 */
 
-void	init_asm(t_assembler *as, unsigned int flag)
+void		init_asm(t_assembler *as, unsigned int flag)
 {
 	t_header	*header;
 

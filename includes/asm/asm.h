@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:41:25 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:55:12 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,7 @@ void					check_before_dot(t_assembler *as, char *str);
 void					replace_by_spaces(t_assembler *as, char *str, int i);
 void					change_sharp(t_assembler *as);
 char					*delete_space_after(t_assembler *as, char *str);
+int						is_label(t_assembler *as, char *part);
+void					save_label(t_assembler *as);
 
 #endif
