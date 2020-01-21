@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/21 18:04:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:17:59 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void		display(t_vm *vm)
 		}
 		erase();
 	}
-	vm_print(vm, V_CYCLES)("It is now cycle %d\n", vm->cycle);
+	if (vm->cycle > 0)
+		vm_print(vm, V_CYCLES)("It is now cycle %d\n", vm->cycle);
 	if (vm->flags & VM_VISU)
 		arena_print(vm, VISU_COLS);
 }
@@ -104,7 +105,11 @@ void		fight(t_vm *vm)
 		cycle_to_die(vm);
 	}
 	if (!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
+	{
 		vm->print("Contestant %d, \"%s\", has won !\n",
 				vm->winner->id, vm->winner->name);
+	}
+	if (vm->flags & VM_DUMP && vm->cycle >= vm->dump && !(vm->flags & VM_VISU))
+		arena_print(vm, DUMP_COLS);
 	vm->flags & VM_VISU ? wait_input() : 0;
 }
