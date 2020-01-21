@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2020/01/21 18:42:59 by lgaultie         ###   ########.fr        #
+#    Updated: 2020/01/21 18:59:16 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -172,7 +172,7 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 ######	FLAGS
 
 CC						:=	gcc
-CFLAGS					:=	-Wall -Wextra -Werror -g3
+CFLAGS					:=	-Wall -Wextra -Werror
 FLAGS_ASM				:=
 FLAGS_WAR				:=	-lncurses
 
