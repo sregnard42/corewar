@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:21:09 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:14:39 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:52:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	print_usage(void)
+int		print_usage(void)
 {
 	ft_putstr("\e[32mUsage:\e[0m	./asm \e[35m[-hfec]\e[0m mychampion1.s\n");
 	ft_putstr("\e[35mHelp\e[0m on program and bonus: ./asm \e[35m-h\e[0m\n");
+	return (0);
 }
 
 void	print_help(void)

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:38:07 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:41:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void					write_instruc(t_assembler *as);
 void					get_ocp(t_instruc *instruc);
 void					manage_error(void *p, void (*f)(void *), char *msg);
 void					init_bonus(unsigned int *flag, char **av);
-void					print_usage();
+int						print_usage();
 void					print_help();
 void					print_advices(t_assembler *as);
 void					print_file_name(t_assembler *as);

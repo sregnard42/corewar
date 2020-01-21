@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:56:57 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:54:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@ static int	check_file_type(char *argv)
 	return (1);
 }
 
+static int	assembler(t_assembler *as, char **argv, int i, unsigned int flag)
+{
+	init_asm(as, flag);
+	if (open_file(as, argv[i]) == -1)
+		manage_error(as, &free_asm, CANT_READ);
+	if (!(as->file_name_s = ft_strdup(argv[i])))
+	{
+		free_asm(&as);
+		return (FAIL);
+	}
+	read_function(as);
+	close(as->s_fd);
+	create_cor(as);
+	print_advices(as);
+	free_asm(as);
+	return (SUCCESS);
+}
+
 int			main(int argc, char **argv)
 {
 	t_assembler		as;
@@ -37,15 +55,12 @@ int			main(int argc, char **argv)
 	int				i;
 	int				flag_on;
 
-	i = 1;
+	i = 0;
 	flag_on = 0;
 	if (argc == 1)
-	{
-		print_usage();
-		return (0);
-	}
+		return (print_usage());
 	init_bonus(&flag, argv);
-	while (i < argc)
+	while (++i < argc)
 	{
 		if (argv[i][0] == '-')
 		{
@@ -53,22 +68,9 @@ int			main(int argc, char **argv)
 			++i;
 			continue;
 		}
-		if (check_file_type(argv[i]) == 0)
+		if (check_file_type(argv[i]) == 0 \
+		|| (assembler(&as, argv, i, flag)) == FAIL)
 			return (0);
-		init_asm(&as, flag);
-		if (open_file(&as, argv[i]) == -1)
-			manage_error(&as, &free_asm, CANT_READ);
-		if (!(as.file_name_s = ft_strdup(argv[i])))
-		{
-			free_asm(&as);
-			return (0);
-		}
-		read_function(&as);
-		close(as.s_fd);
-		create_cor(&as);
-		print_advices(&as);
-		free_asm(&as);
-		i++;
 	}
 	if (flag_on != 0 && i == 2)
 		print_usage();
