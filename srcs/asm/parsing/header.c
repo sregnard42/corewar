@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 16:38:58 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:52:44 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,25 @@ char	*delete_space_after(t_assembler *as, char *str)
 	return (clean);
 }
 
+void	check_before_dot(t_assembler *as, char *str)
+{
+	int		i;
+	int		count;
+	count = 0;
+	i = 0;
+	if (str)
+	{
+		while (as->line && as->line[i] != '.')
+		{
+			if (as->line[i] != ' ' && as->line[i] != '\t')
+				count++;
+			i++;
+		}
+		if (count > 0)
+			manage_error(as, &free_asm, as->epure_line, BEFORE_DOT);
+	}
+}
+
 /*
 ** check_header() if there is no space in the header line, quit.
 ** if finds .name or .comment, parse string between quotes in our list.
@@ -179,6 +198,7 @@ int		check_header(t_assembler *as)
 	str = as->line;
 	if (str)
 		str = ft_strchr(str, '.');
+	check_before_dot(as, str);
 	if (str == NULL || (len = ft_strchr(str, '"')) == NULL)
 	{
 		// ft_memdel((void **)as->line);
