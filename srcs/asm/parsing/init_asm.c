@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/19 15:27:22 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:00:06 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	bonus_folder(t_assembler *as)
 	{
 		mkdir("my_champs", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 		if (!(as->folder = ft_strdup("./my_champs/")))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 	else
 	{
 		if (!(as->folder = ft_strdup("./")))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 }
 
@@ -47,7 +47,7 @@ void	init_asm(t_assembler *as, unsigned int flag)
 
 	ft_bzero(as, sizeof(t_assembler));
 	if ((header = ft_memalloc(sizeof(t_header))) == NULL)
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	header->magic = COREWAR_EXEC_MAGIC;
 	as->header = header;
 	as->commands[0] = (t_commands){"live", {2, 0, 0}, 1};

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:29:39 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:59:51 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:57:13 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	read_function(t_assembler *as)
 	while (get_next_line(as->s_fd, &as->line) == 1)
 	{
 		if (!(as->epure_line = ft_strdup(as->line)))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 		as->nb_line++;
 		if (check_header(as) == FAIL)
 			analyse_instruction(as);
@@ -31,7 +31,7 @@ void	read_function(t_assembler *as)
 		ft_memdel((void*)&as->epure_line);
 	}
 	if (as->nb_line == 0)
-		manage_error(as, &free_asm, as->epure_line, EMPTY_FILE);
+		manage_error(as, &free_asm, EMPTY_FILE);
 	check_existing_labels(as);
 	get_prog_size(as);
 }

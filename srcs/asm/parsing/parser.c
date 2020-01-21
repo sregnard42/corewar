@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:28 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/17 16:56:25 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:59:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ void		save_same_label(t_assembler *as, t_instruc *new, char *name)
 	if (!new->label)
 	{
 		if (!(new->label = ft_memalloc(sizeof(t_same_label))))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 		if (!(new->label->name = ft_strdup(name)))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 	else
 	{
 		if (!(label = ft_memalloc(sizeof(t_same_label))))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 		if (!(label->name = ft_strdup(name)))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 		tmp = new->label;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -55,7 +55,7 @@ void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
 			if (!(new->param[j++] = ft_strdup(tab[i++])))
 			{
 				ft_free_tab(&tab);
-				manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+				manage_error(as, &free_asm, ERROR_MALLOC);
 			}
 		}
 		else
@@ -76,7 +76,7 @@ void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 	i = 0;
 	new->opcode = id_command + 1;
 	if (!(tab = ft_strsplit(as->line, ' ')))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
 		tab[0][ft_strlen(tab[0]) - 1] = '\0';
@@ -86,7 +86,7 @@ void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 	if (!(new->command = ft_strdup(tab[i])))
 	{
 		ft_free_tab(&tab);
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 	i++;
 	save_params(as, tab, i, new);
@@ -126,7 +126,7 @@ void		add_instruct(t_assembler *as, char *param_type,
 	{
 		tmp = as->instruc;
 		if (!(new = ft_memalloc(sizeof(t_instruc))))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 		if (tmp != NULL)
 		{
 			while (tmp->next != NULL)

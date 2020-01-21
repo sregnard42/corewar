@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:12:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:56:57 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			main(int argc, char **argv)
 			return (0);
 		init_asm(&as, flag);
 		if (open_file(&as, argv[i]) == -1)
-			manage_error(&as, &free_asm, NULL, CANT_READ);
+			manage_error(&as, &free_asm, CANT_READ);
 		if (!(as.file_name_s = ft_strdup(argv[i])))
 		{
 			free_asm(&as);

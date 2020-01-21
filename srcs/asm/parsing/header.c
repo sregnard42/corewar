@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:05:27 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:58:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void	save_name_comment(t_assembler *as, int choice, char *str,
 	if (choice == SAVE_NAME)
 	{
 		if (ft_strlen(str) > PROG_NAME_LENGTH)
-			manage_error(as, &free_asm, as->epure_line, NAME_TOO_LONG);
+			manage_error(as, &free_asm, NAME_TOO_LONG);
 	}
 	if (choice == SAVE_COMMENT)
 	{
 		if (ft_strlen(str) > COMMENT_LENGTH)
-			manage_error(as, &free_asm, as->epure_line, COMM_TOO_LONG);
+			manage_error(as, &free_asm, COMM_TOO_LONG);
 	}
 	*dst = str;
 }
@@ -41,25 +41,25 @@ void	check_quotes(t_assembler *as, char **dst, int choice)
 
 	error = 0;
 	if (dst && *dst)
-		manage_error(as, &free_asm, as->epure_line, NAME_COMMENT_EXIST);
+		manage_error(as, &free_asm, NAME_COMMENT_EXIST);
 	if (!ft_strchr(as->line, '"'))
-		manage_error(as, &free_asm, as->epure_line, NO_QUOTES);
+		manage_error(as, &free_asm, NO_QUOTES);
 	str = ft_strchr(as->line, '"') + 1;
 	if (ft_strchr(str, '"') == NULL)
-		manage_error(as, &free_asm, as->epure_line, QUOTES_NOT_CLOSED);
+		manage_error(as, &free_asm, QUOTES_NOT_CLOSED);
 	if (!(ft_strchr(str, '"')))
 		error = 1;
 	if (error == 0 && (ft_strcmp("", ft_strchr(str, '"') + 1) != 0))
-		manage_error(as, &free_asm, as->epure_line, STUFF_AFTER);
+		manage_error(as, &free_asm, STUFF_AFTER);
 	if (error == 0)
 	{
 		if (!(str = ft_strsub(str, 0, ft_strchr(str, '"') - str)))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 	else
 	{
 		if (!(str = ft_strdup("")))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+			manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 	save_name_comment(as, choice, str, dst);
 }
@@ -75,7 +75,7 @@ static void	replace_by_spaces(t_assembler *as, char *str, int i)
 		if (str[i] == '"')
 			return ;
 		if (str[i] != ' ')
-			manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
+			manage_error(as, &free_asm, BAD_FORMAT);
 		++i;
 	}
 }
@@ -105,7 +105,7 @@ void	between_name_quote(t_assembler *as)
 	{
 		if (ft_strcmp(as->line, "") == 0)
 			return ;
-		manage_error(as, &free_asm, as->epure_line, BAD_FORMAT);
+		manage_error(as, &free_asm, BAD_FORMAT);
 	}
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 	replace_by_spaces(as, str, i);
@@ -147,7 +147,7 @@ char	*delete_space_after(t_assembler *as, char *str)
 	if (!str)
 		return (NULL);
 	if ((clean = ft_strdup(str)) == NULL)
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	ft_printf("clean = %s\n", clean);
 	i = ft_strlen(clean) - 1;
 	if (i < 0)
@@ -172,7 +172,7 @@ void	check_before_dot(t_assembler *as, char *str)
 			i++;
 		}
 		if (count > 0)
-			manage_error(as, &free_asm, as->epure_line, BEFORE_DOT);
+			manage_error(as, &free_asm, BEFORE_DOT);
 	}
 }
 
@@ -206,7 +206,7 @@ int		check_header(t_assembler *as)
 	}
 	ft_printf("len = %s\n", len);
 	if (!(tmp = ft_strsub(str, 0, len - str)))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	part = delete_space_after(as, tmp);
 	ft_memdel((void **)&tmp);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)

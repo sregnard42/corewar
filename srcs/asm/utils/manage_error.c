@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:28:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:14:33 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:56:16 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ static void	epure_line2(char *line)
 ** free and exit the program if bonus -q is off. (as -q lists all errors)
 */
 
-void		manage_error(void *p, void (*f)(void *), char *line, char *msg)
+void		manage_error(void *p, void (*f)(void *), char *msg)
 {
 	t_assembler	*tmp;
+	char		*line;
 
 	(void)f;
 	tmp = (t_assembler *)p;
+	line = tmp->epure_line;
 	line ? epure_line2(line) : 0;
 	if (tmp->bonus & BONUS_MANAGE_ERROR && line)
 	{

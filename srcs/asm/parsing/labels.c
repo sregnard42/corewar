@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   labels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:28:07 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:59:30 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	save_label_to_check(t_assembler *as, char *label)
 	t_label	*new;
 
 	if (check_if_exists(as, label, 1) == SUCCESS)
-		manage_error(as, &free_asm, as->epure_line, LABEL_ALRDY_EXIST);
+		manage_error(as, &free_asm, LABEL_ALRDY_EXIST);
 	tmp = as->labels;
 	if (!(new = ft_memalloc(sizeof(t_label))))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	if (tmp != NULL)
 	{
 		while (tmp->next != NULL)
@@ -58,7 +58,7 @@ void	save_label_to_check(t_assembler *as, char *label)
 	else
 		as->labels = new;
 	if (!(new->name = ft_strdup(label)))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 }
 
 /*
@@ -75,7 +75,7 @@ void	save_label_param(t_assembler *as, char *param)
 		return ;
 	tmp = as->param_labels;
 	if (!(new = ft_memalloc(sizeof(t_label))))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	if (tmp != NULL)
 	{
 		while (tmp->next != NULL)
@@ -85,7 +85,7 @@ void	save_label_param(t_assembler *as, char *param)
 	else
 		as->param_labels = new;
 	if (!(new->name = ft_strdup(param)))
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 }
 
 /*
@@ -110,7 +110,7 @@ void	check_existing_labels(t_assembler *as)
 				break ;
 			}
 			if (tmp_label->next == NULL)
-				manage_error(as, &free_asm, tmp_params->name, NO_EXIST_LABEL);
+				manage_error(as, &free_asm, NO_EXIST_LABEL);
 			tmp_label = tmp_label->next;
 		}
 		tmp_params = tmp_params->next;
