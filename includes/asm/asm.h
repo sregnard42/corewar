@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:43:17 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:53:16 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 ** COMMENT/NAME
 */
 
+# define BEFORE_DOT "There is junk before .name or .comment\n"
 # define BAD_FORMAT ".name and .comment must be followed by string in quote \n"
 # define EMPTY_NAME "Missing name well formated: .name \"champion's name\" \n"
 # define EMPTY_COMMENT "Missing .comment well formated: .comment \"comment\"\n"
