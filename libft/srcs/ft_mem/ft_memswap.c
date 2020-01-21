@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 13:27:54 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/10 13:30:39 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:57:11 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_memswap(void *a, void *b, size_t n)
 	unsigned char	*ca;
 	unsigned char	*cb;
 	unsigned char	swap;
-	
+
 	ca = (unsigned char *)a;
 	cb = (unsigned char *)b;
 	while (n--)
