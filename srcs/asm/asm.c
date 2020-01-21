@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 16:27:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:12:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	check_file_type(char *argv)
 	if (!(s = ft_strrchr(argv, '.')) || ft_strcmp(s, ".s") != 0)
 	{
 		ft_putstr(NOT_S_FILE);
-		return (0); // truc a faire $ manage error et leaks
+		return (0);
 	}
 	return (1);
 }
@@ -38,7 +38,7 @@ int			main(int argc, char **argv)
 	int				flag_on;
 
 	i = 1;
-	flag_on = 0;	// utile de faire un new int au lieu dutiliser flag dans le cas ou on fait ./asm -
+	flag_on = 0;
 	if (argc == 1)
 	{
 		print_usage();
@@ -60,8 +60,8 @@ int			main(int argc, char **argv)
 			manage_error(&as, &free_asm, NULL, CANT_READ);
 		if (!(as.file_name_s = ft_strdup(argv[i])))
 		{
-			// faire les free necessaires
-			return(0);
+			free_asm(&as);
+			return (0);
 		}
 		read_function(&as);
 		close(as.s_fd);
@@ -72,6 +72,5 @@ int			main(int argc, char **argv)
 	}
 	if (flag_on != 0 && i == 2)
 		print_usage();
-
 	return (0);
 }
