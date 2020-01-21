@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_instruc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 15:56:38 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 16:08:20 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:22:24 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,18 @@ static void		write_direct(t_assembler *as, char *param, t_instruc *now)
 	param++;
 	if (*param != LABEL_CHAR)
 	{
-		ret = ft_atoi(param);
-		write_big_endian(as, ret, now->direct_size);
+		if (ft_islong(param))
+		{
+			ret = ft_atoi(param);
+			write_big_endian(as, ret, now->direct_size);
+		}
+		else
+		{
+			if (*param == '-')
+				write_big_endian(as, 0x0, now->direct_size);
+			else
+				write_big_endian(as, 0xffffffff, now->direct_size);
+		}
 	}
 	else
 		write_label(as, now, param);
@@ -41,7 +51,20 @@ static void		write_indirect(t_assembler *as, char *param, t_instruc *now)
 
 	ret = ft_atoi(param);
 	if (*param != LABEL_CHAR)
-		write_big_endian(as, ret, IND_SIZE);
+	{
+		if (ft_islong(param))
+		{
+			ret = ft_atoi(param);
+			write_big_endian(as, ret, IND_SIZE);
+		}
+		else
+		{
+			if (*param == '-')
+				write_big_endian(as, 0x0, IND_SIZE);
+			else
+				write_big_endian(as, 0xffffffff, IND_SIZE);
+		}
+	}
 	else
 		write_label(as, now, param);
 }
