@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:56:42 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:17:53 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,5 +183,9 @@ void					print_file_name(t_assembler *as);
 int						which_command(t_assembler *as, char *part);
 void					save_same_label(t_assembler *as, t_instruc *new,
 							char *name);
+void					check_before_dot(t_assembler *as, char *str);
+void					replace_by_spaces(t_assembler *as, char *str, int i);
+void					change_sharp(t_assembler *as);
+char					*delete_space_after(t_assembler *as, char *str);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 17:58:36 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:19:04 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	save_name_comment(t_assembler *as, int choice, char *str,
+static void		save_name_comment(t_assembler *as, int choice, char *str,
 			char **dst)
 {
 	if (choice == SAVE_NAME)
@@ -34,12 +34,10 @@ static void	save_name_comment(t_assembler *as, int choice, char *str,
 ** (ex: .name "yes"no), etc...
 */
 
-void	check_quotes(t_assembler *as, char **dst, int choice)
+static void		check_quotes(t_assembler *as, char **dst, int choice, int error)
 {
 	char	*str;
-	int		error;
 
-	error = 0;
 	if (dst && *dst)
 		manage_error(as, &free_asm, NAME_COMMENT_EXIST);
 	if (!ft_strchr(as->line, '"'))
@@ -64,27 +62,11 @@ void	check_quotes(t_assembler *as, char **dst, int choice)
 	save_name_comment(as, choice, str, dst);
 }
 
-static void	replace_by_spaces(t_assembler *as, char *str, int i)
-{
-	while (str[i])
-	{
-		if (str[i] == COMMENT_CHAR || str[i] == ';')
-			str[i] = '\0';
-		if (str[i] == '\t')
-			str[i] = ' ';
-		if (str[i] == '"')
-			return ;
-		if (str[i] != ' ')
-			manage_error(as, &free_asm, BAD_FORMAT);
-		++i;
-	}
-}
-
 /*
 ** epure name or comment line
 */
 
-void	between_name_quote(t_assembler *as)
+void			between_name_quote(t_assembler *as)
 {
 	char	*str;
 	int		i;
@@ -111,69 +93,25 @@ void	between_name_quote(t_assembler *as)
 	replace_by_spaces(as, str, i);
 }
 
-void	change_sharp(t_assembler *as)
+static int		compare_name_comment(t_assembler *as, char *part)
 {
-	char	*str;
-	int		i;
+	int		error;
 
-	str = as->line;
-	i = 0;
-	while (str[i])
+	error = 0;
+	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
-		if (str[i] == COMMENT_CHAR || str[i] == ';')
-		{
-			str[i] = '\0';
-			i = -1;
-			while (as->line[++i])
-				if (as->line[i] != ' ')
-					return ;
-			as->line[0] = '\0';
-			return ;
-		}
-		i++;
+		ft_memdel((void**)&part);
+		check_quotes(as, &as->header->name, SAVE_NAME, error);
+		return (SUCCESS);
 	}
-	i = -1;
-	while (as->line[++i])
-		if (as->line[i] != ' ')
-			return ;
-	as->line[0] = '\0';
-}
-
-char	*delete_space_after(t_assembler *as, char *str)
-{
-	char	*clean;
-	int		i;
-
-	if (!str)
-		return (NULL);
-	if ((clean = ft_strdup(str)) == NULL)
-		manage_error(as, &free_asm, ERROR_MALLOC);
-	ft_printf("clean = %s\n", clean);
-	i = ft_strlen(clean) - 1;
-	if (i < 0)
-		return (clean);
-	while (clean[i] == ' ' || clean[i] == '\t')
-		clean[i--] = '\0';
-	return (clean);
-}
-
-void	check_before_dot(t_assembler *as, char *str)
-{
-	int		i;
-	int		count;
-	count = 0;
-	i = 0;
-	if (str)
+	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
 	{
-		while (as->line && as->line[i] != '.')
-		{
-			if (as->line[i] != ' ' && as->line[i] != '\t')
-				count++;
-			i++;
-		}
-		if (count > 0)
-			manage_error(as, &free_asm, BEFORE_DOT);
+		ft_memdel((void**)&part);
+		check_quotes(as, &as->header->comment, SAVE_COMMENT, error);
+		return (SUCCESS);
 	}
+	ft_memdel((void**)&part);
+	return (FAIL);
 }
 
 /*
@@ -181,7 +119,7 @@ void	check_before_dot(t_assembler *as, char *str)
 ** if finds .name or .comment, parse string between quotes in our list.
 */
 
-int		check_header(t_assembler *as)
+int				check_header(t_assembler *as)
 {
 	char	*len;
 	char	*part;
@@ -200,29 +138,10 @@ int		check_header(t_assembler *as)
 		str = ft_strchr(str, '.');
 	check_before_dot(as, str);
 	if (str == NULL || (len = ft_strchr(str, '"')) == NULL)
-	{
-		// ft_memdel((void **)as->line);
 		return (FAIL);
-	}
-	ft_printf("len = %s\n", len);
 	if (!(tmp = ft_strsub(str, 0, len - str)))
 		manage_error(as, &free_asm, ERROR_MALLOC);
 	part = delete_space_after(as, tmp);
 	ft_memdel((void **)&tmp);
-	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
-	{
-		ft_memdel((void**)&part);
-		check_quotes(as, &as->header->name, SAVE_NAME);
-		return (SUCCESS);
-	}
-	else if (ft_strcmp(COMMENT_CMD_STRING, part) == 0)
-	{
-		ft_memdel((void**)&part);
-		check_quotes(as, &as->header->comment, SAVE_COMMENT);
-		return (SUCCESS);
-	}
-	ft_printf("len = %s\n", len);
-	ft_printf("Ne passe pas par ici\n");
-	ft_memdel((void**)&part);
-	return (FAIL);
+	return (compare_name_comment(as, part));
 }

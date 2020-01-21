@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2020/01/21 18:04:27 by lgaultie         ###   ########.fr        #
+#    Updated: 2020/01/21 18:16:42 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,8 @@ SRCNAME					:=	read.c				\
 							param.c				\
 							get_prog_size.c		\
 							get_ocp.c			\
-							lexer.c
+							lexer.c				\
+							clean_line.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	compiling/
