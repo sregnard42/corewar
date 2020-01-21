@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 17:21:34 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:38:58 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,13 +179,15 @@ int		check_header(t_assembler *as)
 	str = as->line;
 	if (str)
 		str = ft_strchr(str, '.');
-	if (str == NULL || (len = ft_strchr(str, ' ')) == NULL)
+	if (str == NULL || (len = ft_strchr(str, '"')) == NULL)
 	{
 		// ft_memdel((void **)as->line);
 		return (FAIL);
 	}
+	ft_printf("len = %s\n", len);
 	if (!(part = ft_strsub(str, 0, len - str)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+	part = delete_space_after(as, part); // Leak ici normalement
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
@@ -198,6 +200,8 @@ int		check_header(t_assembler *as)
 		check_quotes(as, &as->header->comment, SAVE_COMMENT);
 		return (SUCCESS);
 	}
+	ft_printf("len = %s\n", len);
+	ft_printf("Ne passe pas par ici\n");
 	ft_memdel((void**)&part);
 	return (FAIL);
 }
