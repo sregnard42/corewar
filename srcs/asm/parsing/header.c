@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 16:52:44 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:05:27 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,9 +205,10 @@ int		check_header(t_assembler *as)
 		return (FAIL);
 	}
 	ft_printf("len = %s\n", len);
-	if (!(part = ft_strsub(str, 0, len - str)))
+	if (!(tmp = ft_strsub(str, 0, len - str)))
 		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	part = delete_space_after(as, part); // Leak ici normalement
+	part = delete_space_after(as, tmp);
+	ft_memdel((void **)&tmp);
 	if (ft_strcmp(NAME_CMD_STRING, part) == 0)
 	{
 		ft_memdel((void**)&part);
