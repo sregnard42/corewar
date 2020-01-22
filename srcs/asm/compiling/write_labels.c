@@ -6,11 +6,17 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 15:42:31 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/19 15:43:45 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:45:59 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** write_neg_label() goes through all instructions starting from
+** the BEGINNING to find label, if it does, writes the parameter with negative
+** value.
+*/
 
 static void		write_neg_label(t_assembler *as, t_instruc *now, char *param,
 			int res)

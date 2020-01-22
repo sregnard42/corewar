@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/21 18:45:43 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:45:08 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ unsigned int	get_params_bytes(t_instruc *tmp)
 }
 
 /*
-**	get_prog_size() calculate the nb of bytes of all commands
+**	get_prog_size() calculates the nb of bytes of all commands
 */
 
 void			get_prog_size(t_assembler *as)

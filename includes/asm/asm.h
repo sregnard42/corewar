@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:55:12 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:35:18 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@
 # define SPACE_LABEL		"No space after label.\n"
 # define INVALID_LABEL		"Label with invalid characters.\n"
 # define NO_EXIST_LABEL		"Label in argument doesn't exist.\n"
-# define LABEL_ALRDY_EXIST	"This label already exists.\n"
 
 /*
 ** COMMENT/NAME
@@ -82,8 +81,8 @@
 # define SEPARATOR_ERROR		"Input error with separators ','.\n"
 
 /*
-** char *param_type: "112" --> premier param = 1 = registre, deuxieme param = 1
-** = registre, troisieme param = 2 = direct
+** char *param_type: "112" --> first param = 1 = register, second param = 1
+** = register, third param = 2 = direct
 */
 
 typedef struct			s_same_label
@@ -190,5 +189,6 @@ void					change_sharp(t_assembler *as);
 char					*delete_space_after(t_assembler *as, char *str);
 int						is_label(t_assembler *as, char *part);
 void					save_label(t_assembler *as);
+int						check_if_exists_instruc(t_assembler *as, char *param);
 
 #endif

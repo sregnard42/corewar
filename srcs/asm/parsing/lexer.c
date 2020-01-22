@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:10 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:49:13 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:42:02 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ int			which_command(t_assembler *as, char *part)
 }
 
 /*
-** Regarde si le premier element de tmp est une commande, si oui, on verifie que
-** les prochains element de tmp sont bien des parametres
-** Ensuite, ajoute l'instruction dans la structure as
-** si is_param fail c'est quil y a deux commandes a la suite, donc on diminue
-** le nombre de parametres
+** is_command() Checks if first tmp's element is a command, if yes, checks
+** if next elements are parameters.
 */
 
 static void	is_command(t_assembler *as, char **tmp, char *param_type)
@@ -58,9 +55,8 @@ static void	is_command(t_assembler *as, char **tmp, char *param_type)
 }
 
 /*
-** check_instruc() check if the line is a label,
-** si c'est un label, skip le premier element
-** et envoie le reste dans is_command
+** check_instruc() check if the first element of the line is a label, if yes
+** skip the first element and send the rest to is_command.
 */
 
 static void	check_instruc(t_assembler *as, char **tab, char *param_type)

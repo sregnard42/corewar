@@ -6,11 +6,15 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:45:55 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:44:57 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** save_name_comment() checks if the name/comment aren't too long.
+*/
 
 static void		save_name_comment(t_assembler *as, int choice, char *str,
 			char **dst)
@@ -63,7 +67,7 @@ static void		check_quotes(t_assembler *as, char **dst, int choice, int error)
 }
 
 /*
-** epure name or comment line
+** between_name_quote() replace by spaces the possible tabs between .name and "
 */
 
 static void		between_name_quote(t_assembler *as)
@@ -92,6 +96,10 @@ static void		between_name_quote(t_assembler *as)
 	i = ft_strlen(mode == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 	replace_by_spaces(as, str, i);
 }
+
+/*
+** compare_name_comment() checks if it's .name or .comment.
+*/
 
 static int		compare_name_comment(t_assembler *as, char *part)
 {

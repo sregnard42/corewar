@@ -3,14 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   labels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 12:02:34 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:36:09 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+**	save_same_label() create or add to end of list of one node's label. As
+** several labels can points to the same instruction line, we stock this
+** instruction in our node with a list of all labels pointing to it.
+*/
+
+void		save_same_label(t_assembler *as, t_instruc *new, char *name)
+{
+	t_same_label	*label;
+	t_same_label	*tmp;
+
+	if (check_if_exists_instruc(as, name) == SUCCESS)
+		return ;
+	if (!new->label)
+	{
+		if (!(new->label = ft_memalloc(sizeof(t_same_label))))
+			manage_error(as, &free_asm, ERROR_MALLOC);
+		if (!(new->label->name = ft_strdup(name)))
+			manage_error(as, &free_asm, ERROR_MALLOC);
+	}
+	else
+	{
+		if (!(label = ft_memalloc(sizeof(t_same_label))))
+			manage_error(as, &free_asm, ERROR_MALLOC);
+		if (!(label->name = ft_strdup(name)))
+			manage_error(as, &free_asm, ERROR_MALLOC);
+		tmp = new->label;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = label;
+	}
+}
 
 /*
 ** check_if_exists() depends on mode, returns SUCCESS if param is already
@@ -46,7 +79,6 @@ void		save_label_to_check(t_assembler *as, char *label)
 
 	if (check_if_exists(as, label, 1) == SUCCESS)
 		return ;
-		// manage_error(as, &free_asm, LABEL_ALRDY_EXIST);
 	tmp = as->labels;
 	if (!(new = ft_memalloc(sizeof(t_label))))
 		manage_error(as, &free_asm, ERROR_MALLOC);

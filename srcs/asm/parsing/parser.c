@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:28 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 12:27:42 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:40:01 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** check_if_exists_instruc
-**
+** check_if_exists_instruc () checks if the label already exist in an
+** instructions.
 */
 
-static int		check_if_exists_instruc(t_assembler *as, char *param)
+int				check_if_exists_instruc(t_assembler *as, char *param)
 {
 	t_instruc		*instruc;
 	t_same_label	*label;
@@ -38,37 +38,8 @@ static int		check_if_exists_instruc(t_assembler *as, char *param)
 }
 
 /*
-**	save_same_label() create or add to end of list of one node's label. As
-** several labels can points to the same instruction line, we stock this
-** instruction in our node with a list of all labels pointing to it.
+** save_params() saves parameters in nodes of the instruction list.
 */
-
-void			save_same_label(t_assembler *as, t_instruc *new, char *name)
-{
-	t_same_label	*label;
-	t_same_label	*tmp;
-
-	if (check_if_exists_instruc(as, name) == SUCCESS)
-		return ;
-	if (!new->label)
-	{
-		if (!(new->label = ft_memalloc(sizeof(t_same_label))))
-			manage_error(as, &free_asm, ERROR_MALLOC);
-		if (!(new->label->name = ft_strdup(name)))
-			manage_error(as, &free_asm, ERROR_MALLOC);
-	}
-	else
-	{
-		if (!(label = ft_memalloc(sizeof(t_same_label))))
-			manage_error(as, &free_asm, ERROR_MALLOC);
-		if (!(label->name = ft_strdup(name)))
-			manage_error(as, &free_asm, ERROR_MALLOC);
-		tmp = new->label;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = label;
-	}
-}
 
 static void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
 {
@@ -104,7 +75,6 @@ static void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 	new->opcode = id_command + 1;
 	if (!(tab = ft_strsplit(as->line, ' ')))
 		manage_error(as, &free_asm, ERROR_MALLOC);
-	ft_printf("tab[0] = %s\n", tab[0]);
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
 		tab[0][ft_strlen(tab[0]) - 1] = '\0';

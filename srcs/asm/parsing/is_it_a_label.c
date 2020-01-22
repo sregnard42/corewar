@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:41:16 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:44:30 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:38:28 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ static void	check_label_chars(t_assembler *as, char *str)
 }
 
 /*
-** is_label() checks if it's a label /!\ possible d'avoir un label invalide ?
-** (ex trop long)
-** returns SUCCESS if it's a label, FAIL if it's not, and ERROR for comments
-** to ignore.
+** is_label() returns SUCCESS if it's a label, FAIL if it's not, and ERROR
+** for comments to ignore.
 */
 
 int			is_label(t_assembler *as, char *part)
@@ -76,6 +74,11 @@ int			is_label(t_assembler *as, char *part)
 	return (FAIL);
 }
 
+/*
+** add_label() if the label is on the line before, goes to the last node of
+** the instruction list. Il label is on the same line, create a new node.
+*/
+
 static void	add_label(t_assembler *as)
 {
 	t_instruc	*tmp;
@@ -104,6 +107,11 @@ static void	add_label(t_assembler *as)
 	}
 	save_same_label(as, new, as->line);
 }
+
+/*
+** save_label() checks if there is a ':' on the line. If not it is an error.
+** Remove the ':' to keep only the label's name.
+*/
 
 void		save_label(t_assembler *as)
 {
