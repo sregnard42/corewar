@@ -6,13 +6,13 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 18:46:17 by sregnard          #+#    #+#             */
-/*   Updated: 2019/12/09 19:10:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:47:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void			print_reg(t_vm *vm, t_reg *reg)
+void		print_reg(t_vm *vm, t_reg *reg)
 {
 	int val;
 

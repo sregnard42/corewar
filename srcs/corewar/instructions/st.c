@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:08:04 by cmouele           #+#    #+#             */
-/*   Updated: 2019/11/26 15:14:14 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:39:57 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void		op_st(void *vm_ptr)
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
 	if (args->size < 2)
-		return;
-	reg = args->byId[0]->val;
-	if (!(get_val(vm, args->byId[1], &addr, IDX_MOD) == 1 &&
-		is_reg(reg)))
-		return;
+		return ;
+	reg = args->by_id[0]->val;
+	if (!(get_val(vm, args->by_id[1], &addr, IDX_MOD) == 1 &&
+				is_reg(reg)))
+		return ;
 	vm->print("P %4d | ", vm->procs.cur->pid);
 	vm->print("st r%d, %d | ", reg, addr);
 	store(vm, reg, vm->pc + addr);
@@ -52,12 +52,12 @@ void		op_sti(void *vm_ptr)
 	vm = (t_vm *)vm_ptr;
 	args = &vm->procs.cur->args;
 	if (args->size < 3)
-		return;
-	reg = args->byId[0]->val;
+		return ;
+	reg = args->by_id[0]->val;
 	if (!(
-        get_val(vm, args->byId[1], &addr[0], IDX_MOD) == 1 &&
-        get_val(vm, args->byId[2], &addr[1], IDX_MOD) == 1 &&
-		is_reg(reg)))
+				get_val(vm, args->by_id[1], &addr[0], IDX_MOD) == 1 &&
+				get_val(vm, args->by_id[2], &addr[1], IDX_MOD) == 1 &&
+				is_reg(reg)))
 		return ;
 	vm->print("P %4d | ", vm->procs.cur->pid);
 	vm->print("sti r%d, %d, %d | ", reg, addr[0], addr[1]);

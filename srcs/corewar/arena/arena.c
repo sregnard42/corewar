@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 00:19:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/26 15:21:47 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 14:13:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ unsigned char	arena_get(t_vm *vm, int index)
 }
 
 void			arena_set(t_vm *vm, int index, unsigned char c,
-							unsigned int id_player)
+		unsigned int id_player)
 {
 	unsigned int	id;
 
@@ -56,7 +56,7 @@ void			arena_load(t_vm *vm, int index, void *dst, size_t n)
 	i = 0;
 	dest = (char *)dst;
 	while (i++ < n)
-		dest[i - 1] = arena_get(vm, index + n - i );
+		dest[i - 1] = arena_get(vm, index + n - i);
 }
 
 /*
@@ -64,8 +64,7 @@ void			arena_load(t_vm *vm, int index, void *dst, size_t n)
 **				IN REVERSE ORDER !
 */
 
-void			arena_store(t_vm *vm, int index, const void *src, size_t n,
-							unsigned int id)
+void			arena_store(t_vm *vm, int index, const void *src, size_t n)
 {
 	size_t		i;
 	const char	*source;
@@ -73,23 +72,5 @@ void			arena_store(t_vm *vm, int index, const void *src, size_t n,
 	i = 0;
 	source = (const char *)src;
 	while (i++ < n)
-		arena_set(vm, index + n - i, source[i - 1], id);
-}
-
-void			arena_init(t_vm *vm)
-{
-	unsigned int	nb_players;
-	t_champ			*champ;
-
-	nb_players = vm->champs.size;
-	champ = vm->champs.first;
-	while (champ)
-	{
-		champ->pos = (champ->id - 1) * (MEM_SIZE / nb_players);
-		ft_memcpy(&vm->arena[champ->pos], &champ->content[champ->cursor], champ->prog_size);
-		ft_memset(&vm->colors[champ->pos], champ->id, champ->prog_size);
-		vm->champs.cur = champ;
-		proc_new(vm);
-		champ = champ->next;
-	}
+		arena_set(vm, index + n - i, source[i - 1], vm->procs.cur->champ->id);
 }

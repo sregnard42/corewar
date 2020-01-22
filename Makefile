@@ -127,12 +127,12 @@ SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 SUBDIR					:=	args/
 SRCNAME					:=	args.c		\
 							arg.c		\
-							free.c		\
-							print.c
+							free.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	arena/
-SRCNAME					:=	arena.c		\
+SRCNAME					:=	init.c		\
+							arena.c		\
 							fight.c		\
 							print.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
@@ -140,7 +140,8 @@ SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 SUBDIR					:=	parsing/
 SRCNAME					:=	parsing.c	\
 							options.c	\
-							errors.c
+							errors.c	\
+							errors_header.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	instructions/
@@ -160,7 +161,7 @@ SUBDIR					:=	visu/
 SRCNAME					:=	visu.c
 SRC_WAR					+=	$(addprefix $(SRCDIR_WAR)$(SUBDIR), $(SRCNAME))
 
-SRCNAME					:=	common.c
+SRCNAME					:=
 SRC_COM					:=	$(addprefix $(SRCDIR_COM), $(SRCNAME))
 
 ######	OBJECTS

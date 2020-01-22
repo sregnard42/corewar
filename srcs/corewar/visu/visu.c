@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 14:19:41 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/29 14:20:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:44:15 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,3 @@ void		visu_init(t_vm *vm)
 	use_default_colors();
 	curs_set(FALSE);
 }
-

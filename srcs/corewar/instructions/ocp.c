@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:48:56 by sregnard          #+#    #+#             */
-/*   Updated: 2019/12/08 17:10:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:39:16 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		get_param(t_vm *vm, t_arg *arg, int opcode)
 }
 
 /*
-**			Creates and adds an arg to the list if exists 
+**			Creates and adds an arg to the list if exists
 */
 
 static void	add_arg(t_vm *vm, int opcode, unsigned int ocp, int nb)
@@ -69,7 +69,7 @@ static void	add_arg(t_vm *vm, int opcode, unsigned int ocp, int nb)
 	if (type == 0)
 		return ;
 	arg = arg_new(vm);
-	arg->type = type; 
+	arg->type = type;
 	get_param(vm, arg, opcode);
 }
 

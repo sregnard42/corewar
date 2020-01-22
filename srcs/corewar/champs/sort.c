@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:28:12 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/20 17:22:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:19:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ void			champs_sort(t_vm *vm)
 		if (champ->id != id)
 			champ_swap(champ, champ_find(champ->next, id));
 		++id;
-		vm->champs.byId[champ->id] = champ;
+		vm->champs.by_id[champ->id] = champ;
 		champ = champ->next;
 	}
 }
-

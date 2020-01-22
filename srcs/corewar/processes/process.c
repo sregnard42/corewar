@@ -6,7 +6,7 @@
 /*   By: cmouele <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:21:55 by cmouele           #+#    #+#             */
-/*   Updated: 2019/12/09 20:43:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:46:55 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_process	*proc_new(t_vm *vm)
 {
 	static int	pid = 1;
 	t_process	*proc;
-	int         reg_id;
+	int			reg_id;
 
 	if (!vm || !vm->champs.cur)
 		ft_error(vm, &vm_free, "proc_new args\n");
@@ -53,7 +53,7 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 		return ;
 	}
 	if (proc->cycle == 0)
-		proc->cycle = vm->cycle + op_cycles[opcode] - 1;
+		proc->cycle = vm->cycle + g_op_cycles[opcode] - 1;
 	if (proc->cycle > vm->cycle)
 		return ;
 	proc->cycle = 0;
@@ -61,7 +61,7 @@ void		proc_exec(t_vm *vm, t_champ *champ, t_process *proc)
 	proc_set_pc(vm, proc, proc->pc + 1);
 	ocp(vm, opcode);
 	vm->print = vm_print(vm, V_OPERATIONS);
-	op[opcode](vm);
+	g_op[opcode](vm);
 	vm->print = vm_print(vm, 0);
 	args_free(&proc->args);
 }

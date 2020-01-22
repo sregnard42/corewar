@@ -47,7 +47,7 @@ void		champs_print(t_champs *champs)
 	i = 1;
 	while (i <= champs->size)
 	{
-		ft_printf("champs.byId[%d] = ", i);
-		ft_printf("%s\n", champs->byId[i++]->name);
+		ft_printf("champs.by_id[%d] = ", i);
+		ft_printf("%s\n", champs->by_id[i++]->name);
 	}
 }

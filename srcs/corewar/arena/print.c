@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visu.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:47:50 by sregnard          #+#    #+#             */
-/*   Updated: 2019/11/24 16:15:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:58:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		print_visu(t_vm *vm, unsigned int cur, unsigned int len,
 
 	color = vm->colors_pc[i] ? vm->colors_pc[i] : vm->colors[i];
 	color < 10 ?
-		init_pair(color, color, -1) : init_pair(color, -1, color -10);
+		init_pair(color, color, -1) : init_pair(color, -1, color - 10);
 	attron(COLOR_PAIR(color));
 	printw("%02x", vm->arena[i++]);
 	attroff(COLOR_PAIR(color));
@@ -40,20 +40,20 @@ static void		print_line(t_vm *vm, unsigned int cur, unsigned int len)
 
 	i = cur * len;
 	f = (vm->flags & VM_VISU) ? &print_visu : &print_dump;
+	(vm->flags & VM_VISU) ? 0 : vm->print("%07x : ", cur * DUMP_COLS);
 	while (i - (cur * len) < len)
 		f(vm, cur, len, i++);
 }
 
-void		arena_print(t_vm *vm, unsigned int cols)
+void			arena_print(t_vm *vm, unsigned int cols)
 {
 	unsigned int	cur;
 
 	if (!vm)
-		return ; 
+		return ;
 	cur = 0;
 	while (cur < MEM_SIZE / cols)
 		print_line(vm, cur++, cols);
 	refresh();
 	usleep(10000);
 }
-
