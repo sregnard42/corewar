@@ -6,11 +6,36 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:28 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 12:02:13 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:27:42 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+** check_if_exists_instruc
+**
+*/
+
+static int		check_if_exists_instruc(t_assembler *as, char *param)
+{
+	t_instruc		*instruc;
+	t_same_label	*label;
+
+	instruc = as->instruc;
+	while (instruc)
+	{
+		label = instruc->label;
+		while (label)
+		{
+			if (ft_strcmp(param, label->name) == 0)
+				return (SUCCESS);
+			label = label->next;
+		}
+		instruc = instruc->next;
+	}
+	return (FAIL);
+}
 
 /*
 **	save_same_label() create or add to end of list of one node's label. As
@@ -23,6 +48,8 @@ void			save_same_label(t_assembler *as, t_instruc *new, char *name)
 	t_same_label	*label;
 	t_same_label	*tmp;
 
+	if (check_if_exists_instruc(as, name) == SUCCESS)
+		return ;
 	if (!new->label)
 	{
 		if (!(new->label = ft_memalloc(sizeof(t_same_label))))
@@ -64,31 +91,6 @@ static void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
 }
 
 /*
-** check_if_exists_instruc
-**
-*/
-
-static int		check_if_exists_instruc(t_assembler *as, char *param)
-{
-	t_instruc		*instruc;
-	t_same_label	*label;
-
-	instruc = as->instruc;
-	while (instruc)
-	{
-		label = instruc->label;
-		while (label)
-		{
-			if (ft_strcmp(param, label->name) == 0)
-				return (SUCCESS);
-			label = label->next;
-		}
-		instruc = instruc->next;
-	}
-	return (FAIL);
-}
-
-/*
 ** init_instruct() calls save_same_label() to save all labels pointing to this
 ** instruction. Then save in the node the command and its parameters.
 */
@@ -102,6 +104,7 @@ static void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 	new->opcode = id_command + 1;
 	if (!(tab = ft_strsplit(as->line, ' ')))
 		manage_error(as, &free_asm, ERROR_MALLOC);
+	ft_printf("tab[0] = %s\n", tab[0]);
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
 		tab[0][ft_strlen(tab[0]) - 1] = '\0';
