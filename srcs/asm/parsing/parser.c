@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:28:28 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:49:29 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:02:13 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,31 @@ static void		save_params(t_assembler *as, char **tab, int i, t_instruc *new)
 }
 
 /*
+** check_if_exists_instruc
+**
+*/
+
+static int		check_if_exists_instruc(t_assembler *as, char *param)
+{
+	t_instruc		*instruc;
+	t_same_label	*label;
+
+	instruc = as->instruc;
+	while (instruc)
+	{
+		label = instruc->label;
+		while (label)
+		{
+			if (ft_strcmp(param, label->name) == 0)
+				return (SUCCESS);
+			label = label->next;
+		}
+		instruc = instruc->next;
+	}
+	return (FAIL);
+}
+
+/*
 ** init_instruct() calls save_same_label() to save all labels pointing to this
 ** instruction. Then save in the node the command and its parameters.
 */
@@ -80,7 +105,8 @@ static void		init_instruc(t_assembler *as, t_instruc *new, int id_command)
 	if (ft_strchr(tab[0], LABEL_CHAR) != NULL)
 	{
 		tab[0][ft_strlen(tab[0]) - 1] = '\0';
-		save_same_label(as, new, tab[0]);
+		if (check_if_exists_instruc(as, tab[0]) == FAIL)
+			save_same_label(as, new, tab[0]);
 		i++;
 	}
 	if (!(new->command = ft_strdup(tab[i])))

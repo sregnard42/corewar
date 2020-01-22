@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/21 18:54:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:51:53 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,29 @@ static int	assembler(t_assembler *as, char **argv, int i, unsigned int flag)
 	read_function(as);
 	close(as->s_fd);
 	create_cor(as);
+	//
+	t_label *tmp;
+
+	tmp = as->labels;
+	while (tmp)
+	{
+		ft_printf("%s\n", tmp->name);
+		tmp = tmp->next;
+	}
+	ft_printf("*********************\n");
+	t_instruc *lol;
+
+	lol = as->instruc;
+	while (lol)
+	{
+		while (lol->label)
+		{
+			ft_printf("%s\n", lol->label->name);
+			lol->label = lol->label->next;
+		}
+		lol = lol->next;
+	}
+	//
 	print_advices(as);
 	free_asm(as);
 	return (SUCCESS);
