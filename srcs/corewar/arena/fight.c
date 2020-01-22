@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/21 19:17:59 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:21:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void		fight(t_vm *vm)
 			!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
 	{
 		++vm->cycle;
-		check_procs(vm);
 		display(vm);
+		check_procs(vm);
 		cycle_to_die(vm);
 	}
 	if (!(vm->flags & VM_DUMP && vm->cycle >= vm->dump))
