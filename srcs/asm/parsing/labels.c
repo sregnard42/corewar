@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   labels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:41:40 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 11:31:47 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:40:14 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void		save_label_to_check(t_assembler *as, char *label)
 	t_label	*new;
 
 	if (check_if_exists(as, label, 1) == SUCCESS)
-		return ;
-	// manage_error(as, &free_asm, LABEL_ALRDY_EXIST);
+		manage_error(as, &free_asm, LABEL_ALRDY_EXIST);
 	tmp = as->labels;
 	if (!(new = ft_memalloc(sizeof(t_label))))
 		manage_error(as, &free_asm, ERROR_MALLOC);
