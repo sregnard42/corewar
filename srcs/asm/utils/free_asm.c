@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:26:47 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/06 17:17:46 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:49:54 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	free_header(t_header *header)
+static void	free_header(t_header *header)
 {
 	if (!header)
 		return ;
@@ -21,7 +21,24 @@ void	free_header(t_header *header)
 	ft_memdel((void **)&header);
 }
 
-void	free_label(t_label *label)
+static void	free_same_label(t_same_label *label)
+{
+	t_same_label	*tmp;
+	t_same_label	*current;
+
+	if (!label)
+		return ;
+	current = label;
+	while (current)
+	{
+		tmp = current;
+		current = current->next;
+		ft_memdel((void **)&tmp->name);
+		ft_memdel((void **)&tmp);
+	}
+}
+
+static void	free_label(t_label *label)
 {
 	t_label	*tmp;
 
@@ -37,7 +54,7 @@ void	free_label(t_label *label)
 	}
 }
 
-void	free_instruc(t_instruc *instruc)
+static void	free_instruc(t_instruc *instruc)
 {
 	t_instruc	*tmp;
 	int			i;
@@ -49,7 +66,7 @@ void	free_instruc(t_instruc *instruc)
 	{
 		tmp = instruc;
 		instruc = instruc->next;
-		tmp->label ? ft_memdel((void **)&tmp->label) : 0;
+		tmp->label ? free_same_label(tmp->label) : 0;
 		tmp->command ? ft_memdel((void **)&tmp->command) : 0;
 		i = -1;
 		while (++i < 3)
@@ -60,7 +77,7 @@ void	free_instruc(t_instruc *instruc)
 	}
 }
 
-void	free_asm(void *assembler)
+void		free_asm(void *assembler)
 {
 	t_assembler *my_asm;
 
@@ -68,6 +85,7 @@ void	free_asm(void *assembler)
 	if (!my_asm)
 		return ;
 	my_asm->header ? free_header(my_asm->header) : 0;
+	my_asm->folder ? ft_memdel((void **)&my_asm->folder) : 0;
 	my_asm->file_name_s ? ft_memdel((void **)&my_asm->file_name_s) : 0;
 	my_asm->file_name_cor ? ft_memdel((void **)&my_asm->file_name_cor) : 0;
 	my_asm->labels ? free_label(my_asm->labels) : 0;

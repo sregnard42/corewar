@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:11:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/09 16:09:07 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:45:08 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ unsigned int	get_params_bytes(t_instruc *tmp)
 }
 
 /*
-**	get_prog_size() calculate the nb of bytes of all commands
+**	get_prog_size() calculates the nb of bytes of all commands
 */
 
-void				get_prog_size(t_assembler *as)
+void			get_prog_size(t_assembler *as)
 {
 	t_instruc		*tmp;
 	unsigned int	prog_size;
 
 	if (!as || !as->header || !as->instruc)
-		manage_error(as, &free_asm, as->epure_line, AS_NULL);
+		manage_error(as, &free_asm, AS_NULL);
 	tmp = as->instruc;
 	prog_size = 0;
 	while (tmp)
@@ -78,11 +78,8 @@ void				get_prog_size(t_assembler *as)
 				|| tmp->opcode == FORK || tmp->opcode == LFORK))
 				prog_size += 1;
 		}
-		//erreur seulement si opcode et param_type n'existe pas dans un maillon
-		//au pleins milieu de la chaine, sinon c'est un fichier qui fini par
-		//un label vide, l'instruction est de poids combien du coup ?..
 		if (!tmp->opcode && !tmp->param_type && tmp->next != NULL)
-			manage_error(as, &free_asm, as->epure_line, AS_NULL);
+			manage_error(as, &free_asm, AS_NULL);
 		if (tmp->opcode && tmp->param_type)
 			prog_size += get_params_bytes(tmp);
 		else

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:46:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 15:19:36 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:02:12 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** s_to_cor() creates the name of .cor file from .s file
 */
 
-char	*s_to_cor(t_assembler *as, char *s)
+static char	*s_to_cor(t_assembler *as, char *s)
 {
 	int		len;
 	char	*cor;
@@ -31,7 +31,7 @@ char	*s_to_cor(t_assembler *as, char *s)
 	if ((cor = ft_memalloc(sizeof(char) * (len + 4))) == NULL)
 	{
 		ft_memdel((void **)&cor);
-		manage_error(as, &free_asm,as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	}
 	as->bonus & BONUS_FOLDER ? ft_strcat(cor, "./my_champs/") : 0;
 	ft_strncat(cor, s, ft_strlen(s) - 1);
@@ -45,7 +45,7 @@ char	*s_to_cor(t_assembler *as, char *s)
 ** creating it. Calls function to write in it.
 */
 
-void	create_cor(t_assembler *as)
+void		create_cor(t_assembler *as)
 {
 	if (as->bonus & BONUS_COLOR)
 		ft_putstr("\e[1;32m");

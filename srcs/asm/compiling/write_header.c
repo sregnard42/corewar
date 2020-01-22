@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.c                                           :+:      :+:    :+:   */
+/*   write_header.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 10:49:34 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/12/19 14:56:26 by chrhuang         ###   ########.fr       */
+/*   Created: 2020/01/19 15:56:44 by lgaultie          #+#    #+#             */
+/*   Updated: 2020/01/21 18:02:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** write_padding with padding_size
 */
 
-void	write_padding(int fd, int size)
+void		write_padding(int fd, int size)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ void	write_padding(int fd, int size)
 ** write_big_endian1() change the order of magic number's bytes
 */
 
-void	write_big_endian1(int fd, int magic_number)
+static void	write_big_endian1(int fd, int magic_number)
 {
 	unsigned char	octets[4];
 
@@ -47,7 +47,7 @@ void	write_big_endian1(int fd, int magic_number)
 ** then fills the rest of the place reserved for the name with 0.
 */
 
-void	write_name(t_assembler *as)
+static void	write_name(t_assembler *as)
 {
 	int		len_name;
 	int		len_reserved;
@@ -58,10 +58,7 @@ void	write_name(t_assembler *as)
 	write(as->cor_fd, as->header->name, len_name);
 	len_reserved = PROG_NAME_LENGTH - len_name;
 	if (!(reserved = ft_memalloc(sizeof(char) * len_reserved)))
-	{
-		//free correct ça ?
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	}
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	write(as->cor_fd, reserved, len_reserved);
 	ft_memdel((void *)&reserved);
 }
@@ -72,28 +69,23 @@ void	write_name(t_assembler *as)
 ** another padding.
 */
 
-void	write_comment(t_assembler *as)
+static void	write_comment(t_assembler *as)
 {
 	char	*to_fill;
 	int		size_com;
 
-	// write_padding(as->cor_fd, PADDING);
 	write(as->cor_fd, "\0\0\0\0", 4);
 	size_com = ft_strlen(as->header->comment);
 	write_big_endian1(as->cor_fd, as->prog_size);
 	write(as->cor_fd, as->header->comment, size_com);
 	if (!(to_fill = ft_memalloc(sizeof(char) * COMMENT_LENGTH - size_com)))
-	{
-		//free correct ça ?
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	}
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	write(as->cor_fd, to_fill, COMMENT_LENGTH - size_com);
-	// write_padding(as->cor_fd, PADDING);
 	write(as->cor_fd, "\0\0\0\0", 4);
 	ft_memdel((void*)&to_fill);
 }
 
-void	write_header(t_assembler *as)
+void		write_header(t_assembler *as)
 {
 	write_name(as);
 	write_comment(as);

@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2020/01/13 17:01:56 by sregnard         ###   ########.fr        #
+#    Updated: 2020/01/21 18:59:16 by lgaultie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,29 +73,32 @@ SRCNAME					:=	asm.c
 SRC_ASM					:=	$(addprefix $(SRCDIR_ASM), $(SRCNAME))
 
 SUBDIR					:=	parsing/
-SRCNAME					:=	parsing.c			\
+SRCNAME					:=	read.c				\
 							header.c			\
-							stock_instruc.c		\
+							parser.c			\
 							labels.c			\
 							init_asm.c			\
 							param.c				\
 							get_prog_size.c		\
 							get_ocp.c			\
-							check_instruc.c
+							lexer.c				\
+							clean_line.c		\
+							is_it_a_label.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	compiling/
-SRCNAME					:=	header.c			\
+SRCNAME					:=	write_header.c		\
 							create_cor.c		\
-							instruc.c
+							write_instruc.c		\
+							write.c				\
+							write_labels.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					:=	utils/
 SRCNAME					:=	free_asm.c			\
 							print.c				\
 							manage_error.c		\
-							bonus.c				\
-							debug.c
+							bonus.c
 SRC_ASM					+=	$(addprefix $(SRCDIR_ASM)$(SUBDIR), $(SRCNAME))
 
 
@@ -169,7 +172,7 @@ OBJ_COM					:=	$(SRC_COM:$(SRCDIR_COM)%.c=$(OBJDIR_COM)%.o)
 ######	FLAGS
 
 CC						:=	gcc
-CFLAGS					:=	-Wall -Wextra -Werror -g3
+CFLAGS					:=	-Wall -Wextra -Werror
 FLAGS_ASM				:=
 FLAGS_WAR				:=	-lncurses
 

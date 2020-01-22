@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 15:44:57 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/10 14:24:20 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:56:58 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	delete_end(char *clean)
 		clean[i--] = '\0';
 }
 
-char	*ft_strclean(char *str)
+char		*ft_strclean(char *str)
 {
 	char	*clean;
 
