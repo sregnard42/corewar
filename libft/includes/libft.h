@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:49:24 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/07 15:51:12 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:05:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int					ft_isprint(int c);
 int					ft_isspace(int c);
 int					ft_isnumber(char *s);
 int					ft_isinteger(char *s);
+int					ft_islong(char *s);
 
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);

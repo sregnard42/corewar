@@ -6,11 +6,26 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:19:30 by chrhuang          #+#    #+#             */
-/*   Updated: 2020/01/07 19:28:13 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:46:11 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static void	bonus_folder(t_assembler *as)
+{
+	if (as->bonus & BONUS_FOLDER)
+	{
+		mkdir("my_champs", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		if (!(as->folder = ft_strdup("./my_champs/")))
+			manage_error(as, &free_asm, ERROR_MALLOC);
+	}
+	else
+	{
+		if (!(as->folder = ft_strdup("./")))
+			manage_error(as, &free_asm, ERROR_MALLOC);
+	}
+}
 
 /*
 ** {X, Y, Z} -->  X is the first parameter, Y second, Z third parameter
@@ -26,13 +41,13 @@
 ** last number is the number of parameters for this command
 */
 
-void	init_asm(t_assembler *as, unsigned int flag)
+void		init_asm(t_assembler *as, unsigned int flag)
 {
 	t_header	*header;
 
 	ft_bzero(as, sizeof(t_assembler));
 	if ((header = ft_memalloc(sizeof(t_header))) == NULL)
-		manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
+		manage_error(as, &free_asm, ERROR_MALLOC);
 	header->magic = COREWAR_EXEC_MAGIC;
 	as->header = header;
 	as->commands[0] = (t_commands){"live", {2, 0, 0}, 1};
@@ -52,15 +67,5 @@ void	init_asm(t_assembler *as, unsigned int flag)
 	as->commands[14] = (t_commands){"lfork", {2, 0, 0}, 1};
 	as->commands[15] = (t_commands){"aff", {1, 0, 0}, 1};
 	as->bonus = flag;
-	if (as->bonus & BONUS_FOLDER)
-	{
-		mkdir("my_champs", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-		if (!(as->folder = ft_strdup("./my_champs/")))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	}
-	else
-	{
-		if (!(as->folder = ft_strdup("./")))
-			manage_error(as, &free_asm, as->epure_line, ERROR_MALLOC);
-	}
+	bonus_folder(as);
 }

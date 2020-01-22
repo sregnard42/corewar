@@ -1,7 +1,4 @@
 #!/bin/bash
-name_s=$1
-name=${name_s%??}
-name_c="${name}.cor"
 
 RED='\033[0;31m'
 B_RED='\033[1;31m'
@@ -16,74 +13,87 @@ echo -e "${CYAN}****************************************************************
 echo -e "			    ${PURPLE}ASM CHECKER${NC}"
 echo -e "			${PURPLE}chrhuang & lgaultie${NC}"
 echo -e "${CYAN}************************************************************************${NC}"
-echo ""
-if [ -f "$name_s" ]
+
+if [ "$#" -lt 1 ]
 then
-	echo -e "You want to check ${PURPLE}$name_s${NC}"
-	echo ""
+    # if no arguments are provided
+    echo "Please provide an argument"
+    echo ""
+    exit 0
 else
-	echo -e "${B_RED}ERROR:${NC} we couldn't find a file named ${B_RED}$name_s${NC}"
-	echo ""
-	exit 0
+    # for every file provided in arguments
+    for name_s in "$@"
+    do
+        if [ -f "$name_s" ]
+        then
+            # if the .s file exists, we register its name
+            name=${name_s%??}
+            name_c="${name}.cor"
+
+            echo -e "You want to check ${PURPLE}$name_s${NC}"
+
+            # we delete the .cor file if necessary and launch our asm
+            rm -rf $name_c
+            ./asm -ec $name_s
+            if [ -s $name_c ]
+            then
+                # if ./asm is successful, we store the hexdump of it in 'our'
+                hexdump $name_c > our
+            else
+                # else, we display an error message and quit
+                echo ""
+                echo -e "${B_RED}ERROR in .s file: our asm couldn't create .cor.${NC}"
+                exit 0
+            fi
+
+            # we delete the previous .cor file to avoid any problem and launch the school's asm
+            rm -rf $name_c
+            ./res/asm $name_s
+            if [ -s $name_c ]
+            then
+                # if ./res/asm is successful, we store the hexdump of it in 'their'
+                hexdump $name_c > their
+            else
+                # else, we display an error message and quit
+                echo ""
+                echo -e "${B_RED}ERROR in .s file: their asm couldn't create .cor.${NC}"
+                exit 0
+            fi
+
+            # we compare 'our' and 'their' and store the diff in 'diff'
+            diff our their > diff
+
+            if [ -s diff ]
+            then
+                # if 'diff' is not empty, we display an error message and quit
+                echo ""
+                echo -e "${B_RED}We found differences ! :(${NC}"
+                cat diff
+            else
+                # if 'diff' is empty, that means that 'our' and 'their' are identical, so it's a success
+                echo ""
+                echo -e "${PURPLE}Your .cor file:${NC}"
+                echo ""
+                echo -en "${CYAN}"
+                cat our
+                echo -en "${NC}"
+                echo ""
+                echo -e "${PURPLE}Their .cor file:${NC}"
+                echo ""
+                echo -en "${CYAN}"
+                cat their
+                echo -en "${NC}"
+                echo ""
+                echo -e "${B_GREEN}OK - no differences between the two .cor files !${NC}"
+            fi
+        else
+            # if the .s file doesn't exist, we display an error message
+            echo ""
+            echo -e "${B_RED}ERROR:${NC} We couldn't find a file named ${B_RED}$name_s${NC}"
+        fi
+    done
 fi
-rm -rf mine
-rm -rf your
 
-# ./asm -ec $name_s > /dev/null
-./asm -ec $name_s > result
-# if file is not empty -> errors
-if [ ! -s result ]
-then
-	echo -e "${B_RED}ERROR in .s file: your asm couldn't create .cor.${NC}"
-	exit 0
-fi
-
-echo ""
-
-if [ -f "$name_c" ]
-then
-	hexdump $name_c > mine
-else
-	echo -e "${B_RED}ERROR in .s file: your asm couldn't create .cor.${NC}"
-fi
-
-./res/asm $name_s > /dev/null
-
-if [ -f "$name_c" ]
-then
-	hexdump $name_c > your
-else
-	echo -e "${B_RED}ERROR in .s file: their asm couldn't create .cor.${NC}"
-	exit 0
-fi
-
-diff mine your > diff
-
-if [ -s diff ]
-then
-	echo ""
-	echo -e "${B_RED}We found differences ! :(${NC}"
-	echo ""
-	cat diff
-else
-	echo ""
-	echo -e "${PURPLE}Your .cor file:${NC}"
-	echo ""
-	echo -en "${CYAN}"
-	cat mine
-	echo -en "${NC}"
-	echo ""
-	echo -e "${PURPLE}Their .cor file:${NC}"
-	echo ""
-	echo -en "${CYAN}"
-	cat your
-	echo -en "${NC}"
-	echo ""
-	echo -e "${B_GREEN}OK - no differences between the two .cor files !${NC}"
-	echo ""
-fi
-
-rm -rf result
-rm -rf mine
-rm -rf your
+rm -rf our
+rm -rf their
 rm -rf diff
