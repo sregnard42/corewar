@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/22 11:21:47 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:28:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	fight_intro(t_vm *vm)
 
 void		display(t_vm *vm)
 {
-
 	if (vm->flags & VM_VISU)
 	{
 		if (vm->nbr_inst > 0)
