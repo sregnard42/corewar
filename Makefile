@@ -6,7 +6,7 @@
 #    By: sregnard <sregnard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2020/01/21 18:59:16 by lgaultie         ###   ########.fr        #
+#    Updated: 2020/01/30 19:01:16 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -203,11 +203,15 @@ _RESET					:=	\033[0m
 
 ######	RULES
 
-all						:	$(LIBFT) $(ASM) $(COREWAR)
+all						:
+	@$(MAKE) -s -C $(LIBDIR)
+	@$(MAKE) -s exe
 	@$(MAKE) art
 
+exe						:	$(ASM) $(COREWAR)
+
 $(LIBFT)				:
-	@make -C $(LIBDIR)
+	@$(MAKE) -s -C $(LIBDIR)
 
 $(ASM)					:	$(LIBFT) $(OBJ_ASM) $(OBJ_COM)
 	@$(CC) $(CFLAGS) $(FLAGS_ASM) $(INCLUDES_ASM) -o $@ $(OBJ_COM) $(OBJ_ASM) $(LIBFT)
