@@ -11,7 +11,7 @@ clear
 
 echo -e "${CYAN}************************************************************************${NC}"
 echo -e "			    ${PURPLE}ASM CHECKER${NC}"
-echo -e "			${PURPLE}chrhuang & lgaultie${NC}"
+echo -e "		    ${PURPLE}chrhuang, cmouele & lgaultie${NC}"
 echo -e "${CYAN}************************************************************************${NC}"
 
 if [ "$#" -lt 1 ]
@@ -34,7 +34,7 @@ else
 
             # we delete the .cor file if necessary and launch our asm
             rm -rf $name_c
-            ./asm -ec $name_s
+            ../asm $name_s
             if [ -s $name_c ]
             then
                 # if ./asm is successful, we store the hexdump of it in 'our'
@@ -48,15 +48,15 @@ else
 
             # we delete the previous .cor file to avoid any problem and launch the school's asm
             rm -rf $name_c
-            ./res/asm $name_s
+            ./asm_zaz $name_s
             if [ -s $name_c ]
             then
-                # if ./res/asm is successful, we store the hexdump of it in 'their'
+                # if asm_zaz is successful, we store the hexdump of it in 'their'
                 hexdump $name_c > their
             else
                 # else, we display an error message and quit
                 echo ""
-                echo -e "${B_RED}ERROR in .s file: their asm couldn't create .cor.${NC}"
+                echo -e "${B_RED}ERROR in .s file: asm_zaz couldn't create .cor.${NC}"
                 exit 0
             fi
 
