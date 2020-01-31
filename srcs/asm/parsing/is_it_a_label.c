@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 18:41:16 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 12:38:28 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:24:40 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		save_label(t_assembler *as)
 	while (as->line[++i])
 		if (as->line[i] == LABEL_CHAR)
 			as->line[i] = '\0';
+	check_label_chars(as, as->line);
 	add_label(as);
 	save_label_to_check(as, as->line);
 	as->newline = 1;
