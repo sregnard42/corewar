@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:28:12 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 15:19:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/02/01 15:03:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 static void		champ_swap(t_champ *a, t_champ *b)
 {
+	if (!(a && b))
+		return ;
 	t_champ	*a_prev;
 	t_champ	*a_next;
 	t_champ	*b_prev;

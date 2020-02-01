@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:46:00 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 15:17:46 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/02/01 15:17:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		champs_ids(t_vm *vm)
 			champ->id = id;
 		}
 		if (champ->id > vm->champs.size)
-			ft_error(vm, &vm_free, "Invalid ID.\n");
+			error_usage(vm);
 		champ = champ->next;
 	}
 }

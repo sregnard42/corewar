@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 23:08:25 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 17:08:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/02/01 15:22:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void	number(t_vm *vm)
 {
 	!vm->ac-- ? error_usage(vm) : ++vm->av;
 	ft_isinteger(*vm->av) ? vm->number = ft_atoi(*vm->av) : error_usage(vm);
-	vm->number < 1 ? error_usage(vm) : 0;
+	vm->number < 1 || vm->number > MAX_PLAYERS ? error_usage(vm) : 0;
+	vm->number_taken[vm->number] ? error_usage(vm) : 0;
 	vm->flags |= VM_NUMBER;
 }
 

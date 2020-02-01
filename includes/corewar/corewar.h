@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:35:14 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/22 15:26:19 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/02/01 15:18:56 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define USAGE "[-visu -dump N -v N] <[[-n number] champion1.cor]> <...>\n"
 # define VISU "Enable visualizer\n"
 # define DUMP "Dumps memory after N cycles then exits\n"
-# define NUMBER "Sets the number of the next player\n"
+# define NUMBER "Sets the number of the next player [1 ; NB_PLAYERS]\n"
 # define VERBOSE "Verbosity levels, can be added together to enable several\n"
 # define VERBOSE_0 "Show only essentials\n"
 # define VERBOSE_1 "Show lives (default)\n"
@@ -42,6 +42,7 @@ typedef struct			s_vm
 	char				*exe;
 	int					dump;
 	int					number;
+	int					number_taken[MAX_PLAYERS + 1];
 	unsigned int		verbose;
 	int					(*print)(const char *format, ...);
 	t_champs			champs;
