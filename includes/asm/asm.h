@@ -6,7 +6,7 @@
 /*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 12:35:18 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/02/01 16:30:49 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ void					manage_error(void *p, void (*f)(void *), char *msg);
 void					init_bonus(unsigned int *flag, char **av);
 int						print_usage();
 void					print_help();
-void					print_advices(t_assembler *as);
 void					print_file_name(t_assembler *as);
 int						which_command(t_assembler *as, char *part);
 void					save_same_label(t_assembler *as, t_instruc *new,
