@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/02/01 01:14:49 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/02/01 16:30:24 by lgaultie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	assembler(t_assembler *as, char **argv, int i, unsigned int flag)
 	read_function(as);
 	close(as->s_fd);
 	create_cor(as);
-	print_advices(as);
 	free_asm(as);
 	return (SUCCESS);
 }
