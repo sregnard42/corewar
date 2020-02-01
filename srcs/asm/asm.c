@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 12:32:04 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/02/01 01:15:54 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int			main(int argc, char **argv)
 	int				i;
 	int				flag_on;
 
-	i = 0;
+	i = 1;
 	flag_on = 0;
 	if (argc == 1)
 		return (print_usage());
 	init_bonus(&flag, argv);
-	while (++i < argc)
+	while (i < argc)
 	{
 		if (argv[i][0] == '-')
 		{
@@ -71,6 +71,7 @@ int			main(int argc, char **argv)
 		if (check_file_type(argv[i]) == 0 \
 		|| (assembler(&as, argv, i, flag)) == FAIL)
 			return (0);
+		++i;
 	}
 	if (flag_on != 0 && i == 2)
 		print_usage();
