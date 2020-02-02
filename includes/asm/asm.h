@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:28:48 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/02/01 16:30:49 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/02/02 09:42:30 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,6 @@ char					*delete_space_after(t_assembler *as, char *str);
 int						is_label(t_assembler *as, char *part);
 void					save_label(t_assembler *as);
 int						check_if_exists_instruc(t_assembler *as, char *param);
+void					change_sharp_after_quote(t_assembler *as);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaultie <lgaultie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:37:26 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/01/22 12:44:57 by lgaultie         ###   ########.fr       */
+/*   Updated: 2020/02/02 09:38:19 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int				check_header(t_assembler *as)
 
 	if (as->header->name && as->header->comment)
 		return (FAIL);
-	change_sharp(as);
+	change_sharp_after_quote(as);
 	tmp = as->line;
 	as->line = delete_space_after(as, tmp);
 	ft_memdel((void **)&tmp);

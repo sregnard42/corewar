@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:32:59 by lgaultie          #+#    #+#             */
-/*   Updated: 2020/02/02 09:22:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2020/02/02 09:49:49 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,21 @@ int			main(int argc, char **argv)
 	int				i;
 	int				flag_on;
 
-	i = 1;
+	i = 0;
 	flag_on = 0;
 	if (argc == 1)
 		return (print_usage());
 	init_bonus(&flag, argv);
-	while (i < argc)
+	while (++i < argc)
 	{
 		if (argv[i][0] == '-')
 		{
 			flag_on = 1;
-			++i;
 			continue;
 		}
 		if (check_file_type(argv[i]) == 0 \
 		|| (assembler(&as, argv, i, flag)) == FAIL)
 			return (0);
-		++i;
 	}
 	if (flag_on != 0 && i == 2)
 		print_usage();
