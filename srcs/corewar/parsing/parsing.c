@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:44:20 by sregnard          #+#    #+#             */
-/*   Updated: 2020/01/19 15:58:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2020/02/02 09:32:24 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		parse_file(t_vm *vm, char *file)
 	int		fd;
 
 	champ = NULL;
-	(fd = open(file, O_RDONLY)) == -1 ?
+	(fd = open(file, O_RDONLY | O_NOFOLLOW)) == -1 ?
 	error_open(vm, file) : (champ = champ_new(vm));
 	champ->file = file;
 	champ->size = read(fd, champ->content, BUFF_SIZE);
